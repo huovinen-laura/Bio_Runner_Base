@@ -72,7 +72,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void Move() {
+    public boolean Move() {
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.getObjectBody().applyForceToCenter(new Vector2(-5f, 0), true);
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -82,6 +82,7 @@ public class Player extends GameObject {
             this.getObjectBody().applyLinearImpulse(new Vector2(0, 0.5f),
                     this.getObjectBody().getWorldCenter(), true);
         }
+        return true;
     }
 
     public void dispose() {

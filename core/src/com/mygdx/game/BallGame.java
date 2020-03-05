@@ -2,25 +2,22 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
 public class BallGame extends ApplicationAdapter {
+	public static float worldSpeed = -1f;
 	SpriteBatch batch;
 
 	Sound soundEffect;
@@ -39,10 +36,13 @@ public class BallGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		world = new World(new Vector2(0, -9.8f), true);
+		collectables = new ArrayList<GameObject>();
+		collectables.add(new CollectibleSquare(8,3, new Texture("badlogic.jpg"),world));
 
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
 
-		world = new World(new Vector2(0, -9.8f), true);
+
 		ball = new Player(this.world);
 
 
@@ -66,6 +66,15 @@ public class BallGame extends ApplicationAdapter {
 
 
 		batch.begin();
+
+		for (int i =0 ; i < this.collectables.size();i++) {
+			this.collectables.get(i).Draw(batch);
+			if( !this.collectables.get(i).Move()) {
+				this.collectables.get(i).dispose();
+				this.collectables.remove(i);
+			}
+		}
+
 		ball.Draw(batch);
 		batch.end();
 

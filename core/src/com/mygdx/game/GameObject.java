@@ -2,11 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public abstract class GameObject {
     protected Texture objectTexture;
     protected Body objectBody;
+    protected Vector2 position;
 
     public GameObject( Texture texture) {
         this.objectTexture = texture;
@@ -19,7 +21,7 @@ public abstract class GameObject {
 
     public abstract void Draw(SpriteBatch batch);
 
-    public abstract void Move();
+    public abstract boolean Move();
 
     public Texture getObjectTexture() {
         return objectTexture;
@@ -33,5 +35,17 @@ public abstract class GameObject {
         return objectBody;
     }
 
+    public void dispose() {
+        while(this.getObjectBody().getFixtureList().size > 0) {
+            this.getObjectBody().destroyFixture(this.getObjectBody().getFixtureList().get(0));
+        }
+    }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
 }

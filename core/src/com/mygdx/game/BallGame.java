@@ -20,16 +20,15 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class BallGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture ball;
+
 	Sound soundEffect;
 
-	private float WORLD_WIDTH = 8;
-	private float WORLD_HEIGHT = 4;
+	static float WORLD_WIDTH = 8;
+	static float WORLD_HEIGHT = 4;
 
 	private float radius = 0.5f;
-
+	private Player ball;
 	private World world;
-	private Body playerBody;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -37,12 +36,12 @@ public class BallGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		ball = new Texture("ball.png");
+
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
 
 		world = new World(new Vector2(0, -9.8f), true);
-		playerBody = world.createBody(getDefinitionOfBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2));
-		playerBody.createFixture(getFixtureDefinition());
+		ball = new Player(this.world);
+
 
 		createGround();
 
@@ -52,45 +51,11 @@ public class BallGame extends ApplicationAdapter {
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 	}
 
-	private BodyDef getDefinitionOfBody(float x, float y) {
-		//Body definition
-		BodyDef myBodyDef = new BodyDef();
-
-		//What type of body? This one moves.
-		myBodyDef.type = BodyDef.BodyType.DynamicBody;
-
-		//Body's position
-		myBodyDef.position.set(x, y);
-		return myBodyDef;
-	}
-
-	private FixtureDef getFixtureDefinition() {
-		FixtureDef playerFixtureDef = new FixtureDef();
-
-		//Mass per square meter
-		playerFixtureDef.density = 1;
-
-		//How bouncy is the object? 0-1
-		playerFixtureDef.restitution = 0.1f;
-
-		//How slippery the object is? 0-1
-	    playerFixtureDef.friction = 0.5f;
-
-	    //Create circle shape
-		CircleShape circleShape = new CircleShape();
-		circleShape.setRadius(radius);
-
-		//Add shape to the fixture
-		playerFixtureDef.shape = circleShape;
-		return playerFixtureDef;
-	}
 
 	@Override
 	public void render () {
 		batch.setProjectionMatrix(camera.combined);
 		clearScreen();
-
-		checkUserInput();
 
 		moveCamera();
 		camera.update();
@@ -98,22 +63,8 @@ public class BallGame extends ApplicationAdapter {
 		debugRenderer.render(world, camera.combined);
 
 		batch.begin();
-		batch.draw(ball,
-				playerBody.getPosition().x - radius,
-				playerBody.getPosition().y -radius,
-				radius,
-				radius,
-				radius * 2,
-				radius * 2,
-				1.0f,
-				1.0f,
-				playerBody.getTransform().getRotation() * MathUtils.radiansToDegrees,
-				0,
-				0,
-				ball.getWidth(),
-				ball.getHeight(),
-				false,
-				false);
+		this.ball.Move();
+		ball.Draw(batch);
 		batch.end();
 
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
@@ -125,7 +76,7 @@ public class BallGame extends ApplicationAdapter {
 	}
 
 	private void moveCamera() {
-		camera.position.set(playerBody.getPosition().x + 3,
+		camera.position.set(ball.getObjectBody().getPosition().x + 3,
 				2, 0);
 	}
 
@@ -166,15 +117,6 @@ public class BallGame extends ApplicationAdapter {
 		return groundBox;
 	}
 
-	private void checkUserInput() {
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			playerBody.applyForceToCenter(new Vector2(-5f, 0), true);
-		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			playerBody.applyForceToCenter(new Vector2(5f, 0), true);
-		} else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			playerBody.applyLinearImpulse(new Vector2(0, 0.5f), playerBody.getWorldCenter(), true);
-		}
-	}
 
 	@Override
 	public void dispose () {

@@ -8,18 +8,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 
 public class BallGame extends ApplicationAdapter {
 	public static float worldSpeed = -1f;
+	public static ShitCollection collectedStuffList = new ShitCollection();
 	SpriteBatch batch;
-
+	public static World world = new World(new Vector2(0, -5f), true);
 	Sound soundEffect;
 
 	static float WORLD_WIDTH = 8;
@@ -28,7 +25,6 @@ public class BallGame extends ApplicationAdapter {
 
 	private float radius = 0.5f;
 	private Player ball;
-	private World world;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -36,7 +32,6 @@ public class BallGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		world = new World(new Vector2(0, -9.8f), true);
 		collectables = new ArrayList<GameObject>();
 		collectables.add(new CollectibleSquare(8,3, new Texture("badlogic.jpg"),world));
 
@@ -73,6 +68,11 @@ public class BallGame extends ApplicationAdapter {
 				this.collectables.get(i).dispose();
 				this.collectables.remove(i);
 			}
+		}
+		if(this.collectables.size() <= 1) {
+			this.collectables.add(
+					new CollectibleSquare(
+							8f,(float) Math.random()*4, new Texture("badlogic.jpg"), world));
 		}
 
 		ball.Draw(batch);
@@ -114,6 +114,12 @@ public class BallGame extends ApplicationAdapter {
 
 	public void createGround() {
 		Body groundBody = world.createBody(getGroundBodyDef());
+		groundBody.setUserData(new GameObjectAdapter() {
+			@Override
+			public String Collide() {
+				return ("wall");
+			}
+		});
 		groundBody.createFixture(getGroundShape(), 0.0f);
 	}
 

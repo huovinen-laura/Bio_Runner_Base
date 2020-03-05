@@ -10,18 +10,59 @@ import com.badlogic.gdx.physics.box2d.*;
 public class CollectibleSquare extends GameObject {
     Float sideLength;
     static int collected;
+    String name;
 
+    public class B2dContactListener implements ContactListener {
 
+        @Override
+        public void beginContact(Contact contact) {
+
+        }
+
+        @Override
+        public void endContact(Contact contact) {
+
+        }
+
+        @Override
+        public void preSolve(Contact contact, Manifold oldManifold) {
+
+        }
+
+        @Override
+        public void postSolve(Contact contact, ContactImpulse impulse) {
+
+        }
+    }
     public CollectibleSquare(float x, float y, Texture texture, World world) {
         super(texture);
+        BallGame.world.setContactListener(new B2dContactListener());
+        this.name = "Unknown";
         this.sideLength = 0.5f;
         this.objectBody = world.createBody(this.getBodyDef(x,y));
         this.objectBody.createFixture(this.getFixtureDef());
+        this.objectBody.setUserData(this);
+    }
+
+    public CollectibleSquare(float x, float y, Texture texture, World world, String name) {
+        super(texture);
+        BallGame.world.setContactListener(new B2dContactListener());
+        this.name = name;
+        this.sideLength = 0.5f;
+        this.objectBody = world.createBody(this.getBodyDef(x,y));
+        this.objectBody.createFixture(this.getFixtureDef());
+        this.objectBody.setUserData(this);
     }
 
     static int getNumberOfCollected() {
         return(collected);
     }
+
+    public void collideWithPlayer() {
+        BallGame.collectedStuffList.addStuff(this.name);
+
+    }
+
     @Override
     protected FixtureDef getFixtureDef() {
         FixtureDef playerFixtureDef = new FixtureDef();
@@ -83,18 +124,17 @@ public class CollectibleSquare extends GameObject {
                 false);
     }
 
-    public void dispose() {
-        while(this.getObjectBody().getFixtureList().size > 0) {
-            this.getObjectBody().destroyFixture(this.getObjectBody().getFixtureList().get(0));
-        }
-    }
 
     @Override
     public boolean Move() {
-        Gdx.app.log("move","" + this.getObjectBody().getPosition().x);
         if(this.getObjectBody().getPosition().x <= 0) {
             return(false);
         }
     return(true);
+    }
+
+    @Override
+    public String Collide() {
+        return this.name;
     }
 }

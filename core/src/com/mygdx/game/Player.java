@@ -15,6 +15,7 @@ public class Player extends GameObject {
         super(new Texture("ball.png"));
         this.objectBody = world.createBody(this.getBodyDef());
         this.objectBody.createFixture(this.getFixtureDef());
+        this.objectBody.setUserData(this);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class Player extends GameObject {
         FixtureDef playerFixtureDef = new FixtureDef();
 
         //Mass per square meter
-        playerFixtureDef.density = 1;
+        playerFixtureDef.density = 1000f;
 
         //How bouncy is the object? 0-1
         playerFixtureDef.restitution = 0.1f;
@@ -31,11 +32,11 @@ public class Player extends GameObject {
         playerFixtureDef.friction = 0.5f;
 
         //Create circle shape
-        CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(this.radius);
+        PolygonShape rectangleShape = new PolygonShape();
+        rectangleShape.setAsBox(1/2f,1/2f,new Vector2(0f,0f),0f);
 
         //Add shape to the fixture
-        playerFixtureDef.shape = circleShape;
+        playerFixtureDef.shape = rectangleShape;
         return playerFixtureDef;
     }
 
@@ -73,16 +74,21 @@ public class Player extends GameObject {
 
     @Override
     public boolean Move() {
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            this.getObjectBody().applyForceToCenter(new Vector2(-5f, 0), true);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            Gdx.app.log("asdf", "right");
-            this.getObjectBody().applyForceToCenter(new Vector2(5f, 0), true);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            this.getObjectBody().applyLinearImpulse(new Vector2(0, 0.5f),
-                    this.getObjectBody().getWorldCenter(), true);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if(this.getObjectBody().getPosition().y < 1.1) {
+                this.getObjectBody().applyLinearImpulse(
+                        new Vector2(0, 5000f), this.getObjectBody().getWorldCenter(), true);
+            } else {
+                this.getObjectBody().applyLinearImpulse(
+                        new Vector2(0, -10000f), this.getObjectBody().getWorldCenter(), true);
+            }
         }
         return true;
+    }
+
+    @Override
+    public String Collide() {
+        return ("player");
     }
 
     public void dispose() {

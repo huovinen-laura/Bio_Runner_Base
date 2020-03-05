@@ -22,6 +22,7 @@ public abstract class GameObject {
     public abstract void Draw(SpriteBatch batch);
 
     public abstract boolean Move();
+    public abstract String Collide();
 
     public Texture getObjectTexture() {
         return objectTexture;

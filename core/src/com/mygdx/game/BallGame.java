@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
 public class BallGame extends ApplicationAdapter {
 	SpriteBatch batch;
 
@@ -25,6 +27,7 @@ public class BallGame extends ApplicationAdapter {
 
 	static float WORLD_WIDTH = 8;
 	static float WORLD_HEIGHT = 4;
+	private ArrayList<GameObject> collectables;
 
 	private float radius = 0.5f;
 	private Player ball;
@@ -56,18 +59,21 @@ public class BallGame extends ApplicationAdapter {
 	public void render () {
 		batch.setProjectionMatrix(camera.combined);
 		clearScreen();
-
-		moveCamera();
-		camera.update();
-
+		this.ball.Move();
 		debugRenderer.render(world, camera.combined);
 
+
+
+
 		batch.begin();
-		this.ball.Move();
 		ball.Draw(batch);
 		batch.end();
 
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
+
+		moveCamera();
+		camera.update();
+
 	}
 
 	private void clearScreen() {
@@ -113,7 +119,7 @@ public class BallGame extends ApplicationAdapter {
 	private PolygonShape getGroundShape() {
 		PolygonShape groundBox = new PolygonShape();
 
-		groundBox.setAsBox(WORLD_WIDTH * 2, 0.25f);
+		groundBox.setAsBox(WORLD_WIDTH * 100, 0.25f);
 		return groundBox;
 	}
 

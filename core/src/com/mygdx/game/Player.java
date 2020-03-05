@@ -12,7 +12,9 @@ public class Player extends GameObject {
     float radius = 0.5f;
 
     public Player( World world) {
-        super(new Texture("ball.png"), world);
+        super(new Texture("ball.png"));
+        this.objectBody = world.createBody(this.getBodyDef());
+        this.objectBody.createFixture(this.getFixtureDef());
     }
 
     @Override
@@ -23,7 +25,7 @@ public class Player extends GameObject {
         playerFixtureDef.density = 1;
 
         //How bouncy is the object? 0-1
-        playerFixtureDef.restitution = 1f;
+        playerFixtureDef.restitution = 0.1f;
 
         //How slippery the object is? 0-1
         playerFixtureDef.friction = 0.5f;

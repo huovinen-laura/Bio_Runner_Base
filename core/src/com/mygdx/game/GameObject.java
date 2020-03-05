@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
 
 public abstract class GameObject {
-    Texture objectTexture;
-    Body objectBody;
+    protected Texture objectTexture;
+    protected Body objectBody;
 
-    public GameObject( Texture texture, World world) {
+    public GameObject( Texture texture) {
         this.objectTexture = texture;
-        this.objectBody = world.createBody(this.getBodyDef());
-        this.objectBody.createFixture(this.getFixtureDef());
+
     }
 
     protected abstract FixtureDef getFixtureDef();

@@ -16,6 +16,7 @@ public class CollectibleSquare extends GameObject {
 
         @Override
         public void beginContact(Contact contact) {
+            //asdf
 
         }
 

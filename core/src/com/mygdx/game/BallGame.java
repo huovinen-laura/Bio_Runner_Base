@@ -56,7 +56,7 @@ public class BallGame extends ApplicationAdapter {
 		clearScreen();
 		this.ball.Move();
 		debugRenderer.render(world, camera.combined);
-
+        //Testi
 
 
 

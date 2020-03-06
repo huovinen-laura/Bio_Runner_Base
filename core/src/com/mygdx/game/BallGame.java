@@ -16,6 +16,7 @@ public class BallGame extends ApplicationAdapter {
 	public static float worldSpeed = -1f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
 	SpriteBatch batch;
+	public ScrollingBackground scrollingBackground;
 	public static World world = new World(new Vector2(0, -5f), true);
 	Sound soundEffect;
 
@@ -37,6 +38,7 @@ public class BallGame extends ApplicationAdapter {
 
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
 
+		scrollingBackground = new ScrollingBackground(worldSpeed);
 
 		ball = new Player(this.world);
 
@@ -59,8 +61,8 @@ public class BallGame extends ApplicationAdapter {
 
 
 
-
 		batch.begin();
+		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), batch);
 
 		for (int i =0 ; i < this.collectables.size();i++) {
 			this.collectables.get(i).Draw(batch);
@@ -137,7 +139,6 @@ public class BallGame extends ApplicationAdapter {
 		groundBox.setAsBox(WORLD_WIDTH * 100, 0.25f);
 		return groundBox;
 	}
-
 
 	@Override
 	public void dispose () {

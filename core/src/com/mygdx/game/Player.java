@@ -74,7 +74,7 @@ public class Player extends GameObject {
 
     @Override
     public boolean Move() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             if(this.getObjectBody().getPosition().y < 1.1) {
                 this.getObjectBody().applyLinearImpulse(
                         new Vector2(0, 5000f), this.getObjectBody().getWorldCenter(), true);

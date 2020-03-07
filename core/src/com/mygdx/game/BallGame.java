@@ -34,7 +34,7 @@ public class BallGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		collectables = new ArrayList<GameObject>();
-		collectables.add(new CollectibleSquare(8,3, new Texture("badlogic.jpg"),world));
+
 
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
 
@@ -82,8 +82,8 @@ public class BallGame extends ApplicationAdapter {
 
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
 
-		moveCamera();
-		camera.update();
+
+
 
 	}
 

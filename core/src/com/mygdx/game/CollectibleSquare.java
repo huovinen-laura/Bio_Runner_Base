@@ -9,14 +9,44 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class CollectibleSquare extends GameObject {
     Float sideLength;
+    Boolean setForDelete;
     static int collected;
     String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public class B2dContactListener implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
-            //asdf
+            Object a = contact.getFixtureA().getBody().getUserData();
+            Object b = contact.getFixtureB().getBody().getUserData();
+
+            if (a instanceof Player && b instanceof CollectibleSquare) {
+                CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
+                collectibleSquareB.collect();
+                BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
+                Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
+                        + BallGame.collectedStuffList.getAllShit().get(0).getName());
+            } if (a instanceof CollectibleSquare && b instanceof CollectibleSquare) {
+                CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
+                collectibleSquareB.collect();
+                BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
+                Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
+                        + BallGame.collectedStuffList.getAllShit().get(0).getName());
+
+                CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
+                collectibleSquareA.collect();
+                BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
+                Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
+                        + BallGame.collectedStuffList.getAllShit().get(0).getName());
+            }
 
         }
 
@@ -38,6 +68,7 @@ public class CollectibleSquare extends GameObject {
     public CollectibleSquare(float x, float y, Texture texture, World world) {
         super(texture);
         BallGame.world.setContactListener(new B2dContactListener());
+        this.setForDelete = false;
         this.name = "Unknown";
         this.sideLength = 0.5f;
         this.objectBody = world.createBody(this.getBodyDef(x,y));
@@ -62,6 +93,11 @@ public class CollectibleSquare extends GameObject {
     public void collideWithPlayer() {
         BallGame.collectedStuffList.addStuff(this.name);
 
+    }
+
+    public void collect() {
+        this.setForDelete = true;
+        collected++;
     }
 
     @Override
@@ -129,6 +165,8 @@ public class CollectibleSquare extends GameObject {
     @Override
     public boolean Move() {
         if(this.getObjectBody().getPosition().x <= 0) {
+            return(false);
+        } else if (this.setForDelete) {
             return(false);
         }
     return(true);

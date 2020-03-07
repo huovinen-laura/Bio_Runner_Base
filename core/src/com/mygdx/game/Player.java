@@ -26,7 +26,7 @@ public class Player extends GameObject {
         playerFixtureDef.density = 1000f;
 
         //How bouncy is the object? 0-1
-        playerFixtureDef.restitution = 0.1f;
+        playerFixtureDef.restitution = 0f;
 
         //How slippery the object is? 0-1
         playerFixtureDef.friction = 0.5f;
@@ -48,7 +48,7 @@ public class Player extends GameObject {
         myBodyDef.type = BodyDef.BodyType.DynamicBody;
 
         //Body's position
-        myBodyDef.position.set(BallGame.WORLD_WIDTH/2, BallGame.WORLD_HEIGHT/2);
+        myBodyDef.position.set(BallGame.WORLD_WIDTH/4, BallGame.WORLD_HEIGHT/2);
         return myBodyDef;
     }
 

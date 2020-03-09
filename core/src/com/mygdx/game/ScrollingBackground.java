@@ -13,8 +13,8 @@ public class ScrollingBackground {
 
     public ScrollingBackground(float worldSpeed) {
         img = new Texture("bg.jpg");
-        width = img.getWidth() / 100f;
-        height = img.getHeight() / 100f;
+        width = BallGame.WORLD_WIDTH;
+        height = BallGame.WORLD_HEIGHT;
         x1 = 0;
         x2 = width;
         speed = worldSpeed;

@@ -2,28 +2,22 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class ObstacleRectangle extends GameObject {
-    public ObstacleRectangle(Texture texture) {
-        super(texture);
+
+    String name;
+    public ObstacleRectangle(Texture texture, float x, float y) {
+        super(texture,0.5f,x,y,0f,0f,0f);
+        this.name = "Unknown";
     }
 
-    @Override
-    protected FixtureDef getFixtureDef() {
-        return null;
-    }
 
-    @Override
-    protected BodyDef getBodyDef() {
-        return null;
-    }
 
-    @Override
-    public void Draw(SpriteBatch batch) {
-
-    }
 
     @Override
     public boolean Move() {

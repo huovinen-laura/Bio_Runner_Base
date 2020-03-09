@@ -9,22 +9,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public abstract class GameObjectAdapter extends GameObject {
     public GameObjectAdapter() {
-        super(new Texture("badlogic.jpg"));
+        super(new Texture("badlogic.jpg")
+                ,0.5f,8,((float) (Math.random()*3)),1f,0f,1f);
     }
 
     public GameObjectAdapter(Texture texture) {
-        super(texture);
+        super(texture, 0.5f,8,((float) (Math.random()*3)),1f,0f,1f);
     }
 
-    @Override
-    protected FixtureDef getFixtureDef() {
-        return null;
-    }
-
-    @Override
-    protected BodyDef getBodyDef() {
-        return null;
-    }
 
     @Override
     public void Draw(SpriteBatch batch) {

@@ -71,10 +71,11 @@ public class BallGame extends ApplicationAdapter {
 				this.collectables.remove(i);
 			}
 		}
+
 		if(this.collectables.size() <= 1) {
 			this.collectables.add(
 					new CollectibleSquare(
-							8f,(float) Math.random()*4, new Texture("badlogic.jpg"), world));
+							8f,(float) Math.random()*3, new Texture("badlogic.jpg"), "Badlogic"));
 		}
 
 		ball.Draw(batch);

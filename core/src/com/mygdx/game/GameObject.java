@@ -85,21 +85,21 @@ public abstract class GameObject {
     public void Draw(SpriteBatch batch) {
         batch.draw(this.getObjectTexture(),
                 this.getObjectBody().getPosition().x - this.radius/2,
-                this.getObjectBody().getPosition().y - this.radius/2,
-                this.radius/2,
-                this.radius/2,
-                this.radius,
-                this.radius,
-                1.0f,
-                1.0f,
-                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
-                0,
-                0,
-                this.objectTexture.getWidth(),
-                this.objectTexture.getHeight(),
-                false,
-                false);
-    }
+            this.getObjectBody().getPosition().y - this.radius/2,
+            this.radius/2,
+            this.radius/2,
+            this.radius,
+            this.radius,
+            1.0f,
+            1.0f,
+            this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
+            0,
+            0,
+            this.objectTexture.getWidth(),
+            this.objectTexture.getHeight(),
+            false,
+            false);
+}
 
     public abstract boolean Move();
     public abstract String Collide();

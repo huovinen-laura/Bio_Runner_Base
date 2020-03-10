@@ -21,6 +21,18 @@ public class CollectibleSquare extends GameObject {
         this.name = name;
     }
 
+    public class B2dContactFilter implements ContactFilter {
+
+        @Override
+        public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
+            if(fixtureA.getBody().getUserData() instanceof Player ||
+                    fixtureB.getBody().getUserData() instanceof Player) {
+                return(true);
+            }
+            return false;
+        }
+    }
+
     public class B2dContactListener implements ContactListener {
 
         @Override
@@ -50,8 +62,14 @@ public class CollectibleSquare extends GameObject {
 
             if (a instanceof ObstacleRectangle && b instanceof Player) {
                 ObstacleRectangle obstacle = (ObstacleRectangle) a;
+                obstacle.delete();
+                LifeCounter.loseLife();
                 //TODO
 
+            } else if ( a instanceof Player && b instanceof ObstacleRectangle) {
+                ObstacleRectangle obstacle = (ObstacleRectangle) b;
+                obstacle.delete();
+                LifeCounter.loseLife();
             }
 
         }
@@ -76,6 +94,7 @@ public class CollectibleSquare extends GameObject {
         super(texture,0.5f,x,y, 0f,0f,0f,
                 new Vector2(BallGame.worldSpeed,0),0f);
         BallGame.world.setContactListener(new B2dContactListener());
+        BallGame.world.setContactFilter(new B2dContactFilter());
         this.setForDelete = false;
         this.name = name;
     }

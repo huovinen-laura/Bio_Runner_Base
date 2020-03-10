@@ -19,10 +19,12 @@ public class BallGame extends ApplicationAdapter {
 	public ScrollingBackground scrollingBackground;
 	public static World world = new World(new Vector2(0, -5f), true);
 	Sound soundEffect;
+	private LifeCounter lifeCounter;
 
 	static float WORLD_WIDTH = 8;
 	static float WORLD_HEIGHT = 4;
 	private ArrayList<GameObject> collectables;
+	private ArrayList<GameObject> obstacles;
 
 	private float radius = 0.5f;
 	private Player ball;
@@ -34,7 +36,9 @@ public class BallGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		collectables = new ArrayList<GameObject>();
-
+		obstacles = new ArrayList<>();
+		obstacles.add(new ObstacleRectangle(new Texture("obstacle.png"),8f,2f));
+		this.lifeCounter = new LifeCounter();
 
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
 
@@ -78,7 +82,22 @@ public class BallGame extends ApplicationAdapter {
 							8f,(float) Math.random()*3, new Texture("badlogic.jpg"), "Badlogic"));
 		}
 
+		for (int i =0 ; i < this.obstacles.size();i++) {
+			this.obstacles.get(i).Draw(batch);
+			if( !this.obstacles.get(i).Move()) {
+				this.obstacles.remove(i);
+			}
+		}
+
+		if(this.obstacles.size() < 1) {
+			Gdx.app.log("asdf", "creating new obstacle");
+			this.obstacles.add(
+					new ObstacleRectangle(
+							new Texture("obstacle.png"),8f,2f));
+		}
+
 		ball.Draw(batch);
+		this.lifeCounter.draw(batch);
 		batch.end();
 
 		doPhysicsStep(Gdx.graphics.getDeltaTime());

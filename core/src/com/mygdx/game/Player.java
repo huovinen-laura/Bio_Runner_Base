@@ -9,9 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends GameObject {
-
     public Player( World world) {
-        super(new Texture("ball.png"), 1f,2f, 2f,1000f,0f,0.5f);
+        super(new Texture("ball.png"),
+                1.25f,2f, 2f,2000f,0f,0.5f,true,false);
 
     }
 
@@ -21,8 +21,9 @@ public class Player extends GameObject {
 
     @Override
     public boolean Move() {
+        Gdx.app.log("sdfg",""+this.getObjectBody().getPosition().y);
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            if(this.getObjectBody().getPosition().y < 1.1) {
+            if(this.getObjectBody().getPosition().y < 0.52f) {
                 this.getObjectBody().applyLinearImpulse(
                         new Vector2(0, 5000f), this.getObjectBody().getWorldCenter(), true);
             } else {

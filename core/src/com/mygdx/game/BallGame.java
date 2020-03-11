@@ -61,7 +61,7 @@ public class BallGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		clearScreen();
 		this.ball.Move();
-		debugRenderer.render(world, camera.combined);
+
 
 
 
@@ -85,6 +85,7 @@ public class BallGame extends ApplicationAdapter {
 		for (int i =0 ; i < this.obstacles.size();i++) {
 			this.obstacles.get(i).Draw(batch);
 			if( !this.obstacles.get(i).Move()) {
+				this.obstacles.get(i).dispose();
 				this.obstacles.remove(i);
 			}
 		}
@@ -99,6 +100,7 @@ public class BallGame extends ApplicationAdapter {
 		ball.Draw(batch);
 		this.lifeCounter.draw(batch);
 		batch.end();
+		debugRenderer.render(world, camera.combined);
 
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
 

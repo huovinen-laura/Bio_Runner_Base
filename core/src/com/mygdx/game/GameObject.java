@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -10,11 +11,26 @@ public abstract class GameObject {
     protected Texture objectTexture;
     protected Body objectBody;
     protected Vector2 position;
-    protected Float radius;
+    protected float radius;
+    protected float spriteWidth;
+    protected float spriteHeight;
+    protected boolean flipSpriteX = false;
+    protected boolean flipSpriteY = false;
+
+    public GameObject(Texture texture, float size,float x, float y, float density,
+                      float bouncines, float friction, boolean flipX,boolean flipY) {
+        this(texture,size,x,y,density,bouncines,friction);
+        this.flipSpriteX = flipX;
+        this.flipSpriteY = flipY;
+    }
+
     public GameObject(Texture texture, float size,float x, float y, float density,
                       float bouncines, float friction) {
         this.objectTexture = texture;
         this.radius = size;
+        this.spriteHeight = 0.5f*radius*(objectTexture.getHeight()/objectTexture.getWidth());
+        this.spriteWidth = 0.5f*radius;
+        Gdx.app.log("HW", "" + this.spriteWidth + " " + this.spriteHeight);
         BodyDef myBodyDef = new BodyDef();
 
         //What type of body? This one moves.
@@ -36,19 +52,22 @@ public abstract class GameObject {
 
         //Create circle shape
         PolygonShape rectangleShape = new PolygonShape();
-        rectangleShape.setAsBox(this.radius/2,this.radius/2,new Vector2(0f,0f),0f);
+        rectangleShape.set(new Vector2[]{new Vector2(0f, 0f), new Vector2(0f, this.spriteHeight),
+                new Vector2(this.spriteWidth, this.spriteHeight), new Vector2(this.spriteWidth,0f)
+        });
 
         //Add shape to the fixture
         playerFixtureDef.shape = rectangleShape;
         this.objectBody.createFixture(playerFixtureDef);
         this.objectBody.setUserData(this);
-
-
     }
+
     public GameObject( Texture texture, float size,float x, float y, float density,
                        float bouncines, float friction, Vector2 linearVelocity, Float gravityScale) {
         this.objectTexture = texture;
         this.radius = size;
+        this.spriteHeight = 0.5f*radius*(objectTexture.getHeight()/objectTexture.getWidth());
+        this.spriteWidth = 0.5f*radius;
         BodyDef myBodyDef = new BodyDef();
 
         //What type of body? This one moves.
@@ -73,7 +92,9 @@ public abstract class GameObject {
 
         //Create circle shape
         PolygonShape rectangleShape = new PolygonShape();
-        rectangleShape.setAsBox(this.radius/2,this.radius/2,new Vector2(0f,0f),0f);
+        rectangleShape.set(new Vector2[]{new Vector2(0f, 0f), new Vector2(0f, this.spriteHeight),
+                new Vector2(this.spriteWidth, this.spriteHeight), new Vector2(this.spriteWidth,0f)
+        });
 
         //Add shape to the fixture
         playerFixtureDef.shape = rectangleShape;
@@ -84,12 +105,12 @@ public abstract class GameObject {
 
     public void Draw(SpriteBatch batch) {
         batch.draw(this.getObjectTexture(),
-                this.getObjectBody().getPosition().x - this.radius/2,
-            this.getObjectBody().getPosition().y - this.radius/2,
-            this.radius/2,
-            this.radius/2,
-            this.radius,
-            this.radius,
+                this.getObjectBody().getPosition().x,
+            this.getObjectBody().getPosition().y,
+            0f,
+            0f,
+            this.spriteWidth,
+            this.spriteHeight,
             1.0f,
             1.0f,
             this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
@@ -97,8 +118,8 @@ public abstract class GameObject {
             0,
             this.objectTexture.getWidth(),
             this.objectTexture.getHeight(),
-            false,
-            false);
+            this.flipSpriteX,
+            this.flipSpriteY);
 }
 
     public abstract boolean Move();

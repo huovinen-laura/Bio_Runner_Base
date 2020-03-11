@@ -21,80 +21,9 @@ public class CollectibleSquare extends GameObject {
         this.name = name;
     }
 
-    public class B2dContactFilter implements ContactFilter {
-
-        @Override
-        public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
-            if(fixtureA.getBody().getUserData() instanceof Player ||
-                    fixtureB.getBody().getUserData() instanceof Player) {
-                return(true);
-            }
-            return false;
-        }
-    }
-
-    public class B2dContactListener implements ContactListener {
-
-        @Override
-        public void beginContact(Contact contact) {
-            Object a = contact.getFixtureA().getBody().getUserData();
-            Object b = contact.getFixtureB().getBody().getUserData();
-
-            if (a instanceof Player && b instanceof CollectibleSquare) {
-                CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
-                collectibleSquareB.collect();
-                BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
-                Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
-                        + BallGame.collectedStuffList.getAllShit().get(0).getName());
-            } if (a instanceof CollectibleSquare && b instanceof CollectibleSquare) {
-                CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
-                collectibleSquareB.collect();
-                BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
-                Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
-                        + BallGame.collectedStuffList.getAllShit().get(0).getName());
-
-                CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
-                collectibleSquareA.collect();
-                BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
-                Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
-                        + BallGame.collectedStuffList.getAllShit().get(0).getName());
-            }
-
-            if (a instanceof ObstacleRectangle && b instanceof Player) {
-                ObstacleRectangle obstacle = (ObstacleRectangle) a;
-                obstacle.delete();
-                LifeCounter.loseLife();
-                //TODO
-
-            } else if ( a instanceof Player && b instanceof ObstacleRectangle) {
-                ObstacleRectangle obstacle = (ObstacleRectangle) b;
-                obstacle.delete();
-                LifeCounter.loseLife();
-            }
-
-        }
-
-        @Override
-        public void endContact(Contact contact) {
-
-        }
-
-        @Override
-        public void preSolve(Contact contact, Manifold oldManifold) {
-
-        }
-
-        @Override
-        public void postSolve(Contact contact, ContactImpulse impulse) {
-
-        }
-    }
-
     public CollectibleSquare(float x, float y, Texture texture, String name) {
         super(texture,0.5f,x,y, 0f,0f,0f,
                 new Vector2(BallGame.worldSpeed,0),0f);
-        BallGame.world.setContactListener(new B2dContactListener());
-        BallGame.world.setContactFilter(new B2dContactFilter());
         this.setForDelete = false;
         this.name = name;
     }

@@ -37,7 +37,7 @@ public class BallGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
-		obstacles.add(new ObstacleRectangle(new Texture("obstacle.png"),8f,2f));
+		obstacles.add(new FishObstacle(8f,2f));
 		this.lifeCounter = new LifeCounter();
 
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
@@ -45,6 +45,9 @@ public class BallGame extends ApplicationAdapter {
 		scrollingBackground = new ScrollingBackground(worldSpeed);
 
 		ball = new Player(this.world);
+		this.world.setContactListener(new B2dContactListener());
+		this.world.setContactFilter(new B2dContactFilter());
+
 
 
 		createGround();
@@ -93,8 +96,8 @@ public class BallGame extends ApplicationAdapter {
 		if(this.obstacles.size() < 1) {
 			Gdx.app.log("asdf", "creating new obstacle");
 			this.obstacles.add(
-					new ObstacleRectangle(
-							new Texture("obstacle.png"),8f,2f));
+					new FishObstacle(
+							8f,2f));
 		}
 
 		ball.Draw(batch);

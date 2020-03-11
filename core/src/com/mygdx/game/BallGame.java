@@ -81,8 +81,8 @@ public class BallGame extends ApplicationAdapter {
 
 		if(this.collectables.size() <= 1) {
 			this.collectables.add(
-					new CollectibleSquare(
-							8f,(float) Math.random()*3, new Texture("badlogic.jpg"), "Badlogic"));
+					new TestCollectible(
+							8f,(float) Math.random()*3));
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {

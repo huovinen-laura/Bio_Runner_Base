@@ -42,4 +42,7 @@ public class ScrollingBackground {
     public void setSpeed (int goalSpeed) {
         this.speed = goalSpeed;
     }
+    public void dispose() {
+        img.dispose();
+    }
 }

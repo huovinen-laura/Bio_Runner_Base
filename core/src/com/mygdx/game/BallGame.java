@@ -164,5 +164,13 @@ public class BallGame extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		ball.dispose();
+		this.scrollingBackground.dispose();
+
+		for(GameObject obstacle: this.obstacles) {
+			obstacle.dispose();
+		}
+		for(GameObject collectible: this.collectables) {
+			collectible.dispose();
+		}
 	}
 }

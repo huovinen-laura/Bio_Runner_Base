@@ -2,6 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,10 +15,11 @@ import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 
-public class BallGame extends ApplicationAdapter {
+public class BallGame extends ScreenAdapter {
+	BioRunnerGame game;
+
 	public static float worldSpeed = -1f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
-	SpriteBatch batch;
 	public ScrollingBackground scrollingBackground;
 	public static World world = new World(new Vector2(0, -5f), true);
 	Sound soundEffect;
@@ -32,9 +36,10 @@ public class BallGame extends ApplicationAdapter {
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
 
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
+	public BallGame (BioRunnerGame game) {
+		this.game = game;
+
+		game.batch = new SpriteBatch();
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
 		obstacles.add(new FishObstacle(8f,2f));
@@ -58,21 +63,33 @@ public class BallGame extends ApplicationAdapter {
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 	}
 
+	@Override
+	public void show() {
+		Gdx.input.setInputProcessor(new InputAdapter() {
+			@Override
+			public boolean keyDown(int keyCode) {
+				if (keyCode == Input.Keys.ENTER) {
+					game.setScreen(new EndScreen(game));
+				}
+				return true;
+			}
+		});
+	}
 
 	@Override
-	public void render () {
-		batch.setProjectionMatrix(camera.combined);
+	public void render (float delta) {
+		game.batch.setProjectionMatrix(camera.combined);
 		clearScreen();
 		this.ball.Move();
 
 
 
 
-		batch.begin();
-		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), batch);
+		game.batch.begin();
+		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), game.batch);
 
 		for (int i =0 ; i < this.collectables.size();i++) {
-			this.collectables.get(i).Draw(batch);
+			this.collectables.get(i).Draw(game.batch);
 			if( !this.collectables.get(i).Move()) {
 				this.collectables.get(i).dispose();
 				this.collectables.remove(i);
@@ -86,7 +103,7 @@ public class BallGame extends ApplicationAdapter {
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
-			this.obstacles.get(i).Draw(batch);
+			this.obstacles.get(i).Draw(game.batch);
 			if( !this.obstacles.get(i).Move()) {
 				this.obstacles.get(i).dispose();
 				this.obstacles.remove(i);
@@ -100,9 +117,9 @@ public class BallGame extends ApplicationAdapter {
 							8f,2f));
 		}
 
-		ball.Draw(batch);
-		this.lifeCounter.draw(batch);
-		batch.end();
+		ball.Draw(game.batch);
+		this.lifeCounter.draw(game.batch);
+		game.batch.end();
 		debugRenderer.render(world, camera.combined);
 
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
@@ -167,7 +184,7 @@ public class BallGame extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
-		batch.dispose();
+		game.batch.dispose();
 		ball.dispose();
 		this.scrollingBackground.dispose();
 
@@ -177,5 +194,10 @@ public class BallGame extends ApplicationAdapter {
 		for(GameObject collectible: this.collectables) {
 			collectible.dispose();
 		}
+	}
+
+	@Override
+	public void hide() {
+		Gdx.input.setInputProcessor(null);
 	}
 }

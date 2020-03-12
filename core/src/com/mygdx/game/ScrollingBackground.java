@@ -12,7 +12,7 @@ public class ScrollingBackground {
     float height;
 
     public ScrollingBackground(float worldSpeed) {
-        img = new Texture("bg.jpg");
+        img = new Texture("bg.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
         x1 = 0;

@@ -18,9 +18,15 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.SPACE || Gdx.input.justTouched()) {
+                if (keyCode == Input.Keys.SPACE) {
                     game.setScreen(new BallGame(game));
                 }
+                return true;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                game.setScreen(new BallGame(game));
                 return true;
             }
         });

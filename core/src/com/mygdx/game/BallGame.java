@@ -30,6 +30,7 @@ public class BallGame extends ScreenAdapter {
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
+	private Waypoint waypoint;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -53,6 +54,7 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
+		waypoint = new Waypoint(20f);
 		Gdx.app.log("sdf","ballgame show");
 		this.world.setContactListener(new B2dContactListener());
 		this.world.setContactFilter(new B2dContactFilter());
@@ -71,10 +73,10 @@ public class BallGame extends ScreenAdapter {
 	public void render (float delta) {
 		game.batch.setProjectionMatrix(camera.combined);
 		clearScreen();
-		this.ball.Move();
-
-
-
+		if(!this.ball.Move()) {
+			game.setEndScreen();
+			LifeCounter.lives = 3;
+		}
 
 		game.batch.begin();
 		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), game.batch);
@@ -97,17 +99,23 @@ public class BallGame extends ScreenAdapter {
 		for (int i =0 ; i < this.obstacles.size();i++) {
 			this.obstacles.get(i).Draw(game.batch);
 			if( !this.obstacles.get(i).Move()) {
-				Gdx.app.log("B2D", "obstacle dispose and remove");
 				this.obstacles.get(i).dispose();
 				this.obstacles.remove(i);
 			}
 		}
 
 		if(this.obstacles.size() < 1) {
-			Gdx.app.log("asdf", "creating new obstacle");
 			this.obstacles.add(
 					new FishObstacle(
 							8f,2f));
+		}
+
+		this.waypoint.draw(game.batch);
+		waypoint.move();
+		if (waypoint.isFinished()) {
+			if (this.ball.isGrounded()) {
+				this.game.setRecycleScreen();
+			}
 		}
 
 		ball.Draw(game.batch);
@@ -116,10 +124,7 @@ public class BallGame extends ScreenAdapter {
 		debugRenderer.render(world, camera.combined);
 
 
-		if (LifeCounter.lives <= 0) {
-			this.game.setEndScreen();
-			LifeCounter.lives = 3;
-		}
+
 
 
 

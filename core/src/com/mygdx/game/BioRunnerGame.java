@@ -10,6 +10,7 @@ public class BioRunnerGame extends Game {
     TitleScreen title;
     BallGame game;
     EndScreen end;
+    RecycleScreen recycle;
 
     @Override
     public void create() {
@@ -17,6 +18,7 @@ public class BioRunnerGame extends Game {
         font = new BitmapFont();
         title = new TitleScreen(this);
         game = new BallGame(this);
+        recycle = new RecycleScreen(this);
         end = new EndScreen(this);
         setScreen(this.title);
     }
@@ -32,6 +34,7 @@ public class BioRunnerGame extends Game {
     public void setTitleScreen() {
         setScreen(this.title);
     }
+    public void setRecycleScreen() {setScreen(this.recycle);}
 
     @Override
     public void render() {

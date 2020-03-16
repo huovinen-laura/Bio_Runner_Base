@@ -30,7 +30,19 @@ public class Player extends GameObject {
                         new Vector2(0, -10000f), this.getObjectBody().getWorldCenter(), true);
             }
         }
+
+        if (LifeCounter.lives <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
+            return false;
+        }
         return true;
+    }
+
+    public boolean isGrounded() {
+        if (this.getObjectBody().getPosition().y < 0.52f) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

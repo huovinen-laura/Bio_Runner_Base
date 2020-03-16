@@ -35,14 +35,18 @@ public class B2dContactListener implements ContactListener {
 
         if (a instanceof ObstacleRectangle && b instanceof Player) {
             ObstacleRectangle obstacle = (ObstacleRectangle) a;
-            obstacle.delete();
-            LifeCounter.loseLife();
+            if(!obstacle.isDeleted()) {
+                obstacle.delete();
+                LifeCounter.loseLife();
+            }
             //TODO
 
         } else if ( a instanceof Player && b instanceof ObstacleRectangle) {
             ObstacleRectangle obstacle = (ObstacleRectangle) b;
-            obstacle.delete();
-            LifeCounter.loseLife();
+            if(!obstacle.isDeleted()) {
+                obstacle.delete();
+                LifeCounter.loseLife();
+            }
         }
 
     }

@@ -19,14 +19,14 @@ public class TitleScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
-                    game.setScreen(new BallGame(game));
+                    game.setGameScreen();
                 }
                 return true;
             }
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                game.setScreen(new BallGame(game));
+                game.setGameScreen();
                 return true;
             }
         });

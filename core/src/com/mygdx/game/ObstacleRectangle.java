@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -24,10 +25,15 @@ public class ObstacleRectangle extends GameObject {
         this.setForDelete = true;
     }
 
+    public boolean isDeleted() {
+        return(this.setForDelete);
+    }
 
     @Override
     public boolean Move() {
         if (this.setForDelete) {
+            Gdx.app.log("OBSTACLe", "setFOrDelete");
+            this.dispose();
             return(false);
         }
         return true;

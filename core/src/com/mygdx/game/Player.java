@@ -21,7 +21,6 @@ public class Player extends GameObject {
 
     @Override
     public boolean Move() {
-        Gdx.app.log("sdfg",""+this.getObjectBody().getPosition().y);
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             if(this.getObjectBody().getPosition().y < 0.52f) {
                 this.getObjectBody().applyLinearImpulse(
@@ -37,9 +36,5 @@ public class Player extends GameObject {
     @Override
     public String Collide() {
         return ("player");
-    }
-
-    public void dispose() {
-        this.objectTexture.dispose();
     }
 }

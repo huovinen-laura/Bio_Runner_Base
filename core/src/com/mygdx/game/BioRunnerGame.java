@@ -7,12 +7,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class BioRunnerGame extends Game {
     SpriteBatch batch;
     BitmapFont font;
+    TitleScreen title;
+    BallGame game;
+    EndScreen end;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        setScreen(new TitleScreen(this));
+        title = new TitleScreen(this);
+        game = new BallGame(this);
+        end = new EndScreen(this);
+        setScreen(this.title);
+    }
+
+    public void setEndScreen() {
+        setScreen(this.end);
+    }
+
+    public void setGameScreen() {
+        setScreen(this.game);
+    }
+
+    public void setTitleScreen() {
+        setScreen(this.title);
     }
 
     @Override

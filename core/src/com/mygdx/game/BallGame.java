@@ -29,8 +29,6 @@ public class BallGame extends ScreenAdapter {
 	static float WORLD_HEIGHT = 4;
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
-
-	private float radius = 0.5f;
 	private Player ball;
 
 	OrthographicCamera camera = new OrthographicCamera();
@@ -38,38 +36,31 @@ public class BallGame extends ScreenAdapter {
 
 	public BallGame (BioRunnerGame game) {
 		this.game = game;
+		Gdx.app.log("sf","Ballgame constructor");
 
 		game.batch = new SpriteBatch();
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
-		obstacles.add(new FishObstacle(8f,2f));
 		this.lifeCounter = new LifeCounter();
-
 		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
-
+		ball = new Player(world);
 		scrollingBackground = new ScrollingBackground(worldSpeed);
-
-		ball = new Player(this.world);
-		this.world.setContactListener(new B2dContactListener());
-		this.world.setContactFilter(new B2dContactFilter());
-
-
-
 		createGround();
-
 		debugRenderer = new Box2DDebugRenderer();
-
 		moveCamera();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 	}
 
 	@Override
 	public void show() {
+		Gdx.app.log("sdf","ballgame show");
+		this.world.setContactListener(new B2dContactListener());
+		this.world.setContactFilter(new B2dContactFilter());
 		Gdx.input.setInputProcessor(new InputAdapter() {
 			@Override
 			public boolean keyDown(int keyCode) {
 				if (keyCode == Input.Keys.ENTER) {
-					game.setScreen(new EndScreen(game));
+					game.setEndScreen();
 				}
 				return true;
 			}
@@ -87,6 +78,7 @@ public class BallGame extends ScreenAdapter {
 
 		game.batch.begin();
 		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), game.batch);
+		doPhysicsStep(Gdx.graphics.getDeltaTime());
 
 		for (int i =0 ; i < this.collectables.size();i++) {
 			this.collectables.get(i).Draw(game.batch);
@@ -105,6 +97,7 @@ public class BallGame extends ScreenAdapter {
 		for (int i =0 ; i < this.obstacles.size();i++) {
 			this.obstacles.get(i).Draw(game.batch);
 			if( !this.obstacles.get(i).Move()) {
+				Gdx.app.log("B2D", "obstacle dispose and remove");
 				this.obstacles.get(i).dispose();
 				this.obstacles.remove(i);
 			}
@@ -122,7 +115,11 @@ public class BallGame extends ScreenAdapter {
 		game.batch.end();
 		debugRenderer.render(world, camera.combined);
 
-		doPhysicsStep(Gdx.graphics.getDeltaTime());
+
+		if (LifeCounter.lives <= 0) {
+			this.game.setEndScreen();
+			LifeCounter.lives = 3;
+		}
 
 
 
@@ -184,20 +181,24 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void dispose () {
-		game.batch.dispose();
+		Gdx.app.log("asd","ballgame.dispose");
 		ball.dispose();
 		this.scrollingBackground.dispose();
 
-		for(GameObject obstacle: this.obstacles) {
-			obstacle.dispose();
+		for(int i = 0; i < this.obstacles.size(); i++) {
+			this.obstacles.get(i).dispose();
 		}
-		for(GameObject collectible: this.collectables) {
-			collectible.dispose();
+
+		for(int i = 0; i < this.collectables.size(); i++) {
+			this.collectables.get(i).dispose();
 		}
+
+		game.batch.dispose();
 	}
 
 	@Override
 	public void hide() {
+
 		Gdx.input.setInputProcessor(null);
 	}
 }

@@ -106,7 +106,7 @@ public abstract class GameObject {
     public void Draw(SpriteBatch batch) {
         batch.draw(this.getObjectTexture(),
                 this.getObjectBody().getPosition().x,
-            this.getObjectBody().getPosition().y,
+                this.getObjectBody().getPosition().y,
             0f,
             0f,
             this.spriteWidth,

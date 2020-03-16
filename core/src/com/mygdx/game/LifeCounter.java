@@ -1,9 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 
 public class LifeCounter {
     static int lives = 3;
@@ -37,7 +35,7 @@ public class LifeCounter {
                     0,
                     this.lifeTexture.getWidth(),
                     this.lifeTexture.getHeight(),
-                    false,
+                    true,
                     false);
 
         }
@@ -56,7 +54,7 @@ public class LifeCounter {
                     0,
                     this.lifeTexture.getWidth(),
                     this.lifeTexture.getHeight(),
-                    false,
+                    true,
                     false);
 
 
@@ -76,7 +74,7 @@ public class LifeCounter {
                     0,
                     this.lifeTexture.getWidth(),
                     this.lifeTexture.getHeight(),
-                    false,
+                    true,
                     false);
 
 

@@ -14,7 +14,7 @@ public class LifeCounter {
     public LifeCounter() {
         this.lifeTexture = new Texture( "ball.png");
         this.size = 0.5f;
-        this.startX = 4f;
+        this.startX = 5f;
         this.startY = 3.25f;
         this.margin = 0.25f;
     }

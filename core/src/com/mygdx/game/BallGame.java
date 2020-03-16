@@ -31,6 +31,8 @@ public class BallGame extends ScreenAdapter {
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
 	private Waypoint waypoint;
+	private boolean lostGame;
+	private boolean reachedCheckpoint;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -54,7 +56,10 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
-		waypoint = new Waypoint(20f);
+		waypoint = new Waypoint(5f);
+		this.reachedCheckpoint = false;
+		this.lostGame = false;
+		this.ball.setJustChangedScreen(true);
 		Gdx.app.log("sdf","ballgame show");
 		this.world.setContactListener(new B2dContactListener());
 		this.world.setContactFilter(new B2dContactFilter());
@@ -73,14 +78,15 @@ public class BallGame extends ScreenAdapter {
 	public void render (float delta) {
 		game.batch.setProjectionMatrix(camera.combined);
 		clearScreen();
-		if(!this.ball.Move()) {
-			game.setEndScreen();
+		if(!this.ball.Move()) { // checks if lives is zero
+			this.lostGame = true;
 			LifeCounter.lives = 3;
 		}
 
 		game.batch.begin();
 		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), game.batch);
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
+		ball.Draw(game.batch);
 
 		for (int i =0 ; i < this.collectables.size();i++) {
 			this.collectables.get(i).Draw(game.batch);
@@ -109,22 +115,32 @@ public class BallGame extends ScreenAdapter {
 					new FishObstacle(
 							8f,2f));
 		}
-
+		this.lifeCounter.draw(game.batch);
 		this.waypoint.draw(game.batch);
 		waypoint.move();
+
+		game.batch.end();
+		debugRenderer.render(world, camera.combined);
+
 		if (waypoint.isFinished()) {
+			this.reachedCheckpoint = true;
+		}
+
+		if (this.lostGame) {
+			if (this.ball.isGrounded()) {
+				this.game.setEndScreen();
+			}
+		} else if (reachedCheckpoint) {
 			if (this.ball.isGrounded()) {
 				this.game.setRecycleScreen();
 			}
 		}
 
-		ball.Draw(game.batch);
-		this.lifeCounter.draw(game.batch);
-		game.batch.end();
-		debugRenderer.render(world, camera.combined);
 
 
-
+		if (this.ball.isJustChangedScreen()) {
+			this.ball.setJustChangedScreen(false);
+		}
 
 
 

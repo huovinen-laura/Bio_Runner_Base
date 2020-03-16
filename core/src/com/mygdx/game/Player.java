@@ -9,9 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends GameObject {
+    boolean justChangedScreen;
     public Player( World world) {
         super(new Texture("ball.png"),
                 1.25f,2f, 2f,2000f,0f,0.5f,true,false);
+        this.justChangedScreen = false;
 
     }
 
@@ -22,7 +24,7 @@ public class Player extends GameObject {
     @Override
     public boolean Move() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            if(this.getObjectBody().getPosition().y < 0.52f) {
+            if(this.getObjectBody().getPosition().y < 0.52f && !this.justChangedScreen) {
                 this.getObjectBody().applyLinearImpulse(
                         new Vector2(0, 5000f), this.getObjectBody().getWorldCenter(), true);
             } else {
@@ -48,5 +50,13 @@ public class Player extends GameObject {
     @Override
     public String Collide() {
         return ("player");
+    }
+
+    public boolean isJustChangedScreen() {
+        return justChangedScreen;
+    }
+
+    public void setJustChangedScreen(boolean justChangedScreen) {
+        this.justChangedScreen = justChangedScreen;
     }
 }

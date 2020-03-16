@@ -13,12 +13,12 @@ public class TitleScreen extends ScreenAdapter {
 
     public TitleScreen(BioRunnerGame game) {
         this.game = game;
-        game.font = new BitmapFont();
-        game.batch = new SpriteBatch();
     }
 
     @Override
     public void show() {
+        game.font = new BitmapFont();
+        game.batch = new SpriteBatch();
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {

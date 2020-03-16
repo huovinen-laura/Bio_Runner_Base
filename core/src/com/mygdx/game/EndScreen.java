@@ -13,11 +13,12 @@ public class EndScreen extends ScreenAdapter {
 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
-        game.batch = new SpriteBatch();
     }
 
     @Override
     public void show() {
+        game.batch = new SpriteBatch();
+
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {

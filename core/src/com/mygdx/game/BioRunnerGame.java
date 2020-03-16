@@ -15,14 +15,13 @@ public class BioRunnerGame extends Game {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        title = new TitleScreen(this);
         game = new BallGame(this);
         end = new EndScreen(this);
-        setScreen(this.title);
+        this.setScreen(new TitleScreen(this));
     }
 
     public void setEndScreen() {
-        setScreen(this.end);
+        setScreen(new EndScreen(this));
     }
 
     public void setGameScreen() {
@@ -30,7 +29,7 @@ public class BioRunnerGame extends Game {
     }
 
     public void setTitleScreen() {
-        setScreen(this.title);
+        setScreen(new TitleScreen(this));
     }
 
     @Override

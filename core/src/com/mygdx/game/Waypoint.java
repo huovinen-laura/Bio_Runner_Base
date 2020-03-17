@@ -44,6 +44,5 @@ public class Waypoint {
         if (displayedProgress > length) {
             this.displayedProgress = length;
         }
-        Gdx.app.log("Waypoint", "" + displayedProgress);
     }
 }

@@ -10,14 +10,34 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
+    static Texture playerTexture = new Texture("ball.png");
+
     public Player( World world) {
-        super(new Texture("ball.png"),
+        super(Player.playerTexture,
                 1.25f,2f, 2f,2000f,0f,0.5f,true,false);
         this.justChangedScreen = false;
 
     }
 
-
+    @Override
+    public void Draw(SpriteBatch batch) {
+        batch.draw(Player.playerTexture,
+                this.getObjectBody().getPosition().x,
+                this.getObjectBody().getPosition().y,
+                0f,
+                0f,
+                this.spriteWidth,
+                this.spriteHeight,
+                1.0f,
+                1.0f,
+                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
+                0,
+                0,
+                Player.playerTexture.getWidth(),
+                Player.playerTexture.getHeight(),
+                this.flipSpriteX,
+                this.flipSpriteY);
+    }
 
 
 

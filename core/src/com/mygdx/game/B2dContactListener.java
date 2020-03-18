@@ -19,12 +19,16 @@ public class B2dContactListener implements ContactListener {
             BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
             Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
                     + BallGame.collectedStuffList.getAllShit().get(0).getName());
+            BallGame.setPlayerScore();
+            Gdx.app.log("Score:", "" + BallGame.playerScore);
         } if (a instanceof CollectibleSquare && b instanceof CollectibleSquare) {
             CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
             collectibleSquareB.collect();
             BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
             Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
                     + BallGame.collectedStuffList.getAllShit().get(0).getName());
+            BallGame.setPlayerScore();
+            Gdx.app.log("Score:", "" + BallGame.playerScore);
 
             CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
             collectibleSquareA.collect();

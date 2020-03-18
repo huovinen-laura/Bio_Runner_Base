@@ -24,6 +24,7 @@ public class EndScreen extends ScreenAdapter {
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
                     game.setTitleScreen();
+                    BallGame.clearScore();
                 }
                 return true;
             }

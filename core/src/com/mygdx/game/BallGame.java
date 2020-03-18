@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class BallGame extends ScreenAdapter {
 	BioRunnerGame game;
+    SpriteBatch gameBatch;
 
 	public static float worldSpeed = -1f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
@@ -24,6 +26,7 @@ public class BallGame extends ScreenAdapter {
 	public static World world = new World(new Vector2(0, -5f), true);
 	Sound soundEffect;
 	private LifeCounter lifeCounter;
+	public static int playerScore;
 
 	static float WORLD_WIDTH = 8;
 	static float WORLD_HEIGHT = 4;
@@ -33,6 +36,7 @@ public class BallGame extends ScreenAdapter {
 	private Waypoint waypoint;
 	private boolean lostGame;
 	private boolean reachedCheckpoint;
+    String str1;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -56,6 +60,9 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
+        game.font = new BitmapFont();
+        game.batch = new SpriteBatch();
+        this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(5f);
 		this.reachedCheckpoint = false;
 		this.lostGame = false;
@@ -76,20 +83,20 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		game.batch.setProjectionMatrix(camera.combined);
+		this.gameBatch.setProjectionMatrix(camera.combined);
 		clearScreen();
 		if(!this.ball.Move()) { // checks if lives is zero
 			this.lostGame = true;
 			LifeCounter.lives = 3;
 		}
 
-		game.batch.begin();
-		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), game.batch);
+        this.gameBatch.begin();
+		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), this.gameBatch);
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
-		ball.Draw(game.batch);
+		ball.Draw(this.gameBatch);
 
 		for (int i =0 ; i < this.collectables.size();i++) {
-			this.collectables.get(i).Draw(game.batch);
+			this.collectables.get(i).Draw(this.gameBatch);
 			if( !this.collectables.get(i).Move()) {
 				this.collectables.get(i).dispose();
 				this.collectables.remove(i);
@@ -103,7 +110,7 @@ public class BallGame extends ScreenAdapter {
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
-			this.obstacles.get(i).Draw(game.batch);
+			this.obstacles.get(i).Draw(this.gameBatch);
 			if( !this.obstacles.get(i).Move()) {
 				this.obstacles.get(i).dispose();
 				this.obstacles.remove(i);
@@ -115,11 +122,19 @@ public class BallGame extends ScreenAdapter {
 					new FishObstacle(
 							8f,2f));
 		}
-		this.lifeCounter.draw(game.batch);
-		this.waypoint.draw(game.batch);
+		this.lifeCounter.draw(this.gameBatch);
+		this.waypoint.draw(this.gameBatch);
 		waypoint.move();
 
-		game.batch.end();
+        this.gameBatch.end();
+
+        //Draws fonts
+        String score = Integer.toString(playerScore);
+        game.batch.begin();
+        game.font.draw(game.batch, score, Gdx.graphics.getWidth() * .95f,
+                Gdx.graphics.getHeight() * .90f);
+        game.batch.end();
+
 		debugRenderer.render(world, camera.combined);
 
 		if (waypoint.isFinished()) {
@@ -141,8 +156,6 @@ public class BallGame extends ScreenAdapter {
 		if (this.ball.isJustChangedScreen()) {
 			this.ball.setJustChangedScreen(false);
 		}
-
-
 
 
 	}
@@ -199,6 +212,14 @@ public class BallGame extends ScreenAdapter {
 		groundBox.setAsBox(WORLD_WIDTH * 100, 0.25f);
 		return groundBox;
 	}
+
+	public static void setPlayerScore() {
+	    playerScore += 1;
+    }
+
+    public static void clearScore() {
+	    playerScore = 0;
+    }
 
 	@Override
 	public void dispose () {

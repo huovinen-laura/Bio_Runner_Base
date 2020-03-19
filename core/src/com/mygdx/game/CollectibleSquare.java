@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class CollectibleSquare extends GameObject {
-    Float sideLength;
     Boolean setForDelete;
     static int collected;
     String name;
@@ -28,13 +27,24 @@ public class CollectibleSquare extends GameObject {
         this.name = name;
     }
 
-    static int getNumberOfCollected() {
-        return(collected);
-    }
 
-    public void collideWithPlayer() {
-        BallGame.collectedStuffList.addStuff(this.name);
-
+    public void draw(float x, float y,SpriteBatch batch) {
+        batch.draw(this.getObjectTexture(),
+                x,
+                y,
+                0f,
+                0f,
+                this.spriteWidth,
+                this.spriteHeight,
+                1.0f,
+                1.0f,
+                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
+                0,
+                0,
+                this.objectTexture.getWidth(),
+                this.objectTexture.getHeight(),
+                this.flipSpriteX,
+                this.flipSpriteY);
     }
 
     public void collect() {

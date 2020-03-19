@@ -18,7 +18,6 @@ public class TitleScreen extends ScreenAdapter {
     Button startButton;
     SpriteBatch titleBatch;
     OrthographicCamera camera = new OrthographicCamera();
-    Matrix4 initialProjectionMatrix;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);

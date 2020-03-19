@@ -10,11 +10,11 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
-    static Texture playerTexture = new Texture("ball.png");
+    static Texture playerTexture = new Texture("player2.png");
 
     public Player( World world) {
         super(Player.playerTexture,
-                1.25f,2f, 2f,2000f,0f,0.5f,true,false);
+                1.5f,1f, 2f,2000f,0f,0.5f,true,false);
         this.justChangedScreen = false;
 
     }

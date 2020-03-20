@@ -50,7 +50,7 @@ public abstract class GameObject {
         //How slippery the object is? 0-1
         playerFixtureDef.friction = friction;
 
-        //Create circle shape
+        //Create polygon shape
         PolygonShape rectangleShape = new PolygonShape();
         rectangleShape.set(new Vector2[]{new Vector2(0f, 0f), new Vector2(0f, this.spriteHeight),
                 new Vector2(this.spriteWidth, this.spriteHeight), new Vector2(this.spriteWidth,0f)

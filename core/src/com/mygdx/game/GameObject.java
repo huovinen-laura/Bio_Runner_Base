@@ -11,6 +11,7 @@ public abstract class GameObject {
     protected Texture objectTexture;
     protected Body objectBody;
     protected Vector2 position;
+    private String name;
     protected float radius;
     protected float spriteWidth;
     protected float spriteHeight;
@@ -122,6 +123,25 @@ public abstract class GameObject {
             this.flipSpriteY);
 }
 
+    public void draw(SpriteBatch batch,float posx, float posy) {
+        batch.draw(this.getObjectTexture(),
+                posx,
+                posy,
+                0f,
+                0f,
+                this.spriteWidth,
+                this.spriteHeight,
+                1.0f,
+                1.0f,
+                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
+                0,
+                0,
+                this.objectTexture.getWidth(),
+                this.objectTexture.getHeight(),
+                this.flipSpriteX,
+                this.flipSpriteY);
+    }
+
     public abstract boolean Move();
     public abstract String Collide();
 
@@ -153,5 +173,13 @@ public abstract class GameObject {
 
     public void setObjectBody(Body objectBody) {
         this.objectBody = objectBody;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

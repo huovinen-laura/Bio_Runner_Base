@@ -13,28 +13,15 @@ public class B2dContactListener implements ContactListener {
         Object a = contact.getFixtureA().getBody().getUserData();
         Object b = contact.getFixtureB().getBody().getUserData();
 
-        if (a instanceof Player && b instanceof CollectibleSquare) {
+        if ((a instanceof Player && b instanceof CollectibleSquare) ||
+                (b instanceof Player && a instanceof CollectibleSquare)) {
             CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
             collectibleSquareB.collect();
-            BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
+            BallGame.collectedStuffList.addStuff(collectibleSquareB);
             Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
                     + BallGame.collectedStuffList.getAllShit().get(0).getName());
             BallGame.setPlayerScore();
             Gdx.app.log("Score:", "" + BallGame.playerScore);
-        } if (a instanceof CollectibleSquare && b instanceof CollectibleSquare) {
-            CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
-            collectibleSquareB.collect();
-            BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
-            Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
-                    + BallGame.collectedStuffList.getAllShit().get(0).getName());
-            BallGame.setPlayerScore();
-            Gdx.app.log("Score:", "" + BallGame.playerScore);
-
-            CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
-            collectibleSquareA.collect();
-            BallGame.collectedStuffList.addStuff(collectibleSquareB.getName());
-            Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
-                    + BallGame.collectedStuffList.getAllShit().get(0).getName());
         }
 
         if (a instanceof ObstacleRectangle && b instanceof Player) {

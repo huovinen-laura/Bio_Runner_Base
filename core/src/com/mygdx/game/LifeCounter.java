@@ -9,10 +9,8 @@ public class LifeCounter {
     private float startY;
     private float margin;
     private float size;
-    private Texture lifeTexture;
 
     public LifeCounter() {
-        this.lifeTexture = new Texture( "ball.png");
         this.size = 0.5f;
         this.startX = 5f;
         this.startY = 3.25f;
@@ -21,7 +19,7 @@ public class LifeCounter {
 
     public void draw(SpriteBatch batch) {
         if( LifeCounter.lives >= 1) {
-            batch.draw(this.lifeTexture,
+            batch.draw(Player.playerTexture,
                     this.startX,
                     this.startY,
                     0f,
@@ -33,14 +31,14 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    this.lifeTexture.getWidth(),
-                    this.lifeTexture.getHeight(),
+                    Player.playerTexture.getWidth(),
+                    Player.playerTexture.getHeight(),
                     true,
                     false);
 
         }
         if (LifeCounter.lives >= 2) {
-            batch.draw(this.lifeTexture,
+            batch.draw(Player.playerTexture,
                     this.startX +this.size+ this.margin,
                     this.startY,
                     0f,
@@ -52,15 +50,15 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    this.lifeTexture.getWidth(),
-                    this.lifeTexture.getHeight(),
+                    Player.playerTexture.getWidth(),
+                    Player.playerTexture.getHeight(),
                     true,
                     false);
 
 
         }
         if (LifeCounter.lives >= 3) {
-            batch.draw(this.lifeTexture,
+            batch.draw(Player.playerTexture,
                     this.startX + this.margin*2 + this.size*2,
                     this.startY,
                     0f,
@@ -72,8 +70,8 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    this.lifeTexture.getWidth(),
-                    this.lifeTexture.getHeight(),
+                    Player.playerTexture.getWidth(),
+                    Player.playerTexture.getHeight(),
                     true,
                     false);
 

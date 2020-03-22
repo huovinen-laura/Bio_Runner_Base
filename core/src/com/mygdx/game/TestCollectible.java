@@ -6,6 +6,6 @@ public class TestCollectible extends CollectibleSquare{
     static Texture texture = new Texture("banaani.png");
 
     public TestCollectible(float x, float y) {
-        super(x, y, texture, "badlogic");
+        super(x, y, texture, "banaani");
     }
 }

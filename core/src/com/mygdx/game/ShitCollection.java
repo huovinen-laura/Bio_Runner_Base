@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.ArrayList;
 
 public class ShitCollection {
@@ -7,20 +9,23 @@ public class ShitCollection {
 
     public ShitCollection() {
         this.allShit = new ArrayList<>();
+        this.allShit.add(new Shit("banaani",TestCollectible.texture));
     }
 
-    public void addStuff(String name) {
-        boolean foundShit = false;
+    public void addStuff(GameObject object) {
+
         for(int i = 0; i < this.allShit.size();i++) {
-            if(this.allShit.get(i).getName().contentEquals(name)) {
+
+            if(this.allShit.get(i).getName().contentEquals(object.getName())) {
                 this.allShit.get(i).incrementCount();
-                foundShit = true;
                 break;
             }
         }
+    }
 
-        if(!foundShit) {
-            this.allShit.add(new Shit(name));
+    public void clear() {
+        for (int i = 0; i < this.allShit.size(); i++) {
+
         }
     }
 
@@ -36,6 +41,7 @@ public class ShitCollection {
     public class Shit {
         String name;
         int count;
+        Texture texture;
 
         public String getName() {
             return name;
@@ -55,9 +61,18 @@ public class ShitCollection {
             this.count = count;
         }
 
-        public Shit(String name) {
+        public Shit(String name, Texture newTexture) {
             this.name = name;
-            this.count = 1;
+            this.count = 0;
+            this.texture = newTexture;
+        }
+
+        public Texture getTexture() {
+            return texture;
+        }
+
+        public void setTexture(Texture texture) {
+            this.texture = texture;
         }
     }
 }

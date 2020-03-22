@@ -63,7 +63,7 @@ public class BallGame extends ScreenAdapter {
         game.font = new BitmapFont();
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
-		waypoint = new Waypoint(50f);
+		waypoint = new Waypoint(20f);
 		this.reachedCheckpoint = false;
 		this.lostGame = false;
 		this.ball.setJustChangedScreen(true);

@@ -49,7 +49,6 @@ public class BallGame extends ScreenAdapter {
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
 		this.lifeCounter = new LifeCounter();
-		soundEffect = Gdx.audio.newSound(Gdx.files.internal("touch.wav"));
 		ball = new Player(world);
 		scrollingBackground = new ScrollingBackground(worldSpeed);
 		createGround();
@@ -85,6 +84,7 @@ public class BallGame extends ScreenAdapter {
 	public void render (float delta) {
 		this.gameBatch.setProjectionMatrix(camera.combined);
 		clearScreen();
+
 		if(!this.ball.Move()) { // checks if lives is zero
 			this.lostGame = true;
 			LifeCounter.lives = 3;
@@ -122,6 +122,7 @@ public class BallGame extends ScreenAdapter {
 					new FishObstacle(
 							8f,2f));
 		}
+
 		this.lifeCounter.draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
 		waypoint.move();

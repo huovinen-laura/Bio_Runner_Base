@@ -20,11 +20,10 @@ public class CollectibleSquare extends GameObject {
         this.name = name;
     }
 
-    public CollectibleSquare(float x, float y, Texture texture, String name) {
-        super(texture,0.5f,x,y, 0f,0f,0f,
-                new Vector2(BallGame.worldSpeed,0),0f);
+    public CollectibleSquare(Texture texture, float size, float x, float y, String collName) {
+        super(texture,size,x,y,0f,0f,0f,new Vector2(BallGame.worldSpeed,0f),0f);
         this.setForDelete = false;
-        this.name = name;
+        this.name = collName;
     }
 
 

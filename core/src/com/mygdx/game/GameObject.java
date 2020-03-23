@@ -29,7 +29,9 @@ public abstract class GameObject {
                       float bouncines, float friction) {
         this.objectTexture = texture;
         this.radius = size;
-        this.spriteHeight = 0.5f*radius*(objectTexture.getHeight()/objectTexture.getWidth());
+        this.spriteWidth = (float) objectTexture.getWidth();
+        this.spriteHeight = (float) objectTexture.getHeight();
+        this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
         this.spriteWidth = 0.5f*radius;
         Gdx.app.log("HW", "" + this.spriteWidth + " " + this.spriteHeight);
         BodyDef myBodyDef = new BodyDef();
@@ -67,8 +69,10 @@ public abstract class GameObject {
                        float bouncines, float friction, Vector2 linearVelocity, Float gravityScale) {
         this.objectTexture = texture;
         this.radius = size;
-        this.spriteHeight = 0.5f*radius*(objectTexture.getHeight()/objectTexture.getWidth());
-        this.spriteWidth = 0.5f*radius;
+        this.spriteWidth = (float) objectTexture.getWidth();
+        this.spriteHeight = (float) objectTexture.getHeight();
+        this.spriteHeight = 0.5f * radius * (this.spriteHeight/this.spriteWidth);
+        this.spriteWidth = 0.5f * radius;
         BodyDef myBodyDef = new BodyDef();
 
         //What type of body? This one moves.
@@ -90,9 +94,10 @@ public abstract class GameObject {
 
         //How slippery the object is? 0-1
         playerFixtureDef.friction = friction;
-
+        Gdx.app.log("shape","spriteHeight:" + this.spriteHeight + " spriteWidth: " + this.spriteWidth);
         //Create circle shape
         PolygonShape rectangleShape = new PolygonShape();
+        Gdx.app.log("shape","spriteHeight:" + this.spriteHeight + " spriteWidth: " + this.spriteWidth);
         rectangleShape.set(new Vector2[]{new Vector2(0f, 0f), new Vector2(0f, this.spriteHeight),
                 new Vector2(this.spriteWidth, this.spriteHeight), new Vector2(this.spriteWidth,0f)
         });

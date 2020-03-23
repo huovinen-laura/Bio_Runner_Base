@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class BallGame extends ScreenAdapter {
 	BioRunnerGame game;
     SpriteBatch gameBatch;
+    BitmapFont font;
 
 	public static float worldSpeed = -1f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
 	public ScrollingBackground scrollingBackground;
 	public static World world = new World(new Vector2(0, -5f), true);
-	Sound soundEffect;
 	private LifeCounter lifeCounter;
 	public static int playerScore;
 
@@ -46,6 +46,7 @@ public class BallGame extends ScreenAdapter {
 		Gdx.app.log("sf","Ballgame constructor");
 
 		game.batch = new SpriteBatch();
+		this.font = game.font;
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
 		this.lifeCounter = new LifeCounter();
@@ -151,8 +152,6 @@ public class BallGame extends ScreenAdapter {
 				this.game.setRecycleScreen();
 			}
 		}
-
-
 
 		if (this.ball.isJustChangedScreen()) {
 			this.ball.setJustChangedScreen(false);

@@ -10,9 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class EndScreen extends ScreenAdapter {
     BioRunnerGame game;
+    BitmapFont font;
 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
+        this.font = game.font;
     }
 
     @Override
@@ -39,11 +41,15 @@ public class EndScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0f, .25f, 1);
+        Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        game.font.draw(game.batch, "End screen. Press space or tap", Gdx.graphics.getWidth() * 0.25f,
+        font.draw(game.batch, "You lost!", Gdx.graphics.getWidth() * 0.25f,
+                Gdx.graphics.getHeight() * .75f);
+        font.draw(game.batch, "Your score was: ", Gdx.graphics.getWidth() * 0.25f,
+                Gdx.graphics.getHeight() * .50f);
+        font.draw(game.batch, "Press space or tap to continue", Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .25f);
         game.batch.end();
     }

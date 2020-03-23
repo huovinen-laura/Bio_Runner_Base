@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -11,11 +12,12 @@ public class BioRunnerGame extends Game {
     BallGame game;
     EndScreen end;
     RecycleScreen recycle;
+    ShopScreen shop;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("font.txt"));
         game = new BallGame(this);
         this.title = new TitleScreen(this);
         recycle = new RecycleScreen(this);
@@ -34,7 +36,10 @@ public class BioRunnerGame extends Game {
     public void setTitleScreen() {
         setScreen(this.title);
     }
-    public void setRecycleScreen() {setScreen(this.recycle);}
+
+    public void setRecycleScreen() {
+        setScreen(this.recycle);
+    }
 
     @Override
     public void render() {

@@ -18,15 +18,16 @@ public class TitleScreen extends ScreenAdapter {
     Button startButton;
     SpriteBatch titleBatch;
     OrthographicCamera camera = new OrthographicCamera();
+    BitmapFont font;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
         this.game = game;
+        this.font = game.font;
     }
 
     @Override
     public void show() {
-        game.font = new BitmapFont();
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
         this.startButton = new Button(1f,1f,1f,1f);
@@ -55,14 +56,16 @@ public class TitleScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        font.getData().setScale(0.5f, 0.5f);
 
         // Draws fonts
         game.batch.begin();
-        game.font.draw(game.batch, "Bio Runner", Gdx.graphics.getWidth() * .25f,
+        font.draw(game.batch, "Bio Runner", Gdx.graphics.getWidth() * .25f,
                 Gdx.graphics.getHeight() * .75f);
-        game.font.draw(game.batch, "Press space to play!", Gdx.graphics.getWidth() * 0.25f,
+        font.draw(game.batch, "Press space or the button to play!", Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .25f);
         game.batch.end();
 

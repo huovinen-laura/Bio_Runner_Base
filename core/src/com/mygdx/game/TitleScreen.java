@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 
@@ -43,9 +45,9 @@ public class TitleScreen extends ScreenAdapter {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                float worldX = (float) 8*(screenX)/800;
-                float worldY = (float) 4*(400-screenY)/400;
-                if (startButton.isInsideButton(worldX,worldY)) {
+                Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
+
+                if (startButton.isInsideButton(worldCoords.x,worldCoords.y)) {
                     game.setGameScreen();
                 }
                 return true;

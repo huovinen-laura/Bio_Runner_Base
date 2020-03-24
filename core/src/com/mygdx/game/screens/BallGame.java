@@ -1,18 +1,18 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.*;
+import com.mygdx.game.collectibles.TestCollectible;
+import com.mygdx.game.gamestate.LifeCounter;
 
 import java.util.ArrayList;
 
@@ -28,8 +28,8 @@ public class BallGame extends ScreenAdapter {
 	private LifeCounter lifeCounter;
 	public static int playerScore;
 
-	static float WORLD_WIDTH = 8;
-	static float WORLD_HEIGHT = 4;
+	public static float WORLD_WIDTH = 8;
+	public static float WORLD_HEIGHT = 4;
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
@@ -87,7 +87,7 @@ public class BallGame extends ScreenAdapter {
 
 		if(!this.ball.Move()) { // checks if lives is zero
 			this.lostGame = true;
-			LifeCounter.lives = 3;
+			LifeCounter.setLives(3);
 		}
 
         this.gameBatch.begin();
@@ -103,10 +103,10 @@ public class BallGame extends ScreenAdapter {
 			}
 		}
 
-		if(this.collectables.size() <= 1) {
-			this.collectables.add(
-					new TestCollectible(
-							8f,(float) Math.random()*3));
+
+		if(BallGame.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
+			Gdx.app.log("Ballgame","added new collectible");
+				this.collectables.add(BallGame.collectedStuffList.getRandomCollectible());
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
@@ -138,6 +138,7 @@ public class BallGame extends ScreenAdapter {
 
 		debugRenderer.render(world, camera.combined);
 
+		// checks if the game has ended somehow
 		if (waypoint.isFinished()) {
 			this.reachedCheckpoint = true;
 		}

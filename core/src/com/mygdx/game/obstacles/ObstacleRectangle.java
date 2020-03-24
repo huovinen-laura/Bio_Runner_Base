@@ -1,13 +1,10 @@
-package com.mygdx.game;
+package com.mygdx.game.obstacles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.mygdx.game.GameObject;
+import com.mygdx.game.screens.BallGame;
 
 public class ObstacleRectangle extends GameObject {
 

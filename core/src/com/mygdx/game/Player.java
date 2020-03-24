@@ -7,16 +7,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
-    boolean justChangedScreen;
-    static Texture playerTexture = new Texture("player2.png");
+        boolean justChangedScreen;
+        public static Texture playerTexture = new Texture("player2.png");
 
-    public Player( World world) {
-        super(Player.playerTexture,
-                1.5f,1f, 2f,2000f,0f,0.5f,true,false);
-        this.justChangedScreen = false;
+        public Player( World world) {
+            super(Player.playerTexture,
+                    1.5f,1f, 2f,2000f,0f,0.5f,true,false);
+            this.justChangedScreen = false;
 
+        }
+
+    public static Texture getPlayerTexture() {
+        return(Player.playerTexture);
     }
 
     @Override
@@ -53,7 +58,7 @@ public class Player extends GameObject {
             }
         }
 
-        if (LifeCounter.lives <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
+        if (LifeCounter.getLives() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
             return false;
         }
         return true;

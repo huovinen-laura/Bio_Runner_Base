@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.obstacles.ObstacleRectangle;
 
 public class FishObstacle extends ObstacleRectangle {
     static Texture texture = new Texture("obstacle.png");

@@ -2,7 +2,6 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.game.BallGame;
 import com.mygdx.game.BioRunnerGame;
 
 public class DesktopLauncher {

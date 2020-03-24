@@ -20,6 +20,8 @@ public class EndScreen extends ScreenAdapter {
     @Override
     public void show() {
         game.batch = new SpriteBatch();
+        this.font = new BitmapFont(Gdx.files.internal("font.txt"));
+        font.getData().setScale(0.5f, 0.5f);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override

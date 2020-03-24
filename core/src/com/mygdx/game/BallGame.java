@@ -60,7 +60,6 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
-        game.font = new BitmapFont();
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f);

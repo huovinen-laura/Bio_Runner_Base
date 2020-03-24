@@ -14,6 +14,9 @@ public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
     WasteDisplayRecycle wasteTextures;
     SpriteBatch texturesBatch;
+    private BitmapFont font;
+    private boolean isPossibleToLeave;
+    private Button leaveButton;
 
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
@@ -28,12 +31,18 @@ public class RecycleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Recycle screen, press space to continue", Gdx.graphics.getWidth() * 0.25f,
+        this.font.draw(game.batch, "Recycle screen, press space to continue", Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .25f);
         game.batch.end();
 
         this.texturesBatch.begin();
-        this.wasteTextures.draw(this.texturesBatch);
+        if(this.wasteTextures.draw(this.texturesBatch)) {
+            if(!this.isPossibleToLeave) {
+                this.isPossibleToLeave = true;
+
+            }
+
+        }
         this.texturesBatch.end();
 
     }
@@ -42,26 +51,38 @@ public class RecycleScreen extends ScreenAdapter {
     public void show() {
         game.batch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
+        font = game.font;
+        this.leaveButton = new Button(1f,1f,1f,1f);
+        this.isPossibleToLeave = false;
+        font.getData().setScale(0.5f);
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.wasteTextures = new WasteDisplayRecycle();
+
         Gdx.input.setInputProcessor(new InputAdapter() {
+
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
                     game.setGameScreen();
                 }
+
                 return true;
             }
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 game.setGameScreen();
+                if (isPossibleToLeave) {
+                    if (leaveButton.isInsideButton()) {
+
+                    }
+                }
                 BallGame.worldSpeed -= 0.1f;
                 return true;
             }
-        });
+    });
 
     }
 

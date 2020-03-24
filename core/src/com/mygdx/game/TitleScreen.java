@@ -30,6 +30,8 @@ public class TitleScreen extends ScreenAdapter {
     public void show() {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
+        this.font = new BitmapFont(Gdx.files.internal("font.txt"));
+        font.getData().setScale(0.5f, 0.5f);
         this.startButton = new Button(1f,1f,1f,1f);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -59,7 +61,7 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        font.getData().setScale(0.5f, 0.5f);
+
 
         // Draws fonts
         game.batch.begin();

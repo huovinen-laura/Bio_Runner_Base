@@ -22,11 +22,14 @@ public class BioRunnerGame extends Game {
         this.title = new TitleScreen(this);
         recycle = new RecycleScreen(this);
         end = new EndScreen(this);
+        shop = new ShopScreen(this);
         this.setScreen(new TitleScreen(this));
     }
 
+    public void setShopScreen() { setScreen((this.shop));}
+
     public void setEndScreen() {
-        setScreen(new EndScreen(this));
+        setScreen(this.end);
     }
 
     public void setGameScreen() {
@@ -40,6 +43,8 @@ public class BioRunnerGame extends Game {
     public void setRecycleScreen() {
         setScreen(this.recycle);
     }
+
+    public BitmapFont getFont() {return (this.font); };
 
     @Override
     public void render() {

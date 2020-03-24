@@ -22,7 +22,7 @@ public class Waypoint {
         this.realProgress = 0;
         this.barWidth = 4f;
         this.markerSize = 0.2f;
-        progressBar = new Texture("badlogic.jpg");
+        progressBar = new Texture("progressbar.png");
         progressMarker = new Texture("ball.png");
     }
 

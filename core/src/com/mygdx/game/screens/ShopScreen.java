@@ -67,9 +67,11 @@ public class ShopScreen extends ScreenAdapter {
 
                 if(buyButton.isInsideButton(worldCoords.x,worldCoords.y)) {
                     LifeCounter.gainLife();
+
                 } else if(leaveButton.isInsideButton(worldCoords.x,worldCoords.y)) {
                     game.setGameScreen();
                 }
+
                 return true;
             }
         });

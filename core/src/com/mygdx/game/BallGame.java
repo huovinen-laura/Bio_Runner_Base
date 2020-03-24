@@ -157,6 +157,7 @@ public class BallGame extends ScreenAdapter {
 			this.ball.setJustChangedScreen(false);
 		}
 
+		ball.stateTime += Gdx.graphics.getDeltaTime();
 
 	}
 
@@ -219,6 +220,11 @@ public class BallGame extends ScreenAdapter {
 
     public static void clearScore() {
 	    playerScore = 0;
+    }
+
+    public void createAnimation() {
+	    final int FRAME_COLS = 3;
+	    final int FRAME_ROWS = 1;
     }
 
 	@Override

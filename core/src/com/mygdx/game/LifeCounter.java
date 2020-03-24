@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,17 +10,19 @@ public class LifeCounter {
     private float startY;
     private float margin;
     private float size;
+    private Texture life;
 
     public LifeCounter() {
         this.size = 0.5f;
         this.startX = 5f;
         this.startY = 3.25f;
         this.margin = 0.25f;
+        life = new Texture(Gdx.files.internal("heart.png"));
     }
 
     public void draw(SpriteBatch batch) {
         if( LifeCounter.lives >= 1) {
-            batch.draw(Player.playerTexture,
+            batch.draw(life,
                     this.startX,
                     this.startY,
                     0f,
@@ -31,14 +34,14 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    life.getWidth(),
+                    life.getHeight(),
                     true,
                     false);
 
         }
         if (LifeCounter.lives >= 2) {
-            batch.draw(Player.playerTexture,
+            batch.draw(life,
                     this.startX +this.size+ this.margin,
                     this.startY,
                     0f,
@@ -50,15 +53,15 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    life.getWidth(),
+                    life.getHeight(),
                     true,
                     false);
 
 
         }
         if (LifeCounter.lives >= 3) {
-            batch.draw(Player.playerTexture,
+            batch.draw(life,
                     this.startX + this.margin*2 + this.size*2,
                     this.startY,
                     0f,
@@ -70,8 +73,8 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    life.getWidth(),
+                    life.getHeight(),
                     true,
                     false);
 

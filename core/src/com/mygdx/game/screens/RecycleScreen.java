@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,6 +9,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.BallGame;
+import com.mygdx.game.BioRunnerGame;
+import com.mygdx.game.Button;
+import com.mygdx.game.WasteDisplayRecycle;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -17,6 +22,7 @@ public class RecycleScreen extends ScreenAdapter {
     private BitmapFont font;
     private boolean isPossibleToLeave;
     private Button leaveButton;
+    private OrthographicCamera camera;
 
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
@@ -37,10 +43,8 @@ public class RecycleScreen extends ScreenAdapter {
 
         this.texturesBatch.begin();
         if(this.wasteTextures.draw(this.texturesBatch)) {
-            if(!this.isPossibleToLeave) {
-                this.isPossibleToLeave = true;
-
-            }
+            this.leaveButton.draw(texturesBatch);
+            this.isPossibleToLeave = true;
 
         }
         this.texturesBatch.end();
@@ -55,28 +59,21 @@ public class RecycleScreen extends ScreenAdapter {
         this.leaveButton = new Button(1f,1f,1f,1f);
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);
-        OrthographicCamera camera = new OrthographicCamera();
+        camera = new OrthographicCamera();
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.wasteTextures = new WasteDisplayRecycle();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
-            @Override
-            public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.SPACE) {
-                    game.setGameScreen();
-                }
-
-                return true;
-            }
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                game.setGameScreen();
+                Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
                 if (isPossibleToLeave) {
-                    if (leaveButton.isInsideButton()) {
-
+                    if (leaveButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                        Gdx.app.log("Recycle","trying to leave");
+                        game.setShopScreen();
                     }
                 }
                 BallGame.worldSpeed -= 0.1f;

@@ -5,7 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,83 +20,70 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class ShopScreen extends ScreenAdapter {
-    BioRunnerGame game;
-    public Stage stage;
-    public Label outputLabel;
+    public BioRunnerGame game;
+    private SpriteBatch texturesBatch;
+    private SpriteBatch fontBatch;
+    private BitmapFont font;
+    private boolean isPossibleToLeave;
+    private Button buyButton;
+    private Texture lifeTexture;
+    private Button leaveButton;
+    private OrthographicCamera camera;
 
     public ShopScreen(BioRunnerGame game) {
-        /*
         this.game = game;
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-
-        Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-
-        Label title = new Label("Buttons with skins", mySkin, "big-black");
-        title.setSize(Gdx.graphics.getWidth(), 2f);
-        title.setPosition(0, Gdx.graphics.getHeight() - 2f);
-        title.setAlignment(Align.center);
-        stage.addActor(title);
-
-        TextButton button1 = new TextButton("Text Button", mySkin, "small");
-        button1.setSize(1f, 1f);
-        button1.setPosition(2f, 2f);
-        button1.addListener(new InputListener() {
-            @Override
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                outputLabel.setText("Press this button");
-            }
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                outputLabel.setText("Pressed this button");
-                return true;
-            }
-        });
-
-        stage.addActor(button1);
-
-        outputLabel = new Label("Press this button", mySkin, "black");
-        outputLabel.setSize(Gdx.graphics.getWidth(), 2f);
-        outputLabel.setPosition(0, 2f);
-        outputLabel.setAlignment(Align.center);
-        stage.addActor(outputLabel);
-    }
-
-    @Override
-    public void show() {
-        game.batch = new SpriteBatch();
-
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.SPACE) {
-                    game.setGameScreen();
-                    BallGame.clearScore();
-                }
-                return true;
-            }
-
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                game.setGameScreen();
-                return true;
-            }
-        });
+        this.leaveButton = new Button(1f,1f,1f,1f);
+        this.lifeTexture = new Texture("badlogic.jpg");
+        this.font = game.getFont();
+        this.buyButton = new Button(1f,3f,1f,1f);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
+        super.render(delta);
+        Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act();
-        stage.draw();
+        game.batch.begin();
+        this.font.draw(game.batch, "Continue", Gdx.graphics.getWidth() * 0.25f,
+                Gdx.graphics.getHeight() * .2f);
+        this.font.draw(game.batch, "A life 50pts",
+                Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.75f);
+        game.batch.end();
+
+        this.texturesBatch.setProjectionMatrix(camera.combined);
+        this.texturesBatch.begin();
+        this.buyButton.draw(texturesBatch);
+        this.leaveButton.draw(texturesBatch);
+        this.texturesBatch.end();
+    }
+
+    @Override
+    public void show() {
+        this.fontBatch = new SpriteBatch();
+        this.texturesBatch = new SpriteBatch();
+        this.isPossibleToLeave = true;
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false,BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
+
+                if(buyButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    LifeCounter.gainLife();
+                } else if(leaveButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    game.setGameScreen();
+                }
+                return true;
+            }
+        });
+
     }
 
     @Override
     public void hide() {
-        Gdx.input.setInputProcessor(null);
-        */
+        super.hide();
     }
-         
 }

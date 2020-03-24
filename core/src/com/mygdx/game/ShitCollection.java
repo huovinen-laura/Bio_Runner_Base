@@ -124,7 +124,7 @@ public class ShitCollection {
         }
 
         public Float getProbability() {
-            return probability;
+            return this.probability;
         }
 
         public void setProbability(Float probability) {

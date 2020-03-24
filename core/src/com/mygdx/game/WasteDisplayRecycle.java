@@ -67,10 +67,10 @@ public class WasteDisplayRecycle {
 
     public boolean draw(SpriteBatch batch) {
 
-        int drawnCount = 0;
+        int drawnCount = 1;
         Texture nextTextureToDraw;
 
-            while (drawnCount < numberOfDrawnCollectables) {
+            while (drawnCount <= numberOfDrawnCollectables) {
 
                 batch.draw(this.getNextTexture(drawnCount),
                             this.getNextPositionX(drawnCount),

@@ -17,7 +17,7 @@ public class LifeCounter {
         this.startX = 5f;
         this.startY = 3.25f;
         this.margin = 0.25f;
-        life = new Texture(Gdx.files.internal("heart.png"));
+        life = new Texture(Gdx.files.internal("player2.png"));
     }
 
     public void draw(SpriteBatch batch) {

@@ -70,6 +70,11 @@ public class Player extends GameObject {
         return frames;
     }
 
+    public void moveAnimation() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
+    }
+
     @Override
     public boolean Move() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {

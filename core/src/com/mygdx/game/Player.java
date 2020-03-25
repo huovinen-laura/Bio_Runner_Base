@@ -3,30 +3,33 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
-        boolean justChangedScreen;
-        public static Texture playerTexture = new Texture("player2.png");
+    boolean justChangedScreen;
+    static Texture playerTexture = new Texture("player2.png");
+    private static Texture playerAnimation = new Texture("playerAnimation.png");
+    private static Animation walkAnimation;
+    private static TextureRegion currentFrameTexture;
+    public float stateTime;
 
-        public Player( World world) {
-            super(Player.playerTexture,
-                    1.5f,1f, 2f,2000f,0f,0.5f,true,false);
-            this.justChangedScreen = false;
+    public Player( World world) {
+        super(Player.currentFrameTexture, playerAnimation,
+                1.5f,1f, 2f,2000f,0f,0.5f);
+        this.justChangedScreen = false;
+        createAnimation();
 
-        }
-
-    public static Texture getPlayerTexture() {
-        return(Player.playerTexture);
     }
 
     @Override
     public void Draw(SpriteBatch batch) {
-        batch.draw(Player.playerTexture,
+        batch.draw(currentFrameTexture,
                 this.getObjectBody().getPosition().x,
                 this.getObjectBody().getPosition().y,
                 0f,
@@ -35,16 +38,43 @@ public class Player extends GameObject {
                 this.spriteHeight,
                 1.0f,
                 1.0f,
-                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees,
-                0,
-                0,
-                Player.playerTexture.getWidth(),
-                Player.playerTexture.getHeight(),
-                this.flipSpriteX,
-                this.flipSpriteY);
+                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
+                );
     }
 
+    private void createAnimation() {
+        final int FRAME_COLS = 4;
+        final int FRAME_ROWS = 1;
 
+        int tileWidth = playerAnimation.getWidth() / FRAME_COLS;
+        int tileHeight = playerAnimation.getHeight() / FRAME_ROWS;
+
+        TextureRegion[][] tmp = TextureRegion.split(playerAnimation, tileWidth, tileHeight);
+
+        TextureRegion[] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
+
+        walkAnimation = new Animation(4 / 60f, allFrames);
+
+        currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
+    }
+
+    public TextureRegion[] toTextureArray(TextureRegion[][]tr, int cols, int rows) {
+        TextureRegion[] frames = new TextureRegion[cols * rows];
+
+        int index = 0;
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                frames[index++] = tr[i][j];
+            }
+        }
+
+        return frames;
+    }
+
+    public void moveAnimation() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
+    }
 
     @Override
     public boolean Move() {

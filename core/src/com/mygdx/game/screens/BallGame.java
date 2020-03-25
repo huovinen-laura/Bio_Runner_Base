@@ -157,6 +157,7 @@ public class BallGame extends ScreenAdapter {
 			this.ball.setJustChangedScreen(false);
 		}
 
+		ball.moveAnimation();
 
 	}
 
@@ -217,8 +218,17 @@ public class BallGame extends ScreenAdapter {
 	    playerScore += 1;
     }
 
+    public static int getPlayerScore() {
+		return playerScore;
+	}
+
     public static void clearScore() {
 	    playerScore = 0;
+    }
+
+    public void createAnimation() {
+	    final int FRAME_COLS = 3;
+	    final int FRAME_ROWS = 1;
     }
 
 	@Override

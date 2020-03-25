@@ -1,7 +1,7 @@
 info face=font size=72 bold=0 italic=0 charset= unicode= stretchH=100 smooth=1 aa=1 padding=2,2,2,2 spacing=0,0 outline=0
-common lineHeight=80 base=57 scaleW=361 scaleH=512 pages=1 packed=0
+common lineHeight=80 base=57 scaleW=421 scaleH=512 pages=1 packed=0
 page id=0 file="font.png"
-chars count=80
+chars count=90
 char id=97 x=2 y=2 width=37 height=41 xoffset=3 yoffset=18 xadvance=40 page=0 chnl=15
 char id=98 x=2 y=45 width=35 height=55 xoffset=5 yoffset=5 xadvance=40 page=0 chnl=15
 char id=99 x=2 y=102 width=35 height=41 xoffset=3 yoffset=18 xadvance=36 page=0 chnl=15
@@ -82,11 +82,22 @@ char id=123 x=313 y=422 width=23 height=70 xoffset=2 yoffset=4 xadvance=24 page=
 char id=125 x=308 y=146 width=23 height=70 xoffset=2 yoffset=4 xadvance=24 page=0 chnl=15
 char id=91 x=309 y=58 width=16 height=68 xoffset=5 yoffset=5 xadvance=20 page=0 chnl=15
 char id=93 x=327 y=58 width=16 height=68 xoffset=1 yoffset=5 xadvance=20 page=0 chnl=15
-char id=32 x=0 y=0 width=0 height=0 xoffset=1 yoffset=5 xadvance=20 page=0 chnl=15
-kernings count=96
+char id=49 x=282 y=227 width=21 height=54 xoffset=8 yoffset=5 xadvance=40 page=0 chnl=15
+char id=50 x=305 y=227 width=36 height=54 xoffset=2 yoffset=5 xadvance=40 page=0 chnl=15
+char id=51 x=314 y=283 width=36 height=55 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=52 x=324 y=340 width=38 height=54 xoffset=1 yoffset=5 xadvance=40 page=0 chnl=15
+char id=53 x=333 y=128 width=37 height=54 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=54 x=345 y=58 width=36 height=55 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=55 x=361 y=2 width=36 height=53 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=56 x=343 y=184 width=36 height=55 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=57 x=372 y=115 width=36 height=55 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=48 x=383 y=57 width=36 height=55 xoffset=3 yoffset=5 xadvance=40 page=0 chnl=15
+char id=32 x=0 y=0 width=0 height=0 xoffset=3 yoffset=5 xadvance=20 page=0 chnl=15
+kernings count=97
 kerning first=32 second=65 amount=-4
 kerning first=32 second=84 amount=-1
 kerning first=32 second=89 amount=-1
+kerning first=49 second=49 amount=-5
 kerning first=65 second=32 amount=-4
 kerning first=65 second=84 amount=-5
 kerning first=65 second=86 amount=-5

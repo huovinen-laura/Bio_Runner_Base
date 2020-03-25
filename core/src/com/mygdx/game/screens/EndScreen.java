@@ -47,10 +47,12 @@ public class EndScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        String score = Integer.toString(BallGame.getPlayerScore());
+
         game.batch.begin();
         font.draw(game.batch, "You lost!", Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .75f);
-        font.draw(game.batch, "Your score was: ", Gdx.graphics.getWidth() * 0.25f,
+        font.draw(game.batch, "Your score was: " + score, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .50f);
         font.draw(game.batch, "Press space or tap to continue", Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .25f);

@@ -2,7 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -10,6 +12,7 @@ import com.mygdx.game.screens.BallGame;
 
 public abstract class GameObject {
     protected Texture objectTexture;
+    protected Texture playerTexture;
     protected Body objectBody;
     protected Vector2 position;
     private String name;
@@ -18,9 +21,11 @@ public abstract class GameObject {
     protected float spriteHeight;
     protected boolean flipSpriteX = false;
     protected boolean flipSpriteY = false;
+    protected TextureRegion textureRegion;
+    protected Animation animation;
 
-    public GameObject(Texture texture, float size,float x, float y, float density,
-                      float bouncines, float friction, boolean flipX,boolean flipY) {
+    public GameObject(Texture texture, float size, float x, float y, float density,
+                      float bouncines, float friction, boolean flipX, boolean flipY) {
         this(texture,size,x,y,density,bouncines,friction);
         this.flipSpriteX = flipX;
         this.flipSpriteY = flipY;
@@ -110,6 +115,46 @@ public abstract class GameObject {
 
     }
 
+    public GameObject(TextureRegion textureRegion, Texture texture, float size, float x, float y, float density, float bounciness, float friction) {
+        this.textureRegion = textureRegion;
+        this.playerTexture = texture;
+        this.radius = size;
+        this.spriteWidth = (float) playerTexture.getWidth() / 4;
+        this.spriteHeight = (float) playerTexture.getHeight() / 1.5f;
+        this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
+        this.spriteWidth = 0.5f*radius;
+        Gdx.app.log("HW", "" + this.spriteWidth + " " + this.spriteHeight);
+        BodyDef myBodyDef = new BodyDef();
+
+        //What type of body? This one moves.
+        myBodyDef.type = BodyDef.BodyType.DynamicBody;
+        //Body's position
+        myBodyDef.position.set(x, y);
+
+        this.objectBody = BallGame.world.createBody(myBodyDef);
+        FixtureDef playerFixtureDef = new FixtureDef();
+
+        //Mass per square meter
+        playerFixtureDef.density = density;
+
+        //How bouncy is the object? 0-1
+        playerFixtureDef.restitution = bounciness;
+
+        //How slippery the object is? 0-1
+        playerFixtureDef.friction = friction;
+
+        //Create polygon shape
+        PolygonShape rectangleShape = new PolygonShape();
+        rectangleShape.set(new Vector2[]{new Vector2(0f, 0f), new Vector2(0f, this.spriteHeight),
+                new Vector2(this.spriteWidth, this.spriteHeight), new Vector2(this.spriteWidth,0f)
+        });
+
+        //Add shape to the fixture
+        playerFixtureDef.shape = rectangleShape;
+        this.objectBody.createFixture(playerFixtureDef);
+        this.objectBody.setUserData(this);
+    }
+
     public void Draw(SpriteBatch batch) {
         batch.draw(this.getObjectTexture(),
                 this.getObjectBody().getPosition().x,
@@ -127,7 +172,7 @@ public abstract class GameObject {
             this.objectTexture.getHeight(),
             this.flipSpriteX,
             this.flipSpriteY);
-}
+    }
 
     public void draw(SpriteBatch batch,float posx, float posy) {
         batch.draw(this.getObjectTexture(),

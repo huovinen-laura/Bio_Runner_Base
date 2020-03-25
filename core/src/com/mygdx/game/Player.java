@@ -21,7 +21,7 @@ public class Player extends GameObject {
 
     public Player( World world) {
         super(Player.currentFrameTexture, playerAnimation,
-                1.5f,1f, 2f,2000f,0f,0.5f);
+                1.5f,1f, 2f,1500f,0f,0.5f);
         this.justChangedScreen = false;
         createAnimation();
 

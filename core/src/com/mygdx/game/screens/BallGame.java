@@ -27,6 +27,7 @@ public class BallGame extends ScreenAdapter {
 	public static World world = new World(new Vector2(0, -5f), true);
 	private LifeCounter lifeCounter;
 	public static int playerScore;
+	public static ObstacleCollection allObstaclesCollection = new ObstacleCollection();
 
 	public static float WORLD_WIDTH = 8;
 	public static float WORLD_HEIGHT = 4;
@@ -117,10 +118,8 @@ public class BallGame extends ScreenAdapter {
 			}
 		}
 
-		if(this.obstacles.size() < 1) {
-			this.obstacles.add(
-					new FishObstacle(
-							8f,2f));
+		if(allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
+			this.obstacles.add(allObstaclesCollection.getRandomCollectible());
 		}
 
 		this.lifeCounter.draw(this.gameBatch);

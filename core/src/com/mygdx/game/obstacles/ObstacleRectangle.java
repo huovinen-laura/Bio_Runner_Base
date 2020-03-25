@@ -11,10 +11,10 @@ public class ObstacleRectangle extends GameObject {
     String name;
     private boolean setForDelete;
 
-    public ObstacleRectangle(Texture texture, float x, float y) {
-        super(texture,0.5f,x,y, 0f,0f,0f,
+    public ObstacleRectangle(Texture texture, float x, float y, String name, float size) {
+        super(texture,size,x,y, 0f,0f,0f,
                 new Vector2(BallGame.worldSpeed,0),0f);
-        this.name = "Unknown";
+        this.name = name;
         this.setForDelete = false;
     }
 
@@ -28,12 +28,16 @@ public class ObstacleRectangle extends GameObject {
 
     @Override
     public boolean Move() {
-        if (this.setForDelete) {
-            Gdx.app.log("OBSTACLe", "setFOrDelete");
+
+        if(this.getObjectBody().getPosition().x <= (0-this.spriteWidth)) {
+            this.dispose();
+            return(false);
+        } else if (this.setForDelete) {
             this.dispose();
             return(false);
         }
-        return true;
+
+        return(true);
     }
 
     @Override

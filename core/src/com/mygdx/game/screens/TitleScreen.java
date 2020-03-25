@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -18,19 +19,23 @@ public class TitleScreen extends ScreenAdapter {
     SpriteBatch titleBatch;
     OrthographicCamera camera = new OrthographicCamera();
     BitmapFont font;
+    float width;
+    float height;
+    Texture img;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
         this.game = game;
-        this.font = game.font;
+        this.font = game.getFont();
+        img = new Texture("tausta.png");
+        width = BallGame.WORLD_WIDTH;
+        height = BallGame.WORLD_HEIGHT;
     }
 
     @Override
     public void show() {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
-        this.font = new BitmapFont(Gdx.files.internal("font.txt"));
-        font.getData().setScale(0.5f, 0.5f);
         this.startButton = new Button(1f,1f,1f,1f);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -60,7 +65,11 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        // Draws background
+        this.titleBatch.setProjectionMatrix(camera.combined);
+        this.titleBatch.begin();
+        this.titleBatch.draw(img, 0, 0, width, height);
+        this.titleBatch.end();
 
         // Draws fonts
         game.batch.begin();

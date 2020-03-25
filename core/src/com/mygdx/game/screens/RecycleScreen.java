@@ -23,8 +23,7 @@ public class RecycleScreen extends ScreenAdapter {
 
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
-
-
+        this.font = game.getFont();
     }
 
     @Override
@@ -34,7 +33,7 @@ public class RecycleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        this.font.draw(game.batch, "Recycle screen, press space to continue", Gdx.graphics.getWidth() * 0.25f,
+        this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
                 Gdx.graphics.getHeight() * .25f);
         game.batch.end();
 
@@ -52,7 +51,6 @@ public class RecycleScreen extends ScreenAdapter {
     public void show() {
         game.batch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
-        font = game.font;
         this.leaveButton = new Button(1f,1f,1f,1f);
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);

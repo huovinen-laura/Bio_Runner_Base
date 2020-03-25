@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.BioRunnerGame;
+import com.mygdx.game.gamestate.LifeCounter;
 
 public class EndScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -15,14 +16,12 @@ public class EndScreen extends ScreenAdapter {
 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
-        this.font = game.font;
+        this.font = game.getFont();
     }
 
     @Override
     public void show() {
         game.batch = new SpriteBatch();
-        this.font = new BitmapFont(Gdx.files.internal("font.txt"));
-        font.getData().setScale(0.5f, 0.5f);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -30,6 +29,8 @@ public class EndScreen extends ScreenAdapter {
                 if (keyCode == Input.Keys.SPACE) {
                     game.setTitleScreen();
                     BallGame.clearScore();
+                    BallGame.worldSpeed = -1f;
+                    LifeCounter.setLives(3);
                 }
                 return true;
             }

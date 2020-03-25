@@ -18,7 +18,7 @@ public class Button {
     public Button(float x,float y, float height, float width) {
 
         this.position = new Vector2(x,y);
-        this.buttonTexture = new Texture("button.png");
+        this.buttonTexture = new Texture("button_blank.png");
         this.height = height;
         this.width = width;
     }

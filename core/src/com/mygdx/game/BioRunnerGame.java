@@ -19,6 +19,7 @@ public class BioRunnerGame extends Game {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font.txt"));
+        font.getData().setScale(0.5f, 0.5f);
         game = new BallGame(this);
         this.title = new TitleScreen(this);
         recycle = new RecycleScreen(this);

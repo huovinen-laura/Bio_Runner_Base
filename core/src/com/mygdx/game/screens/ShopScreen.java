@@ -39,9 +39,9 @@ public class ShopScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        this.font.draw(game.batch, "Continue", Gdx.graphics.getWidth() * 0.25f,
-                Gdx.graphics.getHeight() * .2f);
-        this.font.draw(game.batch, "A life 50pts",
+        this.font.draw(game.batch, "Double points but only one life", Gdx.graphics.getWidth() * 0.20f,
+                Gdx.graphics.getHeight() * 0.2f);
+        this.font.draw(game.batch, "Extra life",
                 Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.75f);
         game.batch.end();
 
@@ -59,6 +59,8 @@ public class ShopScreen extends ScreenAdapter {
         this.isPossibleToLeave = true;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        BallGame.setPoint(1);
+
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
@@ -67,8 +69,11 @@ public class ShopScreen extends ScreenAdapter {
 
                 if(buyButton.isInsideButton(worldCoords.x,worldCoords.y)) {
                     LifeCounter.gainLife();
+                    game.setGameScreen();
 
                 } else if(leaveButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    BallGame.setPoint(2);
+                    LifeCounter.setLives(1);
                     game.setGameScreen();
                 }
 

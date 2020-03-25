@@ -36,7 +36,7 @@ public class BallGame extends ScreenAdapter {
 	private Waypoint waypoint;
 	private boolean lostGame;
 	private boolean reachedCheckpoint;
-    String str1;
+    private static int point = 1;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -46,7 +46,7 @@ public class BallGame extends ScreenAdapter {
 		Gdx.app.log("sf","Ballgame constructor");
 
 		game.batch = new SpriteBatch();
-		this.font = game.font;
+		this.font = game.getFont();
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
 		this.lifeCounter = new LifeCounter();
@@ -129,10 +129,10 @@ public class BallGame extends ScreenAdapter {
 
         this.gameBatch.end();
 
-        //Draws fonts
+        //Draws the player's score
         String score = Integer.toString(playerScore);
         game.batch.begin();
-        game.font.draw(game.batch, score, Gdx.graphics.getWidth() * .95f,
+        this.font.draw(game.batch, score, Gdx.graphics.getWidth() * .92f,
                 Gdx.graphics.getHeight() * .90f);
         game.batch.end();
 
@@ -215,20 +215,19 @@ public class BallGame extends ScreenAdapter {
 	}
 
 	public static void setPlayerScore() {
-	    playerScore += 1;
+	    playerScore += point;
     }
 
     public static int getPlayerScore() {
 		return playerScore;
 	}
 
+	public static void setPoint(int newPoint) {
+		point = newPoint;
+	}
+
     public static void clearScore() {
 	    playerScore = 0;
-    }
-
-    public void createAnimation() {
-	    final int FRAME_COLS = 3;
-	    final int FRAME_ROWS = 1;
     }
 
 	@Override

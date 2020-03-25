@@ -39,7 +39,7 @@ public class BallGame extends ScreenAdapter {
     private static int point = 1;
 
 	OrthographicCamera camera = new OrthographicCamera();
-	private Box2DDebugRenderer debugRenderer;
+	//private Box2DDebugRenderer debugRenderer;
 
 	public BallGame (BioRunnerGame game) {
 		this.game = game;
@@ -53,7 +53,7 @@ public class BallGame extends ScreenAdapter {
 		ball = new Player(world);
 		scrollingBackground = new ScrollingBackground(worldSpeed);
 		createGround();
-		debugRenderer = new Box2DDebugRenderer();
+		//debugRenderer = new Box2DDebugRenderer();
 		moveCamera();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 	}
@@ -136,9 +136,9 @@ public class BallGame extends ScreenAdapter {
                 Gdx.graphics.getHeight() * .90f);
         game.batch.end();
 
-		debugRenderer.render(world, camera.combined);
+		//debugRenderer.render(world, camera.combined);
 
-		// checks if the game has ended somehow
+		// checks if the game has somehow ended
 		if (waypoint.isFinished()) {
 			this.reachedCheckpoint = true;
 		}

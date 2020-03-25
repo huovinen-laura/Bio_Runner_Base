@@ -15,13 +15,19 @@ public class ShitCollection {
     private float timeBetweenCollectables;
     private float timeFromLastCollectable;
     private Vector2 LastCollectablePosition;
+    private float minY;
+    private float maxY;
 
     public ShitCollection() {
         this.allShit = new ArrayList<>();
-        this.minimumAmountOfCollectables = 2;
+        this.minimumAmountOfCollectables = 10;
         this.allShit.add(new Shit("banaani", TestCollectible.texture,50f));
         this.allShit.add(new Shit("luu", new Texture("luu.png"),25f ));
-        this.allShit.add(new Shit("tee", new Texture("tee.png"), 25f));
+        this.allShit.add(new Shit("tee", new Texture("tee.png"), 26f));
+        this.timeBetweenCollectables = 2f;
+        this.timeFromLastCollectable = 0f;
+        this.minY = 0.34f;
+        this.maxY = 3f;
     }
 
     public void addStuff(GameObject object) {
@@ -54,7 +60,7 @@ public class ShitCollection {
         roll++;
         Gdx.app.log("ShitCollection", "Random: " + roll );
         float positionX = BallGame.WORLD_WIDTH;
-        float positionY = BallGame.WORLD_HEIGHT * ((float) Math.random());
+        float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
         this.LastCollectablePosition = new Vector2(positionX,positionY);
 
         for (int i = 0 ; i < this.allShit.size();i++) {
@@ -74,21 +80,29 @@ public class ShitCollection {
 
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfCollectables) {
-            return(true);
+
+            if(this.timeFromLastCollectable >= this.timeBetweenCollectables) {
+                this.timeFromLastCollectable = 0f;
+                return(true);
+            } else {
+                this.timeFromLastCollectable+= Gdx.graphics.getDeltaTime();
+                return(false);
+            }
+
         } else {
             return(false);
         }
     }
 
-
+    public void setTimeBetweenCollectables(float time) {
+        this.timeBetweenCollectables = time;
+    }
 
     public class Shit {
         private String name;
         private int count;
         private Texture texture;
         private Float probability;
-        private float minY;
-        private float maxY;
 
         public String getName() {
             return name;

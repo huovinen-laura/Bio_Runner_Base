@@ -13,7 +13,7 @@ import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
-    static Texture playerTexture = new Texture("player2.png");
+    public static Texture playerTexture = new Texture("player2.png");
     private static Texture playerAnimation = new Texture("playerAnimation.png");
     private static Animation walkAnimation;
     private static TextureRegion currentFrameTexture;

@@ -60,18 +60,21 @@ public class ShopScreen extends ScreenAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
         BallGame.setPoint(1);
+        BallGame.collectedStuffList.clear();
+        BallGame.collectedStuffList.clear();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
 
-                if(buyButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                if( buyButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     LifeCounter.gainLife();
                     game.setGameScreen();
 
-                } else if(leaveButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                } else if( leaveButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     BallGame.setPoint(2);
                     LifeCounter.setLives(1);
                     game.setGameScreen();

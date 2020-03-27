@@ -115,7 +115,7 @@ public abstract class GameObject {
 
     }
 
-    public GameObject(TextureRegion textureRegion, Texture texture, float size, float x, float y, float density, float bounciness, float friction) {
+    public GameObject(TextureRegion textureRegion, Texture texture, float size, float x, float y, float mass, float bounciness, float friction) {
         this.textureRegion = textureRegion;
         this.playerTexture = texture;
         this.radius = size;
@@ -123,6 +123,7 @@ public abstract class GameObject {
         this.spriteHeight = (float) playerTexture.getHeight() / 1.5f;
         this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
         this.spriteWidth = 0.5f*radius;
+        float spriteArea = spriteHeight * spriteWidth;
         Gdx.app.log("HW", "" + this.spriteWidth + " " + this.spriteHeight);
         BodyDef myBodyDef = new BodyDef();
 
@@ -135,7 +136,7 @@ public abstract class GameObject {
         FixtureDef playerFixtureDef = new FixtureDef();
 
         //Mass per square meter
-        playerFixtureDef.density = density;
+        playerFixtureDef.density = mass / spriteArea;
 
         //How bouncy is the object? 0-1
         playerFixtureDef.restitution = bounciness;

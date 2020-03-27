@@ -24,7 +24,7 @@ public class ShitCollection {
         this.allShit.add(new Shit("banaani", TestCollectible.texture,50f));
         this.allShit.add(new Shit("luu", new Texture("luu.png"),25f ));
         this.allShit.add(new Shit("tee", new Texture("tee.png"), 26f));
-        this.timeBetweenCollectables = 2f;
+        this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
         this.minY = 0.34f;
         this.maxY = 3f;

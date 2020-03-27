@@ -21,7 +21,7 @@ public class BallGame extends ScreenAdapter {
     SpriteBatch gameBatch;
     BitmapFont font;
 
-	public static float worldSpeed = -1f;
+	public static float worldSpeed = -2f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
 	public ScrollingBackground scrollingBackground;
 	public static World world = new World(new Vector2(0, -5f), true);
@@ -38,9 +38,10 @@ public class BallGame extends ScreenAdapter {
 	private boolean lostGame;
 	private boolean reachedCheckpoint;
     private static int point = 1;
+    public static float volume = 0.5f;
 
 	OrthographicCamera camera = new OrthographicCamera();
-	//private Box2DDebugRenderer debugRenderer;
+	private Box2DDebugRenderer debugRenderer;
 
 	public BallGame (BioRunnerGame game) {
 		this.game = game;
@@ -51,16 +52,16 @@ public class BallGame extends ScreenAdapter {
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
 		this.lifeCounter = new LifeCounter();
-		ball = new Player(world);
+
 		scrollingBackground = new ScrollingBackground(worldSpeed);
 		createGround();
-		//debugRenderer = new Box2DDebugRenderer();
-		moveCamera();
+		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 	}
 
 	@Override
 	public void show() {
+		ball = new Player(world);
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f);
@@ -135,7 +136,7 @@ public class BallGame extends ScreenAdapter {
                 Gdx.graphics.getHeight() * .90f);
         game.batch.end();
 
-		//debugRenderer.render(world, camera.combined);
+		debugRenderer.render(world, camera.combined);
 
 		// checks if the game has somehow ended
 		if (waypoint.isFinished()) {
@@ -165,10 +166,7 @@ public class BallGame extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 
-	private void moveCamera() {
-		camera.position.set(ball.getObjectBody().getPosition().x + 3,
-				2, 0);
-	}
+
 
 	private double accumulator = 0;
 	private float TIME_STEP = 1 / 60f;
@@ -248,7 +246,7 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void hide() {
-
+		this.ball.dispose();
 		Gdx.input.setInputProcessor(null);
 	}
 }

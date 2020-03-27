@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.screens.BallGame;
@@ -39,8 +40,8 @@ public class Waypoint {
     }
     public void move() {
 
-        displayedProgress -= BallGame.worldSpeed/60;
-        realProgress -= BallGame.worldSpeed/60;
+        displayedProgress += Gdx.graphics.getDeltaTime();
+        realProgress += Gdx.graphics.getDeltaTime();
         if (displayedProgress > length) {
             this.displayedProgress = length;
         }

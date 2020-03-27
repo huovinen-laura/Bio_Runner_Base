@@ -21,8 +21,9 @@ public class Player extends GameObject {
 
     public Player( World world) {
         super(Player.currentFrameTexture, playerAnimation,
-                1.5f,1f, 2f,1500f,0f,0.5f);
+                1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
+        this.getObjectBody().setFixedRotation(true);
         createAnimation();
 
     }

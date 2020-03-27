@@ -27,7 +27,7 @@ public class B2dContactListener implements ContactListener {
             BallGame.collectedStuffList.addStuff(collectibleSquareB);
             Gdx.app.log("DING", "" + BallGame.collectedStuffList.getAllShit().get(0).getCount()
                     + BallGame.collectedStuffList.getAllShit().get(0).getName());
-            collect.play();
+            collect.play(BallGame.volume);
             BallGame.setPlayerScore();
             Gdx.app.log("Score:", "" + BallGame.playerScore);
         }
@@ -35,7 +35,7 @@ public class B2dContactListener implements ContactListener {
         if (a instanceof ObstacleRectangle && b instanceof Player) {
             ObstacleRectangle obstacle = (ObstacleRectangle) a;
             if(!obstacle.isDeleted()) {
-                hurt.play();
+                hurt.play(BallGame.volume);
                 obstacle.delete();
                 LifeCounter.loseLife();
             }
@@ -44,7 +44,7 @@ public class B2dContactListener implements ContactListener {
         } else if ( a instanceof Player && b instanceof ObstacleRectangle) {
             ObstacleRectangle obstacle = (ObstacleRectangle) b;
             if(!obstacle.isDeleted()) {
-                hurt.play();
+                hurt.play(BallGame.volume);
                 obstacle.delete();
                 LifeCounter.loseLife();
             }

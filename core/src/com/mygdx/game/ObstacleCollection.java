@@ -20,11 +20,11 @@ public class ObstacleCollection {
 
     public ObstacleCollection() {
         this.allObstacles = new ArrayList<>();
-        this.minimumAmountOfObstacles = 2;
+        this.minimumAmountOfObstacles = 10;
         this.allObstacles.add( new Obstacle("kissa", new Texture("kijssa.png"),10,1f));
         this.allObstacles.add(new Obstacle("pilleri", new Texture("pilleri.png"),90,0.5f));
 
-        this.timeBetweenObstacles = 2f;
+        this.timeBetweenObstacles = 3f;
         this.timeFromLastObstacle = 0f;
         this.minY = 0.34f;
         this.maxY = 3f;

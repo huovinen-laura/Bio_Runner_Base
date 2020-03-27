@@ -21,6 +21,7 @@ public class BallGame extends ScreenAdapter {
     SpriteBatch gameBatch;
     BitmapFont font;
 
+
 	public static float worldSpeed = -2f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
 	public ScrollingBackground scrollingBackground;
@@ -39,6 +40,9 @@ public class BallGame extends ScreenAdapter {
 	private boolean reachedCheckpoint;
     private static int point = 1;
     public static float volume = 0.5f;
+    private float fps;
+    private float fpsAccumulator;
+    private float fpsCount;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -64,6 +68,7 @@ public class BallGame extends ScreenAdapter {
 		ball = new Player(world);
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
+        this.fps = 0;
 		waypoint = new Waypoint(20f);
 		this.reachedCheckpoint = false;
 		this.lostGame = false;
@@ -134,6 +139,8 @@ public class BallGame extends ScreenAdapter {
         game.batch.begin();
         this.font.draw(game.batch, score, Gdx.graphics.getWidth() * .92f,
                 Gdx.graphics.getHeight() * .90f);
+        this.font.draw(game.batch, ""+Gdx.graphics.getFramesPerSecond(),
+				Gdx.graphics.getWidth() * 0.80f,Gdx.graphics.getHeight() * 0.90f);
         game.batch.end();
 
 		debugRenderer.render(world, camera.combined);
@@ -247,6 +254,16 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void hide() {
 		this.ball.dispose();
+		for(int i = 0; i < this.obstacles.size(); i++) {
+			this.obstacles.get(i).dispose();
+		}
+
+		for(int i = 0; i < this.collectables.size(); i++) {
+			this.collectables.get(i).dispose();
+		}
+
+		this.obstacles.clear();
+		this.collectables.clear();
 		Gdx.input.setInputProcessor(null);
 	}
 }

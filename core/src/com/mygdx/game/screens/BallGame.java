@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.*;
 import com.mygdx.game.collectibles.TestCollectible;
@@ -32,6 +33,8 @@ public class BallGame extends ScreenAdapter {
 
 	public static float WORLD_WIDTH = 8;
 	public static float WORLD_HEIGHT = 4;
+	private float projectedWorldHeight;
+	private float projectedWorldWidth;
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
@@ -61,6 +64,8 @@ public class BallGame extends ScreenAdapter {
 		createGround();
 		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		this.projectedWorldHeight = camera.project(new Vector3(0f,WORLD_HEIGHT,0f)).y;
+		this.projectedWorldWidth = camera.project(new Vector3(WORLD_WIDTH,0f,0f)).x;
 	}
 
 	@Override

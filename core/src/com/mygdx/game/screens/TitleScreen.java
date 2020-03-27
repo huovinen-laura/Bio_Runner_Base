@@ -18,13 +18,16 @@ public class TitleScreen extends ScreenAdapter {
     Button startButton;
     SpriteBatch titleBatch;
     OrthographicCamera camera = new OrthographicCamera();
+    OrthographicCamera fontCamera = new OrthographicCamera();
     BitmapFont font;
     float width;
     float height;
+    private Vector3 projected;
     Texture img;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
+        fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         this.game = game;
         this.font = game.getFont();
         img = new Texture("tausta.png");
@@ -36,7 +39,9 @@ public class TitleScreen extends ScreenAdapter {
     public void show() {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
+        this.titleBatch.setProjectionMatrix(fontCamera.combined);
         this.startButton = new Button(1f,1f,1f,1f);
+        projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -73,10 +78,10 @@ public class TitleScreen extends ScreenAdapter {
 
         // Draws fonts
         game.batch.begin();
-        font.draw(game.batch, "Bio Runner", Gdx.graphics.getWidth() * .25f,
-                Gdx.graphics.getHeight() * .75f);
-        font.draw(game.batch, "Press space or the button to play!", Gdx.graphics.getWidth() * 0.25f,
-                Gdx.graphics.getHeight() * .25f);
+        font.draw(game.batch, "Bio Runner", projected.x * .25f,
+                projected.y * .75f);
+        font.draw(game.batch, "Press space or the button to play!", projected.x * 0.25f,
+                projected.y * .25f);
         game.batch.end();
 
         // Draws textures
@@ -84,6 +89,13 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch.begin();
         this.startButton.draw(this.titleBatch);
         this.titleBatch.end();
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        this.fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
     }
 

@@ -8,7 +8,6 @@ import com.mygdx.game.screens.BallGame;
 public class ScrollingBackground {
     Texture img;
     float x1, x2;
-    float speed;
     float width;
     float height;
 
@@ -18,7 +17,6 @@ public class ScrollingBackground {
         height = BallGame.WORLD_HEIGHT;
         x1 = 0;
         x2 = width;
-        speed = worldSpeed;
     }
 
     public void updateAndRender(float deltaTime, SpriteBatch batch) {
@@ -36,12 +34,12 @@ public class ScrollingBackground {
         batch.draw(img, x1,0, width, height);
         batch.draw(img, x2, 0, width, height);
 
-        x1 += speed * deltaTime;
-        x2 += speed * deltaTime;
+        x1 += BallGame.worldSpeed * deltaTime;
+        x2 += BallGame.worldSpeed * deltaTime;
     }
 
     public void setSpeed (int goalSpeed) {
-        this.speed = goalSpeed;
+        BallGame.worldSpeed = goalSpeed;
     }
     public void dispose() {
         img.dispose();

@@ -23,7 +23,7 @@ public class BallGame extends ScreenAdapter {
     BitmapFont font;
 
 
-	public static float worldSpeed = -2f;
+	public static float worldSpeed = -1f;
 	public static ShitCollection collectedStuffList = new ShitCollection();
 	public ScrollingBackground scrollingBackground;
 	public static World world = new World(new Vector2(0, -5f), true);
@@ -117,7 +117,6 @@ public class BallGame extends ScreenAdapter {
 
 
 		if(BallGame.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-			Gdx.app.log("Ballgame","added new collectible");
 				this.collectables.add(BallGame.collectedStuffList.getRandomCollectible());
 		}
 
@@ -155,15 +154,14 @@ public class BallGame extends ScreenAdapter {
 			this.reachedCheckpoint = true;
 		}
 
-		if (this.lostGame) {
-			if (this.ball.isGrounded()) {
+		if (this.ball.isGrounded()) {
+			if (this.lostGame) {
 				this.game.setEndScreen();
-			}
-		} else if (reachedCheckpoint) {
-			if (this.ball.isGrounded()) {
+			} else if (this.waypoint.isFinished()) {
 				this.game.setRecycleScreen();
 			}
 		}
+
 
 		if (this.ball.isJustChangedScreen()) {
 			this.ball.setJustChangedScreen(false);

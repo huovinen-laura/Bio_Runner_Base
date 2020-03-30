@@ -10,7 +10,7 @@ import com.mygdx.game.screens.BallGame;
 import java.util.ArrayList;
 
 public class ShitCollection {
-    private ArrayList<Shit> allShit;
+    private ArrayList<ObstacleCollection.Obstacle> allShit;
     private int minimumAmountOfCollectables;
     private float timeBetweenCollectables;
     private float timeFromLastCollectable;
@@ -21,9 +21,9 @@ public class ShitCollection {
     public ShitCollection() {
         this.allShit = new ArrayList<>();
         this.minimumAmountOfCollectables = 10;
-        this.allShit.add(new Shit("banaani", TestCollectible.texture,50f));
-        this.allShit.add(new Shit("luu", new Texture("luu.png"),25f ));
-        this.allShit.add(new Shit("tee", new Texture("tee.png"), 26f));
+        this.allShit.add(new ObstacleCollection.Obstacle("banaani", TestCollectible.texture,50f));
+        this.allShit.add(new ObstacleCollection.Obstacle("luu", new Texture("luu.png"),25f ));
+        this.allShit.add(new ObstacleCollection.Obstacle("tee", new Texture("tee.png"), 26f));
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
         this.minY = 0.34f;
@@ -47,11 +47,11 @@ public class ShitCollection {
         }
     }
 
-    public ArrayList<Shit> getAllShit() {
+    public ArrayList<ObstacleCollection.Obstacle> getAllShit() {
         return allShit;
     }
 
-    public void setAllShit(ArrayList<Shit> allShit) {
+    public void setAllShit(ArrayList<ObstacleCollection.Obstacle> allShit) {
         this.allShit = allShit;
     }
 
@@ -65,11 +65,11 @@ public class ShitCollection {
 
         for (int i = 0 ; i < this.allShit.size();i++) {
 
-            if(this.allShit.get(i).probability >= roll) {
+            if(this.allShit.get(i).getProbability() >= roll) {
                 return(new CollectibleSquare(this.allShit.get(i).getTexture(),
                         1f,positionX,positionY,this.allShit.get(i).getName()));
             } else {
-                roll-= this.allShit.get(i).probability;
+                roll-= this.allShit.get(i).getProbability();
             }
         }
 
@@ -98,51 +98,4 @@ public class ShitCollection {
         this.timeBetweenCollectables = time;
     }
 
-    public class Shit {
-        private String name;
-        private int count;
-        private Texture texture;
-        private Float probability;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getCount() {
-            return count;
-        }
-        public void incrementCount() {
-            this.count++;
-        }
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public Shit(String name, Texture newTexture, float prob) {
-            this.name = name;
-            this.count = 0;
-            this.texture = newTexture;
-            this.probability = prob;
-        }
-
-        public Texture getTexture() {
-            return texture;
-        }
-
-        public void setTexture(Texture texture) {
-            this.texture = texture;
-        }
-
-        public Float getProbability() {
-            return this.probability;
-        }
-
-        public void setProbability(Float probability) {
-            this.probability = probability;
-        }
-    }
 }

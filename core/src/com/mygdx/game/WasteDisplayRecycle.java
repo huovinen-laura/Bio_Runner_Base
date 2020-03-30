@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.screens.BallGame;
 
+import java.util.ArrayList;
+
 public class WasteDisplayRecycle {
 
-    private float startPosition = 3f;
-    private float endPosition = 7f;
+    private float startPosition ;
+    private float endPosition ;
+    private int time;
+    private float positionY;
     int numberOfDrawnCollectables;
     int[] duplicateCount; // counts the duplicates of each collectable
     float imageGap;
@@ -16,34 +20,46 @@ public class WasteDisplayRecycle {
     int numberOfCollectableTypes;
     int countOfCollectedStuff = 0;
     int waitTime;
+    ArrayList<ObstacleCollection.Obstacle> collectionOfStuff;
 
 
-    public WasteDisplayRecycle() {
+
+    public WasteDisplayRecycle(ArrayList<ObstacleCollection.Obstacle> collection,float positionX ,
+                               float positionY,float length, int time) {
         this.numberOfDrawnCollectables = 0;
+        this.collectionOfStuff = collection;
+        this.startPosition = positionX;
+        this.positionY = positionY;
+        this.endPosition = positionX + length;
+        this.time = time;
         waitTime = 0;
-        this.numberOfCollectableTypes = BallGame.collectedStuffList.getAllShit().size();
+        this.numberOfCollectableTypes = this.collectionOfStuff.size();
         this.duplicateCount = new int[this.numberOfCollectableTypes];
         int countObjects = 0;
         this.countOfCollectedStuff = 0;
 
         for (int i = 0; i < this.numberOfCollectableTypes; i++) {
-            duplicateCount[i] = BallGame.collectedStuffList.getAllShit().get(i).getCount();
+            duplicateCount[i] = this.collectionOfStuff.get(i).getCount();
             this.countOfCollectedStuff+=duplicateCount[i];
 
         }
-        Gdx.app.log("RecycleConst",""+this.countOfCollectedStuff);
 
-        this.imageGap = (endPosition - startPosition) / countOfCollectedStuff;
-        this.waitFrames = 180 / this.countOfCollectedStuff;
+        if (this.countOfCollectedStuff > 0) {
+            this.imageGap = (endPosition - startPosition) / countOfCollectedStuff;
+            this.waitFrames = this.time / this.countOfCollectedStuff;
+        } else {
+            this.imageGap = 0f;
+            this.waitFrames = 0;
+        }
     }
 
     private Texture getNextTexture(int i) {
         int countObjects = 0;
             for (int j = 0; this.numberOfCollectableTypes >= j; j++) {
-            if (countObjects + BallGame.collectedStuffList.getAllShit().get(j).getCount() >= i) {
-                return (BallGame.collectedStuffList.getAllShit().get(j).getTexture());
+            if (countObjects + this.collectionOfStuff.get(j).getCount() >= i) {
+                return (this.collectionOfStuff.get(j).getTexture());
             } else {
-                countObjects += BallGame.collectedStuffList.getAllShit().get(j).getCount();
+                countObjects += this.collectionOfStuff.get(j).getCount();
             }
         }
         return null;
@@ -51,13 +67,12 @@ public class WasteDisplayRecycle {
 
 
     private float getNextPositionX(int i) {
-        Gdx.app.log("Recycle","X pos :"+ (this.startPosition + (this.imageGap * i)));
-        return (this.startPosition + (this.imageGap * i));
+        return (this.startPosition + (this.imageGap * (i-1)));
 
     }
 
     private float getNextPositionY(int i) {
-        return (2f);
+        return (this.positionY);
 
     }
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -14,16 +15,23 @@ import com.mygdx.game.WasteDisplayRecycle;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
-    WasteDisplayRecycle wasteTextures;
-    SpriteBatch texturesBatch;
+    private WasteDisplayRecycle wasteTextures;
+    private SpriteBatch texturesBatch;
     private BitmapFont font;
     private boolean isPossibleToLeave;
     private Button leaveButton;
     private OrthographicCamera camera;
+    private WasteDisplayRecycle obstacleTextures;
+    private boolean praise;
+    private Texture happyGuy ;
+    private Texture sadGuy;
 
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
+        this.happyGuy = new Texture("recycleGallHappy.png");
+        this.sadGuy = new Texture("recycleGallSad.png");
+
     }
 
     @Override
@@ -33,15 +41,23 @@ public class RecycleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
-                Gdx.graphics.getHeight() * .25f);
+        if(this.praise) {
+            this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
+                    Gdx.graphics.getHeight() * .25f);
+        } else {
+            this.font.draw(game.batch, "Uh oh, this doesn't belong here!", Gdx.graphics.getWidth() * 0.15f,
+                    Gdx.graphics.getHeight() * .25f);
+        }
         game.batch.end();
 
         this.texturesBatch.begin();
-        if(this.wasteTextures.draw(this.texturesBatch)) {
-            this.leaveButton.draw(texturesBatch);
-            this.isPossibleToLeave = true;
 
+        if(this.wasteTextures.draw(this.texturesBatch)) {
+
+            if(this.obstacleTextures.draw(this.texturesBatch)) {
+                this.leaveButton.draw(texturesBatch);
+                this.isPossibleToLeave = true;
+            }
         }
         this.texturesBatch.end();
 
@@ -50,14 +66,20 @@ public class RecycleScreen extends ScreenAdapter {
     @Override
     public void show() {
         game.batch = new SpriteBatch();
+        this.praise = true;
         this.texturesBatch = new SpriteBatch();
         this.leaveButton = new Button(1f,1f,1f,1f);
+
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);
         camera = new OrthographicCamera();
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);
-        this.wasteTextures = new WasteDisplayRecycle();
+        this.wasteTextures = new WasteDisplayRecycle(BallGame.collectedStuffList.getAllShit(),
+                3f,3f,4f,180);
+        this.obstacleTextures = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
+                3f,2f,2f,60);
+
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -65,13 +87,16 @@ public class RecycleScreen extends ScreenAdapter {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
+
                 if (isPossibleToLeave) {
-                    if (leaveButton.isInsideButton(worldCoords.x,worldCoords.y)) {
-                        Gdx.app.log("Recycle","trying to leave");
+
+                    if (leaveButton.isInsideButton(worldCoords.x, worldCoords.y)) {
                         game.setShopScreen();
                     }
                 }
-                BallGame.worldSpeed -= 0.1f;
+
+                Gdx.app.log("RecycleScreen", "speeding");
+                BallGame.worldSpeed -= 0.5f;
                 return true;
             }
     });

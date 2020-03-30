@@ -8,13 +8,12 @@ import com.mygdx.game.screens.BallGame;
 
 public class ObstacleRectangle extends GameObject {
 
-    String name;
     private boolean setForDelete;
 
     public ObstacleRectangle(Texture texture, float x, float y, String name, float size) {
         super(texture,size,x,y, 0f,0f,0f,
                 new Vector2(BallGame.worldSpeed,0),0f);
-        this.name = name;
+        this.setName(name);
         this.setForDelete = false;
     }
 

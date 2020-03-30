@@ -5,23 +5,43 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.BioRunnerGame;
+import com.mygdx.game.Player;
+import com.mygdx.game.WasteDisplayRecycle;
 import com.mygdx.game.gamestate.LifeCounter;
 
 public class EndScreen extends ScreenAdapter {
     BioRunnerGame game;
     BitmapFont font;
+    private boolean isAllowedToLeave;
+    private SpriteBatch textureBatch;
+    private WasteDisplayRecycle wrongWasteDisplay;
+    private OrthographicCamera textureCamera;
+    private String score;
+    private Texture sadGuy;
 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
+        this.sadGuy = new Texture("recycleGallSad.png");
     }
 
     @Override
     public void show() {
         game.batch = new SpriteBatch();
+        this.textureBatch = new SpriteBatch();
+        this.isAllowedToLeave = false;
+        textureCamera = new OrthographicCamera();
+        textureCamera.setToOrtho(false,BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+
+        textureBatch.setProjectionMatrix(textureCamera.combined);
+        this.wrongWasteDisplay = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
+                3f,2f,2f,60);
+        this.score = Integer.toString(BallGame.getPlayerScore());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -29,6 +49,8 @@ public class EndScreen extends ScreenAdapter {
                 if (keyCode == Input.Keys.SPACE) {
                     game.setTitleScreen();
                     BallGame.clearScore();
+                    BallGame.collectedStuffList.clear();
+                    BallGame.allObstaclesCollection.clear();
                     BallGame.worldSpeed = -1f;
                     LifeCounter.setLives(3);
                 }
@@ -37,10 +59,14 @@ public class EndScreen extends ScreenAdapter {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                game.setTitleScreen();
-                BallGame.clearScore();
-                BallGame.worldSpeed = -1f;
-                LifeCounter.setLives(3);
+                if(isAllowedToLeave) {
+                    game.setTitleScreen();
+                    BallGame.clearScore();
+                    BallGame.collectedStuffList.clear();
+                    BallGame.allObstaclesCollection.clear();
+                    BallGame.worldSpeed = -1f;
+                    LifeCounter.setLives(3);
+                }
                 return true;
             }
         });
@@ -51,16 +77,26 @@ public class EndScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        String score = Integer.toString(BallGame.getPlayerScore());
+
 
         game.batch.begin();
         font.draw(game.batch, "You lost!", Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .75f);
         font.draw(game.batch, "Your score was: " + score, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .50f);
-        font.draw(game.batch, "Press space or tap to continue", Gdx.graphics.getWidth() * 0.25f,
-                Gdx.graphics.getHeight() * .25f);
+
+        if( isAllowedToLeave) {
+            font.draw(game.batch, "Press space or tap to continue", Gdx.graphics.getWidth() * 0.25f,
+                    Gdx.graphics.getHeight() * .25f);
+        }
         game.batch.end();
+        this.textureBatch.begin();
+        this.textureBatch.draw(this.sadGuy,0f,0f,3f,2f);
+        if(this.wrongWasteDisplay.draw(this.textureBatch) ) {
+            this.isAllowedToLeave = true;
+        }
+
+        this.textureBatch.end();
     }
 
     @Override

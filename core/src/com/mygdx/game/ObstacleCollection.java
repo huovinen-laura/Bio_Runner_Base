@@ -34,8 +34,11 @@ public class ObstacleCollection {
 
         for(int i = 0; i < this.allObstacles.size(); i++) {
 
+            Gdx.app.log("ObsCol","Got object " + object.getName() + " is not " + this.allObstacles.get(i).getName());
+
             if(this.allObstacles.get(i).getName().contentEquals(object.getName())) {
                 this.allObstacles.get(i).incrementCount();
+                Gdx.app.log("ObsColl",""+object.getName()+ " added to list");
                 break;
             }
         }
@@ -58,9 +61,8 @@ public class ObstacleCollection {
     public ObstacleRectangle getRandomCollectible() {
         float roll = (float) Math.random()*100;
         roll++;
-        Gdx.app.log("ShitCollection", "Random: " + roll );
         float positionX = BallGame.WORLD_WIDTH;
-        float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
+        float positionY = this.minY + (this.maxY - this.minY-1)* ((float) Math.random());
         this.LastObstaclePosition = new Vector2(positionX,positionY);
 
         for (int i = 0; i < this.allObstacles.size(); i++) {
@@ -99,12 +101,18 @@ public class ObstacleCollection {
         this.timeBetweenObstacles = time;
     }
 
-    public class Obstacle {
+    public static class Obstacle {
         private String name;
         private int count;
         private Texture texture;
         private Float probability;
         private float size;
+
+        public Obstacle(String banaani, Texture texture, float probability) {
+            this.name = banaani;
+            this.texture = texture;
+            this.probability = probability;
+        }
 
         public String getName() {
             return name;

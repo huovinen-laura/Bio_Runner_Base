@@ -26,6 +26,7 @@ public class B2dContactListener implements ContactListener {
             BallGame.collectedStuffList.addStuff(collectibleSquareB);
             collect.play(BallGame.volume);
             BallGame.setPlayerScore();
+
         } else if ((b instanceof Player && a instanceof CollectibleSquare)) {
             CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
             collectibleSquareA.collect();
@@ -38,15 +39,16 @@ public class B2dContactListener implements ContactListener {
             ObstacleRectangle obstacle = (ObstacleRectangle) a;
             if(!obstacle.isDeleted()) {
                 hurt.play(BallGame.volume);
+                BallGame.allObstaclesCollection.addStuff(obstacle);
                 obstacle.delete();
                 LifeCounter.loseLife();
             }
-            //TODO
 
         } else if ( a instanceof Player && b instanceof ObstacleRectangle) {
             ObstacleRectangle obstacle = (ObstacleRectangle) b;
             if(!obstacle.isDeleted()) {
                 hurt.play(BallGame.volume);
+                BallGame.allObstaclesCollection.addStuff(obstacle);
                 obstacle.delete();
                 LifeCounter.loseLife();
             }

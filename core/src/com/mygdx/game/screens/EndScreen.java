@@ -38,6 +38,9 @@ public class EndScreen extends ScreenAdapter {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 game.setTitleScreen();
+                BallGame.clearScore();
+                BallGame.worldSpeed = -1f;
+                LifeCounter.setLives(3);
                 return true;
             }
         });

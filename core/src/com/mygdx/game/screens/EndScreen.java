@@ -86,9 +86,10 @@ public class EndScreen extends ScreenAdapter {
                 Gdx.graphics.getHeight() * .50f);
 
         if( isAllowedToLeave) {
-            font.draw(game.batch, "Press space or tap to continue", Gdx.graphics.getWidth() * 0.25f,
+            font.draw(game.batch, "Tap to continue", Gdx.graphics.getWidth() * 0.30f,
                     Gdx.graphics.getHeight() * .25f);
         }
+
         game.batch.end();
         this.textureBatch.begin();
         this.textureBatch.draw(this.sadGuy,0f,0f,3f,2f);

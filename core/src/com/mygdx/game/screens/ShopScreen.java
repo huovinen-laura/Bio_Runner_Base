@@ -61,7 +61,7 @@ public class ShopScreen extends ScreenAdapter {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
         BallGame.setPoint(1);
         BallGame.collectedStuffList.clear();
-        BallGame.collectedStuffList.clear();
+        BallGame.allObstaclesCollection.clear();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

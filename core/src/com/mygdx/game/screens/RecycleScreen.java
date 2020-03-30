@@ -25,13 +25,13 @@ public class RecycleScreen extends ScreenAdapter {
     private boolean praise;
     private Texture happyGuy ;
     private Texture sadGuy;
+    private boolean sad;
 
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
         this.happyGuy = new Texture("recycleGallHappy.png");
         this.sadGuy = new Texture("recycleGallSad.png");
-
     }
 
     @Override
@@ -53,9 +53,14 @@ public class RecycleScreen extends ScreenAdapter {
         this.texturesBatch.begin();
 
         if(this.wasteTextures.draw(this.texturesBatch)) {
-
+            this.texturesBatch.draw(this.happyGuy,0f,-1f,3f,2f);
             if(this.obstacleTextures.draw(this.texturesBatch)) {
                 this.leaveButton.draw(texturesBatch);
+
+
+                if(sad) {
+                    this.texturesBatch.draw(this.sadGuy,0f,-1f,3f,2f);
+                }
                 this.isPossibleToLeave = true;
             }
         }
@@ -70,6 +75,8 @@ public class RecycleScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         this.leaveButton = new Button(1f,1f,1f,1f);
 
+
+
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);
         camera = new OrthographicCamera();
@@ -79,6 +86,11 @@ public class RecycleScreen extends ScreenAdapter {
                 3f,3f,4f,180);
         this.obstacleTextures = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
                 3f,2f,2f,60);
+        if (this.obstacleTextures.isEmpty()) {
+            this.sad = false;
+        } else {
+            this.sad = true;
+        }
 
 
         Gdx.input.setInputProcessor(new InputAdapter() {

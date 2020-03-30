@@ -14,16 +14,23 @@ public class ShitCollection {
     private int minimumAmountOfCollectables;
     private float timeBetweenCollectables;
     private float timeFromLastCollectable;
-    private Vector2 LastCollectablePosition;
+    private Vector2 lastCollectablePosition;
     private float minY;
     private float maxY;
 
     public ShitCollection() {
         this.allShit = new ArrayList<>();
         this.minimumAmountOfCollectables = 10;
-        this.allShit.add(new ObstacleCollection.Obstacle("banaani", TestCollectible.texture,50f));
-        this.allShit.add(new ObstacleCollection.Obstacle("luu", new Texture("luu.png"),25f ));
-        this.allShit.add(new ObstacleCollection.Obstacle("tee", new Texture("tee.png"), 26f));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "banaani", TestCollectible.texture,50f));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "luu", new Texture("luu.png"),25f ));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "tee", new Texture("tee.png"), 26f));
+
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
         this.minY = 0.34f;
@@ -61,7 +68,7 @@ public class ShitCollection {
         Gdx.app.log("ShitCollection", "Random: " + roll );
         float positionX = BallGame.WORLD_WIDTH;
         float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
-        this.LastCollectablePosition = new Vector2(positionX,positionY);
+        this.lastCollectablePosition = new Vector2(positionX,positionY);
 
         for (int i = 0 ; i < this.allShit.size();i++) {
 

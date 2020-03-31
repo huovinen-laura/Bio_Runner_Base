@@ -19,17 +19,15 @@ public class ShopScreen extends ScreenAdapter {
     private SpriteBatch fontBatch;
     private BitmapFont font;
     private boolean isPossibleToLeave;
-    private Button buyButton;
-    private Texture lifeTexture;
-    private Button leaveButton;
+    private Button upperButton;
+    private Button lowerButton;
     private OrthographicCamera camera;
 
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
-        this.leaveButton = new Button(1f,1f,1f,1f);
-        this.lifeTexture = new Texture("badlogic.jpg");
+        this.lowerButton = new Button(1f,1f,1f,1f);
         this.font = game.getFont();
-        this.buyButton = new Button(1f,3f,1f,1f);
+        this.upperButton = new Button(1f,3f,1f,1f);
     }
 
     @Override
@@ -47,8 +45,8 @@ public class ShopScreen extends ScreenAdapter {
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
-        this.buyButton.draw(texturesBatch);
-        this.leaveButton.draw(texturesBatch);
+        this.upperButton.draw(texturesBatch);
+        this.lowerButton.draw(texturesBatch);
         this.texturesBatch.end();
     }
 
@@ -70,11 +68,15 @@ public class ShopScreen extends ScreenAdapter {
 
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
 
-                if( buyButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
-                    LifeCounter.gainLife();
-                    game.setGameScreen();
+                if( upperButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
+                    if(LifeCounter.getLives() < 3) {
+                        LifeCounter.gainLife();
+                        game.setGameScreen();
+                    } else if(LifeCounter.getLives() == 3) {
+                        game.setGameScreen();
+                    }
 
-                } else if( leaveButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
+                } else if( lowerButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     BallGame.setPoint(2);
                     LifeCounter.setLives(1);
                     game.setGameScreen();

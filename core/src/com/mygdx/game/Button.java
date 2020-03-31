@@ -30,13 +30,9 @@ public class Button {
     }
 
     public boolean isInsideButton(float x, float y) {
-        Gdx.app.log("","checking if inside");
-        Gdx.app.log("x",""+ x);
-        Gdx.app.log("y",""+ y);
 
         if((x >= this.position.x && x <= (this.position.x + width) )
                 && ( y >= this.position.y && y <= (this.position.y + height))) {
-            Gdx.app.log("button", "pressed");
             return(true);
         }
 

@@ -72,7 +72,8 @@ public class WasteDisplayRecycle {
     }
 
     public boolean isEmpty() {
-        if(this.collectionOfStuff.size()<=0) {
+
+        if(this.countOfCollectedStuff <= 0) {
             return (true);
         } else {
             return false;

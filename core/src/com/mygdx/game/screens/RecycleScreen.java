@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.WasteDisplayRecycle;
+import com.mygdx.game.assetManager;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -30,8 +31,8 @@ public class RecycleScreen extends ScreenAdapter {
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.happyGuy = new Texture("recycleGallHappy.png");
-        this.sadGuy = new Texture("recycleGallSad.png");
+        this.happyGuy = assetManager.happyGirl;
+        this.sadGuy = assetManager.sadGirl;
     }
 
     @Override
@@ -41,26 +42,28 @@ public class RecycleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        if(this.praise) {
-            this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
-                    Gdx.graphics.getHeight() * .25f);
-        } else {
-            this.font.draw(game.batch, "Uh oh, this doesn't belong here!", Gdx.graphics.getWidth() * 0.15f,
-                    Gdx.graphics.getHeight() * .25f);
-        }
+        //this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
+                    //Gdx.graphics.getHeight() * .25f);
+
         game.batch.end();
 
         this.texturesBatch.begin();
 
+        if(sad) {
+            this.texturesBatch.draw(this.sadGuy,4f,-0.25f,3f,2f);
+        } else {
+            this.texturesBatch.draw(this.happyGuy, 4f, -0.25f, 3f, 2f);
+        }
+
         if(this.wasteTextures.draw(this.texturesBatch)) {
-            this.texturesBatch.draw(this.happyGuy,0f,-1f,3f,2f);
+
+
+
             if(this.obstacleTextures.draw(this.texturesBatch)) {
                 this.leaveButton.draw(texturesBatch);
 
 
-                if(sad) {
-                    this.texturesBatch.draw(this.sadGuy,0f,-1f,3f,2f);
-                }
+
                 this.isPossibleToLeave = true;
             }
         }
@@ -86,6 +89,7 @@ public class RecycleScreen extends ScreenAdapter {
                 3f,3f,4f,180);
         this.obstacleTextures = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
                 3f,2f,2f,60);
+
         if (this.obstacleTextures.isEmpty()) {
             this.sad = false;
         } else {

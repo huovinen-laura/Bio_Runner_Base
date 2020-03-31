@@ -20,7 +20,7 @@ public class ShitCollection {
 
     public ShitCollection() {
         this.allShit = new ArrayList<>();
-        this.minimumAmountOfCollectables = 10;
+        this.minimumAmountOfCollectables = 4;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "banaani", TestCollectible.texture,50f));

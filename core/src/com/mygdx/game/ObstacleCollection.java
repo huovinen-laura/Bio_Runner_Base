@@ -20,9 +20,10 @@ public class ObstacleCollection {
 
     public ObstacleCollection() {
         this.allObstacles = new ArrayList<>();
-        this.minimumAmountOfObstacles = 10;
-        this.allObstacles.add( new Obstacle("kissa", new Texture("kijssa.png"),10,1f));
-        this.allObstacles.add(new Obstacle("pilleri", new Texture("pilleri.png"),90,0.5f));
+        this.minimumAmountOfObstacles = 4;
+        this.allObstacles.add( new Obstacle("kissa", assetManager.kissa,10,1f));
+        this.allObstacles.add( new Obstacle("pilleri", assetManager.pilleri,91,0.5f));
+        this.LastObstaclePosition = new Vector2(0f,0f);
 
         this.timeBetweenObstacles = 3f;
         this.timeFromLastObstacle = 0f;
@@ -34,11 +35,8 @@ public class ObstacleCollection {
 
         for(int i = 0; i < this.allObstacles.size(); i++) {
 
-            Gdx.app.log("ObsCol","Got object " + object.getName() + " is not " + this.allObstacles.get(i).getName());
-
             if(this.allObstacles.get(i).getName().contentEquals(object.getName())) {
                 this.allObstacles.get(i).incrementCount();
-                Gdx.app.log("ObsColl",""+object.getName()+ " added to list");
                 break;
             }
         }
@@ -63,7 +61,8 @@ public class ObstacleCollection {
         roll++;
         float positionX = BallGame.WORLD_WIDTH;
         float positionY = this.minY + (this.maxY - this.minY-1)* ((float) Math.random());
-        this.LastObstaclePosition = new Vector2(positionX,positionY);
+        LastObstaclePosition.x = positionX;
+        LastObstaclePosition.y = positionY;
 
         for (int i = 0; i < this.allObstacles.size(); i++) {
 
@@ -76,7 +75,7 @@ public class ObstacleCollection {
         }
 
 
-
+        Gdx.app.log("ObsCol", "error roll: " + roll);
         return(new ObstacleRectangle(new Texture("badlogic.jpg"),
                 positionX,positionY,"error",1f));
     }

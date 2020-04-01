@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.screens.*;
@@ -14,9 +15,11 @@ public class BioRunnerGame extends Game {
     EndScreen end;
     RecycleScreen recycle;
     ShopScreen shop;
+    public static assetManager assets;
 
     @Override
     public void create() {
+        assets = new assetManager();
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font.txt"));
         font.getData().setScale(0.5f, 0.5f);
@@ -55,9 +58,10 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void dispose() {
+        Gdx.app.log("Game", "dispose");
         batch.dispose();
         font.dispose();
-        assetManager.dispose();
+        assets.dispose();
         // asset manager
     }
 }

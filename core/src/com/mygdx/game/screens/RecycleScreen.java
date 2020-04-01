@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.WasteDisplayRecycle;
-import com.mygdx.game.assetManager;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -31,8 +30,8 @@ public class RecycleScreen extends ScreenAdapter {
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.happyGuy = assetManager.happyGirl;
-        this.sadGuy = assetManager.sadGirl;
+        this.happyGuy = game.assets.getHappyGirl();
+        this.sadGuy = game.assets.getSadGirl();
     }
 
     @Override

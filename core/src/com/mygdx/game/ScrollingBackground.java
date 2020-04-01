@@ -7,8 +7,6 @@ import com.mygdx.game.screens.BallGame;
 
 public class ScrollingBackground {
 
-    public static Texture grass = new Texture("grass.png");
-    public static Texture sky =  new Texture("sky.png");
     float x1, x2;
     float x3, x4;
     float width;
@@ -47,12 +45,12 @@ public class ScrollingBackground {
         }
 
         // Draws the sky
-        batch.draw(sky, x1,0, width, height);
-        batch.draw(sky, x2, 0, width, height);
+        batch.draw(this.sky, x1,0, width, height);
+        batch.draw(this.sky, x2, 0, width, height);
 
         // Draws the grass
-        batch.draw(grass, x3,0, width, height);
-        batch.draw(grass, x4, 0, width, height);
+        batch.draw(this.grass, x3,0, width, height);
+        batch.draw(this.grass, x4, 0, width, height);
 
         // Speeds up the sky
         x1 += (BallGame.worldSpeed * deltaTime) * 0.5;
@@ -65,10 +63,5 @@ public class ScrollingBackground {
 
     public void setSpeed (int goalSpeed) {
         BallGame.worldSpeed = goalSpeed;
-    }
-    public void dispose() {
-        ScrollingBackground.sky.dispose();
-        ScrollingBackground.grass.dispose();
-
     }
 }

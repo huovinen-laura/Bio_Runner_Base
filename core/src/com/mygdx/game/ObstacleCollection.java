@@ -21,7 +21,7 @@ public class ObstacleCollection {
     public ObstacleCollection() {
         this.allObstacles = new ArrayList<>();
         this.minimumAmountOfObstacles = 4;
-        this.allObstacles.add( new Obstacle("kissa", assetManager.kissa,10,1f));
+        this.allObstacles.add( new Obstacle("kissa", BioRunnerGame.assets.,10,1f));
         this.allObstacles.add( new Obstacle("pilleri", assetManager.pilleri,91,0.5f));
         this.LastObstaclePosition = new Vector2(0f,0f);
 

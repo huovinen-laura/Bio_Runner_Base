@@ -43,9 +43,6 @@ public class BallGame extends ScreenAdapter {
 	private boolean reachedCheckpoint;
     private static int point = 1;
     public static float volume = 0.5f;
-    private float fps;
-    private float fpsAccumulator;
-    private float fpsCount;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -71,10 +68,9 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		ball = new Player(world);
-		Player.playerTexture = assetManager.playerChonky;
+		Player.playerTexture = game.assets.getPlayerChonky();
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
-        this.fps = 0;
 		waypoint = new Waypoint(20f);
 		this.reachedCheckpoint = false;
 		this.lostGame = false;
@@ -249,7 +245,6 @@ public class BallGame extends ScreenAdapter {
 	public void dispose () {
 		Gdx.app.log("asd","ballgame.dispose");
 		ball.dispose();
-		this.scrollingBackground.dispose();
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();

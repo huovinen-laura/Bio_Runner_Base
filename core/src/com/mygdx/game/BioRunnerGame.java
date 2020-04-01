@@ -14,6 +14,8 @@ public class BioRunnerGame extends Game {
     EndScreen end;
     RecycleScreen recycle;
     ShopScreen shop;
+    SettingsScreen settings;
+    SkinShopScreen skin;
 
     @Override
     public void create() {
@@ -25,6 +27,8 @@ public class BioRunnerGame extends Game {
         recycle = new RecycleScreen(this);
         end = new EndScreen(this);
         shop = new ShopScreen(this);
+        settings = new SettingsScreen(this);
+        skin = new SkinShopScreen(this);
         this.setScreen(new TitleScreen(this));
     }
 
@@ -44,6 +48,14 @@ public class BioRunnerGame extends Game {
 
     public void setRecycleScreen() {
         setScreen(this.recycle);
+    }
+
+    public void setSettingsScreen() {
+        setScreen(this.settings);
+    }
+
+    public void setSkinShopScreen() {
+        setScreen(this.skin);
     }
 
     public BitmapFont getFont() {return (this.font); };

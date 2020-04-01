@@ -16,6 +16,8 @@ import com.mygdx.game.Button;
 public class TitleScreen extends ScreenAdapter {
     BioRunnerGame game;
     Button startButton;
+    Button settingsButton;
+    Button skinShopButton;
     SpriteBatch titleBatch;
     OrthographicCamera camera = new OrthographicCamera();
     OrthographicCamera fontCamera = new OrthographicCamera();
@@ -23,14 +25,16 @@ public class TitleScreen extends ScreenAdapter {
     float width;
     float height;
     private Vector3 projected;
-    Texture img;
+    Texture tausta;
+    Texture hahmo;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
         fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         this.game = game;
         this.font = game.getFont();
-        img = new Texture("tausta.png");
+        tausta = new Texture("tausta.png");
+        hahmo = new Texture("tiko.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
     }
@@ -40,7 +44,9 @@ public class TitleScreen extends ScreenAdapter {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(fontCamera.combined);
-        this.startButton = new Button(1f,1f,1f,1f);
+        this.startButton = new Button(2f,2f,1f,1f);
+        this.settingsButton = new Button(2f, 1f, 1f, 1f);
+        this.skinShopButton = new Button(2f, 0f, 1f, 1f);
         projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -59,6 +65,10 @@ public class TitleScreen extends ScreenAdapter {
 
                 if (startButton.isInsideButton(worldCoords.x,worldCoords.y)) {
                     game.setGameScreen();
+                } else if (settingsButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    game.setSettingsScreen();
+                } else if (skinShopButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    game.setSkinShopScreen();
                 }
                 return true;
             }
@@ -73,21 +83,26 @@ public class TitleScreen extends ScreenAdapter {
         // Draws background
         this.titleBatch.setProjectionMatrix(camera.combined);
         this.titleBatch.begin();
-        this.titleBatch.draw(img, 0, 0, width, height);
+        this.titleBatch.draw(tausta, 0, 0, width, height);
+        this.titleBatch.draw(hahmo, 0.75f, 0.30f, 1.5f, 1.5f);
         this.titleBatch.end();
 
         // Draws fonts
         game.batch.begin();
-        font.draw(game.batch, "Bio Runner", projected.x * .25f,
-                projected.y * .75f);
-        font.draw(game.batch, "Press space or the button to play!", projected.x * 0.25f,
-                projected.y * .25f);
+        font.draw(game.batch, "Bio Runner", projected.x * 0.40f,
+                projected.y * .85f);
+        font.draw(game.batch, "Press to play!", projected.x * 0.40f,
+                projected.y * .65f);
+        font.draw(game.batch, "Settings", projected.x * 0.40f, projected.y * 0.40f);
+        font.draw(game.batch, "Shop", projected.x * 0.40f, projected.y * 0.15f);
         game.batch.end();
 
         // Draws textures
         this.titleBatch.setProjectionMatrix(camera.combined);
         this.titleBatch.begin();
         this.startButton.draw(this.titleBatch);
+        this.settingsButton.draw(this.titleBatch);
+        this.skinShopButton.draw(this.titleBatch);
         this.titleBatch.end();
 
     }

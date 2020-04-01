@@ -264,6 +264,7 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void hide() {
+		Gdx.app.log("", "hide game");
 		this.ball.dispose();
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();

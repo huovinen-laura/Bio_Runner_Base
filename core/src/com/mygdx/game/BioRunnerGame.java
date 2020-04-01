@@ -57,5 +57,7 @@ public class BioRunnerGame extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
+        assetManager.dispose();
+        // asset manager
     }
 }

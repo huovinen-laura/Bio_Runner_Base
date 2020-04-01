@@ -13,14 +13,13 @@ import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
-    public static Texture playerTexture = new Texture("player2.png");
-    private static Texture playerAnimation = new Texture("playerAnimation.png");
     private static Animation walkAnimation;
+    public static Texture playerTexture;
     private static TextureRegion currentFrameTexture;
     public float stateTime;
 
     public Player( World world) {
-        super(Player.currentFrameTexture, playerAnimation,
+        super(Player.currentFrameTexture, assetManager.playerChonkyAnimation,
                 1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
@@ -47,10 +46,10 @@ public class Player extends GameObject {
         final int FRAME_COLS = 4;
         final int FRAME_ROWS = 1;
 
-        int tileWidth = playerAnimation.getWidth() / FRAME_COLS;
-        int tileHeight = playerAnimation.getHeight() / FRAME_ROWS;
+        int tileWidth = assetManager.playerChonkyAnimation.getWidth() / FRAME_COLS;
+        int tileHeight = assetManager.playerChonkyAnimation.getHeight() / FRAME_ROWS;
 
-        TextureRegion[][] tmp = TextureRegion.split(playerAnimation, tileWidth, tileHeight);
+        TextureRegion[][] tmp = TextureRegion.split(assetManager.playerChonkyAnimation, tileWidth, tileHeight);
 
         TextureRegion[] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
 

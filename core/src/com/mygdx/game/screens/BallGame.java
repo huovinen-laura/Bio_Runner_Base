@@ -71,6 +71,7 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		ball = new Player(world);
+		Player.playerTexture = assetManager.playerChonky;
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
         this.fps = 0;
@@ -97,14 +98,16 @@ public class BallGame extends ScreenAdapter {
 		this.gameBatch.setProjectionMatrix(camera.combined);
 		clearScreen();
 
-		if(!this.ball.Move()) { // checks if lives is zero
-			this.lostGame = true;
-			LifeCounter.setLives(3);
-		}
+
 
         this.gameBatch.begin();
 		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), this.gameBatch);
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
+
+		if(!this.ball.Move()) { // checks if lives is zero
+			this.lostGame = true;
+			Gdx.app.log("BallGame","Lost game");
+		}
 		ball.Draw(this.gameBatch);
 
 		for (int i =0 ; i < this.collectables.size();i++) {
@@ -157,6 +160,7 @@ public class BallGame extends ScreenAdapter {
 		if (this.ball.isGrounded()) {
 			if (this.lostGame) {
 				this.game.setEndScreen();
+				LifeCounter.setLives(3);
 			} else if (this.waypoint.isFinished()) {
 				this.game.setRecycleScreen();
 			}
@@ -184,11 +188,15 @@ public class BallGame extends ScreenAdapter {
 	private void doPhysicsStep(float deltaTime) {
 		float frameTime = deltaTime;
 
-		if (deltaTime > 1 / 4f) {
-			frameTime = 1 / 4f;
+		if (deltaTime > 1 / 2f) {
+			frameTime = 1 / 2f;
 		}
 
 		accumulator += frameTime;
+		if (frameTime > 2 * TIME_STEP) {
+			Gdx.app.log("lag", "Frametime: " + frameTime/TIME_STEP );
+		}
+
 		while (accumulator >= TIME_STEP) {
 			world.step(TIME_STEP, 8, 3);
 			accumulator -= TIME_STEP;

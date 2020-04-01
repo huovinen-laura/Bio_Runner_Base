@@ -23,6 +23,7 @@ public abstract class GameObject {
     protected boolean flipSpriteY = false;
     protected TextureRegion textureRegion;
     protected Animation animation;
+    private static FixtureDef getFixtureDef;
 
     public GameObject(Texture texture, float size, float x, float y, float density,
                       float bouncines, float friction, boolean flipX, boolean flipY) {

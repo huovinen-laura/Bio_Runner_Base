@@ -6,16 +6,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.screens.BallGame;
 
 public class ScrollingBackground {
-    Texture sky;
-    Texture grass;
+
+    public static Texture grass = new Texture("grass.png");
+    public static Texture sky =  new Texture("sky.png");
     float x1, x2;
     float x3, x4;
     float width;
     float height;
 
     public ScrollingBackground(float worldSpeed) {
-        sky = new Texture("sky.png");
-        grass = new Texture("grass.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
         x1 = 0;
@@ -60,14 +59,16 @@ public class ScrollingBackground {
         x2 += (BallGame.worldSpeed * deltaTime) * 0.5;
 
         // Speeds up the grass
-        x3 += (BallGame.worldSpeed * deltaTime) * 0.80;
-        x4 += (BallGame.worldSpeed * deltaTime) * 0.80;
+        x3 += (BallGame.worldSpeed * deltaTime) * 1f;
+        x4 += (BallGame.worldSpeed * deltaTime) * 1f;
     }
 
     public void setSpeed (int goalSpeed) {
         BallGame.worldSpeed = goalSpeed;
     }
     public void dispose() {
-        sky.dispose();
+        ScrollingBackground.sky.dispose();
+        ScrollingBackground.grass.dispose();
+
     }
 }

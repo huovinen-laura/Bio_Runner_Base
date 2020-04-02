@@ -9,9 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.gamestate.LifeCounter;
+
+import java.util.Locale;
 
 public class ShopScreen extends ScreenAdapter {
     public BioRunnerGame game;
@@ -23,11 +26,21 @@ public class ShopScreen extends ScreenAdapter {
     private Button lowerButton;
     private OrthographicCamera camera;
 
+    Locale locale;
+    I18NBundle myBundle;
+    String extraLife, doublePoints;
+
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
         this.lowerButton = new Button(1f,1f,1f,1f);
         this.font = game.getFont();
         this.upperButton = new Button(1f,3f,1f,1f);
+
+        locale = Locale.getDefault();
+        //locale = new Locale("en", "UK");
+        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+        extraLife = myBundle.get("extraLife");
+        doublePoints = myBundle.get("doublePoints");
     }
 
     @Override
@@ -37,9 +50,9 @@ public class ShopScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        this.font.draw(game.batch, "Double points but only one life", Gdx.graphics.getWidth() * 0.20f,
+        this.font.draw(game.batch, doublePoints, Gdx.graphics.getWidth() * 0.20f,
                 Gdx.graphics.getHeight() * 0.2f);
-        this.font.draw(game.batch, "Extra life",
+        this.font.draw(game.batch, extraLife,
                 Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.75f);
         game.batch.end();
 

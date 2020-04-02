@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
+
+import java.util.Locale;
 
 public class TitleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -28,6 +31,10 @@ public class TitleScreen extends ScreenAdapter {
     Texture tausta;
     Texture hahmo;
 
+    Locale locale;
+    I18NBundle myBundle;
+    String play, settings, shop;
+
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
         fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -37,6 +44,14 @@ public class TitleScreen extends ScreenAdapter {
         hahmo = new Texture("tiko.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
+
+        // Kieli. Default hakee järjestelmän kielen, new Localessa kielen voi päättää itse.
+        locale = Locale.getDefault();
+        //locale = new Locale("en", "UK");
+        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+        play = myBundle.get("play");
+        settings = myBundle.get("settings");
+        shop = myBundle.get("shop");
     }
 
     @Override
@@ -91,10 +106,10 @@ public class TitleScreen extends ScreenAdapter {
         game.batch.begin();
         font.draw(game.batch, "Bio Runner", projected.x * 0.40f,
                 projected.y * .85f);
-        font.draw(game.batch, "Press to play!", projected.x * 0.40f,
+        font.draw(game.batch, play, projected.x * 0.40f,
                 projected.y * .65f);
-        font.draw(game.batch, "Settings", projected.x * 0.40f, projected.y * 0.40f);
-        font.draw(game.batch, "Shop", projected.x * 0.40f, projected.y * 0.15f);
+        font.draw(game.batch, settings, projected.x * 0.40f, projected.y * 0.40f);
+        font.draw(game.batch, shop, projected.x * 0.40f, projected.y * 0.15f);
         game.batch.end();
 
         // Draws textures

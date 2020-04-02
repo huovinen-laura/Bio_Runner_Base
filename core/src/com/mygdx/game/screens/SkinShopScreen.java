@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
+
+import java.util.Locale;
 
 public class SkinShopScreen extends ScreenAdapter {
     public BioRunnerGame game;
@@ -23,6 +26,10 @@ public class SkinShopScreen extends ScreenAdapter {
     private Texture tausta;
     private float width, height;
 
+    Locale locale;
+    I18NBundle myBundle;
+    String shop;
+
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
         this.backButton = new Button(0.5f,0.20f,1f,1f);
@@ -30,6 +37,11 @@ public class SkinShopScreen extends ScreenAdapter {
         tausta = new Texture("tausta.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
+
+        locale = Locale.getDefault();
+        //locale = new Locale("en", "UK");
+        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+        shop = myBundle.get("shop");
     }
 
     @Override
@@ -46,7 +58,7 @@ public class SkinShopScreen extends ScreenAdapter {
         game.batch.begin();
         this.font.draw(game.batch, "Back", Gdx.graphics.getWidth() * 0.20f,
                 Gdx.graphics.getHeight() * 0.2f);
-        this.font.draw(game.batch, "Skin Shop", Gdx.graphics.getWidth() * 0.2f,
+        this.font.draw(game.batch, shop, Gdx.graphics.getWidth() * 0.2f,
                 Gdx.graphics.getHeight() * 0.80f);
         game.batch.end();
 

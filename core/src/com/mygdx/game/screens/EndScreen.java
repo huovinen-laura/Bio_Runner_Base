@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Player;
 import com.mygdx.game.WasteDisplayRecycle;
 import com.mygdx.game.gamestate.LifeCounter;
+
+import java.util.Locale;
 
 public class EndScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -24,10 +27,21 @@ public class EndScreen extends ScreenAdapter {
     private String score;
     private Texture sadGuy;
 
+    private Locale locale;
+    private I18NBundle myBundle;
+    String lost, yourScore, tap;
+
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
         this.sadGuy = new Texture("recycleGallSad.png");
+
+        locale = Locale.getDefault();
+        //locale = new Locale("en", "UK");
+        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+        lost = myBundle.get("lost");
+        yourScore = myBundle.get("score");
+        tap = myBundle.get("tap");
     }
 
     @Override
@@ -80,13 +94,13 @@ public class EndScreen extends ScreenAdapter {
 
 
         game.batch.begin();
-        font.draw(game.batch, "You lost!", Gdx.graphics.getWidth() * 0.25f,
+        font.draw(game.batch, lost, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .75f);
-        font.draw(game.batch, "Your score was: " + score, Gdx.graphics.getWidth() * 0.25f,
+        font.draw(game.batch, yourScore + score, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .50f);
 
         if( isAllowedToLeave) {
-            font.draw(game.batch, "Tap to continue", Gdx.graphics.getWidth() * 0.30f,
+            font.draw(game.batch, tap, Gdx.graphics.getWidth() * 0.30f,
                     Gdx.graphics.getHeight() * .25f);
         }
 

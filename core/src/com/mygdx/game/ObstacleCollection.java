@@ -18,11 +18,11 @@ public class ObstacleCollection {
     private float minY;
     private float maxY;
 
-    public ObstacleCollection() {
+    public ObstacleCollection(TextureAssets textureAssets) {
         this.allObstacles = new ArrayList<>();
         this.minimumAmountOfObstacles = 4;
-        this.allObstacles.add( new Obstacle("kissa",BioRunnerGame.textureAssets.getKissa(),10,1f));
-        this.allObstacles.add( new Obstacle("pilleri", BioRunnerGame.textureAssets.getPilleri(),91,0.5f));
+        this.allObstacles.add( new Obstacle("kissa",textureAssets.getKissa(),10,1f));
+        this.allObstacles.add( new Obstacle("pilleri", textureAssets.getPilleri(),91,0.5f));
         this.LastObstaclePosition = new Vector2(0f,0f);
 
         this.timeBetweenObstacles = 3f;

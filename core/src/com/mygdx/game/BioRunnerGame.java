@@ -10,12 +10,12 @@ import com.mygdx.game.screens.*;
 public class BioRunnerGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
-    TitleScreen title;
-    BallGame game;
-    EndScreen end;
-    RecycleScreen recycle;
-    ShopScreen shop;
-    public static TextureAssets textureAssets;
+    private TitleScreen title;
+    private BallGame game;
+    private EndScreen end;
+    private RecycleScreen recycle;
+    private ShopScreen shop;
+    public TextureAssets textureAssets;
 
     @Override
     public void create() {
@@ -59,11 +59,21 @@ public class BioRunnerGame extends Game {
     @Override
     public void dispose() {
         Gdx.app.log("Game", "dispose");
-        BioRunnerGame.textureAssets.dispose();
+        textureAssets.dispose();
         batch.dispose();
         font.dispose();
 
 
         // asset manager
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
     }
 }

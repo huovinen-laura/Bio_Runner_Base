@@ -23,13 +23,13 @@ public class ShitCollection {
         this.minimumAmountOfCollectables = 4;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", TestCollectible.texture,50f));
+                "banaani", BioRunnerGame.textureAssets.getBanaani(),50f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "luu", new Texture("luu.png"),25f ));
+                "luu", BioRunnerGame.textureAssets.getLuu(),25f ));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", new Texture("tee.png"), 26f));
+                "tee", BioRunnerGame.textureAssets.getTee(), 26f));
 
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;

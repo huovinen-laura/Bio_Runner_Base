@@ -23,8 +23,8 @@ public class Waypoint {
         this.realProgress = 0;
         this.barWidth = 4f;
         this.markerSize = 0.2f;
-        progressBar = new Texture("progressbar.png");
-        progressMarker = new Texture("ball.png");
+        progressBar = BioRunnerGame.textureAssets.getProgressBar();
+        progressMarker = BioRunnerGame.textureAssets.getPlayerChonky();
     }
 
     public void draw(SpriteBatch batch) {

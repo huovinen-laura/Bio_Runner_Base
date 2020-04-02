@@ -23,14 +23,14 @@ public class TitleScreen extends ScreenAdapter {
     float width;
     float height;
     private Vector3 projected;
-    Texture img;
+    private Texture img;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
         fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         this.game = game;
         this.font = game.getFont();
-        img = new Texture("tausta.png");
+        img = BioRunnerGame.textureAssets.getSky();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
     }

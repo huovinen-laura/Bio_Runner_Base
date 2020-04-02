@@ -27,7 +27,7 @@ public class EndScreen extends ScreenAdapter {
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.sadGuy = new Texture("recycleGallSad.png");
+        this.sadGuy = BioRunnerGame.textureAssets.getSadGirl();
     }
 
     @Override

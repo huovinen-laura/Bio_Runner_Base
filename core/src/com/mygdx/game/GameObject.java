@@ -235,4 +235,12 @@ public abstract class GameObject {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Texture getPlayerTexture() {
+        return playerTexture;
+    }
+
+    public void setPlayerTexture(Texture playerTexture) {
+        this.playerTexture = playerTexture;
+    }
 }

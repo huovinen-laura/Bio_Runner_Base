@@ -33,6 +33,7 @@ public class BioRunnerGame extends Game {
 
         playerScore = 0;
 
+        this.worldSpeed = -1f;
 
         this.lifeCounter = new LifeCounter(this.textureAssets.getPlayerChonky(),this);
 

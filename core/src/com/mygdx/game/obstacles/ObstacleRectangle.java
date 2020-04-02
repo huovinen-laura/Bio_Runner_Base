@@ -14,7 +14,7 @@ public class ObstacleRectangle extends GameObject {
 
     public ObstacleRectangle(BioRunnerGame game, Texture texture, float x, float y, String name, float size) {
         super(game,texture,size,x,y, 0f,0f,0f,
-                new Vector2(BallGame.worldSpeed,0),0f);
+                new Vector2(game.worldSpeed,0),0f);
         this.setName(name);
         this.setForDelete = false;
     }

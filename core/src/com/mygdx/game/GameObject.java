@@ -116,8 +116,10 @@ public abstract class GameObject {
 
     }
 
-    public GameObject(World world,Boolean player, Texture texture, float size, float x, float y, float mass, float bounciness, float friction) {
+    public GameObject(BioRunnerGame game,Boolean player, Texture texture,
+                      float size, float x, float y, float mass, float bounciness, float friction) {
         this.playerAnimationTexture = texture;
+        this.game = game;
         this.radius = size;
         this.spriteWidth = (float) playerAnimationTexture.getWidth() / 4;
         this.spriteHeight = (float) playerAnimationTexture.getHeight() / 1.5f;

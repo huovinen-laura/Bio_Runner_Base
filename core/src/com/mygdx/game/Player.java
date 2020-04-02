@@ -19,7 +19,7 @@ public class Player extends GameObject {
     public BioRunnerGame game;
 
     public Player(Texture animationTexture, BioRunnerGame game) {
-        super(game,animationTexture,
+        super(game,true,animationTexture,
                 1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
@@ -47,8 +47,8 @@ public class Player extends GameObject {
         final int FRAME_COLS = 4;
         final int FRAME_ROWS = 1;
 
-        int tileWidth = this.getObjectTexture().getWidth() / FRAME_COLS;
-        int tileHeight = this.getObjectTexture().getHeight() / FRAME_ROWS;
+        int tileWidth = this.getPlayerAnimationTexture().getWidth() / FRAME_COLS;
+        int tileHeight = this.getPlayerAnimationTexture().getHeight() / FRAME_ROWS;
 
         TextureRegion[][] tmp = TextureRegion.split(this.getPlayerAnimationTexture(), tileWidth, tileHeight);
 
@@ -73,7 +73,7 @@ public class Player extends GameObject {
     }
 
     public void moveAnimation() {
-        stateTime += Gdx.graphics.getDeltaTime();
+        stateTime += -Gdx.graphics.getDeltaTime() * game.worldSpeed;
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
 

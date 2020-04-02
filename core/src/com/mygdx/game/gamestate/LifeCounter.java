@@ -1,5 +1,6 @@
 package com.mygdx.game.gamestate;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.BioRunnerGame;
@@ -96,7 +97,9 @@ public class LifeCounter {
     }
 
     public void gainLife() {
+        Gdx.app.log("lives", "" + this.lives);
         this.lives++;
+        Gdx.app.log("lives","" + this.lives);
     }
 
     public int getLivesAmount() {

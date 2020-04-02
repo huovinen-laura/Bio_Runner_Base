@@ -57,7 +57,6 @@ public class ShopScreen extends ScreenAdapter {
         this.isPossibleToLeave = true;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.WORLD_WIDTH,game.WORLD_HEIGHT);
-        game.lifeCounter.setLives(1);
         game.collectedStuffList.clear();
         game.allObstaclesCollection.clear();
 
@@ -77,7 +76,6 @@ public class ShopScreen extends ScreenAdapter {
                     }
 
                 } else if( lowerButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
-                    game.lifeCounter.setLives(2);
                     game.lifeCounter.setLives(1);
                     game.setGameScreen();
                 }

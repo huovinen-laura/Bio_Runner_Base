@@ -96,12 +96,15 @@ public class WasteDisplayRecycle {
 
             while (drawnCount <= numberOfDrawnCollectables) {
 
-                batch.draw(this.getNextTexture(drawnCount),
+                Texture next = getNextTexture(drawnCount);
+
+                batch.draw(next,
                             this.getNextPositionX(drawnCount),
                             this.getNextPositionY(drawnCount),
                             1f,
-                            1f
+                        ((float) next.getHeight() / (float) next.getWidth())
                 );
+
                 drawnCount++;
             }
 

@@ -22,7 +22,7 @@ public class CollectibleSquare extends GameObject {
     }
 
     public CollectibleSquare(BioRunnerGame world, Texture texture, float size, float x, float y, String collName) {
-        super(world,texture,size,x,y,0f,0f,0f,new Vector2(BallGame.worldSpeed,0f),0f);
+        super(world,texture,size,x,y,0f,0f,0f,new Vector2(world.worldSpeed,0f),0f);
         this.setForDelete = false;
         this.name = collName;
     }

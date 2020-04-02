@@ -27,7 +27,6 @@ public class BallGame extends ScreenAdapter {
 	public static float worldSpeed = -1f;
 	public ScrollingBackground scrollingBackground;
 	public World world;
-	public ObstacleCollection allObstaclesCollection;
 
 	public static float WORLD_WIDTH = 8;
 	public static float WORLD_HEIGHT = 4;
@@ -63,7 +62,6 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		this.reachedCheckpoint = false;
-		this.allObstaclesCollection = new ObstacleCollection(this.game);
 		game.collectedStuffList = new ShitCollection(this.game);
 		ball = new Player(this.game.textureAssets.getPlayerChonkyAnimation(),game);
         game.batch = new SpriteBatch();
@@ -123,8 +121,8 @@ public class BallGame extends ScreenAdapter {
 			}
 		}
 
-		if(allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
-			this.obstacles.add(allObstaclesCollection.getRandomCollectible());
+		if(game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
+			this.obstacles.add(game.allObstaclesCollection.getRandomCollectible());
 		}
 
 		game.lifeCounter.draw(this.gameBatch);
@@ -285,7 +283,7 @@ public class BallGame extends ScreenAdapter {
 				ObstacleRectangle obstacle = (ObstacleRectangle) a;
 				if(!obstacle.isDeleted()) {
 					hurt.play(volume);
-					allObstaclesCollection.addStuff(obstacle);
+					game.allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
 					game.lifeCounter.loseLife();
 				}
@@ -294,7 +292,7 @@ public class BallGame extends ScreenAdapter {
 				ObstacleRectangle obstacle = (ObstacleRectangle) b;
 				if(!obstacle.isDeleted()) {
 					hurt.play(volume);
-					allObstaclesCollection.addStuff(obstacle);
+					game.allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
 					game.lifeCounter.loseLife();
 				}

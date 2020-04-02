@@ -25,11 +25,8 @@ public class BallGame extends ScreenAdapter {
 
 
 	public static float worldSpeed = -1f;
-	public ShitCollection collectedStuffList;
 	public ScrollingBackground scrollingBackground;
-	public static World world = new World(new Vector2(0, -5f), true);
-	private LifeCounter lifeCounter;
-	public static int playerScore;
+	public World world;
 	public ObstacleCollection allObstaclesCollection;
 
 	public static float WORLD_WIDTH = 8;
@@ -47,6 +44,7 @@ public class BallGame extends ScreenAdapter {
 	private boolean reachedCheckpoint;
 
 	public BallGame (BioRunnerGame game) {
+		this.world = new World(new Vector2(0, -5f), true);
 		this.game = game;
 		Gdx.app.log("sf","Ballgame constructor");
 		volume = 0.5f;
@@ -55,9 +53,8 @@ public class BallGame extends ScreenAdapter {
 		this.font = game.getFont();
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
-		this.lifeCounter = new LifeCounter();
 
-		scrollingBackground = new ScrollingBackground(worldSpeed);
+		scrollingBackground = new ScrollingBackground(worldSpeed, game);
 		createGround();
 		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
@@ -66,12 +63,12 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		this.reachedCheckpoint = false;
-		this.allObstaclesCollection = new ObstacleCollection(this.game.textureAssets);
-		this.collectedStuffList = new ShitCollection(this.game.textureAssets);
-		ball = new Player(this.game.textureAssets.getPlayerChonkyAnimation());
+		this.allObstaclesCollection = new ObstacleCollection(this.game);
+		game.collectedStuffList = new ShitCollection(this.game);
+		ball = new Player(this.game.textureAssets.getPlayerChonkyAnimation(),game);
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
-		waypoint = new Waypoint(20f);
+		waypoint = new Waypoint(20f, game);
 		this.lostGame = false;
 		this.ball.setJustChangedScreen(true);
 		Gdx.app.log("sdf","ballgame show");
@@ -114,8 +111,8 @@ public class BallGame extends ScreenAdapter {
 		}
 
 
-		if(collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-				this.collectables.add(collectedStuffList.getRandomCollectible());
+		if(game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
+				this.collectables.add(game.collectedStuffList.getRandomCollectible());
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
@@ -130,14 +127,14 @@ public class BallGame extends ScreenAdapter {
 			this.obstacles.add(allObstaclesCollection.getRandomCollectible());
 		}
 
-		this.lifeCounter.draw(this.gameBatch);
+		game.lifeCounter.draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
 		waypoint.move();
 
         this.gameBatch.end();
 
         //Draws the player's score
-        String score = Integer.toString(playerScore);
+        String score = Integer.toString(game.playerScore);
         game.batch.begin();
         this.font.draw(game.batch, score, Gdx.graphics.getWidth() * .92f,
                 Gdx.graphics.getHeight() * .90f);
@@ -150,7 +147,7 @@ public class BallGame extends ScreenAdapter {
 		if (this.ball.isGrounded()) {
 			if (this.lostGame) {
 				this.game.setEndScreen();
-				LifeCounter.setLives(3);
+				game.lifeCounter.setLives(3);
 			} else if (this.waypoint.isFinished()) {
 				this.game.setRecycleScreen();
 			}
@@ -195,12 +192,8 @@ public class BallGame extends ScreenAdapter {
 
 	public void createGround() {
 		Body groundBody = world.createBody(getGroundBodyDef());
-		groundBody.setUserData(new GameObjectAdapter() {
-			@Override
-			public String Collide() {
-				return ("wall");
-			}
-		});
+
+
 		groundBody.createFixture(getGroundShape(), 0.0f);
 	}
 
@@ -219,20 +212,17 @@ public class BallGame extends ScreenAdapter {
 		return groundBox;
 	}
 
-	public static void setPlayerScore() {
-	    playerScore += point;
-    }
 
-    public static int getPlayerScore() {
-		return playerScore;
+    public int getPlayerScore() {
+		return (this.game.playerScore);
 	}
 
-	public static void setPoint(int newPoint) {
+	public void setPoint(int newPoint) {
 		point = newPoint;
 	}
 
-    public static void clearScore() {
-	    playerScore = 0;
+    public void clearScore() {
+	    this.game.lifeCounter.setLives(0);
     }
 
 	@Override
@@ -279,16 +269,16 @@ public class BallGame extends ScreenAdapter {
 			if ((a instanceof Player && b instanceof CollectibleSquare)) {
 				CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
 				collectibleSquareB.collect();
-				collectedStuffList.addStuff(collectibleSquareB);
+				game.collectedStuffList.addStuff(collectibleSquareB);
 				collect.play(volume);
-				setPlayerScore();
+				game.playerScore += 1;
 
 			} else if ((b instanceof Player && a instanceof CollectibleSquare)) {
 				CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
 				collectibleSquareA.collect();
-				collectedStuffList.addStuff(collectibleSquareA);
+				game.collectedStuffList.addStuff(collectibleSquareA);
 				collect.play(volume);
-				setPlayerScore();
+				game.playerScore += 1;
 			}
 
 			if (a instanceof ObstacleRectangle && b instanceof Player) {
@@ -297,7 +287,7 @@ public class BallGame extends ScreenAdapter {
 					hurt.play(volume);
 					allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
-					LifeCounter.loseLife();
+					game.lifeCounter.loseLife();
 				}
 
 			} else if ( a instanceof Player && b instanceof ObstacleRectangle) {
@@ -306,7 +296,7 @@ public class BallGame extends ScreenAdapter {
 					hurt.play(volume);
 					allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
-					LifeCounter.loseLife();
+					game.lifeCounter.loseLife();
 				}
 			}
 

@@ -11,8 +11,10 @@ public class ScrollingBackground {
     float x3, x4;
     float width;
     float height;
+    private BioRunnerGame game;
 
-    public ScrollingBackground(float worldSpeed) {
+    public ScrollingBackground(float worldSpeed, BioRunnerGame game) {
+        this.game = game;
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
         x1 = 0;
@@ -45,23 +47,23 @@ public class ScrollingBackground {
         }
 
         // Draws the sky
-        batch.draw(BioRunnerGame.textureAssets.getSky(), x1,0, width, height);
-        batch.draw(BioRunnerGame.textureAssets.getSky(), x2, 0, width, height);
+        batch.draw(game.textureAssets.getSky(), x1,0, width, height);
+        batch.draw(game.textureAssets.getSky(), x2, 0, width, height);
 
         // Draws the grass
-        batch.draw(BioRunnerGame.textureAssets.getGrass(), x3,0, width, height);
-        batch.draw(BioRunnerGame.textureAssets.getGrass(), x4, 0, width, height);
+        batch.draw(game.textureAssets.getGrass(), x3,0, width, height);
+        batch.draw(game.textureAssets.getGrass(), x4, 0, width, height);
 
         // Speeds up the sky
-        x1 += (BallGame.worldSpeed * deltaTime) * 0.5;
-        x2 += (BallGame.worldSpeed * deltaTime) * 0.5;
+        x1 += (game.worldSpeed * deltaTime) * 0.5;
+        x2 += (game.worldSpeed * deltaTime) * 0.5;
 
         // Speeds up the grass
-        x3 += (BallGame.worldSpeed * deltaTime) * 1f;
-        x4 += (BallGame.worldSpeed * deltaTime) * 1f;
+        x3 += (game.worldSpeed * deltaTime) * 1f;
+        x4 += (game.worldSpeed * deltaTime) * 1f;
     }
 
     public void setSpeed (int goalSpeed) {
-        BallGame.worldSpeed = goalSpeed;
+        game.worldSpeed = goalSpeed;
     }
 }

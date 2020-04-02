@@ -5,14 +5,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
 
 public class BioRunnerGame extends Game {
+    public final float WORLD_WIDTH = 8;
+    public final float WORLD_HEIGHT = 4;
     public SpriteBatch batch;
     public BitmapFont font;
     public ShitCollection collectedStuffList;
     public ObstacleCollection allObstaclesCollection;
     public float worldSpeed;
+    public LifeCounter lifeCounter;
+    public int playerScore;
     private TitleScreen title;
     private BallGame game;
     private EndScreen end;
@@ -23,8 +29,16 @@ public class BioRunnerGame extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        collectedStuffList = new
         textureAssets = new TextureAssets();
+
+        playerScore = 0;
+
+
+        this.lifeCounter = new LifeCounter(this.textureAssets.getPlayerChonky(),this);
+
+        collectedStuffList = new ShitCollection(this);
+        allObstaclesCollection = new ObstacleCollection(this);
+
         font = new BitmapFont(Gdx.files.internal("font.txt"));
         font.getData().setScale(0.5f, 0.5f);
         game = new BallGame(this);
@@ -74,6 +88,10 @@ public class BioRunnerGame extends Game {
     @Override
     public void pause() {
         super.pause();
+    }
+
+    public World getWorld() {
+        return(this.game.world);
     }
 
     @Override

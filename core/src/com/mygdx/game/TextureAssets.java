@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class TextureAssets {
@@ -130,7 +131,8 @@ public class TextureAssets {
     }
 
     public Texture getPlayerChonkyAnimation() {
-        return playerChonkyAnimation;
+        Gdx.app.log("Assets","" + this.playerChonkyAnimation.getClass());
+        return this.playerChonkyAnimation;
     }
 
     public void setPlayerChonkyAnimation(Texture playerChonkyAnimation) {

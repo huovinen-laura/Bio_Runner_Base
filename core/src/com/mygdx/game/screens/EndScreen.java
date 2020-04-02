@@ -36,12 +36,12 @@ public class EndScreen extends ScreenAdapter {
         this.textureBatch = new SpriteBatch();
         this.isAllowedToLeave = false;
         textureCamera = new OrthographicCamera();
-        textureCamera.setToOrtho(false,BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        textureCamera.setToOrtho(false,game.WORLD_WIDTH,game.WORLD_HEIGHT);
 
         textureBatch.setProjectionMatrix(textureCamera.combined);
-        this.wrongWasteDisplay = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
+        this.wrongWasteDisplay = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
                 3f,2f,2f,60);
-        this.score = Integer.toString(BallGame.getPlayerScore());
+        this.score = Integer.toString(game.playerScore);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -52,7 +52,7 @@ public class EndScreen extends ScreenAdapter {
                     game.collectedStuffList.clear();
                     game.allObstaclesCollection.clear();
                     game.worldSpeed = -1f;
-                    LifeCounter.setLives(3);
+                    game.lifeCounter.setLives(3);
                 }
                 return true;
             }
@@ -65,7 +65,7 @@ public class EndScreen extends ScreenAdapter {
                     game.collectedStuffList.clear();
                     game.allObstaclesCollection.clear();
                     game.worldSpeed = -1f;
-                    LifeCounter.setLives(3);
+                    game.lifeCounter.setLives(3);
                 }
                 return true;
             }

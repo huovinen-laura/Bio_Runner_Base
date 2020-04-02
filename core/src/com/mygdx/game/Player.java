@@ -16,12 +16,14 @@ public class Player extends GameObject {
     private Animation walkAnimation;
     private TextureRegion currentFrameTexture;
     public float stateTime;
+    public BioRunnerGame game;
 
-    public Player(Texture animationTexture) {
-        super(true,animationTexture,
+    public Player(Texture animationTexture, BioRunnerGame game) {
+        super(game,animationTexture,
                 1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
+        this.game = game;
         createAnimation();
 
     }
@@ -87,7 +89,7 @@ public class Player extends GameObject {
             }
         }
 
-        if (LifeCounter.getLives() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
+        if (game.lifeCounter.getLivesAmount() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
             return false;
         }
         return true;

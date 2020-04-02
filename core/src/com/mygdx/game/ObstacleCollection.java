@@ -17,12 +17,14 @@ public class ObstacleCollection {
     private Vector2 LastObstaclePosition;
     private float minY;
     private float maxY;
+    private BioRunnerGame game;
 
-    public ObstacleCollection(TextureAssets textureAssets) {
+    public ObstacleCollection(BioRunnerGame game) {
+        this.game = game;
         this.allObstacles = new ArrayList<>();
         this.minimumAmountOfObstacles = 4;
-        this.allObstacles.add( new Obstacle("kissa",textureAssets.getKissa(),10,1f));
-        this.allObstacles.add( new Obstacle("pilleri", textureAssets.getPilleri(),91,0.5f));
+        this.allObstacles.add( new Obstacle("kissa", game.textureAssets.getKissa(),10,1f));
+        this.allObstacles.add( new Obstacle("pilleri", game.textureAssets.getPilleri(),91,0.5f));
         this.LastObstaclePosition = new Vector2(0f,0f);
 
         this.timeBetweenObstacles = 3f;
@@ -67,7 +69,7 @@ public class ObstacleCollection {
         for (int i = 0; i < this.allObstacles.size(); i++) {
 
             if(this.allObstacles.get(i).probability >= roll) {
-                return(new ObstacleRectangle(this.allObstacles.get(i).getTexture(),positionX,positionY,
+                return(new ObstacleRectangle(game,this.allObstacles.get(i).getTexture(),positionX,positionY,
                         this.allObstacles.get(i).getName(),this.allObstacles.get(i).getSize()));
             } else {
                 roll-= this.allObstacles.get(i).probability;
@@ -76,7 +78,7 @@ public class ObstacleCollection {
 
 
         Gdx.app.log("ObsCol", "error roll: " + roll);
-        return(new ObstacleRectangle(new Texture("badlogic.jpg"),
+        return(new ObstacleRectangle(game,new Texture("badlogic.jpg"),
                 positionX,positionY,"error",1f));
     }
 

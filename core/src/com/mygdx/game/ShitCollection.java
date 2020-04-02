@@ -16,19 +16,21 @@ public class ShitCollection {
     private Vector2 lastCollectablePosition;
     private float minY;
     private float maxY;
+    private BioRunnerGame game;
 
-    public ShitCollection(TextureAssets textureAssets) {
+    public ShitCollection(BioRunnerGame game) {
+        this.game = game;
         this.allShit = new ArrayList<>();
         this.minimumAmountOfCollectables = 4;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", BioRunnerGame.textureAssets.getBanaani(),50f));
+                "banaani", game.textureAssets.getBanaani(),50f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "luu", BioRunnerGame.textureAssets.getLuu(),25f ));
+                "luu", game.textureAssets.getLuu(),25f ));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", BioRunnerGame.textureAssets.getTee(), 26f));
+                "tee", game.textureAssets.getTee(), 26f));
 
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
@@ -72,7 +74,7 @@ public class ShitCollection {
         for (int i = 0 ; i < this.allShit.size();i++) {
 
             if(this.allShit.get(i).getProbability() >= roll) {
-                return(new CollectibleSquare(this.allShit.get(i).getTexture(),
+                return(new CollectibleSquare(game,this.allShit.get(i).getTexture(),
                         1f,positionX,positionY,this.allShit.get(i).getName()));
             } else {
                 roll-= this.allShit.get(i).getProbability();
@@ -81,7 +83,7 @@ public class ShitCollection {
 
 
 
-        return(new CollectibleSquare(new Texture("badlogic.jpg"),1f,positionX,positionY,"error"));
+        return(new CollectibleSquare(game,new Texture("badlogic.jpg"),1f,positionX,positionY,"error"));
     }
 
     public boolean isNextCollectibleComing(int count) {

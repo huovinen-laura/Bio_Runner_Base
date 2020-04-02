@@ -32,7 +32,7 @@ public class SettingsScreen extends ScreenAdapter {
 
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(0.5f,0.20f,1f,1f);
+        this.backButton = new Button(0.5f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
         this.font = game.getFont();
         tausta = new Texture("tausta.png");
         width = BallGame.WORLD_WIDTH;

@@ -45,12 +45,12 @@ public class ScrollingBackground {
         }
 
         // Draws the sky
-        batch.draw(this.sky, x1,0, width, height);
-        batch.draw(this.sky, x2, 0, width, height);
+        batch.draw(BioRunnerGame.textureAssets.getSky(), x1,0, width, height);
+        batch.draw(BioRunnerGame.textureAssets.getSky(), x2, 0, width, height);
 
         // Draws the grass
-        batch.draw(this.grass, x3,0, width, height);
-        batch.draw(this.grass, x4, 0, width, height);
+        batch.draw(BioRunnerGame.textureAssets.getGrass(), x3,0, width, height);
+        batch.draw(BioRunnerGame.textureAssets.getGrass(), x4, 0, width, height);
 
         // Speeds up the sky
         x1 += (BallGame.worldSpeed * deltaTime) * 0.5;

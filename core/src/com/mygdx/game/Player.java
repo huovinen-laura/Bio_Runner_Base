@@ -19,7 +19,7 @@ public class Player extends GameObject {
     public float stateTime;
 
     public Player( World world) {
-        super(Player.currentFrameTexture, assetManager.playerChonkyAnimation,
+        super(Player.currentFrameTexture, BioRunnerGame.textureAssets.getPlayerChonkyAnimation(),
                 1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
@@ -46,10 +46,10 @@ public class Player extends GameObject {
         final int FRAME_COLS = 4;
         final int FRAME_ROWS = 1;
 
-        int tileWidth = assetManager.playerChonkyAnimation.getWidth() / FRAME_COLS;
-        int tileHeight = assetManager.playerChonkyAnimation.getHeight() / FRAME_ROWS;
+        int tileWidth = BioRunnerGame.textureAssets.getPlayerChonkyAnimation().getWidth() / FRAME_COLS;
+        int tileHeight = BioRunnerGame.textureAssets.getPlayerChonkyAnimation().getHeight() / FRAME_ROWS;
 
-        TextureRegion[][] tmp = TextureRegion.split(assetManager.playerChonkyAnimation, tileWidth, tileHeight);
+        TextureRegion[][] tmp = TextureRegion.split(BioRunnerGame.textureAssets.getPlayerChonkyAnimation(), tileWidth, tileHeight);
 
         TextureRegion[] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
 

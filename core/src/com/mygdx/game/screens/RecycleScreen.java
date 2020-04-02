@@ -30,8 +30,8 @@ public class RecycleScreen extends ScreenAdapter {
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.happyGuy = game.assets.getHappyGirl();
-        this.sadGuy = game.assets.getSadGirl();
+        this.happyGuy = BioRunnerGame.textureAssets.getHappyGirl();
+        this.sadGuy = BioRunnerGame.textureAssets.getSadGirl();
     }
 
     @Override

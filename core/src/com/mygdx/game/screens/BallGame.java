@@ -68,7 +68,7 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		ball = new Player(world);
-		Player.playerTexture = game.assets.getPlayerChonky();
+		Player.playerTexture = BioRunnerGame.textureAssets.getPlayerChonky();
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f);

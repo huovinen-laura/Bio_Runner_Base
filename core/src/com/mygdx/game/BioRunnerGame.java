@@ -15,12 +15,12 @@ public class BioRunnerGame extends Game {
     EndScreen end;
     RecycleScreen recycle;
     ShopScreen shop;
-    public static assetManager assets;
+    public static TextureAssets textureAssets;
 
     @Override
     public void create() {
-        assets = new assetManager();
         batch = new SpriteBatch();
+        textureAssets = new TextureAssets();
         font = new BitmapFont(Gdx.files.internal("font.txt"));
         font.getData().setScale(0.5f, 0.5f);
         game = new BallGame(this);
@@ -59,9 +59,11 @@ public class BioRunnerGame extends Game {
     @Override
     public void dispose() {
         Gdx.app.log("Game", "dispose");
+        BioRunnerGame.textureAssets.dispose();
         batch.dispose();
         font.dispose();
-        assets.dispose();
+
+
         // asset manager
     }
 }

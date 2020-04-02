@@ -30,7 +30,7 @@ public class TitleScreen extends ScreenAdapter {
         fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         this.game = game;
         this.font = game.getFont();
-        img = BioRunnerGame.textureAssets.getSky();
+        img = game.textureAssets.getSky();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
     }
@@ -40,7 +40,7 @@ public class TitleScreen extends ScreenAdapter {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(fontCamera.combined);
-        this.startButton = new Button(1f,1f,1f,1f);
+        this.startButton = new Button(1f,1f,1f,1f,this.game.textureAssets.getButtonBlue());
         projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
 
         Gdx.input.setInputProcessor(new InputAdapter() {

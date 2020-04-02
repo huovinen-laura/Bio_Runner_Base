@@ -10,6 +10,9 @@ import com.mygdx.game.screens.*;
 public class BioRunnerGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
+    public ShitCollection collectedStuffList;
+    public ObstacleCollection allObstaclesCollection;
+    public float worldSpeed;
     private TitleScreen title;
     private BallGame game;
     private EndScreen end;
@@ -20,6 +23,7 @@ public class BioRunnerGame extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
+        collectedStuffList = new
         textureAssets = new TextureAssets();
         font = new BitmapFont(Gdx.files.internal("font.txt"));
         font.getData().setScale(0.5f, 0.5f);
@@ -75,5 +79,8 @@ public class BioRunnerGame extends Game {
     @Override
     public void resume() {
         super.resume();
+    }
+
+    public void clearScore() {
     }
 }

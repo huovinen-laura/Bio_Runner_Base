@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -12,7 +11,7 @@ import com.mygdx.game.screens.BallGame;
 
 public abstract class GameObject {
     protected Texture objectTexture;
-    protected Texture playerTexture;
+    protected Texture playerAnimationTexture;
     protected Body objectBody;
     protected Vector2 position;
     private String name;
@@ -21,8 +20,6 @@ public abstract class GameObject {
     protected float spriteHeight;
     protected boolean flipSpriteX = false;
     protected boolean flipSpriteY = false;
-    protected TextureRegion textureRegion;
-    protected Animation animation;
     private static FixtureDef getFixtureDef;
 
     public GameObject(Texture texture, float size, float x, float y, float density,
@@ -116,12 +113,11 @@ public abstract class GameObject {
 
     }
 
-    public GameObject(TextureRegion textureRegion, Texture texture, float size, float x, float y, float mass, float bounciness, float friction) {
-        this.textureRegion = textureRegion;
-        this.playerTexture = texture;
+    public GameObject(Boolean player, Texture texture, float size, float x, float y, float mass, float bounciness, float friction) {
+        this.playerAnimationTexture = texture;
         this.radius = size;
-        this.spriteWidth = (float) playerTexture.getWidth() / 4;
-        this.spriteHeight = (float) playerTexture.getHeight() / 1.5f;
+        this.spriteWidth = (float) playerAnimationTexture.getWidth() / 4;
+        this.spriteHeight = (float) playerAnimationTexture.getHeight() / 1.5f;
         this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
         this.spriteWidth = 0.5f*radius;
         float spriteArea = spriteHeight * spriteWidth;
@@ -236,11 +232,11 @@ public abstract class GameObject {
         this.name = name;
     }
 
-    public Texture getPlayerTexture() {
-        return playerTexture;
+    public Texture getPlayerAnimationTexture() {
+        return playerAnimationTexture;
     }
 
-    public void setPlayerTexture(Texture playerTexture) {
-        this.playerTexture = playerTexture;
+    public void setPlayerAnimationTexture(Texture playerAnimationTexture) {
+        this.playerAnimationTexture = playerAnimationTexture;
     }
 }

@@ -13,13 +13,12 @@ import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
-    private static Animation walkAnimation;
-    public static Texture playerTexture;
-    private static TextureRegion currentFrameTexture;
+    private Animation walkAnimation;
+    private TextureRegion currentFrameTexture;
     public float stateTime;
 
-    public Player( World world, Texture animationTexture) {
-        super(Player.currentFrameTexture,animationTexture,
+    public Player(Texture animationTexture) {
+        super(true,animationTexture,
                 1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
@@ -49,7 +48,7 @@ public class Player extends GameObject {
         int tileWidth = this.getObjectTexture().getWidth() / FRAME_COLS;
         int tileHeight = this.getObjectTexture().getHeight() / FRAME_ROWS;
 
-        TextureRegion[][] tmp = TextureRegion.split(BioRunnerGame.textureAssets.getPlayerChonkyAnimation(), tileWidth, tileHeight);
+        TextureRegion[][] tmp = TextureRegion.split(this.getPlayerAnimationTexture(), tileWidth, tileHeight);
 
         TextureRegion[] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
 

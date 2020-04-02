@@ -23,7 +23,7 @@ public class LifeCounter {
 
     public void draw(SpriteBatch batch) {
         if( LifeCounter.lives >= 1) {
-            batch.draw(Player.playerTexture,
+            batch.draw(Player.playerAnimationTexture,
                     this.startX,
                     this.startY,
                     0f,
@@ -35,14 +35,14 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    Player.playerAnimationTexture.getWidth(),
+                    Player.playerAnimationTexture.getHeight(),
                     true,
                     false);
 
         }
         if (LifeCounter.lives >= 2) {
-            batch.draw(Player.playerTexture,
+            batch.draw(Player.playerAnimationTexture,
                     this.startX +this.size+ this.margin,
                     this.startY,
                     0f,
@@ -54,15 +54,15 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    Player.playerAnimationTexture.getWidth(),
+                    Player.playerAnimationTexture.getHeight(),
                     true,
                     false);
 
 
         }
         if (LifeCounter.lives >= 3) {
-            batch.draw(Player.playerTexture,
+            batch.draw(Player.playerAnimationTexture,
                     this.startX + this.margin*2 + this.size*2,
                     this.startY,
                     0f,
@@ -74,8 +74,8 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    Player.playerAnimationTexture.getWidth(),
+                    Player.playerAnimationTexture.getHeight(),
                     true,
                     false);
 

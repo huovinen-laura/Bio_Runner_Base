@@ -27,7 +27,7 @@ public class EndScreen extends ScreenAdapter {
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.sadGuy = BioRunnerGame.textureAssets.getSadGirl();
+        this.sadGuy = game.textureAssets.getSadGirl();
     }
 
     @Override
@@ -48,10 +48,10 @@ public class EndScreen extends ScreenAdapter {
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
                     game.setTitleScreen();
-                    BallGame.clearScore();
-                    BallGame.collectedStuffList.clear();
-                    BallGame.allObstaclesCollection.clear();
-                    BallGame.worldSpeed = -1f;
+                    game.clearScore();
+                    game.collectedStuffList.clear();
+                    game.allObstaclesCollection.clear();
+                    game.worldSpeed = -1f;
                     LifeCounter.setLives(3);
                 }
                 return true;
@@ -61,10 +61,10 @@ public class EndScreen extends ScreenAdapter {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if(isAllowedToLeave) {
                     game.setTitleScreen();
-                    BallGame.clearScore();
-                    BallGame.collectedStuffList.clear();
-                    BallGame.allObstaclesCollection.clear();
-                    BallGame.worldSpeed = -1f;
+                    game.clearScore();
+                    game.collectedStuffList.clear();
+                    game.allObstaclesCollection.clear();
+                    game.worldSpeed = -1f;
                     LifeCounter.setLives(3);
                 }
                 return true;

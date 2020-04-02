@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.collectibles.CollectibleSquare;
-import com.mygdx.game.collectibles.TestCollectible;
 import com.mygdx.game.screens.BallGame;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class ShitCollection {
     private float minY;
     private float maxY;
 
-    public ShitCollection() {
+    public ShitCollection(TextureAssets textureAssets) {
         this.allShit = new ArrayList<>();
         this.minimumAmountOfCollectables = 4;
 

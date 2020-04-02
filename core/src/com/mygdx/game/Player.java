@@ -13,16 +13,17 @@ import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
-    private static Animation walkAnimation;
-    public static Texture playerTexture;
-    private static TextureRegion currentFrameTexture;
+    private Animation walkAnimation;
+    private TextureRegion currentFrameTexture;
     public float stateTime;
+    public BioRunnerGame game;
 
-    public Player( World world) {
-        super(Player.currentFrameTexture, assetManager.playerChonkyAnimation,
+    public Player(Texture animationTexture, BioRunnerGame game) {
+        super(game,true,animationTexture,
                 1.5f,1f, 2f,1000f,0f,1f);
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
+        this.game = game;
         createAnimation();
 
     }
@@ -46,10 +47,10 @@ public class Player extends GameObject {
         final int FRAME_COLS = 4;
         final int FRAME_ROWS = 1;
 
-        int tileWidth = assetManager.playerChonkyAnimation.getWidth() / FRAME_COLS;
-        int tileHeight = assetManager.playerChonkyAnimation.getHeight() / FRAME_ROWS;
+        int tileWidth = this.getPlayerAnimationTexture().getWidth() / FRAME_COLS;
+        int tileHeight = this.getPlayerAnimationTexture().getHeight() / FRAME_ROWS;
 
-        TextureRegion[][] tmp = TextureRegion.split(assetManager.playerChonkyAnimation, tileWidth, tileHeight);
+        TextureRegion[][] tmp = TextureRegion.split(this.getPlayerAnimationTexture(), tileWidth, tileHeight);
 
         TextureRegion[] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
 
@@ -72,7 +73,7 @@ public class Player extends GameObject {
     }
 
     public void moveAnimation() {
-        stateTime += Gdx.graphics.getDeltaTime();
+        stateTime += -Gdx.graphics.getDeltaTime() * game.worldSpeed;
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
 
@@ -88,7 +89,7 @@ public class Player extends GameObject {
             }
         }
 
-        if (LifeCounter.getLives() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
+        if (game.lifeCounter.getLivesAmount() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
             return false;
         }
         return true;

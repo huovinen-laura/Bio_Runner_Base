@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -12,7 +11,7 @@ import com.mygdx.game.screens.BallGame;
 
 public abstract class GameObject {
     protected Texture objectTexture;
-    protected Texture playerTexture;
+    protected Texture playerAnimationTexture;
     protected Body objectBody;
     protected Vector2 position;
     private String name;
@@ -21,19 +20,19 @@ public abstract class GameObject {
     protected float spriteHeight;
     protected boolean flipSpriteX = false;
     protected boolean flipSpriteY = false;
-    protected TextureRegion textureRegion;
-    protected Animation animation;
     private static FixtureDef getFixtureDef;
+    private BioRunnerGame game;
 
-    public GameObject(Texture texture, float size, float x, float y, float density,
+    public GameObject(BioRunnerGame game,Texture texture, float size, float x, float y, float density,
                       float bouncines, float friction, boolean flipX, boolean flipY) {
-        this(texture,size,x,y,density,bouncines,friction);
+        this(game,texture,size,x,y,density,bouncines,friction);
         this.flipSpriteX = flipX;
         this.flipSpriteY = flipY;
     }
 
-    public GameObject(Texture texture, float size,float x, float y, float density,
+    public GameObject(BioRunnerGame game,Texture texture, float size,float x, float y, float density,
                       float bouncines, float friction) {
+        this.game = game;
         this.objectTexture = texture;
         this.radius = size;
         this.spriteWidth = (float) objectTexture.getWidth();
@@ -48,7 +47,7 @@ public abstract class GameObject {
         //Body's position
         myBodyDef.position.set(x, y);
 
-        this.objectBody = BallGame.world.createBody(myBodyDef);
+        this.objectBody = this.game.getWorld().createBody(myBodyDef);
         FixtureDef playerFixtureDef = new FixtureDef();
 
         //Mass per square meter
@@ -72,8 +71,9 @@ public abstract class GameObject {
         this.objectBody.setUserData(this);
     }
 
-    public GameObject( Texture texture, float size,float x, float y, float density,
-                       float bouncines, float friction, Vector2 linearVelocity, Float gravityScale) {
+    public GameObject(BioRunnerGame game, Texture texture, float size, float x, float y, float density,
+                      float bouncines, float friction, Vector2 linearVelocity, Float gravityScale) {
+        this.game = game;
         this.objectTexture = texture;
         this.radius = size;
         this.spriteWidth = (float) objectTexture.getWidth();
@@ -90,7 +90,7 @@ public abstract class GameObject {
         //Body's position
 
 
-        this.objectBody = BallGame.world.createBody(myBodyDef);
+        this.objectBody = this.game.getWorld().createBody(myBodyDef);
         FixtureDef playerFixtureDef = new FixtureDef();
 
         //Mass per square meter
@@ -116,12 +116,13 @@ public abstract class GameObject {
 
     }
 
-    public GameObject(TextureRegion textureRegion, Texture texture, float size, float x, float y, float mass, float bounciness, float friction) {
-        this.textureRegion = textureRegion;
-        this.playerTexture = texture;
+    public GameObject(BioRunnerGame game,Boolean player, Texture texture,
+                      float size, float x, float y, float mass, float bounciness, float friction) {
+        this.playerAnimationTexture = texture;
+        this.game = game;
         this.radius = size;
-        this.spriteWidth = (float) playerTexture.getWidth() / 4;
-        this.spriteHeight = (float) playerTexture.getHeight() / 1.5f;
+        this.spriteWidth = (float) playerAnimationTexture.getWidth() / 4;
+        this.spriteHeight = (float) playerAnimationTexture.getHeight() / 1.5f;
         this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
         this.spriteWidth = 0.5f*radius;
         float spriteArea = spriteHeight * spriteWidth;
@@ -133,7 +134,7 @@ public abstract class GameObject {
         //Body's position
         myBodyDef.position.set(x, y);
 
-        this.objectBody = BallGame.world.createBody(myBodyDef);
+        this.objectBody = this.game.getWorld().createBody(myBodyDef);
         FixtureDef playerFixtureDef = new FixtureDef();
 
         //Mass per square meter
@@ -234,5 +235,13 @@ public abstract class GameObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Texture getPlayerAnimationTexture() {
+        return game.textureAssets.getPlayerChonkyAnimation();
+    }
+
+    public void setPlayerAnimationTexture(Texture playerAnimationTexture) {
+        this.playerAnimationTexture = playerAnimationTexture;
     }
 }

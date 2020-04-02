@@ -1,29 +1,38 @@
 package com.mygdx.game.gamestate;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Player;
+import com.mygdx.game.BioRunnerGame;
+
+
 
 public class LifeCounter {
-    private static int lives = 3;
+    private int lives = 3;
     private float startX;
     private float startY;
     private float margin;
     private float size;
+    private Texture texture;
+    private BioRunnerGame game;
 
-    public LifeCounter() {
+    public LifeCounter(Texture lifeTexture, BioRunnerGame game) {
+        this.texture = lifeTexture;
+        this.game = game;
         this.size = 0.5f;
         this.startX = 5f;
         this.startY = 3.25f;
         this.margin = 0.25f;
+        this.lives= 3;
     }
 
-    public static void setLives(int i) {
-        LifeCounter.lives = i;
+    public void setLives(int i) {
+        this.lives = i;
     }
 
     public void draw(SpriteBatch batch) {
-        if( LifeCounter.lives >= 1) {
-            batch.draw(Player.playerTexture,
+        if( this.lives >= 1) {
+            batch.draw(this.texture,
                     this.startX,
                     this.startY,
                     0f,
@@ -35,14 +44,14 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    this.texture.getWidth(),
+                    this.texture.getHeight(),
                     true,
                     false);
 
         }
-        if (LifeCounter.lives >= 2) {
-            batch.draw(Player.playerTexture,
+        if (this.lives >= 2) {
+            batch.draw(this.texture,
                     this.startX +this.size+ this.margin,
                     this.startY,
                     0f,
@@ -54,15 +63,15 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    this.texture.getWidth(),
+                    this.texture.getHeight(),
                     true,
                     false);
 
 
         }
-        if (LifeCounter.lives >= 3) {
-            batch.draw(Player.playerTexture,
+        if (this.lives >= 3) {
+            batch.draw(this.texture,
                     this.startX + this.margin*2 + this.size*2,
                     this.startY,
                     0f,
@@ -74,8 +83,8 @@ public class LifeCounter {
                     0f,
                     0,
                     0,
-                    Player.playerTexture.getWidth(),
-                    Player.playerTexture.getHeight(),
+                    this.texture.getWidth(),
+                    this.texture.getHeight(),
                     true,
                     false);
 
@@ -83,13 +92,17 @@ public class LifeCounter {
         }
     }
 
-    public static void loseLife() {
-        LifeCounter.lives--;
+    public void loseLife() {
+        this.lives--;
     }
 
-    public static void gainLife() {
-        LifeCounter.lives++;
+    public void gainLife() {
+        Gdx.app.log("lives", "" + this.lives);
+        this.lives++;
+        Gdx.app.log("lives","" + this.lives);
     }
 
-    public static int getLives() {return (LifeCounter.lives); }
+    public int getLivesAmount() {
+        return(this.lives);
+    }
 }

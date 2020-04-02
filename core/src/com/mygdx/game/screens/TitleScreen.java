@@ -40,7 +40,7 @@ public class TitleScreen extends ScreenAdapter {
         fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         this.game = game;
         this.font = game.getFont();
-        tausta = new Texture("tausta.png");
+        tausta = game.textureAssets.getSky();
         hahmo = new Texture("tiko.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
@@ -59,9 +59,10 @@ public class TitleScreen extends ScreenAdapter {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(fontCamera.combined);
-        this.startButton = new Button(2f,2f,1f,1f);
-        this.settingsButton = new Button(2f, 1f, 1f, 1f);
-        this.skinShopButton = new Button(2f, 0f, 1f, 1f);
+
+        this.settingsButton = new Button(2f, 1f, 1f, 1f,this.game.textureAssets.getButtonBlue());
+        this.skinShopButton = new Button(2f, 0f, 1f, 1f,this.game.textureAssets.getButtonBlue());
+        this.startButton = new Button(1f,1f,1f,1f,this.game.textureAssets.getButtonBlue());
         projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
 
         Gdx.input.setInputProcessor(new InputAdapter() {

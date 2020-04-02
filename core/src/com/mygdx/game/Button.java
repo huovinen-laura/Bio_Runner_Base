@@ -15,19 +15,15 @@ public class Button {
     protected float height;
     protected float width;
 
-    public Button(float x,float y, float height, float width) {
+    public Button(float x,float y, float height, float width, Texture texture) {
 
         this.position = new Vector2(x,y);
-        this.buttonTexture = new Texture("button_blank.png");
+        this.buttonTexture = texture;
         this.height = height;
         this.width = width;
     }
 
-    public Button( float x,float y, float height, float width, Texture texture) {
-        this(x,y,height,width);
-        this.buttonTexture.dispose();
-        this.buttonTexture = texture;
-    }
+
 
     public boolean isInsideButton(float x, float y) {
 

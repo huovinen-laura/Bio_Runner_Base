@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.collectibles.CollectibleSquare;
-import com.mygdx.game.collectibles.TestCollectible;
 import com.mygdx.game.screens.BallGame;
 
 import java.util.ArrayList;
@@ -17,19 +16,21 @@ public class ShitCollection {
     private Vector2 lastCollectablePosition;
     private float minY;
     private float maxY;
+    private BioRunnerGame game;
 
-    public ShitCollection() {
+    public ShitCollection(BioRunnerGame game) {
+        this.game = game;
         this.allShit = new ArrayList<>();
         this.minimumAmountOfCollectables = 4;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", TestCollectible.texture,50f));
+                "banaani", game.textureAssets.getBanaani(),50f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "luu", new Texture("luu.png"),25f ));
+                "luu", game.textureAssets.getLuu(),25f ));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", new Texture("tee.png"), 26f));
+                "tee", game.textureAssets.getTee(), 26f));
 
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
@@ -73,7 +74,7 @@ public class ShitCollection {
         for (int i = 0 ; i < this.allShit.size();i++) {
 
             if(this.allShit.get(i).getProbability() >= roll) {
-                return(new CollectibleSquare(this.allShit.get(i).getTexture(),
+                return(new CollectibleSquare(game,this.allShit.get(i).getTexture(),
                         1f,positionX,positionY,this.allShit.get(i).getName()));
             } else {
                 roll-= this.allShit.get(i).getProbability();
@@ -82,7 +83,7 @@ public class ShitCollection {
 
 
 
-        return(new CollectibleSquare(new Texture("badlogic.jpg"),1f,positionX,positionY,"error"));
+        return(new CollectibleSquare(game,new Texture("badlogic.jpg"),1f,positionX,positionY,"error"));
     }
 
     public boolean isNextCollectibleComing(int count) {

@@ -32,9 +32,9 @@ public class ShopScreen extends ScreenAdapter {
 
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
-        this.lowerButton = new Button(1f,1f,1f,1f);
+        this.lowerButton = new Button(1f,1f,1f,1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
-        this.upperButton = new Button(1f,3f,1f,1f);
+        this.upperButton = new Button(1f,3f,1f,1f, game.textureAssets.getButtonBlue());
 
         locale = Locale.getDefault();
         //locale = new Locale("en", "UK");
@@ -69,10 +69,9 @@ public class ShopScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         this.isPossibleToLeave = true;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
-        BallGame.setPoint(1);
-        BallGame.collectedStuffList.clear();
-        BallGame.allObstaclesCollection.clear();
+        camera.setToOrtho(false, game.WORLD_WIDTH,game.WORLD_HEIGHT);
+        game.collectedStuffList.clear();
+        game.allObstaclesCollection.clear();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -82,16 +81,15 @@ public class ShopScreen extends ScreenAdapter {
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
 
                 if( upperButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
-                    if(LifeCounter.getLives() < 3) {
-                        LifeCounter.gainLife();
+                    if(game.lifeCounter.getLivesAmount() < 3) {
+                        game.lifeCounter.gainLife();
                         game.setGameScreen();
-                    } else if(LifeCounter.getLives() == 3) {
+                    } else if(game.lifeCounter.getLivesAmount() == 3) {
                         game.setGameScreen();
                     }
 
                 } else if( lowerButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
-                    BallGame.setPoint(2);
-                    LifeCounter.setLives(1);
+                    game.lifeCounter.setLives(1);
                     game.setGameScreen();
                 }
 

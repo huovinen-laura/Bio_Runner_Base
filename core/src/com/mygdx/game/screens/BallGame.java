@@ -4,16 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.*;
-import com.mygdx.game.collectibles.TestCollectible;
+import com.mygdx.game.collectibles.CollectibleSquare;
 import com.mygdx.game.gamestate.LifeCounter;
+import com.mygdx.game.obstacles.ObstacleRectangle;
 
 import java.util.ArrayList;
 
@@ -24,59 +25,48 @@ public class BallGame extends ScreenAdapter {
 
 
 	public static float worldSpeed = -1f;
-	public static ShitCollection collectedStuffList = new ShitCollection();
 	public ScrollingBackground scrollingBackground;
-	public static World world = new World(new Vector2(0, -5f), true);
-	private LifeCounter lifeCounter;
-	public static int playerScore;
-	public static ObstacleCollection allObstaclesCollection = new ObstacleCollection();
+	public World world;
 
 	public static float WORLD_WIDTH = 8;
 	public static float WORLD_HEIGHT = 4;
-	private float projectedWorldHeight;
-	private float projectedWorldWidth;
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
 	private Waypoint waypoint;
 	private boolean lostGame;
-	private boolean reachedCheckpoint;
     private static int point = 1;
-    public static float volume = 0.5f;
-    private float fps;
-    private float fpsAccumulator;
-    private float fpsCount;
+    public float volume ;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
+	private boolean reachedCheckpoint;
 
 	public BallGame (BioRunnerGame game) {
+		this.world = new World(new Vector2(0, -5f), true);
 		this.game = game;
 		Gdx.app.log("sf","Ballgame constructor");
+		volume = 0.5f;
 
 		game.batch = new SpriteBatch();
 		this.font = game.getFont();
 		collectables = new ArrayList<GameObject>();
 		obstacles = new ArrayList<>();
-		this.lifeCounter = new LifeCounter();
 
-		scrollingBackground = new ScrollingBackground(worldSpeed);
+		scrollingBackground = new ScrollingBackground(worldSpeed, game);
 		createGround();
 		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-		this.projectedWorldHeight = camera.project(new Vector3(0f,WORLD_HEIGHT,0f)).y;
-		this.projectedWorldWidth = camera.project(new Vector3(WORLD_WIDTH,0f,0f)).x;
 	}
 
 	@Override
 	public void show() {
-		ball = new Player(world);
-		Player.playerTexture = assetManager.playerChonky;
+		this.reachedCheckpoint = false;
+		game.collectedStuffList = new ShitCollection(this.game);
+		ball = new Player(this.game.textureAssets.getPlayerChonkyAnimation(),game);
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
-        this.fps = 0;
-		waypoint = new Waypoint(20f);
-		this.reachedCheckpoint = false;
+		waypoint = new Waypoint(20f, game);
 		this.lostGame = false;
 		this.ball.setJustChangedScreen(true);
 		Gdx.app.log("sdf","ballgame show");
@@ -119,8 +109,8 @@ public class BallGame extends ScreenAdapter {
 		}
 
 
-		if(BallGame.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-				this.collectables.add(BallGame.collectedStuffList.getRandomCollectible());
+		if(game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
+				this.collectables.add(game.collectedStuffList.getRandomCollectible());
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
@@ -131,18 +121,18 @@ public class BallGame extends ScreenAdapter {
 			}
 		}
 
-		if(allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
-			this.obstacles.add(allObstaclesCollection.getRandomCollectible());
+		if(game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
+			this.obstacles.add(game.allObstaclesCollection.getRandomCollectible());
 		}
 
-		this.lifeCounter.draw(this.gameBatch);
+		game.lifeCounter.draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
 		waypoint.move();
 
         this.gameBatch.end();
 
         //Draws the player's score
-        String score = Integer.toString(playerScore);
+        String score = Integer.toString(game.playerScore);
         game.batch.begin();
         this.font.draw(game.batch, score, Gdx.graphics.getWidth() * .92f,
                 Gdx.graphics.getHeight() * .90f);
@@ -152,15 +142,10 @@ public class BallGame extends ScreenAdapter {
 
 		debugRenderer.render(world, camera.combined);
 
-		// checks if the game has somehow ended
-		if (waypoint.isFinished()) {
-			this.reachedCheckpoint = true;
-		}
-
 		if (this.ball.isGrounded()) {
 			if (this.lostGame) {
 				this.game.setEndScreen();
-				LifeCounter.setLives(3);
+				game.lifeCounter.setLives(3);
 			} else if (this.waypoint.isFinished()) {
 				this.game.setRecycleScreen();
 			}
@@ -205,12 +190,8 @@ public class BallGame extends ScreenAdapter {
 
 	public void createGround() {
 		Body groundBody = world.createBody(getGroundBodyDef());
-		groundBody.setUserData(new GameObjectAdapter() {
-			@Override
-			public String Collide() {
-				return ("wall");
-			}
-		});
+
+
 		groundBody.createFixture(getGroundShape(), 0.0f);
 	}
 
@@ -229,27 +210,23 @@ public class BallGame extends ScreenAdapter {
 		return groundBox;
 	}
 
-	public static void setPlayerScore() {
-	    playerScore += point;
-    }
 
-    public static int getPlayerScore() {
-		return playerScore;
+    public int getPlayerScore() {
+		return (this.game.playerScore);
 	}
 
-	public static void setPoint(int newPoint) {
+	public void setPoint(int newPoint) {
 		point = newPoint;
 	}
 
-    public static void clearScore() {
-	    playerScore = 0;
+    public void clearScore() {
+	    this.game.lifeCounter.setLives(0);
     }
 
 	@Override
 	public void dispose () {
 		Gdx.app.log("asd","ballgame.dispose");
 		ball.dispose();
-		this.scrollingBackground.dispose();
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
@@ -278,4 +255,66 @@ public class BallGame extends ScreenAdapter {
 		this.collectables.clear();
 		Gdx.input.setInputProcessor(null);
 	}
+
+	public class B2dContactListener implements ContactListener {
+		Sound hurt = Gdx.audio.newSound(Gdx.files.internal("hurt.wav"));
+		Sound collect = Gdx.audio.newSound(Gdx.files.internal("collect.wav"));
+
+		@Override
+		public void beginContact(Contact contact) {
+			Object a = contact.getFixtureA().getBody().getUserData();
+			Object b = contact.getFixtureB().getBody().getUserData();
+
+			if ((a instanceof Player && b instanceof CollectibleSquare)) {
+				CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
+				collectibleSquareB.collect();
+				game.collectedStuffList.addStuff(collectibleSquareB);
+				collect.play(volume);
+				game.playerScore += 1;
+
+			} else if ((b instanceof Player && a instanceof CollectibleSquare)) {
+				CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
+				collectibleSquareA.collect();
+				game.collectedStuffList.addStuff(collectibleSquareA);
+				collect.play(volume);
+				game.playerScore += 1;
+			}
+
+			if (a instanceof ObstacleRectangle && b instanceof Player) {
+				ObstacleRectangle obstacle = (ObstacleRectangle) a;
+				if(!obstacle.isDeleted()) {
+					hurt.play(volume);
+					game.allObstaclesCollection.addStuff(obstacle);
+					obstacle.delete();
+					game.lifeCounter.loseLife();
+				}
+
+			} else if ( a instanceof Player && b instanceof ObstacleRectangle) {
+				ObstacleRectangle obstacle = (ObstacleRectangle) b;
+				if(!obstacle.isDeleted()) {
+					hurt.play(volume);
+					game.allObstaclesCollection.addStuff(obstacle);
+					obstacle.delete();
+					game.lifeCounter.loseLife();
+				}
+			}
+
+		}
+
+		@Override
+		public void endContact(Contact contact) {
+
+		}
+
+		@Override
+		public void preSolve(Contact contact, Manifold oldManifold) {
+
+		}
+
+		@Override
+		public void postSolve(Contact contact, ContactImpulse impulse) {
+
+		}
+	}
+
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.GameObject;
 import com.mygdx.game.screens.BallGame;
 
@@ -20,8 +21,8 @@ public class CollectibleSquare extends GameObject {
         this.name = name;
     }
 
-    public CollectibleSquare(Texture texture, float size, float x, float y, String collName) {
-        super(texture,size,x,y,0f,0f,0f,new Vector2(BallGame.worldSpeed,0f),0f);
+    public CollectibleSquare(BioRunnerGame world, Texture texture, float size, float x, float y, String collName) {
+        super(world,texture,size,x,y,0f,0f,0f,new Vector2(world.worldSpeed,0f),0f);
         this.setForDelete = false;
         this.name = collName;
     }

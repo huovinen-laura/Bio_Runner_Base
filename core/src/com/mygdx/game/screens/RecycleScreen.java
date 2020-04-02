@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.WasteDisplayRecycle;
-import com.mygdx.game.assetManager;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -34,8 +33,8 @@ public class RecycleScreen extends ScreenAdapter {
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.happyGuy = assetManager.happyGirl;
-        this.sadGuy = assetManager.sadGirl;
+        this.happyGuy = game.textureAssets.getHappyGirl();
+        this.sadGuy = game.textureAssets.getSadGirl();
         background = new Texture("sky.png");
         laitos = new Texture("laitossuomi.png");
         width = BallGame.WORLD_WIDTH;
@@ -85,7 +84,7 @@ public class RecycleScreen extends ScreenAdapter {
         game.batch = new SpriteBatch();
         this.praise = true;
         this.texturesBatch = new SpriteBatch();
-        this.leaveButton = new Button(1f,1f,1f,1f);
+        this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
 
 
 
@@ -94,9 +93,9 @@ public class RecycleScreen extends ScreenAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);
-        this.wasteTextures = new WasteDisplayRecycle(BallGame.collectedStuffList.getAllShit(),
+        this.wasteTextures = new WasteDisplayRecycle(game.collectedStuffList.getAllShit(),
                 3f,3f,4f,180);
-        this.obstacleTextures = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
+        this.obstacleTextures = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
                 3f,2f,2f,60);
 
         if (this.obstacleTextures.isEmpty()) {
@@ -121,7 +120,7 @@ public class RecycleScreen extends ScreenAdapter {
                 }
 
                 Gdx.app.log("RecycleScreen", "speeding");
-                BallGame.worldSpeed -= 0.5f;
+                game.worldSpeed -= 0.5f;
                 return true;
             }
     });

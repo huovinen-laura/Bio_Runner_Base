@@ -34,7 +34,7 @@ public class EndScreen extends ScreenAdapter {
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.sadGuy = new Texture("recycleGallSad.png");
+        this.sadGuy = game.textureAssets.getSadGirl();
 
         locale = Locale.getDefault();
         //locale = new Locale("en", "UK");
@@ -50,23 +50,23 @@ public class EndScreen extends ScreenAdapter {
         this.textureBatch = new SpriteBatch();
         this.isAllowedToLeave = false;
         textureCamera = new OrthographicCamera();
-        textureCamera.setToOrtho(false,BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        textureCamera.setToOrtho(false,game.WORLD_WIDTH,game.WORLD_HEIGHT);
 
         textureBatch.setProjectionMatrix(textureCamera.combined);
-        this.wrongWasteDisplay = new WasteDisplayRecycle(BallGame.allObstaclesCollection.getAllObstacles(),
+        this.wrongWasteDisplay = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
                 3f,2f,2f,60);
-        this.score = Integer.toString(BallGame.getPlayerScore());
+        this.score = Integer.toString(game.playerScore);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
                     game.setTitleScreen();
-                    BallGame.clearScore();
-                    BallGame.collectedStuffList.clear();
-                    BallGame.allObstaclesCollection.clear();
-                    BallGame.worldSpeed = -1f;
-                    LifeCounter.setLives(3);
+                    game.clearScore();
+                    game.collectedStuffList.clear();
+                    game.allObstaclesCollection.clear();
+                    game.worldSpeed = -1f;
+                    game.lifeCounter.setLives(3);
                 }
                 return true;
             }
@@ -75,11 +75,11 @@ public class EndScreen extends ScreenAdapter {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if(isAllowedToLeave) {
                     game.setTitleScreen();
-                    BallGame.clearScore();
-                    BallGame.collectedStuffList.clear();
-                    BallGame.allObstaclesCollection.clear();
-                    BallGame.worldSpeed = -1f;
-                    LifeCounter.setLives(3);
+                    game.clearScore();
+                    game.collectedStuffList.clear();
+                    game.allObstaclesCollection.clear();
+                    game.worldSpeed = -1f;
+                    game.lifeCounter.setLives(3);
                 }
                 return true;
             }

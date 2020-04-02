@@ -17,14 +17,14 @@ public class Waypoint {
     float markerSize;
 
 
-    public Waypoint(float length) {
+    public Waypoint(float length, BioRunnerGame game) {
         this.length = length;
         this.displayedProgress = 0;
         this.realProgress = 0;
         this.barWidth = 4f;
         this.markerSize = 0.2f;
-        progressBar = new Texture("progressbar.png");
-        progressMarker = new Texture("ball.png");
+        progressBar = game.textureAssets.getProgressBar();
+        progressMarker = game.textureAssets.getPlayerChonky();
     }
 
     public void draw(SpriteBatch batch) {

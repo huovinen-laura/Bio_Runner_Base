@@ -10,10 +10,12 @@ import com.badlogic.gdx.Gdx;
 public class GameAction {
     protected BioRunnerGame game;
     private float waitLeft;
+    private String name;
 
-    public GameAction(float wait, BioRunnerGame game) {
+    public GameAction(float wait, BioRunnerGame game, String name) {
         this.waitLeft = wait;
         this.game = game;
+        this.name = name;
     }
 
     public GameAction(BioRunnerGame game) {
@@ -22,12 +24,12 @@ public class GameAction {
     }
 
 
-     public void doAction() {
+     public boolean doAction() {
         if (this.waitLeft <= 0 ) {
-
+            return true;
         } else {
             waitLeft -= Gdx.graphics.getDeltaTime();
-            return;
+            return false;
         }
 
     }

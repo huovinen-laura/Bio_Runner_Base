@@ -37,13 +37,12 @@ public class TitleScreen extends ScreenAdapter {
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
-        fontCamera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         this.game = game;
         this.font = game.getFont();
         tausta = game.textureAssets.getSky();
         hahmo = new Texture("tiko.png");
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.WORLD_WIDTH;
+        height = game.WORLD_HEIGHT;
 
         // Kieli. Default hakee järjestelmän kielen, new Localessa kielen voi päättää itse.
         locale = Locale.getDefault();
@@ -58,11 +57,11 @@ public class TitleScreen extends ScreenAdapter {
     public void show() {
         game.batch = new SpriteBatch();
         this.titleBatch = new SpriteBatch();
-        this.titleBatch.setProjectionMatrix(fontCamera.combined);
+        this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
         this.settingsButton = new Button(2f, 1f, 1f, 1f,this.game.textureAssets.getButtonBlue());
         this.skinShopButton = new Button(2f, 0f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        this.startButton = new Button(1f,1f,1f,1f,this.game.textureAssets.getButtonBlue());
+        this.startButton = new Button(2f,2f,1f,1f,this.game.textureAssets.getButtonBlue());
         projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
 
         Gdx.input.setInputProcessor(new InputAdapter() {

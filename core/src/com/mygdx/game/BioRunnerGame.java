@@ -2,8 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
 import com.badlogic.gdx.physics.box2d.World;
@@ -26,11 +28,23 @@ public class BioRunnerGame extends Game {
     private RecycleScreen recycle;
     private ShopScreen shop;
     public TextureAssets textureAssets;
+    private Vector3 projected;
+    private OrthographicCamera textureCamera;
+
+    public OrthographicCamera getTextureCamera() {
+        return textureCamera;
+    }
+
+    public Vector3 getTextureCameraProjection() {
+        return(textureCamera.project(new Vector3(this.WORLD_WIDTH,this.WORLD_HEIGHT,0f)));
+    }
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         textureAssets = new TextureAssets();
+        textureCamera = new OrthographicCamera();
+        textureCamera.setToOrtho(false,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         playerScore = 0;
 
@@ -112,5 +126,13 @@ public class BioRunnerGame extends Game {
     }
 
     public void clearScore() {
+    }
+
+    public Vector3 getProjected() {
+        return projected;
+    }
+
+    public void setProjected(Vector3 projected) {
+        this.projected = projected;
     }
 }

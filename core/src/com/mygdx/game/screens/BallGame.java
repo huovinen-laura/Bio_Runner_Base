@@ -50,7 +50,7 @@ public class BallGame extends ScreenAdapter {
 
 		game.batch = new SpriteBatch();
 		this.font = game.getFont();
-		collectables = new ArrayList<GameObject>();
+		collectables = new ArrayList<>();
 		obstacles = new ArrayList<>();
 
 		scrollingBackground = new ScrollingBackground(worldSpeed, game);

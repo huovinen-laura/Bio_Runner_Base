@@ -26,22 +26,23 @@ public class SkinShopScreen extends ScreenAdapter {
     private Texture tausta;
     private float width, height;
 
+
     Locale locale;
     I18NBundle myBundle;
-    String shop;
+        String shop;
 
     public SkinShopScreen(BioRunnerGame game) {
-        this.game = game;
-        this.backButton = new Button(0.5f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
-        this.font = game.getFont();
-        tausta = new Texture("tausta.png");
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+            this.game = game;
+            this.backButton = new Button(0.5f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
+            this.font = game.getFont();
+            tausta = new Texture("tausta.png");
+            width = BallGame.WORLD_WIDTH;
+            height = BallGame.WORLD_HEIGHT;
 
-        locale = Locale.getDefault();
-        //locale = new Locale("en", "UK");
-        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-        shop = myBundle.get("shop");
+            locale = Locale.getDefault();
+            //locale = new Locale("en", "UK");
+            myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+            shop = myBundle.get("shop");
     }
 
     @Override

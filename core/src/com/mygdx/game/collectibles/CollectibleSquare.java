@@ -10,7 +10,6 @@ import com.mygdx.game.screens.BallGame;
 
 public class CollectibleSquare extends GameObject {
     Boolean setForDelete;
-    static int collected;
     String name;
 
     public String getName() {
@@ -49,7 +48,6 @@ public class CollectibleSquare extends GameObject {
 
     public void collect() {
         this.setForDelete = true;
-        collected++;
     }
 
 

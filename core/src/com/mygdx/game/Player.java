@@ -73,7 +73,7 @@ public class Player extends GameObject {
     }
 
     public void moveAnimation() {
-        stateTime += -Gdx.graphics.getDeltaTime() * game.worldSpeed;
+        stateTime += Gdx.graphics.getDeltaTime() * (1 +  0.50 * (-game.worldSpeed - 1f));
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
 

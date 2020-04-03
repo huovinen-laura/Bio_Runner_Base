@@ -98,28 +98,9 @@ public class BallGame extends ScreenAdapter {
 			this.lostGame = true;
 			Gdx.app.log("BallGame","Lost game");
 		}
+
 		ball.Draw(this.gameBatch);
-
-		for (int i =0 ; i < this.collectables.size();i++) {
-			this.collectables.get(i).Draw(this.gameBatch);
-			if( !this.collectables.get(i).Move()) {
-				this.collectables.get(i).dispose();
-				this.collectables.remove(i);
-			}
-		}
-
-
-		if(game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-				this.collectables.add(game.collectedStuffList.getRandomCollectible());
-		}
-
-		for (int i =0 ; i < this.obstacles.size();i++) {
-			this.obstacles.get(i).Draw(this.gameBatch);
-			if( !this.obstacles.get(i).Move()) {
-				this.obstacles.get(i).dispose();
-				this.obstacles.remove(i);
-			}
-		}
+		this.manageCollectablesAndObstacles();
 
 		if(game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
 			this.obstacles.add(game.allObstaclesCollection.getRandomCollectible());
@@ -165,6 +146,43 @@ public class BallGame extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 
+	/**
+	 * Draws collectables and obstacles and removes collectables and obstacles that need to be removed
+	 *
+	 */
+	private void manageCollectablesAndObstacles() {
+		ArrayList<Integer> toRemove = new ArrayList();
+		for (int i =0 ; i < this.collectables.size();i++) {
+			this.collectables.get(i).Draw(this.gameBatch);
+			if( !this.collectables.get(i).Move()) {
+				this.collectables.get(i).dispose();
+				toRemove.add(i);
+			}
+		}
+
+		for (int i = 0; i < toRemove.size(); i++) {
+			this.collectables.remove(toRemove.get(i)-i);
+		}
+		toRemove.clear();
+
+
+		if(game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
+			this.collectables.add(game.collectedStuffList.getRandomCollectible());
+		}
+
+		for (int i =0 ; i < this.obstacles.size();i++) {
+			this.obstacles.get(i).Draw(this.gameBatch);
+			if( !this.obstacles.get(i).Move()) {
+				this.obstacles.get(i).dispose();
+				toRemove.add(i);
+			}
+		}
+		for (int i = 0; i < toRemove.size(); i++) {
+			this.obstacles.remove(toRemove.get(i)-i);
+		}
+		toRemove.clear();
+
+	}
 
 
 	private double accumulator = 0;

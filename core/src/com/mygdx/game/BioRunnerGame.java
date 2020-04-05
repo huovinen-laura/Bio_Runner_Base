@@ -31,6 +31,8 @@ public class BioRunnerGame extends Game {
     private Vector3 projected;
     private OrthographicCamera textureCamera;
 
+    private int pointsPerCollectable;
+
     public OrthographicCamera getTextureCamera() {
         return textureCamera;
     }
@@ -41,6 +43,7 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+        this.pointsPerCollectable = 1;
         batch = new SpriteBatch();
         textureAssets = new TextureAssets();
         textureCamera = new OrthographicCamera();
@@ -134,5 +137,13 @@ public class BioRunnerGame extends Game {
 
     public void setProjected(Vector3 projected) {
         this.projected = projected;
+    }
+
+    public int getPointsPerCollectable() {
+        return pointsPerCollectable;
+    }
+
+    public void setPointsPerCollectable(int pointsPerCollectable) {
+        this.pointsPerCollectable = pointsPerCollectable;
     }
 }

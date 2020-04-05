@@ -288,14 +288,14 @@ public class BallGame extends ScreenAdapter {
 				collectibleSquareB.collect();
 				game.collectedStuffList.addStuff(collectibleSquareB);
 				collect.play(volume);
-				game.playerScore += 1;
+				game.playerScore += game.getPointsPerCollectable();
 
 			} else if ((b instanceof Player && a instanceof CollectibleSquare)) {
 				CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
 				collectibleSquareA.collect();
 				game.collectedStuffList.addStuff(collectibleSquareA);
 				collect.play(volume);
-				game.playerScore += 1;
+				game.playerScore += game.getPointsPerCollectable();
 			}
 
 			if (a instanceof ObstacleRectangle && b instanceof Player) {

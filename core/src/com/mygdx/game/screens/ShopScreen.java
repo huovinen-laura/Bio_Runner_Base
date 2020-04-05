@@ -90,6 +90,7 @@ public class ShopScreen extends ScreenAdapter {
 
                 } else if( lowerButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.lifeCounter.setLives(1);
+                    game.setPointsPerCollectable(2);
                     game.setGameScreen();
                 }
 

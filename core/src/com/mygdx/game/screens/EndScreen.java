@@ -54,7 +54,7 @@ public class EndScreen extends ScreenAdapter {
 
         textureBatch.setProjectionMatrix(textureCamera.combined);
         this.wrongWasteDisplay = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
-                3f,2f,2f,60);
+                4.5f,0.50f,2f,60);
         this.score = Integer.toString(game.playerScore);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -80,6 +80,7 @@ public class EndScreen extends ScreenAdapter {
                     game.allObstaclesCollection.clear();
                     game.worldSpeed = -1f;
                     game.lifeCounter.setLives(3);
+                    game.setPointsPerCollectable(1);
                 }
                 return true;
             }
@@ -98,15 +99,12 @@ public class EndScreen extends ScreenAdapter {
                 Gdx.graphics.getHeight() * .75f);
         font.draw(game.batch, yourScore + score, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .50f);
+        font.draw(game.batch, myBundle.get("whatHitMe"),Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * .25f);
 
-        if( isAllowedToLeave) {
-            font.draw(game.batch, tap, Gdx.graphics.getWidth() * 0.30f,
-                    Gdx.graphics.getHeight() * .25f);
-        }
 
         game.batch.end();
         this.textureBatch.begin();
-        this.textureBatch.draw(this.sadGuy,0f,0f,3f,2f);
+        this.textureBatch.draw(this.sadGuy,0f,0f,2f,3f);
         if(this.wrongWasteDisplay.draw(this.textureBatch) ) {
             this.isAllowedToLeave = true;
         }

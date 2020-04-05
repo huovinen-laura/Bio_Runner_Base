@@ -24,13 +24,25 @@ public class ShitCollection {
         this.minimumAmountOfCollectables = 4;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", game.textureAssets.getBanaani(),50f));
+                "banaani", game.textureAssets.getBanaani(),40f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "luu", game.textureAssets.getLuu(),25f ));
+                "luu", game.textureAssets.getLuu(),15f ));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", game.textureAssets.getTee(), 26f));
+                "tee", game.textureAssets.getTee(), 16f));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "omena", game.textureAssets.getOmena(),10));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "kukka", game.textureAssets.getKukka(),10));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "mansikka", game.textureAssets.getMansikka(),10));
+
+
+
 
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
@@ -89,7 +101,7 @@ public class ShitCollection {
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfCollectables) {
 
-            if(this.timeFromLastCollectable >= this.timeBetweenCollectables) {
+            if(this.timeFromLastCollectable * -game.worldSpeed >= this.timeBetweenCollectables*1) {
                 this.timeFromLastCollectable = 0f;
                 return(true);
             } else {

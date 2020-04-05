@@ -15,8 +15,8 @@ public class ScrollingBackground {
 
     public ScrollingBackground(float worldSpeed, BioRunnerGame game) {
         this.game = game;
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.WORLD_WIDTH;
+        height = game.WORLD_HEIGHT;
         x1 = 0;
         x2 = width;
         x3 = 0;

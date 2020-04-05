@@ -19,6 +19,12 @@ public class TextureAssets {
     private Texture pilleri = new Texture("pilleri.png");
     private Texture banaani = new Texture("banaani.png");
     private Texture tee = new Texture("tee.png");
+    private Texture kukka = new Texture("kukkaKuollut.png");
+    private Texture mansikka = new Texture("mansikka.png");
+    private Texture omena = new Texture("omena.png");
+    private Texture patteri = new Texture( "patteri.png");
+    private Texture pullo = new Texture("pullo.png");
+    private Texture tupakka = new Texture("rööki.png");
 
     private Texture happyGirl = new Texture("recycleGallHappy.png");
     private Texture sadGirl = new Texture("recycleGallSad.png");
@@ -113,6 +119,12 @@ public class TextureAssets {
     }
 
     public void dispose() {
+        kukka.dispose();
+        mansikka.dispose();
+        omena.dispose();
+        patteri.dispose();
+        pullo.dispose();
+        tupakka.dispose();
         playerChonky.dispose();
         playerChonkyAnimation.dispose();
         playerOldFit.dispose();
@@ -161,5 +173,53 @@ public class TextureAssets {
 
     public void setSadGirl(Texture sadGirl) {
         this.sadGirl = sadGirl;
+    }
+
+    public Texture getKukka() {
+        return kukka;
+    }
+
+    public void setKukka(Texture kukka) {
+        this.kukka = kukka;
+    }
+
+    public Texture getMansikka() {
+        return mansikka;
+    }
+
+    public void setMansikka(Texture mansikka) {
+        this.mansikka = mansikka;
+    }
+
+    public Texture getOmena() {
+        return omena;
+    }
+
+    public void setOmena(Texture omena) {
+        this.omena = omena;
+    }
+
+    public Texture getPatteri() {
+        return patteri;
+    }
+
+    public void setPatteri(Texture patteri) {
+        this.patteri = patteri;
+    }
+
+    public Texture getPullo() {
+        return pullo;
+    }
+
+    public void setPullo(Texture pullo) {
+        this.pullo = pullo;
+    }
+
+    public Texture getTupakka() {
+        return tupakka;
+    }
+
+    public void setTupakka(Texture tupakka) {
+        this.tupakka = tupakka;
     }
 }

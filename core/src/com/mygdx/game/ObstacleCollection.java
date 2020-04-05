@@ -87,7 +87,8 @@ public class ObstacleCollection {
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfObstacles) {
 
-            if(this.timeFromLastObstacle >= this.timeBetweenObstacles) {
+            if(this.timeFromLastObstacle * 1 - 0.25 * (1 + game.worldSpeed) * this.timeFromLastObstacle >=
+                    this.timeBetweenObstacles) {
                 this.timeFromLastObstacle = 0f;
                 return(true);
             } else {

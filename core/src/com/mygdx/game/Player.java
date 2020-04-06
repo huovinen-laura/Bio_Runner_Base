@@ -17,30 +17,53 @@ public class Player extends GameObject {
     private TextureRegion currentFrameTexture;
     public float stateTime;
     public BioRunnerGame game;
+    private boolean isDefault;
 
     public Player(Texture animationTexture, BioRunnerGame game) {
-        super(game,true,animationTexture,
+        super(game,true,game.getCurrentAnimation(),
                 1.5f,1f, 2f,1000f,0f,1f);
+        this.game = game;
+        if(this.game.getSkinName().contentEquals("vakio")) {
+            isDefault = true;
+        } else {
+            isDefault = false;
+        }
+
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
-        this.game = game;
         createAnimation();
 
     }
 
     @Override
     public void Draw(SpriteBatch batch) {
-        batch.draw(currentFrameTexture,
-                this.getObjectBody().getPosition().x,
-                this.getObjectBody().getPosition().y,
-                0f,
-                0f,
-                this.spriteWidth,
-                this.spriteHeight,
-                1.0f,
-                1.0f,
-                this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
-                );
+        if(isDefault) {
+            batch.draw(currentFrameTexture,
+                    this.getObjectBody().getPosition().x,
+                    this.getObjectBody().getPosition().y,
+                    0f,
+                    0f,
+                    this.spriteWidth,
+                    this.spriteHeight,
+                    1.0f,
+                    1.0f,
+                    this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
+            );
+        } else {
+            currentFrameTexture.flip(true,false);
+            batch.draw(currentFrameTexture,
+                    this.getObjectBody().getPosition().x,
+                    this.getObjectBody().getPosition().y,
+                    0f,
+                    0f,
+                    this.spriteWidth,
+                    this.spriteHeight,
+                    1.0f,
+                    1.0f,
+                    this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
+            );
+            currentFrameTexture.flip(true,false);
+        }
     }
 
     private void createAnimation() {

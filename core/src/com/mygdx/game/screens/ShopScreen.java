@@ -26,6 +26,7 @@ public class ShopScreen extends ScreenAdapter {
     private Button lowerButton;
     private OrthographicCamera camera;
 
+
     Locale locale;
     I18NBundle myBundle;
     String extraLife, doublePoints;

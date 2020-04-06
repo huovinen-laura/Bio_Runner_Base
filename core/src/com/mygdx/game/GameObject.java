@@ -238,7 +238,7 @@ public abstract class GameObject {
     }
 
     public Texture getPlayerAnimationTexture() {
-        return game.textureAssets.getPlayerChonkyAnimation();
+        return game.getCurrentAnimation();
     }
 
     public void setPlayerAnimationTexture(Texture playerAnimationTexture) {

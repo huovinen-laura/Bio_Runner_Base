@@ -28,6 +28,7 @@ public class TextureAssets {
 
     private Texture happyGirl = new Texture("recycleGallHappy.png");
     private Texture sadGirl = new Texture("recycleGallSad.png");
+    private skins skinAssets = new skins();
 
     public Texture getKissa() {
         return kissa;
@@ -140,6 +141,8 @@ public class TextureAssets {
         tee.dispose();
         happyGirl.dispose();
         sadGirl.dispose();
+
+        this.skinAssets.dispose();
     }
 
     public Texture getPlayerChonkyAnimation() {
@@ -221,5 +224,9 @@ public class TextureAssets {
 
     public void setTupakka(Texture tupakka) {
         this.tupakka = tupakka;
+    }
+
+    public skins getSkinAssets() {
+        return skinAssets;
     }
 }

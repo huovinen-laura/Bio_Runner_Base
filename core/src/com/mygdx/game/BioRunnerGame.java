@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -30,8 +31,19 @@ public class BioRunnerGame extends Game {
     public TextureAssets textureAssets;
     private Vector3 projected;
     private OrthographicCamera textureCamera;
+    private String skinName;
 
     private int pointsPerCollectable;
+
+    public Texture getCurrentAnimation() {
+        for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimations().size(); i++) {
+            if (this.skinName.contentEquals(this.textureAssets.getSkinAssets().getNames().get(i))) {
+                return(this.textureAssets.getSkinAssets().getAnimations().get(i));
+            }
+        }
+
+        return null;
+    }
 
     public OrthographicCamera getTextureCamera() {
         return textureCamera;
@@ -43,6 +55,7 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+        this.skinName = "korona";
         this.pointsPerCollectable = 1;
         batch = new SpriteBatch();
         textureAssets = new TextureAssets();
@@ -145,5 +158,13 @@ public class BioRunnerGame extends Game {
 
     public void setPointsPerCollectable(int pointsPerCollectable) {
         this.pointsPerCollectable = pointsPerCollectable;
+    }
+
+    public String getSkinName() {
+        return skinName;
+    }
+
+    public void setSkinName(String skinName) {
+        this.skinName = skinName;
     }
 }

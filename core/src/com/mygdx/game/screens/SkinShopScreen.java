@@ -25,6 +25,10 @@ public class SkinShopScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private Texture tausta;
     private float width, height;
+    private Button velhoSkin;
+    private Button koronaSkin;
+    private Button vakioSkin;
+    private Button jarviSkin;
 
 
     Locale locale;
@@ -33,7 +37,11 @@ public class SkinShopScreen extends ScreenAdapter {
 
     public SkinShopScreen(BioRunnerGame game) {
             this.game = game;
-            this.backButton = new Button(0.5f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
+            this.backButton = new Button(0.5f,0.20f,1f,1f, game.textureAssets.getButtonBlue());
+            this.velhoSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
+            this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
+            this.vakioSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
+            this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
             this.font = game.getFont();
             tausta = new Texture("tausta.png");
             width = BallGame.WORLD_WIDTH;
@@ -66,6 +74,10 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         this.backButton.draw(texturesBatch);
+        this.vakioSkin.draw(texturesBatch);
+        this.koronaSkin.draw(texturesBatch);
+        this.velhoSkin.draw(texturesBatch);
+        this.jarviSkin.draw(texturesBatch);
         this.texturesBatch.end();
     }
 
@@ -85,6 +97,18 @@ public class SkinShopScreen extends ScreenAdapter {
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
 
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
+                    game.setTitleScreen();
+                } else if(vakioSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    game.setSkinName("vakio");
+                    game.setTitleScreen();
+                } else if(jarviSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    game.setSkinName("jarviChan");
+                    game.setTitleScreen();
+                } else if(koronaSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    game.setSkinName("korona");
+                    game.setTitleScreen();
+                } else if(velhoSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    game.setSkinName("velho");
                     game.setTitleScreen();
                 }
 

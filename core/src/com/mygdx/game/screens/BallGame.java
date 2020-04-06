@@ -63,7 +63,7 @@ public class BallGame extends ScreenAdapter {
 	public void show() {
 		this.reachedCheckpoint = false;
 		game.collectedStuffList = new ShitCollection(this.game);
-		ball = new Player(this.game.textureAssets.getPlayerChonkyAnimation(),game);
+		ball = new Player(this.game.getCurrentAnimation(),game);
         game.batch = new SpriteBatch();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f, game);

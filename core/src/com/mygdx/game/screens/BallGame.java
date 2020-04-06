@@ -217,7 +217,7 @@ public class BallGame extends ScreenAdapter {
 		BodyDef myBodyDef = new BodyDef();
 		myBodyDef.type = BodyDef.BodyType.StaticBody;
 
-		myBodyDef.position.set(WORLD_WIDTH, 0.25f);
+		myBodyDef.position.set(WORLD_WIDTH, 0.15f);
 		return myBodyDef;
 	}
 

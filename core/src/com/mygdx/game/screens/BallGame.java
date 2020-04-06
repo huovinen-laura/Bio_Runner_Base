@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -22,7 +23,8 @@ public class BallGame extends ScreenAdapter {
 	BioRunnerGame game;
     SpriteBatch gameBatch;
     BitmapFont font;
-
+    private Music backgroundMusic;
+    public static boolean isMusicOn = true;
 
 	public static float worldSpeed = -1f;
 	public ScrollingBackground scrollingBackground;
@@ -36,7 +38,7 @@ public class BallGame extends ScreenAdapter {
 	private Waypoint waypoint;
 	private boolean lostGame;
     private static int point = 1;
-    public float volume ;
+    public float volume;
 
 	OrthographicCamera camera = new OrthographicCamera();
 	private Box2DDebugRenderer debugRenderer;
@@ -57,6 +59,14 @@ public class BallGame extends ScreenAdapter {
 		createGround();
 		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		// HUOM! Lataa wav-tiedosto, ei mp3!
+		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		backgroundMusic.setVolume(0.20f);
+		backgroundMusic.setLooping(true);
+		if (isMusicOn) {
+			backgroundMusic.play();
+		}
+
 	}
 
 	@Override
@@ -87,8 +97,6 @@ public class BallGame extends ScreenAdapter {
 	public void render (float delta) {
 		this.gameBatch.setProjectionMatrix(camera.combined);
 		clearScreen();
-
-
 
         this.gameBatch.begin();
 		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), this.gameBatch);
@@ -241,6 +249,18 @@ public class BallGame extends ScreenAdapter {
 	    this.game.lifeCounter.setLives(0);
     }
 
+    public static void setMusicOff() {
+		isMusicOn = false;
+	}
+
+	public static void setMusicOn() {
+		isMusicOn = true;
+	}
+
+	public static boolean isMusicOn() {
+		return isMusicOn;
+	}
+
 	@Override
 	public void dispose () {
 		Gdx.app.log("asd","ballgame.dispose");
@@ -254,6 +274,7 @@ public class BallGame extends ScreenAdapter {
 			this.collectables.get(i).dispose();
 		}
 
+		backgroundMusic.dispose();
 		game.batch.dispose();
 	}
 

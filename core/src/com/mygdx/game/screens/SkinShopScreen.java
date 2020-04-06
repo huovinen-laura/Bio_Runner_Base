@@ -43,7 +43,7 @@ public class SkinShopScreen extends ScreenAdapter {
             this.vakioSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
             this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
             this.font = game.getFont();
-            tausta = new Texture("tausta.png");
+            tausta = game.textureAssets.getButtonBg();
             width = BallGame.WORLD_WIDTH;
             height = BallGame.WORLD_HEIGHT;
 

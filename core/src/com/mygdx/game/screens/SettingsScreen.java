@@ -22,6 +22,7 @@ public class SettingsScreen extends ScreenAdapter {
     private BitmapFont font;
     private boolean isPossibleToLeave;
     private Button backButton;
+    private Button musicButton;
     private OrthographicCamera camera;
     private Texture tausta;
     private float width, height;
@@ -33,8 +34,9 @@ public class SettingsScreen extends ScreenAdapter {
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
         this.backButton = new Button(0.5f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
+        this.musicButton = new Button(0.5f, 0.40f, 1f, 1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
-        tausta = new Texture("tausta.png");
+        tausta = game.textureAssets.getButtonBg();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -65,6 +67,7 @@ public class SettingsScreen extends ScreenAdapter {
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         this.backButton.draw(texturesBatch);
+        this.musicButton.draw(texturesBatch);
         this.texturesBatch.end();
     }
 

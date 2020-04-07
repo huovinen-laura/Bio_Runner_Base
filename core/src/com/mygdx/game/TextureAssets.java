@@ -13,6 +13,8 @@ public class TextureAssets {
     private Texture buttonBlue = new Texture("button_blank.png");
     private Texture logo = new Texture("LOGO.png");
     private Texture progressBar = new Texture("progressbar.png");
+    private Texture menu = new Texture("menu.png");
+    private Texture buttonBG = new Texture("button_bg.png");
 
     private Texture kissa = new Texture("kijssa.png");
     private Texture luu = new Texture("luu.png");
@@ -134,6 +136,8 @@ public class TextureAssets {
         progressBar.dispose();
         buttonBlue.dispose();
         logo.dispose();
+        menu.dispose();
+        buttonBG.dispose();
         kissa.dispose();
         luu.dispose();
         pilleri.dispose();
@@ -160,6 +164,22 @@ public class TextureAssets {
 
     public void setProgressBar(Texture progressBar) {
         this.progressBar = progressBar;
+    }
+
+    public Texture getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Texture menu) {
+        this.menu = menu;
+    }
+
+    public Texture getButtonBg() {
+        return buttonBG;
+    }
+
+    public void setButtonBG(Texture buttonBG) {
+        this.buttonBG = buttonBG;
     }
 
     public Texture getHappyGirl() {

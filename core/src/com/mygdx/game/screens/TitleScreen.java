@@ -29,7 +29,6 @@ public class TitleScreen extends ScreenAdapter {
     float height;
     private Vector3 projected;
     Texture tausta;
-    Texture hahmo;
 
     Locale locale;
     I18NBundle myBundle;
@@ -39,8 +38,7 @@ public class TitleScreen extends ScreenAdapter {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
         this.game = game;
         this.font = game.getFont();
-        tausta = game.textureAssets.getSky();
-        hahmo = new Texture("tiko.png");
+        tausta = game.textureAssets.getMenu();
         width = game.WORLD_WIDTH;
         height = game.WORLD_HEIGHT;
 
@@ -59,9 +57,9 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
+        this.startButton = new Button(2f,1.8f,1f,1f,this.game.textureAssets.getButtonBlue());
         this.settingsButton = new Button(2f, 1f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        this.skinShopButton = new Button(2f, 0f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        this.startButton = new Button(2f,2f,1f,1f,this.game.textureAssets.getButtonBlue());
+        this.skinShopButton = new Button(2f, 0.2f, 1f, 1f,this.game.textureAssets.getButtonBlue());
         projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -99,17 +97,14 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch.setProjectionMatrix(camera.combined);
         this.titleBatch.begin();
         this.titleBatch.draw(tausta, 0, 0, width, height);
-        this.titleBatch.draw(hahmo, 0.75f, 0.30f, 1.5f, 1.5f);
         this.titleBatch.end();
 
         // Draws fonts
         game.batch.begin();
-        font.draw(game.batch, "Bio Runner", projected.x * 0.40f,
-                projected.y * .85f);
         font.draw(game.batch, play, projected.x * 0.40f,
-                projected.y * .65f);
+                projected.y * .60f);
         font.draw(game.batch, settings, projected.x * 0.40f, projected.y * 0.40f);
-        font.draw(game.batch, shop, projected.x * 0.40f, projected.y * 0.15f);
+        font.draw(game.batch, shop, projected.x * 0.40f, projected.y * 0.20f);
         game.batch.end();
 
         // Draws textures

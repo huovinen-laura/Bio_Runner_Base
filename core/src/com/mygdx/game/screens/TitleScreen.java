@@ -3,7 +3,9 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -93,6 +95,10 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(game.getPrefs().getBoolean("musicOn")) {
+            game.getMusic().play();
+        }
+
         // Draws background
         this.titleBatch.setProjectionMatrix(camera.combined);
         this.titleBatch.begin();
@@ -114,7 +120,6 @@ public class TitleScreen extends ScreenAdapter {
         this.settingsButton.draw(this.titleBatch);
         this.skinShopButton.draw(this.titleBatch);
         this.titleBatch.end();
-
     }
 
     @Override

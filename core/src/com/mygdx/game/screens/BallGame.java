@@ -23,7 +23,6 @@ public class BallGame extends ScreenAdapter {
 	BioRunnerGame game;
     SpriteBatch gameBatch;
     BitmapFont font;
-    private Music backgroundMusic;
     public static boolean isMusicOn = true;
 
 	public static float worldSpeed = -1f;
@@ -59,14 +58,6 @@ public class BallGame extends ScreenAdapter {
 		createGround();
 		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-		// HUOM! Lataa wav-tiedosto, ei mp3!
-		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-		backgroundMusic.setVolume(0.20f);
-		backgroundMusic.setLooping(true);
-		if (isMusicOn) {
-			backgroundMusic.play();
-		}
-
 	}
 
 	@Override
@@ -274,7 +265,6 @@ public class BallGame extends ScreenAdapter {
 			this.collectables.get(i).dispose();
 		}
 
-		backgroundMusic.dispose();
 		game.batch.dispose();
 	}
 
@@ -308,21 +298,27 @@ public class BallGame extends ScreenAdapter {
 				CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
 				collectibleSquareB.collect();
 				game.collectedStuffList.addStuff(collectibleSquareB);
-				collect.play(volume);
 				game.playerScore += game.getPointsPerCollectable();
+				if (game.getPrefs().getBoolean("soundOn", true)) {
+				    collect.play(volume);
+                }
 
 			} else if ((b instanceof Player && a instanceof CollectibleSquare)) {
 				CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
 				collectibleSquareA.collect();
 				game.collectedStuffList.addStuff(collectibleSquareA);
-				collect.play(volume);
 				game.playerScore += game.getPointsPerCollectable();
+                if (game.getPrefs().getBoolean("soundOn", true)) {
+                    collect.play(volume);
+                }
 			}
 
 			if (a instanceof ObstacleRectangle && b instanceof Player) {
 				ObstacleRectangle obstacle = (ObstacleRectangle) a;
 				if(!obstacle.isDeleted()) {
-					hurt.play(volume);
+                    if(game.getPrefs().getBoolean("soundOn", true)) {
+                        hurt.play(volume);
+                    }
 					game.allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
 					game.lifeCounter.loseLife();
@@ -331,7 +327,9 @@ public class BallGame extends ScreenAdapter {
 			} else if ( a instanceof Player && b instanceof ObstacleRectangle) {
 				ObstacleRectangle obstacle = (ObstacleRectangle) b;
 				if(!obstacle.isDeleted()) {
-					hurt.play(volume);
+                    if(game.getPrefs().getBoolean("soundOn", true)) {
+                        hurt.play(volume);
+                    }
 					game.allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
 					game.lifeCounter.loseLife();

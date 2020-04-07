@@ -23,18 +23,20 @@ public class SettingsScreen extends ScreenAdapter {
     private boolean isPossibleToLeave;
     private Button backButton;
     private Button musicButton;
+    private Button soundButton;
     private OrthographicCamera camera;
     private Texture tausta;
     private float width, height;
 
     Locale locale;
     I18NBundle myBundle;
-    String settings;
+    String settings, music, sounds;
 
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(0.5f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
-        this.musicButton = new Button(0.5f, 0.40f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.backButton = new Button(1f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
+        this.musicButton = new Button(1f, 2f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.soundButton = new Button(1f, 1f, 1f, 1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
         tausta = game.textureAssets.getButtonBg();
         width = BallGame.WORLD_WIDTH;
@@ -44,6 +46,8 @@ public class SettingsScreen extends ScreenAdapter {
         //locale = new Locale("en", "UK");
         myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
         settings = myBundle.get("settings");
+        music = myBundle.get("music");
+        sounds = myBundle.get("sounds");
     }
 
     @Override
@@ -58,16 +62,21 @@ public class SettingsScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        this.font.draw(game.batch, "Back", Gdx.graphics.getWidth() * 0.20f,
-                Gdx.graphics.getHeight() * 0.2f);
-        this.font.draw(game.batch, settings, Gdx.graphics.getWidth() * 0.2f,
+        this.font.draw(game.batch, settings, Gdx.graphics.getWidth() * 0.4f,
                 Gdx.graphics.getHeight() * 0.80f);
+        this.font.draw(game.batch, "Back", Gdx.graphics.getWidth() * 0.40f,
+                Gdx.graphics.getHeight() * 0.2f);
+        this.font.draw(game.batch, music, Gdx.graphics.getWidth() * 0.300f,
+                Gdx.graphics.getHeight() * 0.65f);
+        this.font.draw(game.batch, sounds, Gdx.graphics.getWidth() * 0.30f,
+                Gdx.graphics.getHeight() * 0.4f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         this.backButton.draw(texturesBatch);
         this.musicButton.draw(texturesBatch);
+        this.soundButton.draw(texturesBatch);
         this.texturesBatch.end();
     }
 
@@ -88,6 +97,28 @@ public class SettingsScreen extends ScreenAdapter {
 
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.setTitleScreen();
+                } else if (musicButton.isInsideButton(worldCoords.x, worldCoords.y)
+                        && game.getPrefs().getBoolean("musicOn")) {
+                    game.getPrefs().putBoolean("musicOn", false);
+                    game.getPrefs().flush();
+                    game.getMusic().stop();
+                    Gdx.app.log("", "Music off");
+                } else if (musicButton.isInsideButton(worldCoords.x, worldCoords.y)
+                        && !game.getPrefs().getBoolean("musicOn")){
+                    game.getPrefs().putBoolean("musicOn", true);
+                    game.getPrefs().flush();
+                    game.getMusic().play();
+                    Gdx.app.log("", "Music on");
+                } else if (soundButton.isInsideButton(worldCoords.x, worldCoords.y)
+                        && game.getPrefs().getBoolean("soundOn")){
+                    game.getPrefs().putBoolean("soundOn", false);
+                    game.getPrefs().flush();
+                    Gdx.app.log("", "Sound off");
+                } else if (soundButton.isInsideButton(worldCoords.x, worldCoords.y)
+                        && !game.getPrefs().getBoolean("soundOn")) {
+                    game.getPrefs().putBoolean("soundOn", true);
+                    game.getPrefs().flush();
+                    Gdx.app.log("","Sound on");
                 }
 
                 return true;

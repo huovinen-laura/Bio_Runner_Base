@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -37,6 +39,8 @@ public class BioRunnerGame extends Game {
 
     private int levelNumber;
     private String skinName;
+    private Preferences prefs;
+    private Music backgroundMusic;
     private Vector2 lastCollectable;
     private float initialSpeed = -2;
 
@@ -96,6 +100,15 @@ public class BioRunnerGame extends Game {
         skin = new SkinShopScreen(this);
         this.setScreen(new TitleScreen(this));
         powerUps = new PowerUpCollection(this);
+
+        // Tallentaminen
+        prefs = Gdx.app.getPreferences("MyPreferences");
+        prefs.flush();
+
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+        backgroundMusic.setVolume(0.20f);
+        backgroundMusic.setLooping(true);
+
     }
 
     public void setShopScreen() { setScreen((this.shop));}
@@ -137,6 +150,7 @@ public class BioRunnerGame extends Game {
         textureAssets.dispose();
         batch.dispose();
         font.dispose();
+        backgroundMusic.dispose();
 
 
         // asset manager
@@ -177,6 +191,14 @@ public class BioRunnerGame extends Game {
 
     public String getSkinName() {
         return skinName;
+    }
+
+    public Preferences getPrefs() {
+        return prefs;
+    }
+
+    public Music getMusic() {
+        return backgroundMusic;
     }
 
     public void setSkinName(String skinName) {

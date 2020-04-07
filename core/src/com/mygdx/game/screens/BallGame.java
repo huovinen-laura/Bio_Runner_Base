@@ -90,7 +90,9 @@ public class BallGame extends ScreenAdapter {
 		clearScreen();
 
         this.gameBatch.begin();
+
 		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), this.gameBatch);
+		ball.Draw(this.gameBatch);
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
 
 		if(!this.ball.Move()) { // checks if lives is zero
@@ -98,7 +100,7 @@ public class BallGame extends ScreenAdapter {
 			Gdx.app.log("BallGame","Lost game");
 		}
 
-		ball.Draw(this.gameBatch);
+
 		this.manageCollectablesAndObstacles();
 
 		if(game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
@@ -116,7 +118,7 @@ public class BallGame extends ScreenAdapter {
         game.batch.begin();
         this.font.draw(game.batch, score, Gdx.graphics.getWidth() * .92f,
                 Gdx.graphics.getHeight() * .90f);
-        this.font.draw(game.batch, ""+Gdx.graphics.getFramesPerSecond(),
+        this.font.draw(game.batch, ""+game.worldSpeed,
 				Gdx.graphics.getWidth() * 0.80f,Gdx.graphics.getHeight() * 0.90f);
         game.batch.end();
 

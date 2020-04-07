@@ -12,6 +12,8 @@ import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
 public class BioRunnerGame extends Game {
     public final float WORLD_WIDTH = 8;
     public final float WORLD_HEIGHT = 4;
@@ -38,6 +40,7 @@ public class BioRunnerGame extends Game {
     private Vector2 lastCollectable;
     private float initialSpeed = -2;
 
+    private PowerUpCollection powerUps;
     private int pointsPerCollectable;
     private int powerUpsLevel;
 
@@ -61,6 +64,7 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+
         levelNumber = 1;
         powerUpsLevel = 0;
         this.skinName = "korona";
@@ -91,6 +95,7 @@ public class BioRunnerGame extends Game {
         settings = new SettingsScreen(this);
         skin = new SkinShopScreen(this);
         this.setScreen(new TitleScreen(this));
+        powerUps = new PowerUpCollection(this);
     }
 
     public void setShopScreen() { setScreen((this.shop));}
@@ -204,5 +209,13 @@ public class BioRunnerGame extends Game {
 
     public void setHarderPowerUps() {
         this.powerUpsLevel++;
+    }
+
+    public PowerUpCollection getPowerUps() {
+        return powerUps;
+    }
+
+    public void setPowerUps(PowerUpCollection powerUps) {
+        this.powerUps = powerUps;
     }
 }

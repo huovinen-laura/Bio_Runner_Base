@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
+import com.mygdx.game.GameAction;
 import com.mygdx.game.gamestate.LifeCounter;
 
 import java.util.Locale;
@@ -25,11 +26,12 @@ public class ShopScreen extends ScreenAdapter {
     private Button upperButton;
     private Button lowerButton;
     private OrthographicCamera camera;
+    private GameAction[] powerUps;
+    private String firstPowerUp,secondPowerUp;
 
 
     Locale locale;
     I18NBundle myBundle;
-    String extraLife, doublePoints;
 
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
@@ -40,8 +42,7 @@ public class ShopScreen extends ScreenAdapter {
         locale = Locale.getDefault();
         //locale = new Locale("en", "UK");
         myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-        extraLife = myBundle.get("extraLife");
-        doublePoints = myBundle.get("doublePoints");
+        ;
     }
 
     @Override
@@ -51,9 +52,9 @@ public class ShopScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        this.font.draw(game.batch, doublePoints, Gdx.graphics.getWidth() * 0.20f,
+        this.font.draw(game.batch, firstPowerUp, Gdx.graphics.getWidth() * 0.20f,
                 Gdx.graphics.getHeight() * 0.2f);
-        this.font.draw(game.batch, extraLife,
+        this.font.draw(game.batch, secondPowerUp,
                 Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.75f);
         game.batch.end();
 
@@ -73,6 +74,9 @@ public class ShopScreen extends ScreenAdapter {
         camera.setToOrtho(false, game.WORLD_WIDTH,game.WORLD_HEIGHT);
         game.collectedStuffList.clear();
         game.allObstaclesCollection.clear();
+        this.powerUps = game.getPowerUps().getTwoRandomPowers();
+        firstPowerUp = myBundle.get(powerUps[1].getName());
+        secondPowerUp = myBundle.get(powerUps[0].getName());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -82,16 +86,11 @@ public class ShopScreen extends ScreenAdapter {
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
 
                 if( upperButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
-                    if(game.lifeCounter.getLivesAmount() < 3) {
-                        game.lifeCounter.gainLife();
-                        game.setGameScreen();
-                    } else if(game.lifeCounter.getLivesAmount() == 3) {
-                        game.setGameScreen();
-                    }
+                    powerUps[0].doAction();
+                    game.setGameScreen();
 
                 } else if( lowerButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
-                    game.lifeCounter.setLives(1);
-                    game.setPointsPerCollectable(2);
+                    powerUps[1].doAction();
                     game.setGameScreen();
                 }
 

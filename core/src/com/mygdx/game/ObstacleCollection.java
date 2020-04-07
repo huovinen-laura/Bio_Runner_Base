@@ -67,6 +67,10 @@ public class ObstacleCollection {
         float positionY = this.minY + (this.maxY - this.minY-1)* ((float) Math.random());
         LastObstaclePosition.x = positionX;
         LastObstaclePosition.y = positionY;
+        while(positionY >= game.getLastCollectable().y-1 && positionY <= game.getLastCollectable().y+1 ) {
+            positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
+        }
+        game.setLastCollectable(new Vector2(positionX,positionY));
 
         for (int i = 0; i < this.allObstacles.size(); i++) {
 

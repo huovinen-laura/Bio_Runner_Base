@@ -81,6 +81,9 @@ public class ShitCollection {
         Gdx.app.log("ShitCollection", "Random: " + roll );
         float positionX = BallGame.WORLD_WIDTH;
         float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
+        while(positionY >= game.getLastCollectable().y-1 && positionY <= game.getLastCollectable().y+1 ) {
+            positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
+        }
 
 
         for (int i = 0 ; i < this.allShit.size();i++) {

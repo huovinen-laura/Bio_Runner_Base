@@ -116,7 +116,7 @@ public abstract class GameObject {
 
     }
 
-    public GameObject(BioRunnerGame game,Boolean player, Texture texture,
+    public GameObject(BioRunnerGame game, Boolean player, Texture texture,
                       float size, float x, float y, float mass, float bounciness, float friction) {
         this.playerAnimationTexture = texture;
         this.game = game;

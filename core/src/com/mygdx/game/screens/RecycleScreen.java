@@ -115,12 +115,22 @@ public class RecycleScreen extends ScreenAdapter {
                 if (isPossibleToLeave) {
 
                     if (leaveButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+
+                        if(game.worldSpeed >= -5f) {
+
+                            game.worldSpeed -= 0.5f;
+                            Gdx.app.log("RecycleScreen", "speeding: " + game.worldSpeed);
+                        } else {
+                            game.setHarderPowerUps();
+                        }
+
+                        game.setLevelNumber((game.getLevelNumber()+1));
                         game.setShopScreen();
                     }
                 }
 
-                Gdx.app.log("RecycleScreen", "speeding");
-                game.worldSpeed -= 0.5f;
+
+
                 return true;
             }
     });

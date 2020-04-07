@@ -21,7 +21,7 @@ public class ShitCollection {
     public ShitCollection(BioRunnerGame game) {
         this.game = game;
         this.allShit = new ArrayList<>();
-        this.minimumAmountOfCollectables = 4;
+        this.minimumAmountOfCollectables = 10;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "banaani", game.textureAssets.getBanaani(),40f));
@@ -81,11 +81,12 @@ public class ShitCollection {
         Gdx.app.log("ShitCollection", "Random: " + roll );
         float positionX = BallGame.WORLD_WIDTH;
         float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
-        this.lastCollectablePosition = new Vector2(positionX,positionY);
+
 
         for (int i = 0 ; i < this.allShit.size();i++) {
 
             if(this.allShit.get(i).getProbability() >= roll) {
+                game.setLastCollectable(new Vector2(positionX,positionY));
                 return(new CollectibleSquare(game,this.allShit.get(i).getTexture(),
                         1f,positionX,positionY,this.allShit.get(i).getName()));
             } else {

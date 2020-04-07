@@ -65,7 +65,9 @@ public class EndScreen extends ScreenAdapter {
                     game.clearScore();
                     game.collectedStuffList.clear();
                     game.allObstaclesCollection.clear();
-                    game.worldSpeed = -1f;
+                    game.playerScore = 0;
+                    game.worldSpeed = game.getInitialSpeed();
+                    game.setLevelNumber(1);
                     game.lifeCounter.setLives(3);
                 }
                 return true;
@@ -78,9 +80,10 @@ public class EndScreen extends ScreenAdapter {
                     game.clearScore();
                     game.collectedStuffList.clear();
                     game.allObstaclesCollection.clear();
-                    game.worldSpeed = -1f;
+                    game.playerScore = 0;
+                    game.worldSpeed = game.getInitialSpeed();
+                    game.setLevelNumber(1);
                     game.lifeCounter.setLives(3);
-                    game.setPointsPerCollectable(1);
                 }
                 return true;
             }

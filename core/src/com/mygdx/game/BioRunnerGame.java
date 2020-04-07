@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
@@ -31,9 +32,14 @@ public class BioRunnerGame extends Game {
     public TextureAssets textureAssets;
     private Vector3 projected;
     private OrthographicCamera textureCamera;
+
+    private int levelNumber;
     private String skinName;
+    private Vector2 lastCollectable;
+    private float initialSpeed = -2;
 
     private int pointsPerCollectable;
+    private int powerUpsLevel;
 
     public Texture getCurrentAnimation() {
         for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimations().size(); i++) {
@@ -55,6 +61,8 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+        levelNumber = 1;
+        powerUpsLevel = 0;
         this.skinName = "korona";
         this.pointsPerCollectable = 1;
         batch = new SpriteBatch();
@@ -62,9 +70,11 @@ public class BioRunnerGame extends Game {
         textureCamera = new OrthographicCamera();
         textureCamera.setToOrtho(false,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        this.lastCollectable = new Vector2(0f,0f);
+
         playerScore = 0;
 
-        this.worldSpeed = -1f;
+        this.worldSpeed = this.initialSpeed;
 
         this.lifeCounter = new LifeCounter(this.textureAssets.getPlayerChonky(),this);
 
@@ -166,5 +176,33 @@ public class BioRunnerGame extends Game {
 
     public void setSkinName(String skinName) {
         this.skinName = skinName;
+    }
+
+    public int getLevelNumber() {
+        return levelNumber;
+    }
+
+    public void setLevelNumber(int levelNumber) {
+        this.levelNumber = levelNumber;
+    }
+
+    public Vector2 getLastCollectable() {
+        return lastCollectable;
+    }
+
+    public void setLastCollectable(Vector2 lastCollectable) {
+        this.lastCollectable = lastCollectable;
+    }
+
+    public float getInitialSpeed() {
+        return initialSpeed;
+    }
+
+    public void setInitialSpeed(float initialSpeed) {
+        this.initialSpeed = initialSpeed;
+    }
+
+    public void setHarderPowerUps() {
+        this.powerUpsLevel++;
     }
 }

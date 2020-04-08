@@ -60,8 +60,6 @@ public class RecycleScreen extends ScreenAdapter {
 
         this.texturesBatch.begin();
         this.texturesBatch.draw(tausta, 0, 0, width, height);
-        this.texturesBatch.draw(laitos, 4.2f, -0.25f, width * 0.7f, height * 0.7f);
-        this.information.DrawBubble(this.texturesBatch)
         /*
         if(sad) {
             this.texturesBatch.draw(this.sadGuy,2.75f,-0.75f,2.5f,2.5f);

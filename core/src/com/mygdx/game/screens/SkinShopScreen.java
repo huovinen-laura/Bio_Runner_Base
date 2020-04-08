@@ -31,26 +31,28 @@ public class SkinShopScreen extends ScreenAdapter {
     private Button jarviSkin;
 
 
-    Locale locale;
-    I18NBundle myBundle;
-        String shop;
+    Locale localeFI;
+    Locale localeEN;
+    I18NBundle myBundleFI;
+    I18NBundle myBundleEN;
+    String shop;
 
     public SkinShopScreen(BioRunnerGame game) {
-            this.game = game;
-            this.backButton = new Button(0.5f,0.20f,1f,1f, game.textureAssets.getButtonBlue());
-            this.velhoSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
-            this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
-            this.vakioSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
-            this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
-            this.font = game.getFont();
-            tausta = game.textureAssets.getButtonBg();
-            width = BallGame.WORLD_WIDTH;
-            height = BallGame.WORLD_HEIGHT;
+        this.game = game;
+        this.backButton = new Button(0.5f,0.20f,1f,1f, game.textureAssets.getButtonBlue());
+        this.velhoSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.vakioSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.font = game.getFont();
+        tausta = game.textureAssets.getButtonBg();
+        width = BallGame.WORLD_WIDTH;
+        height = BallGame.WORLD_HEIGHT;
 
-            locale = Locale.getDefault();
-            //locale = new Locale("en", "UK");
-            myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-            shop = myBundle.get("shop");
+        localeFI = new Locale("", "");
+        localeEN = new Locale("en", "UK");
+        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
+        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
     }
 
     @Override
@@ -58,6 +60,12 @@ public class SkinShopScreen extends ScreenAdapter {
         super.render(delta);
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        if(game.getPrefs().getBoolean("fiOrNot")) {
+            shop = myBundleFI.get("shop");
+        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
+            shop = myBundleEN.get("shop");
+        }
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();

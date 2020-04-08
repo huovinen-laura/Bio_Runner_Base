@@ -85,7 +85,7 @@ public class RecycleScreen extends ScreenAdapter {
         this.praise = true;
         this.texturesBatch = new SpriteBatch();
         this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
-
+        game.setPointsPerCollectable(1);
 
 
         this.isPossibleToLeave = false;

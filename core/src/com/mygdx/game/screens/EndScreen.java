@@ -27,21 +27,21 @@ public class EndScreen extends ScreenAdapter {
     private String score;
     private Texture sadGuy;
 
-    private Locale locale;
-    private I18NBundle myBundle;
-    String lost, yourScore, tap;
+    Locale localeFI;
+    Locale localeEN;
+    I18NBundle myBundleFI;
+    I18NBundle myBundleEN;
+    String lost, yourScore, whatHit;
 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
         this.sadGuy = game.textureAssets.getSadGirl();
 
-        locale = Locale.getDefault();
-        //locale = new Locale("en", "UK");
-        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-        lost = myBundle.get("lost");
-        yourScore = myBundle.get("score");
-        tap = myBundle.get("tap");
+        localeFI = new Locale("", "");
+        localeEN = new Locale("en", "UK");
+        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
+        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
     }
 
     @Override
@@ -66,6 +66,7 @@ public class EndScreen extends ScreenAdapter {
                     game.collectedStuffList.clear();
                     game.allObstaclesCollection.clear();
                     game.playerScore = 0;
+                    game.setPointsPerCollectable(1);
                     game.worldSpeed = game.getInitialSpeed();
                     game.setLevelNumber(1);
                     game.lifeCounter.setLives(3);
@@ -81,6 +82,7 @@ public class EndScreen extends ScreenAdapter {
                     game.collectedStuffList.clear();
                     game.allObstaclesCollection.clear();
                     game.playerScore = 0;
+                    game.setPointsPerCollectable(1);
                     game.worldSpeed = game.getInitialSpeed();
                     game.setLevelNumber(1);
                     game.lifeCounter.setLives(3);
@@ -95,14 +97,22 @@ public class EndScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        if(game.getPrefs().getBoolean("fiOrNot")) {
+            lost = myBundleFI.get("lost");
+            yourScore = myBundleFI.get("score");
+            whatHit = myBundleFI.get("whatHitMe");
+        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
+            lost = myBundleEN.get("lost");
+            yourScore = myBundleEN.get("score");
+            whatHit = myBundleEN.get("whatHitMe");
+        }
 
         game.batch.begin();
         font.draw(game.batch, lost, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .75f);
         font.draw(game.batch, yourScore + score, Gdx.graphics.getWidth() * 0.25f,
                 Gdx.graphics.getHeight() * .50f);
-        font.draw(game.batch, myBundle.get("whatHitMe"),Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * .25f);
+        font.draw(game.batch, whatHit,Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * .25f);
 
 
         game.batch.end();

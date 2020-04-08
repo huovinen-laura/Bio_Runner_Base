@@ -97,9 +97,9 @@ public class LifeCounter {
     }
 
     public void gainLife() {
-        Gdx.app.log("lives", "" + this.lives);
-        this.lives++;
-        Gdx.app.log("lives","" + this.lives);
+        if(this.lives < 3) {
+            this.lives++;
+        }
     }
 
     public int getLivesAmount() {

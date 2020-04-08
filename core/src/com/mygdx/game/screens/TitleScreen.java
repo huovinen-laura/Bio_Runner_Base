@@ -38,6 +38,7 @@ public class TitleScreen extends ScreenAdapter {
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
+        projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
         this.game = game;
         this.font = game.getFont();
         tausta = game.textureAssets.getMenu();
@@ -59,18 +60,20 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
-        this.startButton = new Button(2f,1.8f,1f,1f,this.game.textureAssets.getButtonBlue());
-        this.settingsButton = new Button(2f, 1f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        this.skinShopButton = new Button(2f, 0.2f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
+        this.startButton = new Button(2f,1.8f,1f,1f, this.game.textureAssets.getButtonBlue());
+        this.settingsButton = new Button(2f, 1f, 1f, 1f, this.game.textureAssets.getButtonBlue());
+        this.skinShopButton = new Button(2f, 0.2f, 1f, 1f, this.game.textureAssets.getButtonBlue());
+
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
             public boolean keyDown(int keyCode) {
+
                 if (keyCode == Input.Keys.SPACE) {
                     game.setGameScreen();
                 }
+
                 return true;
             }
 

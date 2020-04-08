@@ -8,10 +8,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
+import com.mygdx.game.TextBubble;
 import com.mygdx.game.WasteDisplayRecycle;
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -29,6 +32,8 @@ public class RecycleScreen extends ScreenAdapter {
     private Texture sadGuy;
     private boolean sad;
     private float width, height;
+    private TextBubble information;
+    private Vector3 projected;
 
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
@@ -39,6 +44,12 @@ public class RecycleScreen extends ScreenAdapter {
         laitos = new Texture("laitossuomi.png");
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
+
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, this.game.WORLD_WIDTH, this.game.WORLD_HEIGHT);
+        projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
+
     }
 
     @Override
@@ -47,16 +58,12 @@ public class RecycleScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.begin();
-        //this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
-                    //Gdx.graphics.getHeight() * .25f);
 
-        game.batch.end();
 
         this.texturesBatch.begin();
         this.texturesBatch.draw(background, 0, 0, width, height);
         this.texturesBatch.draw(laitos, 4.2f, -0.25f, width * 0.7f, height * 0.7f);
-
+        this.information.DrawBubble(this.texturesBatch);
         if(sad) {
             this.texturesBatch.draw(this.sadGuy,2.75f,-0.75f,2.5f,2.5f);
         } else {
@@ -77,6 +84,14 @@ public class RecycleScreen extends ScreenAdapter {
         }
         this.texturesBatch.end();
 
+        game.batch.begin();
+        //this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
+        //Gdx.graphics.getHeight() * .25f);
+        this.information.DrawFont(game.batch,projected);
+
+
+        game.batch.end();
+
     }
 
     @Override
@@ -84,9 +99,12 @@ public class RecycleScreen extends ScreenAdapter {
         game.batch = new SpriteBatch();
         this.praise = true;
         this.texturesBatch = new SpriteBatch();
+        this.texturesBatch.setProjectionMatrix(game.getTextureCamera().combined);
+
         this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
 
-
+        this.information = new TextBubble("this is not a game", new Vector2(1f,0f),
+                new Vector2(3f,4f), game);
 
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);
@@ -120,8 +138,6 @@ public class RecycleScreen extends ScreenAdapter {
 
                             game.worldSpeed -= 0.5f;
                             Gdx.app.log("RecycleScreen", "speeding: " + game.worldSpeed);
-                        } else {
-                            game.setHarderPowerUps();
                         }
 
                         game.setLevelNumber((game.getLevelNumber()+1));
@@ -134,6 +150,12 @@ public class RecycleScreen extends ScreenAdapter {
                 return true;
             }
     });
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
 
     }
 

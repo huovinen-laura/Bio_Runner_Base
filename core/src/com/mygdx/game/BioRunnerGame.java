@@ -46,7 +46,7 @@ public class BioRunnerGame extends Game {
 
     private PowerUpCollection powerUps;
     private int pointsPerCollectable;
-    private int powerUpsLevel;
+    private GameAction currentPowerUp;
 
     public Texture getCurrentAnimation() {
         for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimations().size(); i++) {
@@ -69,8 +69,23 @@ public class BioRunnerGame extends Game {
     @Override
     public void create() {
 
+        this.currentPowerUp = new GameAction() {
+            @Override
+            public void doAction() {
+
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public void undoAction() {
+
+            }
+        };
         levelNumber = 1;
-        powerUpsLevel = 0;
         this.skinName = "korona";
         this.pointsPerCollectable = 1;
         batch = new SpriteBatch();
@@ -229,9 +244,6 @@ public class BioRunnerGame extends Game {
         this.initialSpeed = initialSpeed;
     }
 
-    public void setHarderPowerUps() {
-        this.powerUpsLevel++;
-    }
 
     public PowerUpCollection getPowerUps() {
         return powerUps;
@@ -239,5 +251,13 @@ public class BioRunnerGame extends Game {
 
     public void setPowerUps(PowerUpCollection powerUps) {
         this.powerUps = powerUps;
+    }
+
+    public GameAction getCurrentPowerUp() {
+        return currentPowerUp;
+    }
+
+    public void setCurrentPowerUp(GameAction currentPowerUp) {
+        this.currentPowerUp = currentPowerUp;
     }
 }

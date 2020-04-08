@@ -11,10 +11,16 @@ public class TextureAssets {
     private Texture grass = new Texture("grass.png");
     private Texture sky = new Texture("sky.png");
     private Texture buttonBlue = new Texture("button_blank.png");
+    private Texture closeButton = new Texture("close_btn.png");
+    private Texture finnishButton = new Texture("finland_flag.png");
+    private Texture englishButton = new Texture("british_flag.png");
+    private Texture doublePoint = new Texture("double_points.png");
     private Texture logo = new Texture("LOGO.png");
     private Texture progressBar = new Texture("progressbar.png");
-    private Texture menu = new Texture("menu.png");
-    private Texture buttonBG = new Texture("button_bg.png");
+    private Texture menu = new Texture("menu_final.png");
+    private Texture common = new Texture("yleinen_tausta_final.png");
+    private Texture recycle = new Texture("recycle_final.png");
+    private Texture end = new Texture("end_screen_final.png");
 
     private Texture kissa = new Texture("kijssa.png");
     private Texture luu = new Texture("luu.png");
@@ -80,6 +86,39 @@ public class TextureAssets {
         this.buttonBlue = buttonBlue;
     }
 
+    public Texture getCloseButton() {
+        return closeButton;
+    }
+
+    public void setCloseButton(Texture closeButton) {
+        this.closeButton = closeButton;
+    }
+
+    public Texture getFinnishButton() {
+        return finnishButton;
+    }
+
+    public void setFinnishButton(Texture finnishButton) {
+        this.finnishButton = finnishButton;
+    }
+
+    public Texture getEnglishButton() {
+        return englishButton;
+    }
+
+    public void setEnglishButton(Texture englishButton) {
+        this.englishButton = englishButton;
+    }
+
+
+    public Texture getDoublePoint() {
+        return doublePoint;
+    }
+
+    public void setDoublePoint(Texture doublePoint) {
+        this.doublePoint = doublePoint;
+    }
+
     public Texture getLogo() {
         return logo;
     }
@@ -135,9 +174,15 @@ public class TextureAssets {
         sky.dispose();
         progressBar.dispose();
         buttonBlue.dispose();
+        closeButton.dispose();
+        finnishButton.dispose();
+        englishButton.dispose();
+        doublePoint.dispose();
         logo.dispose();
         menu.dispose();
-        buttonBG.dispose();
+        common.dispose();
+        recycle.dispose();
+        end.dispose();
         kissa.dispose();
         luu.dispose();
         pilleri.dispose();
@@ -174,12 +219,28 @@ public class TextureAssets {
         this.menu = menu;
     }
 
-    public Texture getButtonBg() {
-        return buttonBG;
+    public Texture getCommon() {
+        return common;
     }
 
-    public void setButtonBG(Texture buttonBG) {
-        this.buttonBG = buttonBG;
+    public void setCommon(Texture common) {
+        this.common = common;
+    }
+
+    public Texture getRecycle() {
+        return recycle;
+    }
+
+    public void setRecycle(Texture recycle) {
+        this.recycle = recycle;
+    }
+
+    public Texture getEnd() {
+        return end;
+    }
+
+    public void setEnd(Texture end) {
+        this.end = end;
     }
 
     public Texture getHappyGirl() {

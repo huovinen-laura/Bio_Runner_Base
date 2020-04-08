@@ -24,7 +24,8 @@ public class SettingsScreen extends ScreenAdapter {
     private Button backButton;
     private Button musicButton;
     private Button soundButton;
-    private Button languageButton;
+    private Button finnishButton;
+    private Button englishButton;
     private OrthographicCamera camera;
     private Texture tausta;
     private float width, height;
@@ -37,12 +38,13 @@ public class SettingsScreen extends ScreenAdapter {
 
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(1f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
+        this.backButton = new Button(6.5f,3f,1f,1f,game.textureAssets.getCloseButton());
         this.musicButton = new Button(1f, 2f, 1f, 1f, game.textureAssets.getButtonBlue());
         this.soundButton = new Button(1f, 1f, 1f, 1f, game.textureAssets.getButtonBlue());
-        this.languageButton = new Button(4f, 1f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.finnishButton = new Button(5f, 2f, 0.7f, 1f, game.textureAssets.getFinnishButton());
+        this.englishButton = new Button(5f, 1f, 0.7f, 1f, game.textureAssets.getEnglishButton());
         this.font = game.getFont();
-        tausta = game.textureAssets.getButtonBg();
+        tausta = game.textureAssets.getCommon();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -76,8 +78,6 @@ public class SettingsScreen extends ScreenAdapter {
         game.batch.begin();
         this.font.draw(game.batch, settings, Gdx.graphics.getWidth() * 0.4f,
                 Gdx.graphics.getHeight() * 0.80f);
-        this.font.draw(game.batch, "Back", Gdx.graphics.getWidth() * 0.40f,
-                Gdx.graphics.getHeight() * 0.2f);
         this.font.draw(game.batch, music, Gdx.graphics.getWidth() * 0.300f,
                 Gdx.graphics.getHeight() * 0.65f);
         this.font.draw(game.batch, sounds, Gdx.graphics.getWidth() * 0.30f,
@@ -89,7 +89,8 @@ public class SettingsScreen extends ScreenAdapter {
         this.backButton.draw(texturesBatch);
         this.musicButton.draw(texturesBatch);
         this.soundButton.draw(texturesBatch);
-        this.languageButton.draw(texturesBatch);
+        this.finnishButton.draw(texturesBatch);
+        this.englishButton.draw(texturesBatch);
         this.texturesBatch.end();
     }
 
@@ -132,12 +133,12 @@ public class SettingsScreen extends ScreenAdapter {
                     game.getPrefs().putBoolean("soundOn", true);
                     game.getPrefs().flush();
                     Gdx.app.log("","Sound on");
-                } else if (languageButton.isInsideButton(worldCoords.x, worldCoords.y)
+                } else if (englishButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && game.getPrefs().getBoolean("fiOrNot")) {
                     game.getPrefs().putBoolean("fiOrNot", false);
                     game.getPrefs().flush();
                     Gdx.app.log("", "English");
-                } else if (languageButton.isInsideButton(worldCoords.x, worldCoords.y)
+                } else if (finnishButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && !game.getPrefs().getBoolean("fiOrNot")) {
                     game.getPrefs().putBoolean("fiOrNot", true);
                     game.getPrefs().flush();

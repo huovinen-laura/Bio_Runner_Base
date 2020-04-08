@@ -15,8 +15,7 @@ import com.mygdx.game.WasteDisplayRecycle;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
-    private Texture background;
-    private Texture laitos;
+    private Texture tausta;
     private WasteDisplayRecycle wasteTextures;
     private SpriteBatch texturesBatch;
     private BitmapFont font;
@@ -35,8 +34,7 @@ public class RecycleScreen extends ScreenAdapter {
         this.font = game.getFont();
         this.happyGuy = game.textureAssets.getHappyGirl();
         this.sadGuy = game.textureAssets.getSadGirl();
-        background = new Texture("sky.png");
-        laitos = new Texture("laitossuomi.png");
+        tausta = game.textureAssets.getRecycle();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
     }
@@ -54,14 +52,15 @@ public class RecycleScreen extends ScreenAdapter {
         game.batch.end();
 
         this.texturesBatch.begin();
-        this.texturesBatch.draw(background, 0, 0, width, height);
-        this.texturesBatch.draw(laitos, 4.2f, -0.25f, width * 0.7f, height * 0.7f);
+        this.texturesBatch.draw(tausta, 0, 0, width, height);
 
+        /*
         if(sad) {
             this.texturesBatch.draw(this.sadGuy,2.75f,-0.75f,2.5f,2.5f);
         } else {
             this.texturesBatch.draw(this.happyGuy, 2.75f, -0.75f, 2.5f, 2.5f);
         }
+         */
 
         if(this.wasteTextures.draw(this.texturesBatch)) {
 

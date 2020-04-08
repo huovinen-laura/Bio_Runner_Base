@@ -30,6 +30,8 @@ public class ShopScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private GameAction[] powerUps;
     private String firstPowerUp,secondPowerUp;
+    private Texture tausta;
+    private float width, height;
 
 
 
@@ -40,7 +42,10 @@ public class ShopScreen extends ScreenAdapter {
         this.game = game;
         this.lowerButton = new Button(1f,1f,1f,1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
-        this.upperButton = new Button(1f,3f,1f,1f, game.textureAssets.getButtonBlue());
+        this.upperButton = new Button(1f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        tausta= game.textureAssets.getCommon();
+        width = BallGame.WORLD_WIDTH;
+        height = BallGame.WORLD_HEIGHT;
 
         locale = Locale.getDefault();
         //locale = new Locale("en", "UK");
@@ -54,13 +59,19 @@ public class ShopScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        this.texturesBatch.setProjectionMatrix(camera.combined);
+        this.texturesBatch.begin();
+        this.texturesBatch.draw(tausta, 0, 0, width, height);
+        this.texturesBatch.end();
+
         game.batch.begin();
 
-        this.font.draw(game.batch, firstPowerUp, Gdx.graphics.getWidth() * 0.20f,
-                Gdx.graphics.getHeight() * 0.2f);
-        this.font.draw(game.batch, secondPowerUp,
-                Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.75f);
 
+        this.font.draw(game.batch, firstPowerUp, Gdx.graphics.getWidth() * 0.30f,
+                Gdx.graphics.getHeight() * 0.4f);
+        this.font.draw(game.batch, secondPowerUp,
+
+                Gdx.graphics.getWidth() * 0.3f,Gdx.graphics.getHeight() * 0.65f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);

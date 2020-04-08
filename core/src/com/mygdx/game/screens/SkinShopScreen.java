@@ -39,13 +39,13 @@ public class SkinShopScreen extends ScreenAdapter {
 
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(0.5f,0.20f,1f,1f, game.textureAssets.getButtonBlue());
+        this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
         this.velhoSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.vakioSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
-        tausta = game.textureAssets.getButtonBg();
+        tausta = game.textureAssets.getCommon();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -73,8 +73,6 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        this.font.draw(game.batch, "Back", Gdx.graphics.getWidth() * 0.20f,
-                Gdx.graphics.getHeight() * 0.2f);
         this.font.draw(game.batch, shop, Gdx.graphics.getWidth() * 0.2f,
                 Gdx.graphics.getHeight() * 0.80f);
         game.batch.end();

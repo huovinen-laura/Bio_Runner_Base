@@ -26,6 +26,8 @@ public class EndScreen extends ScreenAdapter {
     private OrthographicCamera textureCamera;
     private String score;
     private Texture sadGuy;
+    private Texture tausta;
+    private float width, height;
 
     Locale localeFI;
     Locale localeEN;
@@ -37,6 +39,9 @@ public class EndScreen extends ScreenAdapter {
         this.game = game;
         this.font = game.getFont();
         this.sadGuy = game.textureAssets.getSadGirl();
+        tausta = game.textureAssets.getEnd();
+        width = BallGame.WORLD_WIDTH;
+        height = BallGame.WORLD_HEIGHT;
 
         localeFI = new Locale("", "");
         localeEN = new Locale("en", "UK");
@@ -107,17 +112,19 @@ public class EndScreen extends ScreenAdapter {
             whatHit = myBundleEN.get("whatHitMe");
         }
 
-        game.batch.begin();
-        font.draw(game.batch, lost, Gdx.graphics.getWidth() * 0.25f,
-                Gdx.graphics.getHeight() * .75f);
-        font.draw(game.batch, yourScore + score, Gdx.graphics.getWidth() * 0.25f,
-                Gdx.graphics.getHeight() * .50f);
-        font.draw(game.batch, whatHit,Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * .25f);
-
-
-        game.batch.end();
         this.textureBatch.begin();
-        this.textureBatch.draw(this.sadGuy,0f,0f,2f,3f);
+        this.textureBatch.draw(tausta, 0, 0, width, height);
+        this.textureBatch.end();
+
+        game.batch.begin();
+        font.draw(game.batch, lost, Gdx.graphics.getWidth() * 0.08f,
+                Gdx.graphics.getHeight() * .85f);
+        font.draw(game.batch, yourScore + score, Gdx.graphics.getWidth() * 0.08f,
+                Gdx.graphics.getHeight() * .75f);
+        font.draw(game.batch, whatHit,Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .65f);
+        game.batch.end();
+
+        this.textureBatch.begin();
         if(this.wrongWasteDisplay.draw(this.textureBatch) ) {
             this.isAllowedToLeave = true;
         }

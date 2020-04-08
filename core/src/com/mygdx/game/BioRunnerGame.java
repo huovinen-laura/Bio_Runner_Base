@@ -10,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class BioRunnerGame extends Game {
     public final float WORLD_WIDTH = 8;
@@ -120,6 +122,7 @@ public class BioRunnerGame extends Game {
         prefs = Gdx.app.getPreferences("MyPreferences");
         prefs.flush();
 
+        // Taustamusiikki
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
         backgroundMusic.setVolume(0.20f);
         backgroundMusic.setLooping(true);

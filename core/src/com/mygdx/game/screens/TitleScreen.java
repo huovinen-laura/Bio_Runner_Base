@@ -32,8 +32,10 @@ public class TitleScreen extends ScreenAdapter {
     private Vector3 projected;
     Texture tausta;
 
-    Locale locale;
-    I18NBundle myBundle;
+    Locale localeFI;
+    Locale localeEN;
+    I18NBundle myBundleFI;
+    I18NBundle myBundleEN;
     String play, settings, shop;
 
     public TitleScreen(BioRunnerGame game) {
@@ -46,12 +48,11 @@ public class TitleScreen extends ScreenAdapter {
         height = game.WORLD_HEIGHT;
 
         // Kieli. Default hakee järjestelmän kielen, new Localessa kielen voi päättää itse.
-        locale = Locale.getDefault();
-        //locale = new Locale("en", "UK");
-        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-        play = myBundle.get("play");
-        settings = myBundle.get("settings");
-        shop = myBundle.get("shop");
+        //locale = Locale.getDefault();
+        localeFI = new Locale("", "");
+        localeEN = new Locale("en", "UK");
+        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
+        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
     }
 
     @Override
@@ -102,6 +103,16 @@ public class TitleScreen extends ScreenAdapter {
             game.getMusic().play();
         }
 
+        if(game.getPrefs().getBoolean("fiOrNot")) {
+            play = myBundleFI.get("play");
+            settings = myBundleFI.get("settings");
+            shop = myBundleFI.get("shop");
+        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
+            play = myBundleEN.get("play");
+            settings = myBundleEN.get("settings");
+            shop = myBundleEN.get("shop");
+        }
+
         // Draws background
         this.titleBatch.setProjectionMatrix(camera.combined);
         this.titleBatch.begin();
@@ -109,7 +120,9 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch.end();
 
         // Draws fonts
+        //String totalScore = Integer.toString(game.getPrefs().getInteger("totalScore"));
         game.batch.begin();
+        //font.draw(game.batch, totalScore, projected.x * 0.7f, projected.y * .6f);
         font.draw(game.batch, play, projected.x * 0.40f,
                 projected.y * .60f);
         font.draw(game.batch, settings, projected.x * 0.40f, projected.y * 0.40f);

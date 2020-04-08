@@ -24,12 +24,15 @@ public class SettingsScreen extends ScreenAdapter {
     private Button backButton;
     private Button musicButton;
     private Button soundButton;
+    private Button languageButton;
     private OrthographicCamera camera;
     private Texture tausta;
     private float width, height;
 
-    Locale locale;
-    I18NBundle myBundle;
+    Locale localeFI;
+    Locale localeEN;
+    I18NBundle myBundleFI;
+    I18NBundle myBundleEN;
     String settings, music, sounds;
 
     public SettingsScreen(BioRunnerGame game) {
@@ -37,17 +40,16 @@ public class SettingsScreen extends ScreenAdapter {
         this.backButton = new Button(1f,0.20f,1f,1f,game.textureAssets.getButtonBlue());
         this.musicButton = new Button(1f, 2f, 1f, 1f, game.textureAssets.getButtonBlue());
         this.soundButton = new Button(1f, 1f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.languageButton = new Button(4f, 1f, 1f, 1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
         tausta = game.textureAssets.getButtonBg();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
-        locale = Locale.getDefault();
-        //locale = new Locale("en", "UK");
-        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-        settings = myBundle.get("settings");
-        music = myBundle.get("music");
-        sounds = myBundle.get("sounds");
+        localeFI = new Locale("", "");
+        localeEN = new Locale("en", "UK");
+        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
+        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
     }
 
     @Override
@@ -55,6 +57,16 @@ public class SettingsScreen extends ScreenAdapter {
         super.render(delta);
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        if(game.getPrefs().getBoolean("fiOrNot")) {
+            music = myBundleFI.get("music");
+            settings = myBundleFI.get("settings");
+            sounds = myBundleFI.get("sounds");
+        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
+            music = myBundleEN.get("music");
+            settings = myBundleEN.get("settings");
+            sounds = myBundleEN.get("sounds");
+        }
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
@@ -77,6 +89,7 @@ public class SettingsScreen extends ScreenAdapter {
         this.backButton.draw(texturesBatch);
         this.musicButton.draw(texturesBatch);
         this.soundButton.draw(texturesBatch);
+        this.languageButton.draw(texturesBatch);
         this.texturesBatch.end();
     }
 
@@ -119,6 +132,16 @@ public class SettingsScreen extends ScreenAdapter {
                     game.getPrefs().putBoolean("soundOn", true);
                     game.getPrefs().flush();
                     Gdx.app.log("","Sound on");
+                } else if (languageButton.isInsideButton(worldCoords.x, worldCoords.y)
+                        && game.getPrefs().getBoolean("fiOrNot")) {
+                    game.getPrefs().putBoolean("fiOrNot", false);
+                    game.getPrefs().flush();
+                    Gdx.app.log("", "English");
+                } else if (languageButton.isInsideButton(worldCoords.x, worldCoords.y)
+                        && !game.getPrefs().getBoolean("fiOrNot")) {
+                    game.getPrefs().putBoolean("fiOrNot", true);
+                    game.getPrefs().flush();
+                    Gdx.app.log("", "Finnish");
                 }
 
                 return true;

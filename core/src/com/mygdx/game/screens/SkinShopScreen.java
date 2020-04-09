@@ -31,11 +31,6 @@ public class SkinShopScreen extends ScreenAdapter {
     private Button jarviSkin;
 
 
-    Locale localeFI;
-    Locale localeEN;
-    I18NBundle myBundleFI;
-    I18NBundle myBundleEN;
-    String shop;
 
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
@@ -49,10 +44,7 @@ public class SkinShopScreen extends ScreenAdapter {
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
-        localeFI = new Locale("", "");
-        localeEN = new Locale("en", "UK");
-        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
-        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
+
     }
 
     @Override
@@ -61,11 +53,7 @@ public class SkinShopScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(game.getPrefs().getBoolean("fiOrNot")) {
-            shop = myBundleFI.get("shop");
-        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
-            shop = myBundleEN.get("shop");
-        }
+
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
@@ -73,7 +61,7 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        this.font.draw(game.batch, shop, Gdx.graphics.getWidth() * 0.2f,
+        this.font.draw(game.batch, game.getText("shop"), Gdx.graphics.getWidth() * 0.2f,
                 Gdx.graphics.getHeight() * 0.80f);
         game.batch.end();
 

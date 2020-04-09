@@ -50,6 +50,12 @@ public class BioRunnerGame extends Game {
     private int pointsPerCollectable;
     private GameAction currentPowerUp;
 
+    private Locale localeFI;
+    private Locale localeEN;
+    private I18NBundle myBundleFI;
+    private I18NBundle myBundleEN;
+
+
     public Texture getCurrentAnimation() {
         for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimations().size(); i++) {
             if (this.skinName.contentEquals(this.textureAssets.getSkinAssets().getNames().get(i))) {
@@ -70,6 +76,10 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+        localeFI = new Locale("", "");
+        localeEN = new Locale("en", "UK");
+        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
+        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
 
         this.currentPowerUp = new GameAction() {
             @Override
@@ -191,6 +201,15 @@ public class BioRunnerGame extends Game {
     public void clearScore() {
     }
 
+    public String getText(String key) {
+
+        if(this.getPrefs().getBoolean("fiOrNot") ) {
+            return(this.getMyBundleFI().get(key));
+        } else {
+            return(this.getMyBundleEN().get(key));
+        }
+    }
+
     public Vector3 getProjected() {
         return projected;
     }
@@ -262,5 +281,41 @@ public class BioRunnerGame extends Game {
 
     public void setCurrentPowerUp(GameAction currentPowerUp) {
         this.currentPowerUp = currentPowerUp;
+    }
+
+    public float getWORLD_WIDTH() {
+        return WORLD_WIDTH;
+    }
+
+    public Locale getLocaleFI() {
+        return localeFI;
+    }
+
+    public void setLocaleFI(Locale localeFI) {
+        this.localeFI = localeFI;
+    }
+
+    public Locale getLocaleEN() {
+        return localeEN;
+    }
+
+    public void setLocaleEN(Locale localeEN) {
+        this.localeEN = localeEN;
+    }
+
+    public I18NBundle getMyBundleFI() {
+        return myBundleFI;
+    }
+
+    public void setMyBundleFI(I18NBundle myBundleFI) {
+        this.myBundleFI = myBundleFI;
+    }
+
+    public I18NBundle getMyBundleEN() {
+        return myBundleEN;
+    }
+
+    public void setMyBundleEN(I18NBundle myBundleEN) {
+        this.myBundleEN = myBundleEN;
     }
 }

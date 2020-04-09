@@ -35,8 +35,7 @@ public class ShopScreen extends ScreenAdapter {
 
 
 
-    Locale locale;
-    I18NBundle myBundle;
+
 
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
@@ -47,9 +46,7 @@ public class ShopScreen extends ScreenAdapter {
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
-        locale = Locale.getDefault();
-        //locale = new Locale("en", "UK");
-        myBundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+
 
     }
 
@@ -93,8 +90,8 @@ public class ShopScreen extends ScreenAdapter {
         game.collectedStuffList.clear();
         game.allObstaclesCollection.clear();
         this.powerUps = game.getPowerUps().getTwoRandomPowers();
-        firstPowerUp = myBundle.get(powerUps[1].getName());
-        secondPowerUp = myBundle.get(powerUps[0].getName());
+        firstPowerUp = game.getText(powerUps[1].getName());
+        secondPowerUp = game.getText(powerUps[0].getName());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

@@ -132,7 +132,6 @@ public class PowerUpCollection {
             @Override
             public void doAction() {
                 game.playerScore += 50;
-
             }
 
             @Override
@@ -142,8 +141,8 @@ public class PowerUpCollection {
 
             @Override
             public void undoAction() {
-
             }
+
         });
     }
 
@@ -152,8 +151,10 @@ public class PowerUpCollection {
         double firstRoll = Math.random();
         double secondRoll = Math.random();
         Gdx.app.log("Game","Level number");
+
         if(firstRoll > 2/game.getLevelNumber()) {
             powerUps[0] = getRandomNegativePower();
+
         } else if(secondRoll > 1 / game.getLevelNumber() ){
             powerUps[0] = getRandomNeutralPower();
         } else {
@@ -162,6 +163,7 @@ public class PowerUpCollection {
 
         if(secondRoll > 3/game.getLevelNumber()) {
             powerUps[1] = getRandomNegativePower();
+
         } else if(secondRoll > 1.5 / game.getLevelNumber() ){
             powerUps[1] = getRandomNeutralPower();
         } else {

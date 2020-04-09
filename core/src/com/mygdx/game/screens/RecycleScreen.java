@@ -101,7 +101,7 @@ public class RecycleScreen extends ScreenAdapter {
 
         this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
 
-        this.information = new TextBubble("this is not a game", new Vector2(1f,0f),
+        this.information = new TextBubble("Lorem ipsum dolor", new Vector2(0.5f,1f),
                 new Vector2(3f,4f), game);
 
         this.isPossibleToLeave = false;

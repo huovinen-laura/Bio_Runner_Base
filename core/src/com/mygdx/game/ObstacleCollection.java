@@ -23,9 +23,9 @@ public class ObstacleCollection {
         this.game = game;
         this.allObstacles = new ArrayList<>();
         this.minimumAmountOfObstacles = 4;
-        this.allObstacles.add( new Obstacle("kissa", game.textureAssets.getKissa(),11,1f));
-        this.allObstacles.add( new Obstacle("pilleri", game.textureAssets.getPilleri(),30,0.75f));
-        this.allObstacles.add(new Obstacle("tupakka",game.textureAssets.getTupakka(),30,0.75f));
+        this.allObstacles.add( new Obstacle("patteri", game.textureAssets.getPatteri(),11,1f));
+        this.allObstacles.add( new Obstacle("pilleri", game.textureAssets.getPilleri(),30,1f));
+        this.allObstacles.add(new Obstacle("tupakka",game.textureAssets.getTupakka(),30,1f));
         this.allObstacles.add(new Obstacle("pullo",game.textureAssets.getPullo(),30,1f));
         this.LastObstaclePosition = new Vector2(0f,0f);
 

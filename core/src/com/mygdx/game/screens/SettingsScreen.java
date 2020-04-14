@@ -30,10 +30,7 @@ public class SettingsScreen extends ScreenAdapter {
     private Texture tausta;
     private float width, height;
 
-    Locale localeFI;
-    Locale localeEN;
-    I18NBundle myBundleFI;
-    I18NBundle myBundleEN;
+
     String settings, music, sounds;
 
     public SettingsScreen(BioRunnerGame game) {
@@ -48,10 +45,7 @@ public class SettingsScreen extends ScreenAdapter {
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
-        localeFI = new Locale("", "");
-        localeEN = new Locale("en", "UK");
-        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
-        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
+
     }
 
     @Override
@@ -61,13 +55,13 @@ public class SettingsScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if(game.getPrefs().getBoolean("fiOrNot")) {
-            music = myBundleFI.get("music");
-            settings = myBundleFI.get("settings");
-            sounds = myBundleFI.get("sounds");
-        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
-            music = myBundleEN.get("music");
-            settings = myBundleEN.get("settings");
-            sounds = myBundleEN.get("sounds");
+            music = game.getMyBundleFI().get("music");
+            settings = game.getMyBundleFI().get("settings");
+            sounds = game.getMyBundleFI().get("sounds");
+        } else {
+            music = game.getMyBundleEN().get("music");
+            settings = game.getMyBundleEN().get("settings");
+            sounds = game.getMyBundleEN().get("sounds");
         }
 
         this.texturesBatch.setProjectionMatrix(camera.combined);

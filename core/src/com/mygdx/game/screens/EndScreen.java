@@ -29,12 +29,6 @@ public class EndScreen extends ScreenAdapter {
     private Texture tausta;
     private float width, height;
 
-    Locale localeFI;
-    Locale localeEN;
-    I18NBundle myBundleFI;
-    I18NBundle myBundleEN;
-    String lost, yourScore, whatHit;
-
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
@@ -43,10 +37,6 @@ public class EndScreen extends ScreenAdapter {
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
-        localeFI = new Locale("", "");
-        localeEN = new Locale("en", "UK");
-        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
-        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
     }
 
     @Override
@@ -102,26 +92,16 @@ public class EndScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(game.getPrefs().getBoolean("fiOrNot")) {
-            lost = myBundleFI.get("lost");
-            yourScore = myBundleFI.get("score");
-            whatHit = myBundleFI.get("whatHitMe");
-        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
-            lost = myBundleEN.get("lost");
-            yourScore = myBundleEN.get("score");
-            whatHit = myBundleEN.get("whatHitMe");
-        }
-
         this.textureBatch.begin();
         this.textureBatch.draw(tausta, 0, 0, width, height);
         this.textureBatch.end();
 
         game.batch.begin();
-        font.draw(game.batch, lost, Gdx.graphics.getWidth() * 0.08f,
+        font.draw(game.batch, game.getText("lost"), Gdx.graphics.getWidth() * 0.08f,
                 Gdx.graphics.getHeight() * .85f);
-        font.draw(game.batch, yourScore + score, Gdx.graphics.getWidth() * 0.08f,
+        font.draw(game.batch, game.getText("score") + score, Gdx.graphics.getWidth() * 0.08f,
                 Gdx.graphics.getHeight() * .75f);
-        font.draw(game.batch, whatHit,Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .65f);
+        font.draw(game.batch, game.getText("whatHitMe"),Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .65f);
         game.batch.end();
 
         this.textureBatch.begin();

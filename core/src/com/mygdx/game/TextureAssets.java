@@ -37,6 +37,7 @@ public class TextureAssets {
     private Texture happyGirl = new Texture("recycleGallHappy.png");
     private Texture sadGirl = new Texture("recycleGallSad.png");
     private skins skinAssets = new skins();
+    private Texture speechBubble = new Texture("bubble.png");
 
     public Texture getKissa() {
         return kissa;
@@ -191,6 +192,8 @@ public class TextureAssets {
         happyGirl.dispose();
         sadGirl.dispose();
 
+        this.speechBubble.dispose();
+
         this.skinAssets.dispose();
     }
 
@@ -309,5 +312,9 @@ public class TextureAssets {
 
     public skins getSkinAssets() {
         return skinAssets;
+    }
+
+    public Texture getBubble() {
+        return(this.speechBubble);
     }
 }

@@ -48,7 +48,13 @@ public class BioRunnerGame extends Game {
 
     private PowerUpCollection powerUps;
     private int pointsPerCollectable;
-    private int powerUpsLevel;
+    private GameAction currentPowerUp;
+
+    private Locale localeFI;
+    private Locale localeEN;
+    private I18NBundle myBundleFI;
+    private I18NBundle myBundleEN;
+
 
     public Texture getCurrentAnimation() {
         for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimations().size(); i++) {
@@ -70,9 +76,28 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+        localeFI = new Locale("", "");
+        localeEN = new Locale("en", "UK");
+        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
+        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
 
+        this.currentPowerUp = new GameAction() {
+            @Override
+            public void doAction() {
+
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public void undoAction() {
+
+            }
+        };
         levelNumber = 1;
-        powerUpsLevel = 0;
         this.skinName = "korona";
         this.pointsPerCollectable = 1;
         batch = new SpriteBatch();
@@ -176,6 +201,15 @@ public class BioRunnerGame extends Game {
     public void clearScore() {
     }
 
+    public String getText(String key) {
+
+        if(this.getPrefs().getBoolean("fiOrNot") ) {
+            return(this.getMyBundleFI().get(key));
+        } else {
+            return(this.getMyBundleEN().get(key));
+        }
+    }
+
     public Vector3 getProjected() {
         return projected;
     }
@@ -232,9 +266,6 @@ public class BioRunnerGame extends Game {
         this.initialSpeed = initialSpeed;
     }
 
-    public void setHarderPowerUps() {
-        this.powerUpsLevel++;
-    }
 
     public PowerUpCollection getPowerUps() {
         return powerUps;
@@ -242,5 +273,49 @@ public class BioRunnerGame extends Game {
 
     public void setPowerUps(PowerUpCollection powerUps) {
         this.powerUps = powerUps;
+    }
+
+    public GameAction getCurrentPowerUp() {
+        return currentPowerUp;
+    }
+
+    public void setCurrentPowerUp(GameAction currentPowerUp) {
+        this.currentPowerUp = currentPowerUp;
+    }
+
+    public float getWORLD_WIDTH() {
+        return WORLD_WIDTH;
+    }
+
+    public Locale getLocaleFI() {
+        return localeFI;
+    }
+
+    public void setLocaleFI(Locale localeFI) {
+        this.localeFI = localeFI;
+    }
+
+    public Locale getLocaleEN() {
+        return localeEN;
+    }
+
+    public void setLocaleEN(Locale localeEN) {
+        this.localeEN = localeEN;
+    }
+
+    public I18NBundle getMyBundleFI() {
+        return myBundleFI;
+    }
+
+    public void setMyBundleFI(I18NBundle myBundleFI) {
+        this.myBundleFI = myBundleFI;
+    }
+
+    public I18NBundle getMyBundleEN() {
+        return myBundleEN;
+    }
+
+    public void setMyBundleEN(I18NBundle myBundleEN) {
+        this.myBundleEN = myBundleEN;
     }
 }

@@ -32,14 +32,11 @@ public class TitleScreen extends ScreenAdapter {
     private Vector3 projected;
     Texture tausta;
 
-    Locale localeFI;
-    Locale localeEN;
-    I18NBundle myBundleFI;
-    I18NBundle myBundleEN;
-    String play, settings, shop;
+
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
+        projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
         this.game = game;
         this.font = game.getFont();
         tausta = game.textureAssets.getMenu();
@@ -48,10 +45,6 @@ public class TitleScreen extends ScreenAdapter {
 
         // Kieli. Default hakee järjestelmän kielen, new Localessa kielen voi päättää itse.
         //locale = Locale.getDefault();
-        localeFI = new Locale("", "");
-        localeEN = new Locale("en", "UK");
-        myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
-        myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
     }
 
     @Override
@@ -60,18 +53,20 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
-        this.startButton = new Button(2f,1.8f,1f,1f,this.game.textureAssets.getButtonBlue());
-        this.settingsButton = new Button(2f, 1f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        this.skinShopButton = new Button(2f, 0.2f, 1f, 1f,this.game.textureAssets.getButtonBlue());
-        projected = camera.project(new Vector3(BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT,0f));
+        this.startButton = new Button(2f,1.8f,1f,1f, this.game.textureAssets.getButtonBlue());
+        this.settingsButton = new Button(2f, 1f, 1f, 1f, this.game.textureAssets.getButtonBlue());
+        this.skinShopButton = new Button(2f, 0.2f, 1f, 1f, this.game.textureAssets.getButtonBlue());
+
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
             public boolean keyDown(int keyCode) {
+
                 if (keyCode == Input.Keys.SPACE) {
                     game.setGameScreen();
                 }
+
                 return true;
             }
 
@@ -100,15 +95,7 @@ public class TitleScreen extends ScreenAdapter {
             game.getMusic().play();
         }
 
-        if(game.getPrefs().getBoolean("fiOrNot")) {
-            play = myBundleFI.get("play");
-            settings = myBundleFI.get("settings");
-            shop = myBundleFI.get("shop");
-        } else if (!game.getPrefs().getBoolean("fiOrNot")) {
-            play = myBundleEN.get("play");
-            settings = myBundleEN.get("settings");
-            shop = myBundleEN.get("shop");
-        }
+
 
         // Draws background
         this.titleBatch.setProjectionMatrix(camera.combined);
@@ -120,10 +107,10 @@ public class TitleScreen extends ScreenAdapter {
         //String totalScore = Integer.toString(game.getPrefs().getInteger("totalScore"));
         game.batch.begin();
         //font.draw(game.batch, totalScore, projected.x * 0.7f, projected.y * .6f);
-        font.draw(game.batch, play, projected.x * 0.40f,
+        font.draw(game.batch, game.getText("play"), projected.x * 0.40f,
                 projected.y * .60f);
-        font.draw(game.batch, settings, projected.x * 0.40f, projected.y * 0.40f);
-        font.draw(game.batch, shop, projected.x * 0.40f, projected.y * 0.20f);
+        font.draw(game.batch, game.getText("settings"), projected.x * 0.40f, projected.y * 0.40f);
+        font.draw(game.batch, game.getText("shop"), projected.x * 0.40f, projected.y * 0.20f);
         game.batch.end();
 
         // Draws textures

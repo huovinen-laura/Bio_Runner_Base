@@ -3,36 +3,29 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 
-import java.util.Locale;
-
 public class TitleScreen extends ScreenAdapter {
     BioRunnerGame game;
-    Button startButton;
-    Button settingsButton;
-    Button skinShopButton;
-    SpriteBatch titleBatch;
-    OrthographicCamera camera = new OrthographicCamera();
-    OrthographicCamera fontCamera = new OrthographicCamera();
-    BitmapFont font;
-    float width;
-    float height;
+    private Button startButton;
+    private Button settingsButton;
+    private Button skinShopButton;
+    private SpriteBatch titleBatch;
+    private OrthographicCamera camera = new OrthographicCamera();
+    private OrthographicCamera fontCamera = new OrthographicCamera();
+    private BitmapFont font;
+    private float width;
+    private float height;
     private Vector3 projected;
-    Texture tausta;
-
-
+    private Texture tausta;
 
     public TitleScreen(BioRunnerGame game) {
         camera.setToOrtho(false, BallGame.WORLD_WIDTH, BallGame.WORLD_HEIGHT);
@@ -42,9 +35,6 @@ public class TitleScreen extends ScreenAdapter {
         tausta = game.textureAssets.getMenu();
         width = game.WORLD_WIDTH;
         height = game.WORLD_HEIGHT;
-
-        // Kieli. Default hakee järjestelmän kielen, new Localessa kielen voi päättää itse.
-        //locale = Locale.getDefault();
     }
 
     @Override

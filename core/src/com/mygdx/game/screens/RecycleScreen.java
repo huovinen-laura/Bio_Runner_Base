@@ -14,7 +14,6 @@ import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.TextBubble;
 import com.mygdx.game.WasteDisplayRecycle;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;

@@ -26,7 +26,7 @@ public class SkinShopScreen extends ScreenAdapter {
     private Button koronaSkin;
     private Button vakioSkin;
     private Button jarviSkin;
-
+    private String flowerPointText;
 
 
     public SkinShopScreen(BioRunnerGame game) {
@@ -60,6 +60,9 @@ public class SkinShopScreen extends ScreenAdapter {
         game.batch.begin();
         this.font.draw(game.batch, game.getText("shop"), Gdx.graphics.getWidth() * 0.2f,
                 Gdx.graphics.getHeight() * 0.80f);
+        this.font.draw(game.batch,
+                this.flowerPointText + game.getFlowerPoints(), Gdx.graphics.getWidth() * 0.2f,
+                Gdx.graphics.getHeight() * 0.1f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
@@ -77,6 +80,7 @@ public class SkinShopScreen extends ScreenAdapter {
         this.fontBatch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
         this.isPossibleToLeave = true;
+        this.flowerPointText = game.getText("flowerPoints");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
 

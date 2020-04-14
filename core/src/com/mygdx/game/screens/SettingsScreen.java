@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -104,42 +105,42 @@ public class SettingsScreen extends ScreenAdapter {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
-
+                Preferences prefs = game.getPrefs();
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.setTitleScreen();
                 } else if (creditsButton.isInsideButton(worldCoords.x, worldCoords.y)) {
                     game.setCreditsScreen();
                 } else if (musicButton.isInsideButton(worldCoords.x, worldCoords.y)
-                        && game.getPrefs().getBoolean("musicOn")) {
-                    game.getPrefs().putBoolean("musicOn", false);
-                    game.getPrefs().flush();
+                        && prefs.getBoolean("musicOn")) {
+                    prefs.putBoolean("musicOn", false);
+                    prefs.flush();
                     game.getMusic().stop();
                     Gdx.app.log("", "Music off");
                 } else if (musicButton.isInsideButton(worldCoords.x, worldCoords.y)
-                        && !game.getPrefs().getBoolean("musicOn")){
-                    game.getPrefs().putBoolean("musicOn", true);
-                    game.getPrefs().flush();
+                        && !prefs.getBoolean("musicOn")){
+                    prefs.putBoolean("musicOn", true);
+                    prefs.flush();
                     game.getMusic().play();
                     Gdx.app.log("", "Music on");
                 } else if (soundButton.isInsideButton(worldCoords.x, worldCoords.y)
-                        && game.getPrefs().getBoolean("soundOn")){
-                    game.getPrefs().putBoolean("soundOn", false);
-                    game.getPrefs().flush();
+                        && prefs.getBoolean("soundOn")){
+                    prefs.putBoolean("soundOn", false);
+                    prefs.flush();
                     Gdx.app.log("", "Sound off");
                 } else if (soundButton.isInsideButton(worldCoords.x, worldCoords.y)
-                        && !game.getPrefs().getBoolean("soundOn")) {
-                    game.getPrefs().putBoolean("soundOn", true);
-                    game.getPrefs().flush();
+                        && !prefs.getBoolean("soundOn")) {
+                    prefs.putBoolean("soundOn", true);
+                    prefs.flush();
                     Gdx.app.log("","Sound on");
                 } else if (englishButton.isInsideButton(worldCoords.x, worldCoords.y)
-                        && game.getPrefs().getBoolean("fiOrNot")) {
-                    game.getPrefs().putBoolean("fiOrNot", false);
-                    game.getPrefs().flush();
+                        && prefs.getBoolean("fiOrNot")) {
+                    prefs.putBoolean("fiOrNot", false);
+                    prefs.flush();
                     Gdx.app.log("", "English");
                 } else if (finnishButton.isInsideButton(worldCoords.x, worldCoords.y)
-                        && !game.getPrefs().getBoolean("fiOrNot")) {
-                    game.getPrefs().putBoolean("fiOrNot", true);
-                    game.getPrefs().flush();
+                        && !prefs.getBoolean("fiOrNot")) {
+                    prefs.putBoolean("fiOrNot", true);
+                    prefs.flush();
                     Gdx.app.log("", "Finnish");
                 }
 

@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,18 @@ public class skins {
 
     public Texture getVelhoAnimaatio() {
         return velhoAnimaatio;
+    }
+
+    public TextureRegion getAnimationFrame( Texture animationTexture) {
+        final int FRAME_COLS = 4;
+        final int FRAME_ROWS = 1;
+
+        int tileWidth = animationTexture.getWidth() / FRAME_COLS;
+        int tileHeight = animationTexture.getHeight() / FRAME_ROWS;
+
+        TextureRegion[][] tmp = TextureRegion.split(animationTexture, tileWidth, tileHeight);
+
+        return tmp[0][0];
     }
 
     public void setVelhoAnimaatio(Texture velhoAnimaatio) {

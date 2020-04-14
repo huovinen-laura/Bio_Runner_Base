@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
@@ -30,10 +31,12 @@ public class SkinShopScreen extends ScreenAdapter {
     private Button vakioSkin;
     private Button jarviSkin;
     private String flowerPointText;
+    private int velhoSkinCost;
 
 
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
+        this.velhoSkinCost = 1000;
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
         this.velhoSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
@@ -53,6 +56,10 @@ public class SkinShopScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        TextureRegion currentSkinFrame = game.textureAssets.getSkinAssets()
+                .getAnimationFrame(game.getCurrentAnimation());
+        currentSkinFrame.flip(false,true);
+
 
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
@@ -66,15 +73,37 @@ public class SkinShopScreen extends ScreenAdapter {
         this.font.draw(game.batch,
                 this.flowerPointText + game.getFlowerPoints(), Gdx.graphics.getWidth() * 0.2f,
                 Gdx.graphics.getHeight() * 0.1f);
+        this.font.draw(game.batch,game.getText("costPoints") + this.velhoSkinCost,
+                Gdx.graphics.getWidth() * 0.25f,
+                Gdx.graphics.getHeight() * 0.25f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         this.backButton.draw(texturesBatch);
-        this.vakioSkin.draw(texturesBatch);
-        this.koronaSkin.draw(texturesBatch);
-        this.velhoSkin.draw(texturesBatch);
-        this.jarviSkin.draw(texturesBatch);
+        this.vakioSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getPlayerChonkyAnimation()));
+        this.koronaSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getKoronaAnimaatio()));
+        this.velhoSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getVelhoAnimaatio()));
+        this.jarviSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getJarviAnimaatio()));
+        this.texturesBatch.draw(game.textureAssets.getSkinAssets().getAnimationFrame(game.getCurrentAnimation()),
+                1f,
+                0.52f,
+                0,
+                0,
+                1f,
+                currentSkinFrame.getRegionHeight()/currentSkinFrame.getRegionWidth(),
+                1f,
+                1f,
+                0f
+                );
         this.texturesBatch.end();
     }
 

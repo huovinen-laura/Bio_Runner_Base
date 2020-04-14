@@ -23,6 +23,12 @@ public class BioRunnerGame extends Game {
     public final float WORLD_HEIGHT = 4;
     public SpriteBatch batch;
     public BitmapFont font;
+
+    public void addFlowerPoints(int amount) {
+        this.flowerPoints += amount;
+    }
+
+    private int flowerPoints;
     SettingsScreen settings;
     SkinShopScreen skin;
     public ShitCollection collectedStuffList;
@@ -76,6 +82,7 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+        this.flowerPoints = 0;
         localeFI = new Locale("", "");
         localeEN = new Locale("en", "UK");
         myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
@@ -317,5 +324,13 @@ public class BioRunnerGame extends Game {
 
     public void setMyBundleEN(I18NBundle myBundleEN) {
         this.myBundleEN = myBundleEN;
+    }
+
+    public int getFlowerPoints() {
+        return flowerPoints;
+    }
+
+    public void setFlowerPoints(int flowerPoints) {
+        this.flowerPoints = flowerPoints;
     }
 }

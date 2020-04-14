@@ -27,6 +27,7 @@ public class EndScreen extends ScreenAdapter {
     private String score;
     private Texture sadGuy;
     private Texture tausta;
+    private int flowerPoints;
     private float width, height;
 
     public EndScreen(BioRunnerGame game) {
@@ -42,6 +43,7 @@ public class EndScreen extends ScreenAdapter {
     @Override
     public void show() {
         game.batch = new SpriteBatch();
+        this.flowerPoints = game.playerScore/10;
         this.textureBatch = new SpriteBatch();
         this.isAllowedToLeave = false;
         textureCamera = new OrthographicCamera();
@@ -56,6 +58,7 @@ public class EndScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
+                    game.addFlowerPoints(flowerPoints);
                     game.setTitleScreen();
                     game.clearScore();
                     game.collectedStuffList.clear();
@@ -71,7 +74,9 @@ public class EndScreen extends ScreenAdapter {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
                 if(isAllowedToLeave) {
+                    game.addFlowerPoints(flowerPoints);
                     game.setTitleScreen();
                     game.clearScore();
                     game.collectedStuffList.clear();
@@ -86,6 +91,8 @@ public class EndScreen extends ScreenAdapter {
             }
         });
     }
+
+
 
     @Override
     public void render(float delta) {
@@ -102,6 +109,11 @@ public class EndScreen extends ScreenAdapter {
         font.draw(game.batch, game.getText("score") + score, Gdx.graphics.getWidth() * 0.08f,
                 Gdx.graphics.getHeight() * .75f);
         font.draw(game.batch, game.getText("whatHitMe"),Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .65f);
+        font.draw(game.batch, "Added flowerpoints: " + this.flowerPoints,
+                Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .40f);
+        font.draw(game.batch, "Flowerpoints total: " + game.getFlowerPoints() + this.flowerPoints,
+                Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .30f);
+
         game.batch.end();
 
         this.textureBatch.begin();

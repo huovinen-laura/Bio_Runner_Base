@@ -36,8 +36,10 @@ public class TextureAssets {
 
     private Texture happyGirl = new Texture("recycleGallHappy.png");
     private Texture sadGirl = new Texture("recycleGallSad.png");
-    private skins skinAssets = new skins();
     private Texture speechBubble = new Texture("bubble.png");
+
+    private skins skinAssets = new skins();
+
 
     public Texture getKissa() {
         return kissa;

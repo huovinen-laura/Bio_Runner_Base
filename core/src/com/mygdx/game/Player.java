@@ -106,7 +106,9 @@ public class Player extends GameObject {
     @Override
     public boolean Move() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            if(this.getObjectBody().getPosition().y < 1.0f && !this.justChangedScreen) {
+            if(Player.isDiving && this.getObjectBody().getPosition().y < 2.0f) {
+                Player.isJumping = true;
+            } else if(this.getObjectBody().getPosition().y < 1.0f && !this.justChangedScreen) {
                 if(Player.isDiving) {
                     Player.isJumping = true;
                 } else if (this.objectBody.getLinearVelocity().y <= 0) {

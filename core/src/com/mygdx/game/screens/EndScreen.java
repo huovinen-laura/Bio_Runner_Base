@@ -111,7 +111,7 @@ public class EndScreen extends ScreenAdapter {
         font.draw(game.batch, game.getText("whatHitMe"),Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .65f);
         font.draw(game.batch, "Added flowerpoints: " + this.flowerPoints,
                 Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .40f);
-        font.draw(game.batch, "Flowerpoints total: " + game.getFlowerPoints() + this.flowerPoints,
+        font.draw(game.batch, "Flowerpoints total: " + (game.getFlowerPoints() + this.flowerPoints),
                 Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .30f);
 
         game.batch.end();

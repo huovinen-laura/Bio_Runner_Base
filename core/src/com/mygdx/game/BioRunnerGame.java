@@ -26,6 +26,9 @@ public class BioRunnerGame extends Game {
 
     public void addFlowerPoints(int amount) {
         this.flowerPoints += amount;
+        Preferences prefs = Gdx.app.getPreferences("points");
+        prefs.putInteger("flowerPoints",this.flowerPoints);
+        prefs.flush();
     }
 
     private int flowerPoints;
@@ -82,7 +85,7 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
-        this.flowerPoints = 0;
+        this.flowerPoints = Gdx.app.getPreferences("points").getInteger("flowerPoints",0);
         localeFI = new Locale("", "");
         localeEN = new Locale("en", "UK");
         myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
@@ -210,7 +213,7 @@ public class BioRunnerGame extends Game {
 
     public String getText(String key) {
 
-        if(this.getPrefs().getBoolean("fiOrNot") ) {
+        if(this.getPrefs().getBoolean("fiOrNot",true) ) {
             return(this.getMyBundleFI().get(key));
         } else {
             return(this.getMyBundleEN().get(key));
@@ -238,7 +241,8 @@ public class BioRunnerGame extends Game {
     }
 
     public Preferences getPrefs() {
-        return prefs;
+        return(Gdx.app.getPreferences("Settings"));
+
     }
 
     public Music getMusic() {

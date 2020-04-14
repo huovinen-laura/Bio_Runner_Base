@@ -19,6 +19,9 @@ public class Player extends GameObject {
     public BioRunnerGame game;
     private boolean isDefault;
 
+    public static boolean isJumping = false;
+    public static boolean isDiving = false;
+
     public Player(Texture animationTexture, BioRunnerGame game) {
         super(game,true,game.getCurrentAnimation(),
                 1.5f,1f, 2f,1000f,0f,1f);
@@ -103,13 +106,27 @@ public class Player extends GameObject {
     @Override
     public boolean Move() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            if(this.getObjectBody().getPosition().y < 0.52f && !this.justChangedScreen) {
-                this.getObjectBody().applyLinearImpulse(
-                        new Vector2(0, 5000f), this.getObjectBody().getWorldCenter(), true);
+            if(this.getObjectBody().getPosition().y < 1.0f && !this.justChangedScreen) {
+                if(Player.isDiving) {
+                    Player.isJumping = true;
+                } else if (this.objectBody.getLinearVelocity().y <= 0) {
+                  Player.isJumping = true;
+                }
+
             } else {
-                this.getObjectBody().applyLinearImpulse(
-                        new Vector2(0, -10000f), this.getObjectBody().getWorldCenter(), true);
+                Player.isDiving = true;
             }
+        }
+
+        if(this.isGrounded() && Player.isJumping) {
+            this.getObjectBody().applyLinearImpulse(
+                    new Vector2(0, 5000f), this.getObjectBody().getWorldCenter(), true);
+            Player.isJumping = false;
+            Player.isDiving = false;
+        } else if(Player.isDiving) {
+            this.getObjectBody().applyLinearImpulse(
+                    new Vector2(0, -10000f), this.getObjectBody().getWorldCenter(), true);
+            Player.isDiving = false;
         }
 
         if (game.lifeCounter.getLivesAmount() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
@@ -119,7 +136,7 @@ public class Player extends GameObject {
     }
 
     public boolean isGrounded() {
-        if (this.getObjectBody().getPosition().y < 0.52f) {
+        if (this.getObjectBody().getLinearVelocity().y == 0f && this.getObjectBody().getPosition().y < 0.53f) {
             return true;
         } else {
             return false;

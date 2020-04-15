@@ -17,15 +17,14 @@ public class skins {
     public skins() {
         this.animations = new ArrayList<>();
         this.names = new ArrayList<>();
-        this.animations.add(velhoAnimaatio);
-        this.names.add("velho");
-        this.animations.add(jarviAnimaatio);
-        this.names.add("jarviChan");
         this.animations.add(playerAnimation);
         this.names.add("vakio");
         this.animations.add(koronaAnimaatio);
         this.names.add("korona");
-
+        this.animations.add(velhoAnimaatio);
+        this.names.add("velho");
+        this.animations.add(jarviAnimaatio);
+        this.names.add("jarviChan");
     }
 
     public void dispose() {

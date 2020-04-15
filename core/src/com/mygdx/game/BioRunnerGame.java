@@ -72,6 +72,7 @@ public class BioRunnerGame extends Game {
             }
         }
 
+        Gdx.app.log("TextureCurrent",  "null");
         return null;
     }
 
@@ -108,7 +109,7 @@ public class BioRunnerGame extends Game {
             }
         };
         levelNumber = 1;
-        this.skinName = "korona";
+        this.skinName = Gdx.app.getPreferences("skinPrefs").getString("skinName","vakio");
         this.pointsPerCollectable = 1;
         batch = new SpriteBatch();
         textureAssets = new TextureAssets();
@@ -240,6 +241,25 @@ public class BioRunnerGame extends Game {
         return skinName;
     }
 
+    public boolean unlockSkin(String skinName, int cost) {
+        if(cost <= flowerPoints) {
+            addFlowerPoints(-cost);
+            Preferences preferences = Gdx.app.getPreferences("skinPrefs");
+            preferences.putBoolean(skinName,true);
+            preferences.flush();
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean isUnlocked(String skinName) {
+        Preferences preferences = Gdx.app.getPreferences("skinPrefs");
+        return(preferences.getBoolean(skinName,false));
+
+    }
+
     public Preferences getPrefs() {
         return(Gdx.app.getPreferences("Settings"));
 
@@ -250,6 +270,9 @@ public class BioRunnerGame extends Game {
     }
 
     public void setSkinName(String skinName) {
+        Preferences preferences = Gdx.app.getPreferences("skinPrefs");
+        preferences.putString("skinName",skinName);
+        preferences.flush();
         this.skinName = skinName;
     }
 

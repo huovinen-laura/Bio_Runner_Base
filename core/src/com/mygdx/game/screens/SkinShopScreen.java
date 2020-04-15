@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -33,14 +34,17 @@ public class SkinShopScreen extends ScreenAdapter {
     private String flowerPointText;
     private int velhoSkinCost;
 
+    private boolean[] isSkinUnlocked;
+    private String[] skinNames;
+
 
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
         this.velhoSkinCost = 1000;
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
-        this.velhoSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.velhoSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
-        this.vakioSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.vakioSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
         tausta = game.textureAssets.getCommon();
@@ -107,8 +111,49 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
     }
 
+    private boolean isSkinUnlocked(String skinName) {
+        for(int i = 0; i < skinNames.length; i++) {
+            if(skinNames[i].contentEquals(skinName) && isSkinUnlocked[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void handleSkinClick(String name, int cost) {
+        if(isSkinUnlocked(name)) {
+            game.setSkinName(name);
+        } else if(game.unlockSkin(name, cost)) {
+            int count = 0;
+
+            for(int i = 0; i < this.skinNames.length;i++) {
+
+                if(this.skinNames[i].contentEquals(name)) {
+                    count = i;
+                }
+            }
+
+            game.setSkinName(name);
+            this.isSkinUnlocked[count] = true;
+        } else {
+            Gdx.app.log("buy", "not enough points");
+        }
+
+    }
+
     @Override
     public void show() {
+
+        Preferences skinPrefs = Gdx.app.getPreferences("skinPrefs");
+        int skinCount = game.textureAssets.getSkinAssets().getAnimations().size();
+        this.isSkinUnlocked = new boolean[skinCount];
+        this.skinNames = new String[skinCount];
+        for(int i = 0; i < skinCount; i++) {
+            skinNames[i] =  game.textureAssets.getSkinAssets().getNames().get(i);
+            isSkinUnlocked[i] = skinPrefs.getBoolean( skinNames[i],false);
+
+        }
+
         this.fontBatch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
         this.isPossibleToLeave = true;
@@ -125,18 +170,15 @@ public class SkinShopScreen extends ScreenAdapter {
 
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.setTitleScreen();
+
                 } else if(vakioSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
                     game.setSkinName("vakio");
-                    game.setTitleScreen();
                 } else if(jarviSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    game.setSkinName("jarviChan");
-                    game.setTitleScreen();
+                    handleSkinClick("jarviChan",10);
                 } else if(koronaSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    game.setSkinName("korona");
-                    game.setTitleScreen();
+                    handleSkinClick("korona",50);
                 } else if(velhoSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    game.setSkinName("velho");
-                    game.setTitleScreen();
+                    handleSkinClick("velho",100);
                 }
 
                 return true;

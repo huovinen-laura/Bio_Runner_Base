@@ -14,8 +14,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
 import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class BioRunnerGame extends Game {
@@ -32,8 +30,6 @@ public class BioRunnerGame extends Game {
     }
 
     private int flowerPoints;
-    SettingsScreen settings;
-    SkinShopScreen skin;
     public ShitCollection collectedStuffList;
     public ObstacleCollection allObstaclesCollection;
     public float worldSpeed;
@@ -41,9 +37,12 @@ public class BioRunnerGame extends Game {
     public int playerScore;
     private TitleScreen title;
     private BallGame game;
+    private SettingsScreen settings;
+    private SkinShopScreen skin;
     private EndScreen end;
     private RecycleScreen recycle;
     private ShopScreen shop;
+    private CreditsScreen credits;
     public TextureAssets textureAssets;
     private Vector3 projected;
     private OrthographicCamera textureCamera;
@@ -136,6 +135,7 @@ public class BioRunnerGame extends Game {
         shop = new ShopScreen(this);
         settings = new SettingsScreen(this);
         skin = new SkinShopScreen(this);
+        credits = new CreditsScreen(this);
         this.setScreen(new TitleScreen(this));
         powerUps = new PowerUpCollection(this);
 
@@ -176,7 +176,11 @@ public class BioRunnerGame extends Game {
         setScreen(this.skin);
     }
 
-    public BitmapFont getFont() {return (this.font); };
+    public void setCreditsScreen() {
+        setScreen(this.credits);
+    }
+
+    public BitmapFont getFont() {return (this.font); }
 
     @Override
     public void render() {

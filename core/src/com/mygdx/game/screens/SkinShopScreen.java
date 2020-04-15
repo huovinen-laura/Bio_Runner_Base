@@ -11,11 +11,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
-
-import java.util.Locale;
 
 public class SkinShopScreen extends ScreenAdapter {
     public BioRunnerGame game;

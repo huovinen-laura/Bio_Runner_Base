@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class EndScreen extends ScreenAdapter {
     BioRunnerGame game;
-    BitmapFont font;
+    private BitmapFont font;
     private boolean isAllowedToLeave;
     private SpriteBatch textureBatch;
     private WasteDisplayRecycle wrongWasteDisplay;

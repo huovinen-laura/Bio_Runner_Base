@@ -10,11 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
-
-import java.util.Locale;
 
 public class SettingsScreen extends ScreenAdapter {
     public BioRunnerGame game;
@@ -25,6 +22,7 @@ public class SettingsScreen extends ScreenAdapter {
     private Button backButton;
     private Button musicButton;
     private Button soundButton;
+    private Button creditsButton;
     private Button finnishButton;
     private Button englishButton;
     private OrthographicCamera camera;
@@ -37,8 +35,9 @@ public class SettingsScreen extends ScreenAdapter {
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
         this.backButton = new Button(6.5f,3f,1f,1f,game.textureAssets.getCloseButton());
-        this.musicButton = new Button(1f, 2f, 1f, 1f, game.textureAssets.getButtonBlue());
-        this.soundButton = new Button(1f, 1f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.musicButton = new Button(1f, 2.2f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.soundButton = new Button(1f, 1.5f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.creditsButton = new Button(1f, 0.8f, 1f, 1f, game.textureAssets.getButtonBlue());
         this.finnishButton = new Button(5f, 2f, 0.7f, 1f, game.textureAssets.getFinnishButton());
         this.englishButton = new Button(5f, 1f, 0.7f, 1f, game.textureAssets.getEnglishButton());
         this.font = game.getFont();
@@ -72,11 +71,13 @@ public class SettingsScreen extends ScreenAdapter {
 
         game.batch.begin();
         this.font.draw(game.batch, settings, Gdx.graphics.getWidth() * 0.4f,
-                Gdx.graphics.getHeight() * 0.80f);
+                Gdx.graphics.getHeight() * 0.85f);
         this.font.draw(game.batch, music, Gdx.graphics.getWidth() * 0.300f,
-                Gdx.graphics.getHeight() * 0.65f);
+                Gdx.graphics.getHeight() * 0.70f);
         this.font.draw(game.batch, sounds, Gdx.graphics.getWidth() * 0.30f,
-                Gdx.graphics.getHeight() * 0.4f);
+                Gdx.graphics.getHeight() * 0.53f);
+        this.font.draw(game.batch, game.getText("credits"), Gdx.graphics.getWidth() * 0.3f,
+                Gdx.graphics.getHeight() * 0.36f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
@@ -84,6 +85,7 @@ public class SettingsScreen extends ScreenAdapter {
         this.backButton.draw(texturesBatch);
         this.musicButton.draw(texturesBatch);
         this.soundButton.draw(texturesBatch);
+        this.creditsButton.draw(texturesBatch);
         this.finnishButton.draw(texturesBatch);
         this.englishButton.draw(texturesBatch);
         this.texturesBatch.end();
@@ -106,6 +108,8 @@ public class SettingsScreen extends ScreenAdapter {
                 Preferences prefs = game.getPrefs();
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.setTitleScreen();
+                } else if (creditsButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    game.setCreditsScreen();
                 } else if (musicButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && prefs.getBoolean("musicOn")) {
                     prefs.putBoolean("musicOn", false);

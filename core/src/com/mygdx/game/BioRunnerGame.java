@@ -46,6 +46,7 @@ public class BioRunnerGame extends Game {
     public TextureAssets textureAssets;
     private Vector3 projected;
     private OrthographicCamera textureCamera;
+    private OrthographicCamera fontCamera;
 
     private int levelNumber;
     private String skinName;
@@ -62,6 +63,7 @@ public class BioRunnerGame extends Game {
     private Locale localeEN;
     private I18NBundle myBundleFI;
     private I18NBundle myBundleEN;
+
 
 
     public Texture getCurrentAnimation() {
@@ -85,6 +87,8 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
+
+
         this.flowerPoints = Gdx.app.getPreferences("points").getInteger("flowerPoints",0);
         localeFI = new Locale("", "");
         localeEN = new Locale("en", "UK");
@@ -107,13 +111,16 @@ public class BioRunnerGame extends Game {
 
             }
         };
+
         levelNumber = 1;
         this.skinName = Gdx.app.getPreferences("skinPrefs").getString("skinName","vakio");
         this.pointsPerCollectable = 1;
+
         batch = new SpriteBatch();
         textureAssets = new TextureAssets();
         textureCamera = new OrthographicCamera();
-        textureCamera.setToOrtho(false,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        textureCamera.setToOrtho(false,game.WORLD_WIDTH, game.WORLD_HEIGHT);
+        projected = textureCamera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
 
         this.lastCollectable = new Vector2(0f,0f);
 
@@ -127,7 +134,7 @@ public class BioRunnerGame extends Game {
         allObstaclesCollection = new ObstacleCollection(this);
 
         font = new BitmapFont(Gdx.files.internal("font.txt"));
-        font.getData().setScale(0.5f, 0.5f);
+        font.getData().setScale(0.4f*Gdx.graphics.getWidth()/800, 0.4f*Gdx.graphics.getHeight()/400);
         game = new BallGame(this);
         this.title = new TitleScreen(this);
         recycle = new RecycleScreen(this);
@@ -151,6 +158,7 @@ public class BioRunnerGame extends Game {
     }
 
     public void setShopScreen() { setScreen((this.shop));}
+
 
     public void setEndScreen() {
         setScreen(this.end);

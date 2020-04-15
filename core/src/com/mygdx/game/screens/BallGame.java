@@ -116,10 +116,10 @@ public class BallGame extends ScreenAdapter {
         //Draws the player's score
         String score = Integer.toString(game.playerScore);
         game.batch.begin();
-        this.font.draw(game.batch, score, Gdx.graphics.getWidth() * .92f,
-                Gdx.graphics.getHeight() * .90f);
+        this.font.draw(game.batch, score, game.getProjected().x * .92f,
+                game.getProjected().y * .90f);
         this.font.draw(game.batch, ""+game.worldSpeed,
-				Gdx.graphics.getWidth() * 0.80f,Gdx.graphics.getHeight() * 0.90f);
+				game.getProjected().x * 0.80f,game.getProjected().y * 0.90f);
         game.batch.end();
 
 		debugRenderer.render(world, camera.combined);

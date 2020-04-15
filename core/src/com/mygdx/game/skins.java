@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 
 public class skins {
-    private Texture velhoAnimaatio = new Texture("velhoAnimaatio.png");
-    private Texture jarviAnimaatio = new Texture("jarviAnimaatio.png");
+    
+    private Texture velhoAnimaatio = new Texture("velhoAnimaatio2.png");
+    private Texture jarviAnimaatio = new Texture("jarviAnimaatio2.png");
     private Texture playerAnimation = new Texture("playerAnimation.png");
     private Texture koronaAnimaatio = new Texture("koronaAnimaatio.png");
 

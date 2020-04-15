@@ -69,14 +69,14 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        this.font.draw(game.batch, game.getText("shop"), Gdx.graphics.getWidth() * 0.2f,
-                Gdx.graphics.getHeight() * 0.80f);
+        this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.2f,
+                game.getProjected().y * 0.80f);
         this.font.draw(game.batch,
-                this.flowerPointText + game.getFlowerPoints(), Gdx.graphics.getWidth() * 0.2f,
-                Gdx.graphics.getHeight() * 0.1f);
+                this.flowerPointText + game.getFlowerPoints(), game.getProjected().x * 0.2f,
+                game.getProjected().y * 0.1f);
         this.font.draw(game.batch,game.getText("costPoints") + this.velhoSkinCost,
-                Gdx.graphics.getWidth() * 0.25f,
-                Gdx.graphics.getHeight() * 0.25f);
+                game.getProjected().x * 0.25f,
+                game.getProjected().y * 0.25f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);

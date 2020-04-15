@@ -104,15 +104,15 @@ public class EndScreen extends ScreenAdapter {
         this.textureBatch.end();
 
         game.batch.begin();
-        font.draw(game.batch, game.getText("lost"), Gdx.graphics.getWidth() * 0.08f,
-                Gdx.graphics.getHeight() * .85f);
-        font.draw(game.batch, game.getText("score") + score, Gdx.graphics.getWidth() * 0.08f,
-                Gdx.graphics.getHeight() * .75f);
-        font.draw(game.batch, game.getText("whatHitMe"),Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .65f);
+        font.draw(game.batch, game.getText("lost"), game.getProjected().x * 0.08f,
+                game.getProjected().y * .85f);
+        font.draw(game.batch, game.getText("score") + score, game.getProjected().x * 0.08f,
+                game.getProjected().y * .75f);
+        font.draw(game.batch, game.getText("whatHitMe"),game.getProjected().x * 0.08f,game.getProjected().y * .65f);
         font.draw(game.batch, "Added flowerpoints: " + this.flowerPoints,
-                Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .40f);
+                game.getProjected().x * 0.08f,game.getProjected().y * .40f);
         font.draw(game.batch, "Flowerpoints total: " + (game.getFlowerPoints() + this.flowerPoints),
-                Gdx.graphics.getWidth() * 0.08f,Gdx.graphics.getHeight() * .30f);
+                game.getProjected().x * 0.08f,game.getProjected().y * .30f);
 
         game.batch.end();
 

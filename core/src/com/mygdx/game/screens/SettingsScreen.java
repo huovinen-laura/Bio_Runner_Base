@@ -70,14 +70,14 @@ public class SettingsScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        this.font.draw(game.batch, settings, Gdx.graphics.getWidth() * 0.4f,
-                Gdx.graphics.getHeight() * 0.85f);
-        this.font.draw(game.batch, music, Gdx.graphics.getWidth() * 0.300f,
-                Gdx.graphics.getHeight() * 0.70f);
-        this.font.draw(game.batch, sounds, Gdx.graphics.getWidth() * 0.30f,
-                Gdx.graphics.getHeight() * 0.53f);
-        this.font.draw(game.batch, game.getText("credits"), Gdx.graphics.getWidth() * 0.3f,
-                Gdx.graphics.getHeight() * 0.36f);
+        this.font.draw(game.batch, settings, game.getProjected().x * 0.4f,
+                game.getProjected().y * 0.85f);
+        this.font.draw(game.batch, music, game.getProjected().x * 0.300f,
+                game.getProjected().y * 0.70f);
+        this.font.draw(game.batch, sounds, game.getProjected().x * 0.30f,
+                game.getProjected().y * 0.53f);
+        this.font.draw(game.batch, game.getText("credits"), game.getProjected().x * 0.3f,
+                game.getProjected().y * 0.36f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);

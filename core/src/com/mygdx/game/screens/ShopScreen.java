@@ -64,11 +64,11 @@ public class ShopScreen extends ScreenAdapter {
         game.batch.begin();
 
 
-        this.font.draw(game.batch, firstPowerUp, Gdx.graphics.getWidth() * 0.30f,
-                Gdx.graphics.getHeight() * 0.4f);
+        this.font.draw(game.batch, firstPowerUp, game.getProjected().x * 0.30f,
+                game.getProjected().y * 0.4f);
         this.font.draw(game.batch, secondPowerUp,
 
-                Gdx.graphics.getWidth() * 0.3f,Gdx.graphics.getHeight() * 0.65f);
+                game.getProjected().x * 0.3f,game.getProjected().y * 0.65f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);

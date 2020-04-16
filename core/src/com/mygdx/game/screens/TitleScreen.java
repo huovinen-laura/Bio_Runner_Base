@@ -57,7 +57,7 @@ public class TitleScreen extends ScreenAdapter {
             public boolean keyDown(int keyCode) {
 
                 if (keyCode == Input.Keys.SPACE) {
-                    game.setGameScreen();
+                    game.setRecycleScreen();
                 }
 
                 return true;

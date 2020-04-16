@@ -22,6 +22,7 @@ public class BioRunnerGame extends Game {
     public final float WORLD_HEIGHT = 4;
     public SpriteBatch batch;
     public BitmapFont font;
+    public BitmapFont bubbleFont;
 
     public void addFlowerPoints(int amount) {
         this.flowerPoints += amount;
@@ -136,6 +137,9 @@ public class BioRunnerGame extends Game {
 
         font = new BitmapFont(Gdx.files.internal("font.txt"));
         font.getData().setScale(0.4f*Gdx.graphics.getWidth()/800, 0.4f*Gdx.graphics.getHeight()/400);
+        bubbleFont = new BitmapFont(Gdx.files.internal("font.txt"));
+        bubbleFont.getData().setScale(0.3f*Gdx.graphics.getWidth()/800,
+                0.3f*Gdx.graphics.getHeight()/400);
         game = new BallGame(this);
         this.title = new TitleScreen(this);
         recycle = new RecycleScreen(this);
@@ -378,5 +382,9 @@ public class BioRunnerGame extends Game {
         TextureRegion current = this.textureAssets.getSkinAssets().getAnimationFrame(this.getCurrentAnimation());
         Texture toBeReturned = current.getTexture();
         return(toBeReturned);
+    }
+
+    public BitmapFont getBubbleFont() {
+        return(this.bubbleFont);
     }
 }

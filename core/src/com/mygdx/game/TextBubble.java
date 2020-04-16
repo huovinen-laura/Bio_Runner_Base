@@ -12,6 +12,7 @@ public class TextBubble {
     private Vector2 position;
     private Vector2 dimensions;
     private BioRunnerGame game;
+    private float margin;
 
     public TextBubble(String text, Vector2 position, Vector2 dimensions, BioRunnerGame game) {
         this.text = text;
@@ -19,6 +20,7 @@ public class TextBubble {
         this.position = position;
         this.dimensions = dimensions;
         this.bubbleTexture = game.textureAssets.getBubble();
+        this.margin = 0;
     }
 
     public void DrawBubble(SpriteBatch textureBatch) {
@@ -28,7 +30,19 @@ public class TextBubble {
     public void DrawFont(SpriteBatch fontBatch, Vector3 projected) {
         Gdx.app.log("bubble","" +  (this.position.x/game.WORLD_WIDTH));
 
-        game.getFont().draw(fontBatch, this.text, projected.x * (this.position.x/game.WORLD_WIDTH),
-                projected.y * ((this.position.y+2)/game.WORLD_HEIGHT));
+        game.getBubbleFont().draw(game.batch, this.text, projected.x * (this.position.x/game.WORLD_WIDTH),
+                projected.y * ((this.position.y)/game.WORLD_HEIGHT),0, this.text.length(),
+                (Gdx.graphics.getWidth()/800f) * (this.dimensions.x) * 100f,10,true);
+        Gdx.app.log("Bubble", "" + Gdx.graphics.getWidth());
+
+
+    }
+
+    public float getMargin() {
+        return margin;
+    }
+
+    public void setMargin(float margin) {
+        this.margin = margin;
     }
 }

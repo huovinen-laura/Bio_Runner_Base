@@ -47,6 +47,7 @@ public class RecycleScreen extends ScreenAdapter {
         camera.setToOrtho(false, this.game.WORLD_WIDTH, this.game.WORLD_HEIGHT);
         projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
 
+
     }
 
     @Override
@@ -100,8 +101,9 @@ public class RecycleScreen extends ScreenAdapter {
 
         this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
 
-        this.information = new TextBubble("Lorem ipsum dolor", new Vector2(0.5f,1f),
-                new Vector2(3f,4f), game);
+        this.information = new TextBubble("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus" +
+                " a tincidunt neque. Ut id tempor sapien, in tincidunt odio. Donec dignissim purus eros.", new Vector2(0.5f,3.5f),
+                new Vector2(3.2f,4f), game);
 
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);

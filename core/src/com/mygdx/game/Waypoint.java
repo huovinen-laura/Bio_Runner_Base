@@ -3,13 +3,14 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.screens.BallGame;
 
 public class Waypoint {
     float length;
     float barWidth;
     Texture progressBar;
-    Texture progressMarker;
+    TextureRegion progressMarker;
     float displayedProgress;
     float realProgress;
     float xStart=0.5f;
@@ -24,7 +25,8 @@ public class Waypoint {
         this.barWidth = 4f;
         this.markerSize = 0.2f;
         progressBar = game.textureAssets.getProgressBar();
-        progressMarker = game.textureAssets.getPlayerChonky();
+        progressMarker = game.textureAssets.getSkinAssets().getAnimationFrame(game.getCurrentAnimation());
+        progressMarker.flip(true,false);
     }
 
     public void draw(SpriteBatch batch) {

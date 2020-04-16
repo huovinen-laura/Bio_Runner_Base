@@ -40,19 +40,7 @@ public class Player extends GameObject {
 
     @Override
     public void Draw(SpriteBatch batch) {
-        if(isDefault) {
-            batch.draw(currentFrameTexture,
-                    this.getObjectBody().getPosition().x,
-                    this.getObjectBody().getPosition().y,
-                    0f,
-                    0f,
-                    this.spriteWidth,
-                    this.spriteHeight,
-                    1.0f,
-                    1.0f,
-                    this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
-            );
-        } else {
+
             currentFrameTexture.flip(true,false);
             batch.draw(currentFrameTexture,
                     this.getObjectBody().getPosition().x,
@@ -66,7 +54,7 @@ public class Player extends GameObject {
                     this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
             );
             currentFrameTexture.flip(true,false);
-        }
+
     }
 
     private void createAnimation() {

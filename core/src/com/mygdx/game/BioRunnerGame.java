@@ -153,7 +153,7 @@ public class BioRunnerGame extends Game {
 
         // Taustamusiikki
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-        backgroundMusic.setVolume(0.20f);
+        backgroundMusic.setVolume(0.40f);
         backgroundMusic.setLooping(true);
 
     }

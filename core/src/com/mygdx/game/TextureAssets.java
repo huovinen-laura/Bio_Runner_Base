@@ -14,6 +14,8 @@ public class TextureAssets {
     private Texture closeButton = new Texture("close_btn.png");
     private Texture finnishButton = new Texture("finland_flag.png");
     private Texture englishButton = new Texture("british_flag.png");
+    private Texture speakerOn = new Texture("speaker_on.png");
+    private Texture speakerOff = new Texture("speaker_muted.png");
     private Texture doublePoint = new Texture("double_points.png");
     private Texture logo = new Texture("LOGO.png");
     private Texture progressBar = new Texture("progressbar.png");
@@ -113,6 +115,21 @@ public class TextureAssets {
         this.englishButton = englishButton;
     }
 
+    public Texture getSpeakerOn() {
+        return speakerOn;
+    }
+
+    public void setSpeakerOn(Texture speakerOn) {
+        this.speakerOn = speakerOn;
+    }
+
+    public Texture getSpeakerOff() {
+        return speakerOff;
+    }
+
+    public void setSpeakerOff(Texture speakerOff) {
+        this.speakerOff = speakerOff;
+    }
 
     public Texture getDoublePoint() {
         return doublePoint;
@@ -180,6 +197,8 @@ public class TextureAssets {
         closeButton.dispose();
         finnishButton.dispose();
         englishButton.dispose();
+        speakerOn.dispose();
+        speakerOff.dispose();
         doublePoint.dispose();
         logo.dispose();
         menu.dispose();

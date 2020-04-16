@@ -42,6 +42,7 @@ public class ObstacleCollection {
             if(this.allObstacles.get(i).getName().contentEquals(object.getName())) {
                 this.allObstacles.get(i).incrementCount();
                 break;
+
             }
         }
     }
@@ -83,7 +84,7 @@ public class ObstacleCollection {
         }
 
 
-        Gdx.app.log("ObsCol", "error roll: " + roll);
+
         return(new ObstacleRectangle(game,new Texture("badlogic.jpg"),
                 positionX,positionY,"error",1f));
     }

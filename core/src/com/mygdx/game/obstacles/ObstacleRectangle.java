@@ -31,10 +31,14 @@ public class ObstacleRectangle extends GameObject {
     public boolean Move() {
 
         if(this.getObjectBody().getPosition().x <= (0-this.spriteWidth)) {
+            this.getObjectBody().getWorld().destroyBody(this.getObjectBody());
             this.dispose();
+
             return(false);
         } else if (this.setForDelete) {
+            this.getObjectBody().getWorld().destroyBody(this.getObjectBody());
             this.dispose();
+
             return(false);
         }
 

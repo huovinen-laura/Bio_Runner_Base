@@ -22,6 +22,7 @@ public abstract class GameObject {
     protected boolean flipSpriteY = false;
     private static FixtureDef getFixtureDef;
     private BioRunnerGame game;
+    private boolean toBeDestroyed = false;
 
     public GameObject(BioRunnerGame game,Texture texture, float size, float x, float y, float density,
                       float bouncines, float friction, boolean flipX, boolean flipY) {
@@ -215,6 +216,7 @@ public abstract class GameObject {
         while(this.getObjectBody().getFixtureList().size > 0) {
             this.getObjectBody().destroyFixture(this.getObjectBody().getFixtureList().get(0));
         }
+        this.toBeDestroyed = true;
     }
 
     public Vector2 getPosition() {

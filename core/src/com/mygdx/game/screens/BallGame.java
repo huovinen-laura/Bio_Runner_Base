@@ -63,6 +63,7 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
+		Gdx.app.log("bodyCount","Bodies: "+game.getWorld().getBodyCount());
 		this.reachedCheckpoint = false;
 		ball.update();
 		game.collectedStuffList.clear();
@@ -155,11 +156,9 @@ public class BallGame extends ScreenAdapter {
 		for (int i =0 ; i < this.collectables.size();i++) {
 			this.collectables.get(i).Draw(this.gameBatch);
 			if( !this.collectables.get(i).Move()) {
-				this.collectables.get(i).dispose();
 				toRemove.add(i);
 			}
 		}
-
 		for (int i = 0; i < toRemove.size(); i++) {
 			this.collectables.remove(toRemove.get(i)-i);
 		}
@@ -173,7 +172,6 @@ public class BallGame extends ScreenAdapter {
 		for (int i =0 ; i < this.obstacles.size();i++) {
 			this.obstacles.get(i).Draw(this.gameBatch);
 			if( !this.obstacles.get(i).Move()) {
-				this.obstacles.get(i).dispose();
 				toRemove.add(i);
 			}
 		}
@@ -196,9 +194,7 @@ public class BallGame extends ScreenAdapter {
 		}
 
 		accumulator += frameTime;
-		if (frameTime > 2 * TIME_STEP) {
-			Gdx.app.log("lag", "Frametime: " + frameTime/TIME_STEP );
-		}
+
 
 		while (accumulator >= TIME_STEP) {
 			game.getWorld().step(TIME_STEP, 8, 3);
@@ -259,10 +255,12 @@ public class BallGame extends ScreenAdapter {
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
+			this.obstacles.get(i).getObjectBody().getWorld().destroyBody(this.obstacles.get(i).getObjectBody());
 		}
 
 		for(int i = 0; i < this.collectables.size(); i++) {
 			this.collectables.get(i).dispose();
+			this.collectables.get(i).getObjectBody().getWorld().destroyBody(this.collectables.get(i).getObjectBody());
 		}
 
 		game.batch.dispose();
@@ -273,10 +271,12 @@ public class BallGame extends ScreenAdapter {
 		Gdx.app.log("", "hide game");
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
+			this.obstacles.get(i).getObjectBody().getWorld().destroyBody(this.obstacles.get(i).getObjectBody());
 		}
 
 		for(int i = 0; i < this.collectables.size(); i++) {
 			this.collectables.get(i).dispose();
+			this.collectables.get(i).getObjectBody().getWorld().destroyBody(this.collectables.get(i).getObjectBody());
 		}
 
 		this.obstacles.clear();

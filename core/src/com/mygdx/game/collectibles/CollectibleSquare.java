@@ -54,8 +54,12 @@ public class CollectibleSquare extends GameObject {
     @Override
     public boolean Move() {
         if(this.getObjectBody().getPosition().x <= (0-this.spriteWidth)) {
+            this.dispose();
+            this.getObjectBody().getWorld().destroyBody(this.getObjectBody());
             return(false);
         } else if (this.setForDelete) {
+            this.dispose();
+            this.getObjectBody().getWorld().destroyBody(this.getObjectBody());
             return(false);
         }
     return(true);

@@ -23,6 +23,7 @@ public class BioRunnerGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
     public BitmapFont bubbleFont;
+    private World world;
 
     public void addFlowerPoints(int amount) {
         this.flowerPoints += amount;
@@ -69,9 +70,9 @@ public class BioRunnerGame extends Game {
 
 
     public Texture getCurrentAnimation() {
-        for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimations().size(); i++) {
+        for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimationTextures().size(); i++) {
             if (this.skinName.contentEquals(this.textureAssets.getSkinAssets().getNames().get(i))) {
-                return(this.textureAssets.getSkinAssets().getAnimations().get(i));
+                return(this.textureAssets.getSkinAssets().getAnimationTextures().get(i));
             }
         }
 
@@ -89,7 +90,7 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void create() {
-
+        this.world = new World(new Vector2(0, -5f), true);
 
         this.flowerPoints = Gdx.app.getPreferences("points").getInteger("flowerPoints",0);
         localeFI = new Locale("", "");
@@ -218,7 +219,7 @@ public class BioRunnerGame extends Game {
     }
 
     public World getWorld() {
-        return(this.game.world);
+        return(this.world);
     }
 
     @Override

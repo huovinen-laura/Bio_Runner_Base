@@ -142,7 +142,7 @@ public class SkinShopScreen extends ScreenAdapter {
     public void show() {
 
         Preferences skinPrefs = Gdx.app.getPreferences("skinPrefs");
-        int skinCount = game.textureAssets.getSkinAssets().getAnimations().size();
+        int skinCount = game.textureAssets.getSkinAssets().getAnimationTextures().size();
         this.isSkinUnlocked = new boolean[skinCount];
         this.skinNames = new String[skinCount];
         for(int i = 0; i < skinCount; i++) {

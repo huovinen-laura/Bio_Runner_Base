@@ -32,9 +32,12 @@ public class Player extends GameObject {
             isDefault = false;
         }
 
+
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
-        createAnimation();
+        walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
+
+        currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
 
     }
 
@@ -57,18 +60,10 @@ public class Player extends GameObject {
 
     }
 
-    private void createAnimation() {
-        final int FRAME_COLS = 4;
-        final int FRAME_ROWS = 1;
 
-        int tileWidth = this.getPlayerAnimationTexture().getWidth() / FRAME_COLS;
-        int tileHeight = this.getPlayerAnimationTexture().getHeight() / FRAME_ROWS;
 
-        TextureRegion[][] tmp = TextureRegion.split(this.getPlayerAnimationTexture(), tileWidth, tileHeight);
-
-        TextureRegion[] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
-
-        walkAnimation = new Animation(4 / 60f, allFrames);
+    public void update() {
+        walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
 
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }

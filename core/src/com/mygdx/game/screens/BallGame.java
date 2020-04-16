@@ -44,8 +44,9 @@ public class BallGame extends ScreenAdapter {
 	private boolean reachedCheckpoint;
 
 	public BallGame (BioRunnerGame game) {
-		this.world = new World(new Vector2(0, -5f), true);
+
 		this.game = game;
+		ball = new Player(this.game.getCurrentAnimation(),game);
 		Gdx.app.log("sf","Ballgame constructor");
 		volume = 0.5f;
 
@@ -63,16 +64,15 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		this.reachedCheckpoint = false;
-		game.collectedStuffList = new ShitCollection(this.game);
-		ball = new Player(this.game.getCurrentAnimation(),game);
-        game.batch = new SpriteBatch();
+		ball.update();
+		game.collectedStuffList.clear();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f, game);
 		this.lostGame = false;
 		this.ball.setJustChangedScreen(true);
 		Gdx.app.log("sdf","ballgame show");
-		this.world.setContactListener(new B2dContactListener());
-		this.world.setContactFilter(new B2dContactFilter());
+		game.getWorld().setContactListener(new B2dContactListener());
+		game.getWorld().setContactFilter(new B2dContactFilter());
 		Gdx.input.setInputProcessor(new InputAdapter() {
 			@Override
 			public boolean keyDown(int keyCode) {
@@ -122,7 +122,7 @@ public class BallGame extends ScreenAdapter {
 				game.getProjected().x * 0.80f,game.getProjected().y * 0.90f);
         game.batch.end();
 
-		debugRenderer.render(world, camera.combined);
+		debugRenderer.render(game.getWorld(), camera.combined);
 
 		if (this.ball.isGrounded()) {
 			if (this.lostGame) {
@@ -139,7 +139,6 @@ public class BallGame extends ScreenAdapter {
 		}
 
 		ball.moveAnimation();
-
 	}
 
 	private void clearScreen() {
@@ -202,13 +201,13 @@ public class BallGame extends ScreenAdapter {
 		}
 
 		while (accumulator >= TIME_STEP) {
-			world.step(TIME_STEP, 8, 3);
+			game.getWorld().step(TIME_STEP, 8, 3);
 			accumulator -= TIME_STEP;
 		}
 	}
 
 	public void createGround() {
-		Body groundBody = world.createBody(getGroundBodyDef());
+		Body groundBody = game.getWorld().createBody(getGroundBodyDef());
 
 
 		groundBody.createFixture(getGroundShape(), 0.0f);
@@ -257,7 +256,6 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void dispose () {
 		Gdx.app.log("asd","ballgame.dispose");
-		ball.dispose();
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
@@ -273,7 +271,6 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void hide() {
 		Gdx.app.log("", "hide game");
-		this.ball.dispose();
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
 		}

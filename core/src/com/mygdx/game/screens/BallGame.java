@@ -69,8 +69,10 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		Gdx.app.log("bodyCount","Bodies: "+game.getWorld().getBodyCount());
+
 		this.reachedCheckpoint = false;
 		ball.update();
+
 		game.collectedStuffList.clear();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f, game);
@@ -115,11 +117,7 @@ public class BallGame extends ScreenAdapter {
         game.batch.begin();
         this.font.draw(game.batch, score, game.getProjected().x * .92f,
                 game.getProjected().y * .90f);
-        this.font.draw(game.batch, ""+game.worldSpeed,
-				game.getProjected().x * 0.80f,game.getProjected().y * 0.90f);
         game.batch.end();
-
-		debugRenderer.render(game.getWorld(), camera.combined);
 
 		if (this.ball.isGrounded()) {
 			if (this.lostGame) {
@@ -270,7 +268,9 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void hide() {
-		Gdx.app.log("", "hide game");
+
+		this.gameBatch.dispose();
+
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
 			this.obstacles.get(i).getObjectBody().getWorld().destroyBody(this.obstacles.get(i).getObjectBody());

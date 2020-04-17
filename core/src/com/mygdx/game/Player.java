@@ -63,6 +63,7 @@ public class Player extends GameObject {
 
 
     public void update() {
+        this.getObjectBody().setTransform(1f,2f,0f);
         walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
 
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
@@ -88,6 +89,8 @@ public class Player extends GameObject {
 
     @Override
     public boolean Move() {
+
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             if(Player.isDiving && this.getObjectBody().getPosition().y < 2.0f) {
                 Player.isJumping = true;

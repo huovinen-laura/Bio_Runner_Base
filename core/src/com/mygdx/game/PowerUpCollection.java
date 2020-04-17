@@ -21,6 +21,50 @@ public class PowerUpCollection {
         this.listOfNeutralPowers.add(new GameAction() {
             @Override
             public void doAction() {
+                game.playerScore += 50;
+            }
+
+            @Override
+            public String getName() {
+                return "funHappy";
+            }
+
+            @Override
+            public void undoAction() {
+            }
+
+            @Override
+            public String getDescription() {
+                return game.getText("funHappyDescription");
+            }
+
+        });
+
+        this.listOfNegativePowers.add(new GameAction() {
+            @Override
+            public void doAction() {
+                game.worldSpeed -= 1;
+            }
+
+            @Override
+            public String getName() {
+                return "speedUp";
+            }
+
+            @Override
+            public void undoAction() {
+                game.worldSpeed += 1;
+            }
+
+            @Override
+            public String getDescription() {
+                return game.getText("speedUpDescription");
+            }
+        });
+
+        this.listOfNeutralPowers.add(new GameAction() {
+            @Override
+            public void doAction() {
                 game.setPointsPerCollectable(2);
                 game.lifeCounter.setLives(1);
             }
@@ -34,17 +78,22 @@ public class PowerUpCollection {
                 game.setPointsPerCollectable(1);
             }
 
+                                         @Override
+                                         public String getDescription() {
+                                             return game.getText("doublePointsDescription");
+                                         }
 
-        }
+
+                                     }
         );
 
         this.listOfNeutralPowers.add(new GameAction() {
             @Override
             public void doAction() {
-                if(game.worldSpeed < -1) {
-                    game.worldSpeed += 1;
+                if(game.worldSpeed < -1f) {
+                    game.worldSpeed += 1f;
                 } else {
-                    game.worldSpeed = -1;
+                    game.worldSpeed = -1.5f;
                 }
 
             }
@@ -57,6 +106,11 @@ public class PowerUpCollection {
             @Override
             public void undoAction() {
 
+            }
+
+            @Override
+            public String getDescription() {
+                return null;
             }
         });
 
@@ -75,6 +129,11 @@ public class PowerUpCollection {
             public void undoAction() {
 
             }
+
+            @Override
+            public String getDescription() {
+                return game.getText("extraLifeDescription");
+            }
         });
         this.lisOfPositivePowers.add(new GameAction() {
             @Override
@@ -91,6 +150,11 @@ public class PowerUpCollection {
             @Override
             public void undoAction() {
 
+            }
+
+            @Override
+            public String getDescription() {
+                return game.getText("fullLivesDescription");
             }
         });
 
@@ -109,12 +173,39 @@ public class PowerUpCollection {
             public void undoAction() {
 
             }
+
+            @Override
+            public String getDescription() {
+                return game.getText("cowFartDescription");
+            }
+        });
+
+        this.lisOfPositivePowers.add(new GameAction() {
+            @Override
+            public void doAction() {
+                game.addFlowerPoints(10);
+            }
+
+            @Override
+            public String getName() {
+                return "flowers";
+            }
+
+            @Override
+            public void undoAction() {
+
+            }
+
+            @Override
+            public String getDescription() {
+                return game.getText("flowersDescription");
+            }
         });
 
         this.listOfNegativePowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.worldSpeed = -1f;
+                game.worldSpeed = -1.5f;
             }
 
             @Override
@@ -126,49 +217,48 @@ public class PowerUpCollection {
             public void undoAction() {
 
             }
+
+            @Override
+            public String getDescription() {
+                return game.getText("likeSnailDescription");
+            }
         });
 
-        this.listOfNeutralPowers.add(new GameAction() {
-            @Override
-            public void doAction() {
-                game.playerScore += 50;
-            }
 
-            @Override
-            public String getName() {
-                return "funHappy";
-            }
 
-            @Override
-            public void undoAction() {
-            }
 
-        });
     }
 
     public GameAction[] getTwoRandomPowers() {
         GameAction[] powerUps = new GameAction[2];
         double firstRoll = Math.random();
         double secondRoll = Math.random();
-        Gdx.app.log("Game","Level number");
+        double positiveChance = 0.50;
+        double neutralChance = 0.30 ;
+        double negativeChance = 0.05;
 
-        if(firstRoll > 2/game.getLevelNumber()) {
-            powerUps[0] = getRandomNegativePower();
+            positiveChance -= game.getLevelNumber()*2/100;
+            neutralChance += game.getLevelNumber()/100;
+            negativeChance += game.getLevelNumber()/200;
 
-        } else if(secondRoll > 1 / game.getLevelNumber() ){
-            powerUps[0] = getRandomNeutralPower();
-        } else {
-            powerUps[0] = getRandomPositivePower();
-        }
+            if(firstRoll <= positiveChance) {
+                powerUps[0] = getRandomPositivePower();
+            } else if (firstRoll <= positiveChance + neutralChance) {
+                powerUps[0] = getRandomNeutralPower();
+            } else {
+                powerUps[0] = getRandomNegativePower();
+            }
 
-        if(secondRoll > 3/game.getLevelNumber()) {
-            powerUps[1] = getRandomNegativePower();
+            if(secondRoll <= positiveChance) {
+                powerUps[1] = getRandomPositivePower();
+            } else if (secondRoll <= positiveChance + neutralChance) {
+                powerUps[1] = getRandomNeutralPower();
+            } else {
+                powerUps[1] = getRandomNegativePower();
+            }
 
-        } else if(secondRoll > 1.5 / game.getLevelNumber() ){
-            powerUps[1] = getRandomNeutralPower();
-        } else {
-            powerUps[1] = getRandomPositivePower();
-        }
+        Gdx.app.log("Game","Level number:" + game.getLevelNumber());
+        Gdx.app.log("powers","PowerUp:" + powerUps[0].getName() + " "+ powerUps[1].getName());
 
         this.takenPowers = new int[]{99,99,99};
 
@@ -178,12 +268,12 @@ public class PowerUpCollection {
     }
 
     public GameAction getRandomNegativePower() {
-        int size = this.listOfNeutralPowers.size();
-        int i = this.randomInt(0,size-1);
+        int size = this.listOfNegativePowers.size();
+        int i = this.randomInt(0,size);
 
         while(this.takenPowers[0] == i) {
 
-            i = this.randomInt(0,size-1);
+            i = this.randomInt(0,size);
 
         }
 
@@ -192,11 +282,12 @@ public class PowerUpCollection {
     }
 
     public GameAction getRandomPositivePower() {
-        int size = this.listOfNeutralPowers.size();
-        int i = this.randomInt(0,size-1);
+        int size = this.lisOfPositivePowers.size();
+        int i = this.randomInt(0,size);
+        Gdx.app.log("RandomPositive","Roll: " + i + " of " + size );
 
         while(this.takenPowers[2] == i) {
-            i = this.randomInt(0,size-1);
+            i = this.randomInt(0,size);
 
         }
 
@@ -211,10 +302,10 @@ public class PowerUpCollection {
 
     public GameAction getRandomNeutralPower() {
         int size = this.listOfNeutralPowers.size();
-        int i = this.randomInt(0,size-1);
+        int i = this.randomInt(0,size);
 
         while(this.takenPowers[1] == i) {
-            i = this.randomInt(0,size-1);
+            i = this.randomInt(0,size);
 
         }
 

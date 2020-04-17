@@ -145,6 +145,7 @@ public class SkinShopScreen extends ScreenAdapter {
         int skinCount = game.textureAssets.getSkinAssets().getAnimationTextures().size();
         this.isSkinUnlocked = new boolean[skinCount];
         this.skinNames = new String[skinCount];
+
         for(int i = 0; i < skinCount; i++) {
             skinNames[i] =  game.textureAssets.getSkinAssets().getNames().get(i);
             isSkinUnlocked[i] = skinPrefs.getBoolean( skinNames[i],false);

@@ -43,6 +43,9 @@ public class BallGame extends ScreenAdapter {
 	private Box2DDebugRenderer debugRenderer;
 	private boolean reachedCheckpoint;
 
+	private B2dContactListener contactListener;
+	private B2dContactFilter contactFilter;
+
 	public BallGame (BioRunnerGame game) {
 
 		this.game = game;
@@ -50,10 +53,12 @@ public class BallGame extends ScreenAdapter {
 		Gdx.app.log("sf","Ballgame constructor");
 		volume = 0.5f;
 
-		game.batch = new SpriteBatch();
 		this.font = game.getFont();
 		collectables = new ArrayList<>();
 		obstacles = new ArrayList<>();
+
+		this.contactFilter = new B2dContactFilter();
+		this.contactListener = new B2dContactListener();
 
 		scrollingBackground = new ScrollingBackground(worldSpeed, game);
 		createGround();
@@ -72,17 +77,8 @@ public class BallGame extends ScreenAdapter {
 		this.lostGame = false;
 		this.ball.setJustChangedScreen(true);
 		Gdx.app.log("sdf","ballgame show");
-		game.getWorld().setContactListener(new B2dContactListener());
-		game.getWorld().setContactFilter(new B2dContactFilter());
-		Gdx.input.setInputProcessor(new InputAdapter() {
-			@Override
-			public boolean keyDown(int keyCode) {
-				if (keyCode == Input.Keys.ENTER) {
-					game.setEndScreen();
-				}
-				return true;
-			}
-		});
+		game.getWorld().setContactListener(this.contactListener);
+		game.getWorld().setContactFilter(this.contactFilter);
 	}
 
 	@Override
@@ -204,14 +200,20 @@ public class BallGame extends ScreenAdapter {
 
 	public void createGround() {
 		Body groundBody = game.getWorld().createBody(getGroundBodyDef());
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.friction = 100f;
+		fixtureDef.shape = getGroundShape();
+		fixtureDef.density = 0.0f;
 
 
-		groundBody.createFixture(getGroundShape(), 0.0f);
+
+		groundBody.createFixture(fixtureDef);
 	}
 
 	private BodyDef getGroundBodyDef() {
 		BodyDef myBodyDef = new BodyDef();
 		myBodyDef.type = BodyDef.BodyType.StaticBody;
+
 
 		myBodyDef.position.set(WORLD_WIDTH, 0.15f);
 		return myBodyDef;
@@ -314,10 +316,13 @@ public class BallGame extends ScreenAdapter {
 
 			if (a instanceof ObstacleRectangle && b instanceof Player) {
 				ObstacleRectangle obstacle = (ObstacleRectangle) a;
+
 				if(!obstacle.isDeleted()) {
+
                     if(game.getPrefs().getBoolean("soundOn", true)) {
                         hurt.play(volume);
                     }
+
 					game.allObstaclesCollection.addStuff(obstacle);
 					obstacle.delete();
 					game.lifeCounter.loseLife();

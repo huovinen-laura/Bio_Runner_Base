@@ -113,6 +113,11 @@ public class BioRunnerGame extends Game {
             public void undoAction() {
 
             }
+
+            @Override
+            public String getDescription() {
+                return null;
+            }
         };
 
         levelNumber = 1;

@@ -118,6 +118,11 @@ public class BioRunnerGame extends Game {
             public String getDescription() {
                 return null;
             }
+
+            @Override
+            public Texture getButtonTexture() {
+                return null;
+            }
         };
 
         levelNumber = 1;

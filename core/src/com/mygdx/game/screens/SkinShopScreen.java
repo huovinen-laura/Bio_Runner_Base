@@ -28,6 +28,9 @@ public class SkinShopScreen extends ScreenAdapter {
     private Button koronaSkin;
     private Button vakioSkin;
     private Button jarviSkin;
+    private Button velhoLocked;
+    private Button koronaLocked;
+    private Button jarviLocked;
     private String flowerPointText;
     private int velhoSkinCost;
 
@@ -39,10 +42,14 @@ public class SkinShopScreen extends ScreenAdapter {
         this.game = game;
         this.velhoSkinCost = 1000;
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
-        this.velhoSkin = new Button(4f,2f,1f,1f, game.textureAssets.getButtonBlue());
-        this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getButtonBlue());
-        this.vakioSkin = new Button(2f,2f,1f,1f, game.textureAssets.getButtonBlue());
-        this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getButtonBlue());
+        this.velhoSkin = new Button(4f,2f,1f,1f, game.textureAssets.getStoreBG());
+        this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getStoreBG());
+        this.vakioSkin = new Button(2f,2f,1f,1f, game.textureAssets.getStoreBG());
+        this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getStoreBG());
+
+        this.velhoLocked = new Button(4f,2f,1f,1f, game.textureAssets.getStoreLocked());
+        this.koronaLocked = new Button(3f,2f,1f,1f, game.textureAssets.getStoreLocked());
+        this.jarviLocked = new Button(5f,2f,1f,1f, game.textureAssets.getStoreLocked());
         this.font = game.getFont();
         tausta = game.textureAssets.getCommon();
         width = BallGame.WORLD_WIDTH;
@@ -70,7 +77,7 @@ public class SkinShopScreen extends ScreenAdapter {
 
         game.batch.begin();
         this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.2f,
-                game.getProjected().y * 0.80f);
+                game.getProjected().y * 0.85f);
         this.font.draw(game.batch,
                 this.flowerPointText + game.getFlowerPoints(), game.getProjected().x * 0.2f,
                 game.getProjected().y * 0.1f);
@@ -105,6 +112,21 @@ public class SkinShopScreen extends ScreenAdapter {
                 1f,
                 0f
                 );
+        this.texturesBatch.end();
+
+        this.texturesBatch.setProjectionMatrix(camera.combined);
+        this.texturesBatch.begin();
+        if(!isSkinUnlocked("korona")) {
+            this.koronaLocked.draw(texturesBatch);
+        }
+
+        if(!isSkinUnlocked("velho")) {
+            this.velhoLocked.draw(texturesBatch);
+        }
+
+        if(!isSkinUnlocked("jarviChan")) {
+            this.velhoLocked.draw(texturesBatch);
+        }
         this.texturesBatch.end();
     }
 

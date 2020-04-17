@@ -39,9 +39,7 @@ public class ShopScreen extends ScreenAdapter {
 
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
-        this.lowerButton = new Button(1f,1f,1f,1f, game.textureAssets.getButtonBlue());
         this.font = game.getFont();
-        this.upperButton = new Button(1f,2f,1f,1f, game.textureAssets.getButtonBlue());
         tausta= game.textureAssets.getCommon();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
@@ -68,7 +66,7 @@ public class ShopScreen extends ScreenAdapter {
                 game.getProjected().y * 0.4f);
         this.font.draw(game.batch, secondPowerUp,
 
-                game.getProjected().x * 0.3f,game.getProjected().y * 0.65f);
+                game.getProjected().x * 0.3f,game.getProjected().y * 0.75f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
@@ -92,6 +90,8 @@ public class ShopScreen extends ScreenAdapter {
         this.powerUps = game.getPowerUps().getTwoRandomPowers();
         firstPowerUp = game.getText(powerUps[1].getName());
         secondPowerUp = game.getText(powerUps[0].getName());
+        this.lowerButton = new Button(1f,1f,1f,1f, powerUps[1].getButtonTexture());
+        this.upperButton = new Button(1f,2.3f,1f,1f, powerUps[0].getButtonTexture());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

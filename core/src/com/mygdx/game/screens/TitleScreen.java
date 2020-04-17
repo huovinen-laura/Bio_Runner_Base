@@ -46,9 +46,9 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
-        this.startButton = new Button(2f,1.8f,1f,1f, this.game.textureAssets.getButtonBlue());
-        this.settingsButton = new Button(2f, 1f, 1f, 1f, this.game.textureAssets.getButtonBlue());
-        this.skinShopButton = new Button(2f, 0.2f, 1f, 1f, this.game.textureAssets.getButtonBlue());
+        this.startButton = new Button(3f,2.0f,0.5f,1.8f, this.game.textureAssets.getGeneralButton());
+        this.settingsButton = new Button(3f, 1.2f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
+        this.skinShopButton = new Button(3f, 0.4f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
 
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -96,16 +96,6 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch.draw(tausta, 0, 0, width, height);
         this.titleBatch.end();
 
-        // Draws fonts
-        //String totalScore = Integer.toString(game.getPrefs().getInteger("totalScore"));
-        game.batch.begin();
-        //font.draw(game.batch, totalScore, projected.x * 0.7f, projected.y * .6f);
-        font.draw(game.batch, game.getText("play"), projected.x * 0.40f,
-                projected.y * .60f);
-        font.draw(game.batch, game.getText("settings"), projected.x * 0.40f, projected.y * 0.40f);
-        font.draw(game.batch, game.getText("shop"), projected.x * 0.40f, projected.y * 0.20f);
-        game.batch.end();
-
         // Draws textures
         this.titleBatch.setProjectionMatrix(camera.combined);
         this.titleBatch.begin();
@@ -113,6 +103,17 @@ public class TitleScreen extends ScreenAdapter {
         this.settingsButton.draw(this.titleBatch);
         this.skinShopButton.draw(this.titleBatch);
         this.titleBatch.end();
+
+        // Draws fonts
+        //String totalScore = Integer.toString(game.getPrefs().getInteger("totalScore"));
+        game.batch.begin();
+        //font.draw(game.batch, totalScore, projected.x * 0.7f, projected.y * .6f);
+        font.draw(game.batch, game.getText("play"), projected.x * 0.43f,
+                projected.y * .60f);
+        font.draw(game.batch, game.getText("settings"), projected.x * 0.40f, projected.y * 0.40f);
+        font.draw(game.batch, game.getText("shop"), projected.x * 0.43f, projected.y * 0.20f);
+        game.batch.end();
+
     }
 
     @Override

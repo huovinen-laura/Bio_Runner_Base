@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,11 @@ public class PowerUpCollection {
                 return game.getText("funHappyDescription");
             }
 
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getButtonBlue();
+            }
+
         });
 
         this.listOfNegativePowers.add(new GameAction() {
@@ -60,6 +66,11 @@ public class PowerUpCollection {
             public String getDescription() {
                 return game.getText("speedUpDescription");
             }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getButtonBlue();
+            }
         });
 
         this.listOfNeutralPowers.add(new GameAction() {
@@ -81,6 +92,11 @@ public class PowerUpCollection {
                                          @Override
                                          public String getDescription() {
                                              return game.getText("doublePointsDescription");
+                                         }
+
+                                         @Override
+                                         public Texture getButtonTexture() {
+                                             return game.textureAssets.getDoublePoint();
                                          }
 
 
@@ -112,6 +128,11 @@ public class PowerUpCollection {
             public String getDescription() {
                 return null;
             }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getSlower();
+            }
         });
 
         this.lisOfPositivePowers.add(new GameAction() {
@@ -133,6 +154,11 @@ public class PowerUpCollection {
             @Override
             public String getDescription() {
                 return game.getText("extraLifeDescription");
+            }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getExtraLife();
             }
         });
         this.lisOfPositivePowers.add(new GameAction() {
@@ -156,6 +182,11 @@ public class PowerUpCollection {
             public String getDescription() {
                 return game.getText("fullLivesDescription");
             }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getMaxHP();
+            }
         });
 
         this.listOfNegativePowers.add(new GameAction() {
@@ -177,6 +208,11 @@ public class PowerUpCollection {
             @Override
             public String getDescription() {
                 return game.getText("cowFartDescription");
+            }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getOnlyOneHP();
             }
         });
 
@@ -200,6 +236,11 @@ public class PowerUpCollection {
             public String getDescription() {
                 return game.getText("flowersDescription");
             }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getButtonBlue();
+            }
         });
 
         this.listOfNegativePowers.add(new GameAction() {
@@ -221,6 +262,11 @@ public class PowerUpCollection {
             @Override
             public String getDescription() {
                 return game.getText("likeSnailDescription");
+            }
+
+            @Override
+            public Texture getButtonTexture() {
+                return game.textureAssets.getSnailSpeed();
             }
         });
 

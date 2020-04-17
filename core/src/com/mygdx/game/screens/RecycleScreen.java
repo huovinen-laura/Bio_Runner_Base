@@ -8,12 +8,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.TextBubble;
 import com.mygdx.game.WasteDisplayRecycle;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
@@ -33,6 +38,10 @@ public class RecycleScreen extends ScreenAdapter {
     private TextBubble information;
     private Vector3 projected;
 
+    private ArrayList<String> facts;
+    private ArrayList<String> factsBattery;
+    private ArrayList<String> factsPoop;
+
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
@@ -46,7 +55,6 @@ public class RecycleScreen extends ScreenAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, this.game.WORLD_WIDTH, this.game.WORLD_HEIGHT);
         projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
-
 
     }
 
@@ -83,8 +91,6 @@ public class RecycleScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        //this.font.draw(game.batch, "You collected all this, good job!", Gdx.graphics.getWidth() * 0.15f,
-        //Gdx.graphics.getHeight() * .25f);
         this.information.DrawFont(game.batch,projected);
 
 
@@ -99,11 +105,33 @@ public class RecycleScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         this.texturesBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
+        // Adding facts to ArrayList
+        List<String> factList = Arrays.asList(game.getText("info1"), game.getText("info2"),
+                game.getText("info3"), game.getText("info4"), game.getText("info5"),
+                game.getText("info6"), game.getText("info7"), game.getText("info8"),
+                game.getText("info9"), game.getText("info10"), game.getText("info11"),
+                game.getText("info12"));
+        facts = new ArrayList<>();
+        facts.addAll(factList);
+
+        factsBattery = new ArrayList<>();
+        factsBattery.add(game.getText("infoBattery1"));
+        factsBattery.add(game.getText("infoBattery2"));
+
+        factsPoop = new ArrayList<>();
+        factsPoop.add(game.getText("infoPoop1"));
+        factsPoop.add(game.getText("infoPoop2"));
+
         this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
 
+        /*
         this.information = new TextBubble("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus" +
                 " a tincidunt neque. Ut id tempor sapien, in tincidunt odio. Donec dignissim purus eros.", new Vector2(0.5f,3.5f),
                 new Vector2(3.2f,4f), game);
+
+         */
+        this.information = new TextBubble(getFact(), new Vector2(0.5f, 3.5f),
+                new Vector2(3.2f, 4), game);
 
         this.isPossibleToLeave = false;
         font.getData().setScale(0.5f);
@@ -150,6 +178,10 @@ public class RecycleScreen extends ScreenAdapter {
             }
     });
 
+    }
+
+    public String getFact() {
+        return facts.get(MathUtils.random(0, 11));
     }
 
     @Override

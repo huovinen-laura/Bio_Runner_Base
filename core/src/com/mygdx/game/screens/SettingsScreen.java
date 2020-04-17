@@ -39,7 +39,7 @@ public class SettingsScreen extends ScreenAdapter {
         this.musicOffButton = new Button(1.4f, 2.35f, 0.6f, 0.6f, game.textureAssets.getSpeakerOff());
         this.soundOnButton = new Button(1.4f, 1.65f, 0.6f, 0.6f, game.textureAssets.getSpeakerOn());
         this.soundOffButton = new Button(1.4f, 1.65f, 0.6f, 0.6f, game.textureAssets.getSpeakerOff());
-        this.creditsButton = new Button(1f, 0.8f, 1f, 1f, game.textureAssets.getButtonBlue());
+        this.creditsButton = new Button(1.4f, 0.95f, 0.6f, 0.6f, game.textureAssets.getInfoButton());
         this.finnishButton = new Button(5f, 2.2f, 0.7f, 1f, game.textureAssets.getFinnishButton());
         this.englishButton = new Button(5f, 1.2f, 0.7f, 1f, game.textureAssets.getEnglishButton());
         this.font = game.getFont();

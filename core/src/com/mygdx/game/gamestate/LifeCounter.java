@@ -17,7 +17,7 @@ public class LifeCounter {
     private BioRunnerGame game;
 
     public LifeCounter(Texture lifeTexture, BioRunnerGame game) {
-        this.texture = lifeTexture;
+        this.texture = game.textureAssets.getLives();
         this.game = game;
         this.size = 0.5f;
         this.startX = 5f;

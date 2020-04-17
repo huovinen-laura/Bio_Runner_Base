@@ -10,13 +10,25 @@ public class TextureAssets {
 
     private Texture grass = new Texture("grass.png");
     private Texture sky = new Texture("sky.png");
+    private Texture lives = new Texture("hp_player_ingame.png");
     private Texture buttonBlue = new Texture("button_blank.png");
     private Texture closeButton = new Texture("close_btn.png");
     private Texture finnishButton = new Texture("finland_flag.png");
     private Texture englishButton = new Texture("british_flag.png");
     private Texture speakerOn = new Texture("speaker_on.png");
     private Texture speakerOff = new Texture("speaker_muted.png");
+    private Texture infoButton = new Texture("info_button_black.png");
+    private Texture generalButton = new Texture("general_button_normal.png");
+    private Texture storeBG = new Texture("store_hahmo_bg.png");
+    private Texture storeLocked = new Texture("store_locked_layer.png");
+
     private Texture doublePoint = new Texture("double_points.png");
+    private Texture extraLife = new Texture("extra_life_button.png");
+    private Texture onlyOneHP = new Texture("only_one_hp_button.png");
+    private Texture slower= new Texture("slower_button_rewind.png");
+    private Texture snailSpeed = new Texture("snail_speed_button.png");
+    private Texture maxHP = new Texture("max_hp_button.png");
+
     private Texture logo = new Texture("LOGO.png");
     private Texture progressBar = new Texture("progressbar.png");
     private Texture menu = new Texture("menu_final.png");
@@ -83,6 +95,10 @@ public class TextureAssets {
         this.tee = tee;
     }
 
+    public Texture getLives() {
+        return lives;
+    }
+
     public Texture getButtonBlue() {
         return buttonBlue;
     }
@@ -131,12 +147,60 @@ public class TextureAssets {
         this.speakerOff = speakerOff;
     }
 
+    public Texture getInfoButton() {
+        return infoButton;
+    }
+
+    public void setInfoButton(Texture infoButton) {
+        this.infoButton = infoButton;
+    }
+
+    public Texture getGeneralButton() {
+        return generalButton;
+    }
+
+    public void setGeneralButton(Texture generalButton) {
+        this.generalButton = generalButton;
+    }
+
+    public Texture getStoreBG() {
+        return storeBG;
+    }
+
+    public void setStoreBG(Texture storeBG) {
+        this.storeBG = storeBG;
+    }
+
+    public Texture getStoreLocked() {
+        return storeLocked;
+    }
+
     public Texture getDoublePoint() {
         return doublePoint;
     }
 
     public void setDoublePoint(Texture doublePoint) {
         this.doublePoint = doublePoint;
+    }
+
+    public Texture getExtraLife() {
+        return extraLife;
+    }
+
+    public Texture getOnlyOneHP() {
+        return onlyOneHP;
+    }
+
+    public Texture getSlower() {
+        return slower;
+    }
+
+    public Texture getSnailSpeed() {
+        return snailSpeed;
+    }
+
+    public Texture getMaxHP() {
+        return maxHP;
     }
 
     public Texture getLogo() {
@@ -192,6 +256,7 @@ public class TextureAssets {
         playerOldFit.dispose();
         grass.dispose();
         sky.dispose();
+        lives.dispose();
         progressBar.dispose();
         buttonBlue.dispose();
         closeButton.dispose();
@@ -199,7 +264,16 @@ public class TextureAssets {
         englishButton.dispose();
         speakerOn.dispose();
         speakerOff.dispose();
+        infoButton.dispose();
+        generalButton.dispose();
+        storeBG.dispose();
+        storeLocked.dispose();
         doublePoint.dispose();
+        extraLife.dispose();
+        onlyOneHP.dispose();
+        maxHP.dispose();
+        slower.dispose();
+        snailSpeed.dispose();
         logo.dispose();
         menu.dispose();
         common.dispose();

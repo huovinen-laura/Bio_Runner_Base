@@ -92,6 +92,7 @@ public class RecycleScreen extends ScreenAdapter {
 
         game.batch.begin();
         this.information.DrawFont(game.batch,projected);
+        font.draw(game.batch, game.getText("tap"), projected.x * 0.065f, projected.y * 0.205f);
 
 
         game.batch.end();
@@ -122,7 +123,7 @@ public class RecycleScreen extends ScreenAdapter {
         factsPoop.add(game.getText("infoPoop1"));
         factsPoop.add(game.getText("infoPoop2"));
 
-        this.leaveButton = new Button(1f,1f,1f,1f,game.textureAssets.getButtonBlue());
+        this.leaveButton = new Button(0.4f,0.4f,0.5f,3f,game.textureAssets.getGeneralButton());
 
         /*
         this.information = new TextBubble("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus" +

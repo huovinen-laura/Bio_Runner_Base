@@ -122,5 +122,6 @@ public class ShopScreen extends ScreenAdapter {
     @Override
     public void hide() {
         super.hide();
+        Gdx.input.setInputProcessor(null);
     }
 }

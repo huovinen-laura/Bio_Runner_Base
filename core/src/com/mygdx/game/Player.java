@@ -63,7 +63,6 @@ public class Player extends GameObject {
 
 
     public void update() {
-        this.getObjectBody().setTransform(1f,2f,0f);
         walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
 
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);

@@ -103,7 +103,7 @@ public class BallGame extends ScreenAdapter {
 		this.manageCollectablesAndObstacles();
 
 		if(game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
-			this.obstacles.add(game.allObstaclesCollection.getRandomCollectible());
+			this.obstacles.add(game.allObstaclesCollection.getRandomCollectible(game.getLevelNumber()));
 		}
 
 		game.lifeCounter.draw(this.gameBatch);
@@ -147,9 +147,11 @@ public class BallGame extends ScreenAdapter {
 	 */
 	private void manageCollectablesAndObstacles() {
 		ArrayList<Integer> toRemove = new ArrayList();
+		GameObject collectable;
 		for (int i =0 ; i < this.collectables.size();i++) {
-			this.collectables.get(i).Draw(this.gameBatch);
-			if( !this.collectables.get(i).Move()) {
+			collectable = this.collectables.get(i);
+			collectable.Draw(this.gameBatch);
+			if( !collectable.Move()) {
 				toRemove.add(i);
 			}
 		}
@@ -160,12 +162,13 @@ public class BallGame extends ScreenAdapter {
 
 
 		if(game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-			this.collectables.add(game.collectedStuffList.getRandomCollectible());
+			this.collectables.add(game.collectedStuffList.getRandomCollectible(game.getLevelNumber()+1));
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
-			this.obstacles.get(i).Draw(this.gameBatch);
-			if( !this.obstacles.get(i).Move()) {
+			collectable= obstacles.get(i);
+			collectable.Draw(this.gameBatch);
+			if( !collectable.Move()) {
 				toRemove.add(i);
 			}
 		}

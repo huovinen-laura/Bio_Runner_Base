@@ -81,7 +81,7 @@ public class RecycleScreen extends ScreenAdapter {
 
 
             if(this.obstacleTextures.draw(this.texturesBatch)) {
-                this.leaveButton.draw(texturesBatch);
+
 
 
 
@@ -92,7 +92,9 @@ public class RecycleScreen extends ScreenAdapter {
 
         game.batch.begin();
         this.information.DrawFont(game.batch,projected);
-        font.draw(game.batch, game.getText("tap"), projected.x * 0.065f, projected.y * 0.205f);
+        if(this.isPossibleToLeave) {
+            font.draw(game.batch, game.getText("tap"), projected.x * 0.065f, projected.y * 0.205f);
+        }
 
 
         game.batch.end();
@@ -140,9 +142,9 @@ public class RecycleScreen extends ScreenAdapter {
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.wasteTextures = new WasteDisplayRecycle(game.collectedStuffList.getAllShit(),
-                3f,3f,4f,180);
+                3.7f,3f,3.3f,180);
         this.obstacleTextures = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
-                3f,2f,2f,60);
+                3.7f,2f,2f,60);
 
         if (this.obstacleTextures.isEmpty()) {
             this.sad = false;
@@ -160,7 +162,7 @@ public class RecycleScreen extends ScreenAdapter {
 
                 if (isPossibleToLeave) {
 
-                    if (leaveButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+
 
                         if(game.worldSpeed >= -5f) {
 
@@ -170,7 +172,7 @@ public class RecycleScreen extends ScreenAdapter {
 
                         game.setLevelNumber((game.getLevelNumber()+1));
                         game.setShopScreen();
-                    }
+
                 }
 
 

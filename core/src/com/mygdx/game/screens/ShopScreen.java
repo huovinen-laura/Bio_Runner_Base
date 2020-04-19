@@ -64,6 +64,7 @@ public class ShopScreen extends ScreenAdapter {
 
         this.font.draw(game.batch, firstPowerUp, game.getProjected().x * 0.30f,
                 game.getProjected().y * 0.4f);
+
         this.font.draw(game.batch, secondPowerUp,
 
                 game.getProjected().x * 0.3f,game.getProjected().y * 0.75f);

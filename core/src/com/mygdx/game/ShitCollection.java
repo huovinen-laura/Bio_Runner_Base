@@ -24,22 +24,27 @@ public class ShitCollection {
         this.minimumAmountOfCollectables = 10;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", game.textureAssets.getBanaani(),40f));
+                "banaani", game.textureAssets.getBanaani(),30f));
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "leipa", game.textureAssets.getLeipa(),5
+        ));
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "omena", game.textureAssets.getOmena(),10));
+
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "tee", game.textureAssets.getTee(), 16f));
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "hius", game.textureAssets.getHius(), 16f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "luu", game.textureAssets.getLuu(),15f ));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", game.textureAssets.getTee(), 16f));
-
-        this.allShit.add(new ObstacleCollection.Obstacle(
-                "omena", game.textureAssets.getOmena(),10));
-
-        this.allShit.add(new ObstacleCollection.Obstacle(
                 "kukka", game.textureAssets.getKukka(),10));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "mansikka", game.textureAssets.getMansikka(),10));
+                "mansikka", game.textureAssets.getMansikka(),5));
+
 
 
 
@@ -75,7 +80,7 @@ public class ShitCollection {
         this.allShit = allShit;
     }
 
-    public CollectibleSquare getRandomCollectible() {
+    public CollectibleSquare getRandomCollectible(int max) {
         float roll = (float) Math.random()*100;
         roll++;
         Gdx.app.log("ShitCollection", "Random: " + roll );
@@ -85,15 +90,22 @@ public class ShitCollection {
             positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
         }
 
+        int border = max;
+        if(max > this.allShit.size()) {
+            border = this.allShit.size();
+        }
+        boolean notReady = true;
+        while(notReady) {
+            for (int i = 0; i < border; i++) {
 
-        for (int i = 0 ; i < this.allShit.size();i++) {
-
-            if(this.allShit.get(i).getProbability() >= roll) {
-                game.setLastCollectable(new Vector2(positionX,positionY));
-                return(new CollectibleSquare(game,this.allShit.get(i).getTexture(),
-                        1f,positionX,positionY,this.allShit.get(i).getName()));
-            } else {
-                roll-= this.allShit.get(i).getProbability();
+                if (this.allShit.get(i).getProbability() >= roll) {
+                    game.setLastCollectable(new Vector2(positionX, positionY));
+                    notReady = false;
+                    return (new CollectibleSquare(game, this.allShit.get(i).getTexture(),
+                            1f, positionX, positionY, this.allShit.get(i).getName()));
+                } else {
+                    roll -= this.allShit.get(i).getProbability();
+                }
             }
         }
 

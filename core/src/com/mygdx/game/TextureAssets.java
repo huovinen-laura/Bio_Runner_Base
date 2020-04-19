@@ -47,12 +47,18 @@ public class TextureAssets {
     private Texture patteri = new Texture( "patteri.png");
     private Texture pullo = new Texture("pullo.png");
     private Texture tupakka = new Texture("rööki.png");
+    private Texture leipa = new Texture("leipa.png");
+    private Texture purkki = new Texture("purkki.png");
+    private Texture pussi = new Texture("pussi.png");
+    private Texture suklaa = new Texture("suklaa.png");
 
     private Texture happyGirl = new Texture("recycleGallHappy.png");
     private Texture sadGirl = new Texture("recycleGallSad.png");
     private Texture speechBubble = new Texture("bubble.png");
+    private Texture hius = new Texture("hius.png");
 
     private skins skinAssets = new skins();
+
 
 
     public Texture getKissa() {
@@ -286,6 +292,7 @@ public class TextureAssets {
         tee.dispose();
         happyGirl.dispose();
         sadGirl.dispose();
+        leipa.dispose();
 
         this.speechBubble.dispose();
 
@@ -411,5 +418,69 @@ public class TextureAssets {
 
     public Texture getBubble() {
         return(this.speechBubble);
+    }
+
+    public void setLives(Texture lives) {
+        this.lives = lives;
+    }
+
+    public void setStoreLocked(Texture storeLocked) {
+        this.storeLocked = storeLocked;
+    }
+
+    public void setExtraLife(Texture extraLife) {
+        this.extraLife = extraLife;
+    }
+
+    public void setOnlyOneHP(Texture onlyOneHP) {
+        this.onlyOneHP = onlyOneHP;
+    }
+
+    public void setSlower(Texture slower) {
+        this.slower = slower;
+    }
+
+    public void setSnailSpeed(Texture snailSpeed) {
+        this.snailSpeed = snailSpeed;
+    }
+
+    public void setMaxHP(Texture maxHP) {
+        this.maxHP = maxHP;
+    }
+
+    public Texture getLeipa() {
+        return leipa;
+    }
+
+    public void setLeipa(Texture leipa) {
+        this.leipa = leipa;
+    }
+
+    public Texture getSpeechBubble() {
+        return speechBubble;
+    }
+
+    public void setSpeechBubble(Texture speechBubble) {
+        this.speechBubble = speechBubble;
+    }
+
+    public void setSkinAssets(skins skinAssets) {
+        this.skinAssets = skinAssets;
+    }
+
+    public Texture getHius() {
+        return(this.hius);
+    }
+
+    public Texture getPurkki() {
+        return purkki;
+    }
+
+    public Texture getPussi() {
+        return pussi;
+    }
+
+    public Texture getSuklaa() {
+        return suklaa;
     }
 }

@@ -23,10 +23,14 @@ public class ObstacleCollection {
         this.game = game;
         this.allObstacles = new ArrayList<>();
         this.minimumAmountOfObstacles = 4;
-        this.allObstacles.add( new Obstacle("patteri", game.textureAssets.getPatteri(),11,1f));
-        this.allObstacles.add( new Obstacle("pilleri", game.textureAssets.getPilleri(),30,1f));
-        this.allObstacles.add(new Obstacle("tupakka",game.textureAssets.getTupakka(),30,1f));
-        this.allObstacles.add(new Obstacle("pullo",game.textureAssets.getPullo(),30,1f));
+        this.allObstacles.add(new Obstacle("pullo",game.textureAssets.getPullo(),15,1f));
+        this.allObstacles.add(new Obstacle("purkki",game.textureAssets.getPurkki(),15,1f));
+        this.allObstacles.add(new Obstacle("pussi",game.textureAssets.getPussi(),15,1f));
+        this.allObstacles.add( new Obstacle("pilleri", game.textureAssets.getPilleri(),15,1.2f));
+        this.allObstacles.add(new Obstacle("suklaa",game.textureAssets.getSuklaa(),15,1f));
+        this.allObstacles.add(new Obstacle("tupakka",game.textureAssets.getTupakka(),15,1.5f));
+        this.allObstacles.add( new Obstacle("patteri", game.textureAssets.getPatteri(),10,1.5f));
+
         this.LastObstaclePosition = new Vector2(0f,0f);
 
         this.timeBetweenObstacles = 3f;
@@ -61,7 +65,7 @@ public class ObstacleCollection {
         this.allObstacles = allObstacles;
     }
 
-    public ObstacleRectangle getRandomCollectible() {
+    public ObstacleRectangle getRandomCollectible(int max) {
         float roll = (float) Math.random()*100;
         roll++;
         float positionX = BallGame.WORLD_WIDTH;
@@ -73,20 +77,22 @@ public class ObstacleCollection {
         }
         game.setLastCollectable(new Vector2(positionX,positionY));
 
-        for (int i = 0; i < this.allObstacles.size(); i++) {
-
-            if(this.allObstacles.get(i).probability >= roll) {
-                return(new ObstacleRectangle(game,this.allObstacles.get(i).getTexture(),positionX,positionY,
-                        this.allObstacles.get(i).getName(),this.allObstacles.get(i).getSize()));
-            } else {
-                roll-= this.allObstacles.get(i).probability;
-            }
+        int border = max;
+        if (max > this.allObstacles.size()) {
+            border = this.allObstacles.size();
         }
 
+        while(true) {
+            for (int i = 0; i < border; i++) {
 
-
-        return(new ObstacleRectangle(game,new Texture("badlogic.jpg"),
-                positionX,positionY,"error",1f));
+                if (this.allObstacles.get(i).probability >= roll) {
+                    return (new ObstacleRectangle(game, this.allObstacles.get(i).getTexture(), positionX, positionY,
+                            this.allObstacles.get(i).getName(), this.allObstacles.get(i).getSize()));
+                } else {
+                    roll -= this.allObstacles.get(i).probability;
+                }
+            }
+        }
     }
 
     public boolean isNextCollectibleComing(int count) {

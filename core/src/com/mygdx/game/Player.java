@@ -24,7 +24,7 @@ public class Player extends GameObject {
 
     public Player(Texture animationTexture, BioRunnerGame game) {
         super(game,true,game.getCurrentAnimation(),
-                1.5f,1f, 2f,1000f,0f,1f);
+                1.5f,1f, 0.6f,1000f,0f,1f);
         this.game = game;
         if(this.game.getSkinName().contentEquals("vakio")) {
             isDefault = true;
@@ -63,6 +63,7 @@ public class Player extends GameObject {
 
 
     public void update() {
+        this.getObjectBody().setTransform(1.5f,0.6f,0f);
         walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
 
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);

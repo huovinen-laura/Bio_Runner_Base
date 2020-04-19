@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.screens.BallGame;
 
 public class Waypoint {
     float length;
@@ -34,18 +33,20 @@ public class Waypoint {
         batch.draw(this.progressMarker,xStart+this.barWidth*(displayedProgress/length),yStart,markerSize,markerSize);
     }
     public boolean isFinished() {
-        if (realProgress >= length + 2f) {
+        if (realProgress >= length + 10f) {
             return(true);
         } else {
             return(false);
         }
     }
-    public void move() {
-
+    public boolean move() {
         displayedProgress += Gdx.graphics.getDeltaTime();
         realProgress += Gdx.graphics.getDeltaTime();
+
         if (displayedProgress > length) {
             this.displayedProgress = length;
+            return(true);
         }
+        return false;
     }
 }

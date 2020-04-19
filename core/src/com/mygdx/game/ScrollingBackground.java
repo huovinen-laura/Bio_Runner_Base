@@ -23,7 +23,7 @@ public class ScrollingBackground {
         x4 = width;
     }
 
-    public void updateAndRender(float deltaTime, SpriteBatch batch) {
+    public void update(float deltaTime) {
         // Loops the sky
         if (x1 + width <= 0) {
             x1 = x2 + width;
@@ -46,14 +46,6 @@ public class ScrollingBackground {
             Gdx.app.log("","grass 2");
         }
 
-        // Draws the sky
-        batch.draw(game.textureAssets.getSky(), x1,0, width, height);
-        batch.draw(game.textureAssets.getSky(), x2, 0, width, height);
-
-        // Draws the grass
-        batch.draw(game.textureAssets.getGrass(), x3,0, width, height);
-        batch.draw(game.textureAssets.getGrass(), x4, 0, width, height);
-
         // Speeds up the sky
         x1 += (game.worldSpeed * deltaTime) * 0.5;
         x2 += (game.worldSpeed * deltaTime) * 0.5;
@@ -61,6 +53,17 @@ public class ScrollingBackground {
         // Speeds up the grass
         x3 += (game.worldSpeed * deltaTime) * 1f;
         x4 += (game.worldSpeed * deltaTime) * 1f;
+    }
+
+    public void drawGrass(SpriteBatch batch) {
+        batch.draw(game.textureAssets.getGrass(), x3,0, width, height);
+        batch.draw(game.textureAssets.getGrass(), x4, 0, width, height);
+    }
+
+    public void drawSky(SpriteBatch batch) {
+        // Draws the sky
+        batch.draw(game.textureAssets.getSky(), x1,0, width, height);
+        batch.draw(game.textureAssets.getSky(), x2, 0, width, height);
     }
 
     public void setSpeed (int goalSpeed) {

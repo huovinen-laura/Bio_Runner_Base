@@ -24,6 +24,7 @@ public class BallGame extends ScreenAdapter {
     SpriteBatch gameBatch;
     BitmapFont font;
     public static boolean isMusicOn = true;
+    private boolean leaveForRecycleScreen;
 
 	public static float worldSpeed = -1f;
 	public ScrollingBackground scrollingBackground;
@@ -45,6 +46,8 @@ public class BallGame extends ScreenAdapter {
 
 	private B2dContactListener contactListener;
 	private B2dContactFilter contactFilter;
+	private RecycleCenter recycleCenter;
+	private boolean recycleCenterVisible;
 
 	public BallGame (BioRunnerGame game) {
 
@@ -68,6 +71,9 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
+		recycleCenterVisible = false;
+		leaveForRecycleScreen = false;
+		recycleCenter = new RecycleCenter(game,11f);
 		Gdx.app.log("bodyCount","Bodies: "+game.getWorld().getBodyCount());
 
 		this.reachedCheckpoint = false;
@@ -89,8 +95,17 @@ public class BallGame extends ScreenAdapter {
 		clearScreen();
 
         this.gameBatch.begin();
+        scrollingBackground.drawSky(this.gameBatch);
 
-		scrollingBackground.updateAndRender(Gdx.graphics.getDeltaTime(), this.gameBatch);
+		if(waypoint.move()) {
+			this.recycleCenterVisible = true;
+			this.recycleCenter.Move();
+			this.recycleCenter.Draw(this.gameBatch);
+		}
+
+		scrollingBackground.drawGrass(this.gameBatch);
+
+		scrollingBackground.update(Gdx.graphics.getDeltaTime());
 		ball.Draw(this.gameBatch);
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
 
@@ -102,13 +117,15 @@ public class BallGame extends ScreenAdapter {
 
 		this.manageCollectablesAndObstacles();
 
-		if(game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
-			this.obstacles.add(game.allObstaclesCollection.getRandomCollectible(game.getLevelNumber()));
+		if(!this.recycleCenterVisible) {
+			if (game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
+				this.obstacles.add(game.allObstaclesCollection.getRandomCollectible(game.getLevelNumber()));
+			}
 		}
 
 		game.lifeCounter.draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
-		waypoint.move();
+
 
         this.gameBatch.end();
 
@@ -119,14 +136,14 @@ public class BallGame extends ScreenAdapter {
                 game.getProjected().y * .90f);
         game.batch.end();
 
-		if (this.ball.isGrounded()) {
-			if (this.lostGame) {
-				this.game.setEndScreen();
-				game.lifeCounter.setLives(3);
-			} else if (this.waypoint.isFinished()) {
-				this.game.setRecycleScreen();
-			}
-		}
+
+        if (this.lostGame) {
+        	this.game.setEndScreen();
+        	game.lifeCounter.setLives(3);
+        } else if (this.waypoint.isFinished() || this.leaveForRecycleScreen) {
+        	this.game.setRecycleScreen();
+        }
+
 
 
 		if (this.ball.isJustChangedScreen()) {
@@ -161,8 +178,10 @@ public class BallGame extends ScreenAdapter {
 		toRemove.clear();
 
 
-		if(game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-			this.collectables.add(game.collectedStuffList.getRandomCollectible(game.getLevelNumber()+1));
+		if(!this.recycleCenterVisible) {
+			if (game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
+				this.collectables.add(game.collectedStuffList.getRandomCollectible(game.getLevelNumber() + 1));
+			}
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
@@ -266,11 +285,15 @@ public class BallGame extends ScreenAdapter {
 			this.collectables.get(i).getObjectBody().getWorld().destroyBody(this.collectables.get(i).getObjectBody());
 		}
 
+		recycleCenter.dispose();
+		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
 		game.batch.dispose();
+
 	}
 
 	@Override
 	public void hide() {
+		this.recycleCenterVisible = false;
 
 		this.gameBatch.dispose();
 
@@ -283,6 +306,9 @@ public class BallGame extends ScreenAdapter {
 			this.collectables.get(i).dispose();
 			this.collectables.get(i).getObjectBody().getWorld().destroyBody(this.collectables.get(i).getObjectBody());
 		}
+
+		recycleCenter.dispose();
+		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
 
 		this.obstacles.clear();
 		this.collectables.clear();
@@ -341,6 +367,10 @@ public class BallGame extends ScreenAdapter {
 					obstacle.delete();
 					game.lifeCounter.loseLife();
 				}
+			} else if( a instanceof Player && b instanceof RecycleCenter) {
+					leaveForRecycleScreen = true;
+			} else if(a instanceof RecycleCenter && b instanceof Player) {
+				leaveForRecycleScreen = true;
 			}
 
 		}

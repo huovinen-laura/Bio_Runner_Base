@@ -246,4 +246,9 @@ public abstract class GameObject {
     public void setPlayerAnimationTexture(Texture playerAnimationTexture) {
         this.playerAnimationTexture = playerAnimationTexture;
     }
+
+    public BioRunnerGame getGame() {
+        return this.game;
+    }
+
 }

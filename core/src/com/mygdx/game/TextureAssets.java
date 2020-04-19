@@ -56,6 +56,7 @@ public class TextureAssets {
     private Texture sadGirl = new Texture("recycleGallSad.png");
     private Texture speechBubble = new Texture("bubble.png");
     private Texture hius = new Texture("hius.png");
+    private Texture laitos = new Texture("laitossuomi.png");
 
     private skins skinAssets = new skins();
 
@@ -293,6 +294,13 @@ public class TextureAssets {
         happyGirl.dispose();
         sadGirl.dispose();
         leipa.dispose();
+        laitos.dispose();
+
+        purkki.dispose();
+        pussi.dispose();
+        suklaa.dispose();
+        hius.dispose();
+
 
         this.speechBubble.dispose();
 
@@ -482,5 +490,9 @@ public class TextureAssets {
 
     public Texture getSuklaa() {
         return suklaa;
+    }
+
+    public Texture getLaitos() {
+        return laitos;
     }
 }

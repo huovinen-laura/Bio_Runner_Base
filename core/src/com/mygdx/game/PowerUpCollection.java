@@ -41,7 +41,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getButtonBlue();
+                return game.textureAssets.getExtraPoints();
             }
 
         });
@@ -69,7 +69,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getButtonBlue();
+                return game.textureAssets.getFasterButton();
             }
         });
 
@@ -239,7 +239,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getButtonBlue();
+                return game.textureAssets.getFlowersPoints();
             }
         });
 

@@ -28,6 +28,9 @@ public class TextureAssets {
     private Texture slower= new Texture("slower_button_rewind.png");
     private Texture snailSpeed = new Texture("snail_speed_button.png");
     private Texture maxHP = new Texture("max_hp_button.png");
+    private Texture flowersPoints = new Texture("10pts_flowers_button.png");
+    private Texture extraPoints = new Texture("50pts_button.png");
+    private Texture fasterButton = new Texture("faster_button.png");
 
     private Texture logo = new Texture("LOGO.png");
     private Texture progressBar = new Texture("progressbar.png");
@@ -210,6 +213,18 @@ public class TextureAssets {
         return maxHP;
     }
 
+    public Texture getFlowersPoints() {
+        return flowersPoints;
+    }
+
+    public Texture getExtraPoints() {
+        return extraPoints;
+    }
+
+    public Texture getFasterButton() {
+        return fasterButton;
+    }
+
     public Texture getLogo() {
         return logo;
     }
@@ -281,6 +296,9 @@ public class TextureAssets {
         maxHP.dispose();
         slower.dispose();
         snailSpeed.dispose();
+        flowersPoints.dispose();
+        extraPoints.dispose();
+        fasterButton.dispose();
         logo.dispose();
         menu.dispose();
         common.dispose();

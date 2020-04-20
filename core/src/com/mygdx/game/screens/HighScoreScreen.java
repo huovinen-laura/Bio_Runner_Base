@@ -39,7 +39,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener 
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
         tausta = game.textureAssets.getCommon();
         font = game.getFont();
-        scoresFirstColumn = game.getText("loading");
+        scoresFirstColumn = "\n\n" + game.getText("loading");
         scoresSecondColumn = scoresFirstColumn;
         
 

@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.screens.*;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.List;
 import java.util.Locale;
 
 public class BioRunnerGame extends Game {
@@ -23,7 +25,14 @@ public class BioRunnerGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
     public BitmapFont bubbleFont;
+    public String playerName = "testPlayer";
     private World world;
+    private HighScoreScreen highScoreScreen;
+    private List<HighScoreEntry> highScores;
+
+    public int getLowestHighScore() {
+        return(highScores.get(9).getScore());
+    }
 
     public void addFlowerPoints(int amount) {
         this.flowerPoints += amount;
@@ -92,11 +101,13 @@ public class BioRunnerGame extends Game {
     public void create() {
         this.world = new World(new Vector2(0, -5f), true);
 
+
         this.flowerPoints = Gdx.app.getPreferences("points").getInteger("flowerPoints",0);
         localeFI = new Locale("", "");
         localeEN = new Locale("en", "UK");
         myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
         myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
+
 
         this.currentPowerUp = new GameAction() {
             @Override
@@ -170,11 +181,15 @@ public class BioRunnerGame extends Game {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
         backgroundMusic.setVolume(0.60f);
         backgroundMusic.setLooping(true);
+        this.highScoreScreen = new HighScoreScreen(this);
 
     }
 
     public void setShopScreen() { setScreen((this.shop));}
 
+    public void setHighScoreScreen() {
+        setScreen(this.highScoreScreen);
+    }
 
     public void setEndScreen() {
         setScreen(this.end);
@@ -397,5 +412,13 @@ public class BioRunnerGame extends Game {
 
     public BitmapFont getBubbleFont() {
         return(this.bubbleFont);
+    }
+
+    public void setHighScores(List<HighScoreEntry> highScores) {
+        this.highScores = highScores;
+    }
+
+    public void postNewHighScore(int playerScore, String playerName) {
+        this.highScoreScreen.postNewHighScore(new HighScoreEntry(playerName,playerScore));
     }
 }

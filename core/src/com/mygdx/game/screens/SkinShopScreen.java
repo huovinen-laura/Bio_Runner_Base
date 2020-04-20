@@ -52,8 +52,8 @@ public class SkinShopScreen extends ScreenAdapter {
         this.jarviLocked = new Button(5f,2f,1f,1f, game.textureAssets.getStoreLocked());
         this.font = game.getFont();
         tausta = game.textureAssets.getCommon();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.WORLD_WIDTH;
+        height = game.WORLD_HEIGHT;
 
 
     }

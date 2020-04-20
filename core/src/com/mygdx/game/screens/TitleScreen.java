@@ -58,6 +58,8 @@ public class TitleScreen extends ScreenAdapter {
 
                 if (keyCode == Input.Keys.SPACE) {
                     game.setRecycleScreen();
+                } else if( keyCode == Input.Keys.H) {
+                    game.setHighScoreScreen();
                 }
 
                 return true;

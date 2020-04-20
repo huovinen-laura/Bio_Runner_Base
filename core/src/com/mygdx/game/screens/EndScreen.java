@@ -54,6 +54,9 @@ public class EndScreen extends ScreenAdapter {
                 4.5f,0.50f,2f,60);
         this.score = Integer.toString(game.playerScore);
 
+        if(game.getLowestHighScore() < game.playerScore) {
+            game.postNewHighScore(game.playerScore, game.playerName);
+        }
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {

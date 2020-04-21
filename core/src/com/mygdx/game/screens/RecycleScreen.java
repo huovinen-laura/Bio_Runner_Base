@@ -107,7 +107,6 @@ public class RecycleScreen extends ScreenAdapter {
         this.praise = true;
         this.texturesBatch = new SpriteBatch();
         this.texturesBatch.setProjectionMatrix(game.getTextureCamera().combined);
-
         // Adding facts to ArrayList
         List<String> factList = Arrays.asList(game.getText("info1"), game.getText("info2"),
                 game.getText("info3"), game.getText("info4"), game.getText("info5"),
@@ -137,7 +136,6 @@ public class RecycleScreen extends ScreenAdapter {
                 new Vector2(3.2f, 4), game);
 
         this.isPossibleToLeave = false;
-        font.getData().setScale(0.5f);
         camera = new OrthographicCamera();
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);

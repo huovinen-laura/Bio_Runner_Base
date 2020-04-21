@@ -39,6 +39,10 @@ public class TextureAssets {
     private Texture recycle = new Texture("recycle_final.png");
     private Texture end = new Texture("end_screen_final.png");
 
+    private Texture tutorial1 = new Texture("tutorial1.png");
+    private Texture tutorial2 = new Texture("tutorial2.png");
+    private Texture tutorial3 = new Texture("tutorial3.png");
+
     private Texture kissa = new Texture("kijssa.png");
     private Texture luu = new Texture("luu.png");
     private Texture pilleri = new Texture("pilleri.png");
@@ -304,6 +308,9 @@ public class TextureAssets {
         common.dispose();
         recycle.dispose();
         end.dispose();
+        tutorial1.dispose();
+        tutorial2.dispose();
+        tutorial3.dispose();
         kissa.dispose();
         luu.dispose();
         pilleri.dispose();
@@ -372,6 +379,18 @@ public class TextureAssets {
 
     public void setEnd(Texture end) {
         this.end = end;
+    }
+
+    public Texture getTutorial1() {
+        return tutorial1;
+    }
+
+    public Texture getTutorial2() {
+        return tutorial2;
+    }
+
+    public Texture getTutorial3() {
+        return tutorial3;
     }
 
     public Texture getHappyGirl() {

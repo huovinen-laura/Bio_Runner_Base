@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -30,6 +31,7 @@ public class ShopScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private GameAction[] powerUps;
     private String firstPowerUp,secondPowerUp;
+    private String firstPowerUpInfo, secondPowerUpInfo;
     private Texture tausta;
     private float width, height;
 
@@ -61,13 +63,18 @@ public class ShopScreen extends ScreenAdapter {
 
         game.batch.begin();
 
-
-        this.font.draw(game.batch, firstPowerUp, game.getProjected().x * 0.30f,
-                game.getProjected().y * 0.4f);
-
-        this.font.draw(game.batch, secondPowerUp,
-
-                game.getProjected().x * 0.3f,game.getProjected().y * 0.75f);
+        this.font.draw(game.batch, game.getText("choose"), game.getProjected().x * 0.40f,
+                game.getProjected().y * 0.90f);
+        //Left button
+        this.font.draw(game.batch, firstPowerUp, game.getProjected().x * 0.2f,
+                game.getProjected().y * 0.55f);
+        this.font.draw(game.batch, firstPowerUpInfo, game.getProjected().x * 0.13f,
+                game.getProjected().y * 0.45f);
+        //Right button
+        this.font.draw(game.batch, secondPowerUp, game.getProjected().x * 0.6f,
+                game.getProjected().y * 0.55f);
+        this.font.draw(game.batch, secondPowerUpInfo, game.getProjected().x * 0.53f,
+                game.getProjected().y * 0.45f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
@@ -89,10 +96,12 @@ public class ShopScreen extends ScreenAdapter {
         game.collectedStuffList.clear();
         game.allObstaclesCollection.clear();
         this.powerUps = game.getPowerUps().getTwoRandomPowers();
-        firstPowerUp = game.getText(powerUps[1].getName());
-        secondPowerUp = game.getText(powerUps[0].getName());
-        this.lowerButton = new Button(1f,1f,1f,1f, powerUps[1].getButtonTexture());
-        this.upperButton = new Button(1f,2.3f,1f,1f, powerUps[0].getButtonTexture());
+        firstPowerUp = game.getText(powerUps[0].getName());
+        secondPowerUp = game.getText(powerUps[1].getName());
+        firstPowerUpInfo = powerUps[0].getDescription();
+        secondPowerUpInfo = powerUps[1].getDescription();
+        this.upperButton = new Button(2f,2.3f,0.8f,0.8f, powerUps[0].getButtonTexture());
+        this.lowerButton = new Button(5f,2.3f,0.8f,0.8f, powerUps[1].getButtonTexture());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

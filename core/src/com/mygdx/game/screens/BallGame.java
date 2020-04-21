@@ -87,11 +87,12 @@ public class BallGame extends ScreenAdapter {
 		Gdx.app.log("sdf","ballgame show");
 		game.getWorld().setContactListener(this.contactListener);
 		game.getWorld().setContactFilter(this.contactFilter);
+		this.gameBatch.setProjectionMatrix(camera.combined);
 	}
 
 	@Override
 	public void render (float delta) {
-		this.gameBatch.setProjectionMatrix(camera.combined);
+
 		clearScreen();
 
         this.gameBatch.begin();

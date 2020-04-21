@@ -45,9 +45,6 @@ public class RecycleScreen extends ScreenAdapter {
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.happyGuy = game.textureAssets.getHappyGirl();
-        this.sadGuy = game.textureAssets.getSadGirl();
-        tausta = game.textureAssets.getRecycle();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
         this.projected = game.getProjected();
@@ -99,6 +96,9 @@ public class RecycleScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        this.happyGuy = game.textureAssets.getHappyGirl();
+        this.sadGuy = game.textureAssets.getSadGirl();
+        tausta = game.textureAssets.getRecycle();
         game.batch = new SpriteBatch();
         this.praise = true;
         this.texturesBatch = new SpriteBatch();

@@ -28,16 +28,15 @@ public class TitleScreen extends ScreenAdapter {
     private Texture tausta;
 
     public TitleScreen(BioRunnerGame game) {
-
         this.game = game;
         this.font = game.getFont();
-        tausta = game.textureAssets.getMenu();
-        width = game.WORLD_WIDTH;
-        height = game.WORLD_HEIGHT;
     }
 
     @Override
     public void show() {
+        width = game.WORLD_WIDTH;
+        height = game.WORLD_HEIGHT;
+        tausta = game.textureAssets.getMenu();
         camera.setToOrtho(false, game.WORLD_WIDTH, game.WORLD_HEIGHT);
         projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
         Gdx.app.log("TitleProject",""+projected);

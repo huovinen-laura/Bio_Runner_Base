@@ -17,13 +17,26 @@ public class LifeCounter {
     private BioRunnerGame game;
 
     public LifeCounter(Texture lifeTexture, BioRunnerGame game) {
-        this.texture = game.textureAssets.getLives();
+        this.texture = lifeTexture;
         this.game = game;
         this.size = 0.5f;
         this.startX = 5f;
         this.startY = 3.25f;
         this.margin = 0.25f;
         this.lives= 3;
+    }
+
+    public LifeCounter(BioRunnerGame game) {
+        this.game = game;
+        this.size = 0.5f;
+        this.startX = 5f;
+        this.startY = 3.25f;
+        this.margin = 0.25f;
+        this.lives= 3;
+    }
+
+    public void setTexture(Texture lifeTexture) {
+        this.texture = lifeTexture;
     }
 
     public void setLives(int i) {

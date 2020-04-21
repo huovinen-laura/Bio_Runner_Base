@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,7 @@ public class BioRunnerGame extends Game {
     private World world;
     private HighScoreScreen highScoreScreen;
     private List<HighScoreEntry> highScores;
+    private Screen splashScreen;
 
     public int getLowestHighScore() {
         Gdx.app.log("Biorunner",""+highScores);
@@ -102,6 +104,12 @@ public class BioRunnerGame extends Game {
     public void create() {
         this.world = new World(new Vector2(0, -5f), true);
 
+        this.textureAssets = new TextureAssets();
+        this.splashScreen = new SplashScreen(this);
+
+        setScreen(this.splashScreen);
+
+
 
         this.flowerPoints = Gdx.app.getPreferences("points").getInteger("flowerPoints",0);
         localeFI = new Locale("", "");
@@ -137,12 +145,21 @@ public class BioRunnerGame extends Game {
             }
         };
 
+
+
+
+
+
+
+
+    }
+
+    public void afterLoadConstructor() {
         levelNumber = 1;
         this.skinName = Gdx.app.getPreferences("skinPrefs").getString("skinName","vakio");
         this.pointsPerCollectable = 1;
 
         batch = new SpriteBatch();
-        textureAssets = new TextureAssets();
         textureCamera = new OrthographicCamera();
         textureCamera.setToOrtho(false,game.WORLD_WIDTH, game.WORLD_HEIGHT);
         projected = textureCamera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
@@ -153,11 +170,7 @@ public class BioRunnerGame extends Game {
 
         this.worldSpeed = this.initialSpeed;
 
-        this.lifeCounter = new LifeCounter(this.textureAssets.getPlayerChonky(),this);
-
-        collectedStuffList = new ShitCollection(this);
-        allObstaclesCollection = new ObstacleCollection(this);
-
+        this.lifeCounter = new LifeCounter(this);
         font = new BitmapFont(Gdx.files.internal("font.txt"));
         font.getData().setScale(0.4f*Gdx.graphics.getWidth()/800, 0.4f*Gdx.graphics.getHeight()/400);
         bubbleFont = new BitmapFont(Gdx.files.internal("font.txt"));
@@ -171,7 +184,7 @@ public class BioRunnerGame extends Game {
         settings = new SettingsScreen(this);
         skin = new SkinShopScreen(this);
         credits = new CreditsScreen(this);
-        this.setScreen(new TitleScreen(this));
+
         powerUps = new PowerUpCollection(this);
 
         // Tallentaminen
@@ -183,7 +196,6 @@ public class BioRunnerGame extends Game {
         backgroundMusic.setVolume(0.60f);
         backgroundMusic.setLooping(true);
         this.highScoreScreen = new HighScoreScreen(this);
-
     }
 
     private String getNameFromPrefs() {
@@ -238,6 +250,7 @@ public class BioRunnerGame extends Game {
         batch.dispose();
         font.dispose();
         backgroundMusic.dispose();
+        this.splashScreen.dispose();
 
 
         // asset manager

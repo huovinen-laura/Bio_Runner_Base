@@ -21,4 +21,5 @@ public class RecycleCenter extends GameObject {
     public String Collide() {
         return null;
     }
+
 }

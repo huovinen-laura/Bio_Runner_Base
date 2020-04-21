@@ -1,516 +1,303 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
 public class TextureAssets {
-    private Texture playerChonky= new Texture("player2.png");
-    private Texture playerOldFit= new Texture("ball.png");
-    private Texture playerChonkyAnimation = new Texture("playerAnimation.png");
 
-    private Texture grass = new Texture("grass.png");
-    private Texture sky = new Texture("sky.png");
-    private Texture lives = new Texture("hp_player_ingame.png");
-    private Texture buttonBlue = new Texture("button_blank.png");
-    private Texture closeButton = new Texture("close_btn.png");
-    private Texture finnishButton = new Texture("finland_flag.png");
-    private Texture englishButton = new Texture("british_flag.png");
-    private Texture speakerOn = new Texture("speaker_on.png");
-    private Texture speakerOff = new Texture("speaker_muted.png");
-    private Texture infoButton = new Texture("info_button_black.png");
-    private Texture generalButton = new Texture("general_button_normal.png");
-    private Texture storeBG = new Texture("store_hahmo_bg.png");
-    private Texture storeLocked = new Texture("store_locked_layer.png");
 
-    private Texture doublePoint = new Texture("double_points.png");
-    private Texture extraLife = new Texture("extra_life_button.png");
-    private Texture onlyOneHP = new Texture("only_one_hp_button.png");
-    private Texture slower= new Texture("slower_button_rewind.png");
-    private Texture snailSpeed = new Texture("snail_speed_button.png");
-    private Texture maxHP = new Texture("max_hp_button.png");
-    private Texture flowersPoints = new Texture("10pts_flowers_button.png");
-    private Texture extraPoints = new Texture("50pts_button.png");
-    private Texture fasterButton = new Texture("faster_button.png");
-
-    private Texture logo = new Texture("LOGO.png");
-    private Texture progressBar = new Texture("progressbar.png");
-    private Texture menu = new Texture("menu_final.png");
-    private Texture common = new Texture("yleinen_tausta_final.png");
-    private Texture recycle = new Texture("recycle_final.png");
-    private Texture end = new Texture("end_screen_final.png");
-
-    private Texture kissa = new Texture("kijssa.png");
-    private Texture luu = new Texture("luu.png");
-    private Texture pilleri = new Texture("pilleri.png");
-    private Texture banaani = new Texture("banaani.png");
-    private Texture tee = new Texture("tee.png");
-    private Texture kukka = new Texture("kukkaKuollut.png");
-    private Texture mansikka = new Texture("mansikka.png");
-    private Texture omena = new Texture("omena.png");
-    private Texture patteri = new Texture( "patteri.png");
-    private Texture pullo = new Texture("pullo.png");
-    private Texture tupakka = new Texture("rööki.png");
-    private Texture leipa = new Texture("leipa.png");
-    private Texture purkki = new Texture("purkki.png");
-    private Texture pussi = new Texture("pussi.png");
-    private Texture suklaa = new Texture("suklaa.png");
-
-    private Texture happyGirl = new Texture("recycleGallHappy.png");
-    private Texture sadGirl = new Texture("recycleGallSad.png");
-    private Texture speechBubble = new Texture("bubble.png");
-    private Texture hius = new Texture("hius.png");
-    private Texture laitos = new Texture("laitossuomi.png");
-
+    AssetManager assets;
     private skins skinAssets = new skins();
 
+    public TextureAssets() {
+        assets = new AssetManager();
+
+        assets.load("player2.png", Texture.class);
+        assets.load("ball.png", Texture.class);
+        assets.load("playerAnimation.png", Texture.class);
+        assets.load("grass.png", Texture.class);
+        assets.load("sky.png", Texture.class);
+        assets.load("hp_player_ingame.png", Texture.class);
+        assets.load("speaker_muted.png",Texture.class);
+        assets.load("button_blank.png", Texture.class);
+        assets.load("close_btn.png", Texture.class);
+        assets.load("finland_flag.png", Texture.class);
+        assets.load("british_flag.png", Texture.class);
+        assets.load("speaker_on.png", Texture.class);
+        assets.load("speaker_muted.png", Texture.class);
+        assets.load("info_button_black.png", Texture.class);
+        assets.load("general_button_normal.png", Texture.class);
+        assets.load("store_hahmo_bg.png", Texture.class);
+        assets.load("store_locked_layer.png", Texture.class);
+        assets.load("double_points.png", Texture.class);
+        assets.load("extra_life_button.png", Texture.class);
+        assets.load("only_one_hp_button.png", Texture.class);
+        assets.load("slower_button_rewind.png", Texture.class);
+        assets.load("snail_speed_button.png", Texture.class);
+        assets.load("max_hp_button.png", Texture.class);
+        assets.load("10pts_flowers_button.png", Texture.class);
+        assets.load("50pts_button.png", Texture.class);
+        assets.load("faster_button.png", Texture.class);
+        assets.load("LOGO.png", Texture.class);
+        assets.load("progressbar.png", Texture.class);
+        assets.load("menu_final.png", Texture.class);
+        assets.load("yleinen_tausta_final.png", Texture.class);
+        assets.load("recycle_final.png", Texture.class);
+        assets.load("end_screen_final.png", Texture.class);
+        assets.load("kijssa.png", Texture.class);
+        assets.load("luu.png", Texture.class);
+        assets.load("pilleri.png", Texture.class);
+        assets.load("banaani.png", Texture.class);
+        assets.load("tee.png", Texture.class);
+        assets.load("kukkaKuollut.png", Texture.class);
+        assets.load("mansikka.png", Texture.class);
+        assets.load("omena.png", Texture.class);
+        assets.load( "patteri.png", Texture.class);
+        assets.load("pullo.png", Texture.class);
+        assets.load("rööki.png", Texture.class);
+        assets.load("leipa.png", Texture.class);
+        assets.load("purkki.png", Texture.class);
+        assets.load("pussi.png", Texture.class);
+        assets.load("suklaa.png", Texture.class);
+        assets.load("recycleGallHappy.png", Texture.class);
+        assets.load("recycleGallSad.png", Texture.class);
+        assets.load("hius.png", Texture.class);
+        assets.load("laitossuomi.png", Texture.class);
 
 
-    public Texture getKissa() {
-        return kissa;
+
     }
 
-    public void setKissa(Texture kissa) {
-        this.kissa = kissa;
+    public boolean update() {
+        return(assets.update());
+
+    }
+
+    public Texture getKissa() {
+
+        return assets.get("kjissa.png",Texture.class);
     }
 
     public Texture getLuu() {
-        return luu;
+        return assets.get("luu.png",Texture.class);
     }
 
-    public void setLuu(Texture luu) {
-        this.luu = luu;
-    }
 
     public Texture getPilleri() {
-        return pilleri;
-    }
-
-    public void setPilleri(Texture pilleri) {
-        this.pilleri = pilleri;
+        return assets.get("pilleri.png",Texture.class);
     }
 
     public Texture getBanaani() {
-        return banaani;
-    }
-
-    public void setBanaani(Texture banaani) {
-        this.banaani = banaani;
+        return assets.get("banaani.png",Texture.class);
     }
 
     public Texture getTee() {
-        return tee;
+        return assets.get("tee.png",Texture.class);
     }
 
-    public void setTee(Texture tee) {
-        this.tee = tee;
-    }
+
 
     public Texture getLives() {
-        return lives;
+        return assets.get("hp_player_ingame.png",Texture.class);
     }
 
     public Texture getButtonBlue() {
-        return buttonBlue;
+        return assets.get("button_blank.png",Texture.class);
     }
 
-    public void setButtonBlue(Texture buttonBlue) {
-        this.buttonBlue = buttonBlue;
-    }
+
 
     public Texture getCloseButton() {
-        return closeButton;
+        return assets.get("close_btn.png",Texture.class);
     }
 
-    public void setCloseButton(Texture closeButton) {
-        this.closeButton = closeButton;
-    }
+
 
     public Texture getFinnishButton() {
-        return finnishButton;
+        return assets.get("finland_flag.png",Texture.class);
     }
 
-    public void setFinnishButton(Texture finnishButton) {
-        this.finnishButton = finnishButton;
-    }
 
     public Texture getEnglishButton() {
-        return englishButton;
+        return assets.get("british_flag.png",Texture.class);
     }
 
-    public void setEnglishButton(Texture englishButton) {
-        this.englishButton = englishButton;
-    }
 
     public Texture getSpeakerOn() {
-        return speakerOn;
+        return assets.get("speaker_on.png",Texture.class);
     }
 
-    public void setSpeakerOn(Texture speakerOn) {
-        this.speakerOn = speakerOn;
-    }
 
     public Texture getSpeakerOff() {
-        return speakerOff;
+        return assets.get("speaker_muted.png",Texture.class);
     }
 
-    public void setSpeakerOff(Texture speakerOff) {
-        this.speakerOff = speakerOff;
-    }
 
     public Texture getInfoButton() {
-        return infoButton;
-    }
-
-    public void setInfoButton(Texture infoButton) {
-        this.infoButton = infoButton;
+        return assets.get("info_button_black.png",Texture.class);
     }
 
     public Texture getGeneralButton() {
-        return generalButton;
-    }
-
-    public void setGeneralButton(Texture generalButton) {
-        this.generalButton = generalButton;
+        return assets.get("general_button_normal.png",Texture.class);
     }
 
     public Texture getStoreBG() {
-        return storeBG;
-    }
-
-    public void setStoreBG(Texture storeBG) {
-        this.storeBG = storeBG;
+        return assets.get("store_hahmo_bg.png",Texture.class);
     }
 
     public Texture getStoreLocked() {
-        return storeLocked;
+        return assets.get("store_locked_layer.png",Texture.class);
     }
 
     public Texture getDoublePoint() {
-        return doublePoint;
-    }
-
-    public void setDoublePoint(Texture doublePoint) {
-        this.doublePoint = doublePoint;
+        return assets.get("double_points.png",Texture.class);
     }
 
     public Texture getExtraLife() {
-        return extraLife;
+        return assets.get("extra_life_button.png",Texture.class);
     }
 
     public Texture getOnlyOneHP() {
-        return onlyOneHP;
+        return assets.get("only_one_hp_button.png",Texture.class);
     }
 
     public Texture getSlower() {
-        return slower;
+        return assets.get("slower_button_rewind.png",Texture.class);
     }
 
     public Texture getSnailSpeed() {
-        return snailSpeed;
+        return assets.get("snail_speed_button.png",Texture.class);
     }
 
     public Texture getMaxHP() {
-        return maxHP;
+        return assets.get("max_hp_button.png",Texture.class);
     }
 
     public Texture getFlowersPoints() {
-        return flowersPoints;
+        return assets.get("10pts_flowers_button.png", Texture.class);
     }
 
     public Texture getExtraPoints() {
-        return extraPoints;
+        return assets.get("50pts_button.png", Texture.class);
     }
 
     public Texture getFasterButton() {
-        return fasterButton;
+        return assets.get("faster_button.png", Texture.class);
     }
 
     public Texture getLogo() {
-        return logo;
+        return assets.get("LOGO.png", Texture.class);
     }
-
-    public void setLogo(Texture logo) {
-        this.logo = logo;
-    }
-
 
     public Texture getPlayerChonky() {
-        return playerChonky;
-    }
-
-    public void setPlayerChonky(Texture playerChonky) {
-        this.playerChonky = playerChonky;
+        return assets.get("player2.png", Texture.class);
     }
 
     public Texture getPlayerOldFit() {
-        return playerOldFit;
-    }
-
-    public void setPlayerOldFit(Texture playerOldFit) {
-        this.playerOldFit = playerOldFit;
+        return assets.get("ball.png", Texture.class);
     }
 
     public Texture getGrass() {
-        return grass;
-    }
-
-    public void setGrass(Texture grass) {
-        this.grass = grass;
+        return assets.get("grass.png", Texture.class);
     }
 
     public Texture getSky() {
-        return sky;
-    }
-
-    public void setSky(Texture sky) {
-        this.sky = sky;
+        return assets.get("sky.png", Texture.class);
     }
 
     public void dispose() {
-        kukka.dispose();
-        mansikka.dispose();
-        omena.dispose();
-        patteri.dispose();
-        pullo.dispose();
-        tupakka.dispose();
-        playerChonky.dispose();
-        playerChonkyAnimation.dispose();
-        playerOldFit.dispose();
-        grass.dispose();
-        sky.dispose();
-        lives.dispose();
-        progressBar.dispose();
-        buttonBlue.dispose();
-        closeButton.dispose();
-        finnishButton.dispose();
-        englishButton.dispose();
-        speakerOn.dispose();
-        speakerOff.dispose();
-        infoButton.dispose();
-        generalButton.dispose();
-        storeBG.dispose();
-        storeLocked.dispose();
-        doublePoint.dispose();
-        extraLife.dispose();
-        onlyOneHP.dispose();
-        maxHP.dispose();
-        slower.dispose();
-        snailSpeed.dispose();
-        flowersPoints.dispose();
-        extraPoints.dispose();
-        fasterButton.dispose();
-        logo.dispose();
-        menu.dispose();
-        common.dispose();
-        recycle.dispose();
-        end.dispose();
-        kissa.dispose();
-        luu.dispose();
-        pilleri.dispose();
-        banaani.dispose();
-        tee.dispose();
-        happyGirl.dispose();
-        sadGirl.dispose();
-        leipa.dispose();
-        laitos.dispose();
-
-        purkki.dispose();
-        pussi.dispose();
-        suklaa.dispose();
-        hius.dispose();
-
-
-        this.speechBubble.dispose();
-
+        assets.clear();
         this.skinAssets.dispose();
     }
 
     public Texture getPlayerChonkyAnimation() {
-        Gdx.app.log("Assets","" + this.playerChonkyAnimation.getClass());
-        return this.playerChonkyAnimation;
-    }
-
-    public void setPlayerChonkyAnimation(Texture playerChonkyAnimation) {
-        this.playerChonkyAnimation = playerChonkyAnimation;
+        return assets.get("playerAnimation.png", Texture.class);
     }
 
     public Texture getProgressBar() {
-        return progressBar;
+        return  assets.get("progressbar.png", Texture.class);
     }
 
-    public void setProgressBar(Texture progressBar) {
-        this.progressBar = progressBar;
-    }
 
     public Texture getMenu() {
-        return menu;
+        return  assets.get("menu_final.png", Texture.class);
     }
 
-    public void setMenu(Texture menu) {
-        this.menu = menu;
-    }
 
     public Texture getCommon() {
-        return common;
-    }
-
-    public void setCommon(Texture common) {
-        this.common = common;
+        return assets.get("yleinen_tausta_final.png", Texture.class);
     }
 
     public Texture getRecycle() {
-        return recycle;
-    }
-
-    public void setRecycle(Texture recycle) {
-        this.recycle = recycle;
+        return assets.get("recycle_final.png", Texture.class);
     }
 
     public Texture getEnd() {
-        return end;
-    }
-
-    public void setEnd(Texture end) {
-        this.end = end;
+        return  assets.get("end_screen_final.png", Texture.class);
     }
 
     public Texture getHappyGirl() {
-        return happyGirl;
+        return  assets.get("recycleGallHappy.png", Texture.class);
     }
-
-    public void setHappyGirl(Texture happyGirl) {
-        this.happyGirl = happyGirl;
-    }
-
     public Texture getSadGirl() {
-        return sadGirl;
-    }
-
-    public void setSadGirl(Texture sadGirl) {
-        this.sadGirl = sadGirl;
+        return assets.get("recycleGallSad.png", Texture.class);
     }
 
     public Texture getKukka() {
-        return kukka;
-    }
-
-    public void setKukka(Texture kukka) {
-        this.kukka = kukka;
+        return assets.get("kukkaKuollut.png", Texture.class);
     }
 
     public Texture getMansikka() {
-        return mansikka;
-    }
-
-    public void setMansikka(Texture mansikka) {
-        this.mansikka = mansikka;
+        return assets.get("mansikka.png", Texture.class);
     }
 
     public Texture getOmena() {
-        return omena;
-    }
-
-    public void setOmena(Texture omena) {
-        this.omena = omena;
+        return assets.get("omena.png", Texture.class);
     }
 
     public Texture getPatteri() {
-        return patteri;
-    }
-
-    public void setPatteri(Texture patteri) {
-        this.patteri = patteri;
+        return assets.get( "patteri.png", Texture.class);
     }
 
     public Texture getPullo() {
-        return pullo;
-    }
-
-    public void setPullo(Texture pullo) {
-        this.pullo = pullo;
+        return assets.get("pullo.png", Texture.class);
     }
 
     public Texture getTupakka() {
-        return tupakka;
-    }
-
-    public void setTupakka(Texture tupakka) {
-        this.tupakka = tupakka;
+        return assets.get("rööki.png", Texture.class);
     }
 
     public skins getSkinAssets() {
         return skinAssets;
     }
 
-    public Texture getBubble() {
-        return(this.speechBubble);
-    }
-
-    public void setLives(Texture lives) {
-        this.lives = lives;
-    }
-
-    public void setStoreLocked(Texture storeLocked) {
-        this.storeLocked = storeLocked;
-    }
-
-    public void setExtraLife(Texture extraLife) {
-        this.extraLife = extraLife;
-    }
-
-    public void setOnlyOneHP(Texture onlyOneHP) {
-        this.onlyOneHP = onlyOneHP;
-    }
-
-    public void setSlower(Texture slower) {
-        this.slower = slower;
-    }
-
-    public void setSnailSpeed(Texture snailSpeed) {
-        this.snailSpeed = snailSpeed;
-    }
-
-    public void setMaxHP(Texture maxHP) {
-        this.maxHP = maxHP;
-    }
-
     public Texture getLeipa() {
-        return leipa;
+        return assets.get("leipa.png", Texture.class);
     }
 
-    public void setLeipa(Texture leipa) {
-        this.leipa = leipa;
-    }
-
-    public Texture getSpeechBubble() {
-        return speechBubble;
-    }
-
-    public void setSpeechBubble(Texture speechBubble) {
-        this.speechBubble = speechBubble;
-    }
-
-    public void setSkinAssets(skins skinAssets) {
-        this.skinAssets = skinAssets;
-    }
 
     public Texture getHius() {
-        return(this.hius);
+        return assets.get("hius.png", Texture.class);
     }
 
     public Texture getPurkki() {
-        return purkki;
+        return assets.get("purkki.png", Texture.class);
     }
 
     public Texture getPussi() {
-        return pussi;
+        return assets.get("pussi.png", Texture.class);
     }
 
     public Texture getSuklaa() {
-        return suklaa;
+        return assets.get("suklaa.png", Texture.class);
     }
 
     public Texture getLaitos() {
-        return laitos;
+        return assets.get("laitossuomi.png", Texture.class);
+    }
+
+    public int getLoadedAssets() {
+        return assets.getLoadedAssets();
     }
 }

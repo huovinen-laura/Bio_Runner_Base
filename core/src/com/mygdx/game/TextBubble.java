@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector3;
 
 public class TextBubble {
     private String text;
-    private Texture bubbleTexture;
     private Vector2 position;
     private Vector2 dimensions;
     private BioRunnerGame game;
@@ -19,12 +18,7 @@ public class TextBubble {
         this.game = game;
         this.position = position;
         this.dimensions = dimensions;
-        this.bubbleTexture = game.textureAssets.getBubble();
         this.margin = 0;
-    }
-
-    public void DrawBubble(SpriteBatch textureBatch) {
-        textureBatch.draw(bubbleTexture,this.position.x,this.position.y,this.dimensions.x,this.dimensions.y);
     }
 
     public void DrawFont(SpriteBatch fontBatch, Vector3 projected) {

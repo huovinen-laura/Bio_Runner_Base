@@ -4,14 +4,13 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
+import com.mygdx.game.HighScoreServer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HighScoreScreen extends ScreenAdapter implements HighScoreListener, Input.TextInputListener {
@@ -30,8 +29,8 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
 
     public HighScoreScreen(BioRunnerGame game) {
         super();
-        HighScoreServer.readConfig("highscore.config");
-        HighScoreServer.fetchHighScores(this);
+        com.mygdx.game.HighScoreServer.readConfig("highscore.config");
+        com.mygdx.game.HighScoreServer.fetchHighScores(this);
         this.game = game;
 
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
@@ -48,6 +47,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         super.render(delta);
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         this.texturesBatch.draw(tausta, 0, 0, game.WORLD_WIDTH, game.WORLD_HEIGHT);
@@ -71,7 +71,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
     @Override
     public void show() {
         super.show();
-        HighScoreServer.fetchHighScores(this);
+        com.mygdx.game.HighScoreServer.fetchHighScores(this);
         this.smallFont = game.getBubbleFont();
         this.smallFont.getData().setScale(0.3f);
         this.fontBatch = new SpriteBatch();

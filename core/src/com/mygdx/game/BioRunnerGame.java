@@ -58,6 +58,7 @@ public class BioRunnerGame extends Game {
     private RecycleScreen recycle;
     private ShopScreen shop;
     private CreditsScreen credits;
+    private TutorialScreen tutorial;
     public TextureAssets textureAssets;
     private Vector3 projected;
     private OrthographicCamera textureCamera;
@@ -184,6 +185,7 @@ public class BioRunnerGame extends Game {
         settings = new SettingsScreen(this);
         skin = new SkinShopScreen(this);
         credits = new CreditsScreen(this);
+        tutorial = new TutorialScreen(this);
 
         powerUps = new PowerUpCollection(this);
 
@@ -234,6 +236,10 @@ public class BioRunnerGame extends Game {
 
     public void setCreditsScreen() {
         setScreen(this.credits);
+    }
+
+    public void setTutorialScreen() {
+        setScreen(this.tutorial);
     }
 
     public BitmapFont getFont() {return (this.font); }

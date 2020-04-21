@@ -36,7 +36,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("funHappyDescription");
+                return game.getText("infoFunHappy");
             }
 
             @Override
@@ -64,7 +64,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("speedUpDescription");
+                return game.getText("infoSpeedUp");
             }
 
             @Override
@@ -91,7 +91,7 @@ public class PowerUpCollection {
 
                                          @Override
                                          public String getDescription() {
-                                             return game.getText("doublePointsDescription");
+                                             return game.getText("infoDouble");
                                          }
 
                                          @Override
@@ -126,7 +126,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return null;
+                return game.getText("infoSlower");
             }
 
             @Override
@@ -153,7 +153,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("extraLifeDescription");
+                return game.getText("infoExtraLife");
             }
 
             @Override
@@ -180,7 +180,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("fullLivesDescription");
+                return game.getText("infoFullLifes");
             }
 
             @Override
@@ -207,7 +207,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("cowFartDescription");
+                return game.getText("infoCowFart");
             }
 
             @Override
@@ -234,7 +234,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("flowersDescription");
+                return game.getText("infoFlowers");
             }
 
             @Override
@@ -261,7 +261,7 @@ public class PowerUpCollection {
 
             @Override
             public String getDescription() {
-                return game.getText("likeSnailDescription");
+                return game.getText("infoSnail");
             }
 
             @Override

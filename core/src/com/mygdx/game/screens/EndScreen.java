@@ -51,7 +51,7 @@ public class EndScreen extends ScreenAdapter {
 
         textureBatch.setProjectionMatrix(textureCamera.combined);
         this.wrongWasteDisplay = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
-                4.5f,0.50f,2f,60);
+                2.8f,1.1f,2f,60);
         this.score = Integer.toString(game.playerScore);
 
         if(game.getLowestHighScore() < game.playerScore) {
@@ -111,12 +111,10 @@ public class EndScreen extends ScreenAdapter {
                 game.getProjected().y * .85f);
         font.draw(game.batch, game.getText("score") + score, game.getProjected().x * 0.08f,
                 game.getProjected().y * .75f);
-        font.draw(game.batch, game.getText("whatHitMe"),game.getProjected().x * 0.08f,game.getProjected().y * .65f);
-        font.draw(game.batch, "Added flowerpoints: " + this.flowerPoints,
-                game.getProjected().x * 0.08f,game.getProjected().y * .40f);
-        font.draw(game.batch, "Flowerpoints total: " + (game.getFlowerPoints() + this.flowerPoints),
-                game.getProjected().x * 0.08f,game.getProjected().y * .30f);
-
+        font.draw(game.batch, game.getText("newFlowerPoints1") + this.flowerPoints + " " + game.getText("newFlowerPoints2"),
+                game.getProjected().x * 0.08f,game.getProjected().y * .65f);
+        font.draw(game.batch, game.getText("whatHitMe"),game.getProjected().x * 0.08f,game.getProjected().y * .45f);
+        font.draw(game.batch, game.getText("tap"), game.getProjected().x * 0.065f, game.getProjected().y * 0.205f);
         game.batch.end();
 
         this.textureBatch.begin();

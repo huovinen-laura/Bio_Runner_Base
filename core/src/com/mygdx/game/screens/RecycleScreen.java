@@ -57,17 +57,8 @@ public class RecycleScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
         this.texturesBatch.begin();
         this.texturesBatch.draw(tausta, 0, 0, width, height);
-        /*
-        if(sad) {
-            this.texturesBatch.draw(this.sadGuy,2.75f,-0.75f,2.5f,2.5f);
-        } else {
-            this.texturesBatch.draw(this.happyGuy, 2.75f, -0.75f, 2.5f, 2.5f);
-        }
-         */
 
         if(this.wasteTextures.draw(this.texturesBatch)) {
 
@@ -88,7 +79,6 @@ public class RecycleScreen extends ScreenAdapter {
         if(this.isPossibleToLeave) {
             font.draw(game.batch, game.getText("tap"), projected.x * 0.065f, projected.y * 0.205f);
         }
-
 
         game.batch.end();
 

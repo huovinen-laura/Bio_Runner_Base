@@ -3,6 +3,7 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,6 +19,7 @@ public class TitleScreen extends ScreenAdapter {
     private Button startButton;
     private Button settingsButton;
     private Button skinShopButton;
+    private Button highscoreButton;
     private SpriteBatch titleBatch;
     private OrthographicCamera camera = new OrthographicCamera();
     private OrthographicCamera fontCamera = new OrthographicCamera();
@@ -46,8 +48,9 @@ public class TitleScreen extends ScreenAdapter {
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
         this.startButton = new Button(3f,2.0f,0.5f,1.8f, this.game.textureAssets.getGeneralButton());
-        this.settingsButton = new Button(3f, 1.2f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
-        this.skinShopButton = new Button(3f, 0.4f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
+        this.settingsButton = new Button(3f, 1.4f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
+        this.skinShopButton = new Button(3f, 0.8f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
+        this.highscoreButton = new Button(3f, 0.2f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
 
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -56,9 +59,11 @@ public class TitleScreen extends ScreenAdapter {
             public boolean keyDown(int keyCode) {
 
                 if (keyCode == Input.Keys.SPACE) {
-                    game.setRecycleScreen();
+                    game.setEndScreen();
                 } else if( keyCode == Input.Keys.H) {
                     game.setHighScoreScreen();
+                } else if(keyCode == Input.Keys.T) {
+                    game.setTutorialScreen();
                 }
 
                 return true;
@@ -67,13 +72,21 @@ public class TitleScreen extends ScreenAdapter {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
+                Preferences prefs = game.getPrefs();
 
                 if (startButton.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    game.setGameScreen();
+                    if(prefs.getBoolean("tutorialOK", false)) {
+                        game.setTutorialScreen();
+                        prefs.putBoolean("tutorialOK", true);
+                    } else if (prefs.getBoolean("tutorialOK", true)) {
+                        game.setGameScreen();
+                    }
                 } else if (settingsButton.isInsideButton(worldCoords.x, worldCoords.y)) {
                     game.setSettingsScreen();
                 } else if (skinShopButton.isInsideButton(worldCoords.x, worldCoords.y)) {
                     game.setSkinShopScreen();
+                } else if (highscoreButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    game.setHighScoreScreen();
                 }
                 return true;
             }
@@ -103,6 +116,7 @@ public class TitleScreen extends ScreenAdapter {
         this.startButton.draw(this.titleBatch);
         this.settingsButton.draw(this.titleBatch);
         this.skinShopButton.draw(this.titleBatch);
+        this.highscoreButton.draw(this.titleBatch);
         this.titleBatch.end();
 
         // Draws fonts
@@ -111,8 +125,9 @@ public class TitleScreen extends ScreenAdapter {
         //font.draw(game.batch, totalScore, projected.x * 0.7f, projected.y * .6f);
         font.draw(game.batch, game.getText("play"), projected.x * 0.43f,
                 projected.y * .60f);
-        font.draw(game.batch, game.getText("settings"), projected.x * 0.40f, projected.y * 0.40f);
-        font.draw(game.batch, game.getText("shop"), projected.x * 0.43f, projected.y * 0.20f);
+        font.draw(game.batch, game.getText("settings"), projected.x * 0.40f, projected.y * 0.45f);
+        font.draw(game.batch, game.getText("shop"), projected.x * 0.43f, projected.y * 0.30f);
+        font.draw(game.batch, game.getText("highscore"), projected.x * 0.40f, projected.y * 0.15f);
         game.batch.end();
 
     }

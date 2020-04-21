@@ -64,7 +64,9 @@ public class TextureAssets {
         assets.load("recycleGallSad.png", Texture.class);
         assets.load("hius.png", Texture.class);
         assets.load("laitossuomi.png", Texture.class);
-
+        assets.load("tutorial1.png", Texture.class);
+        assets.load("tutorial2.png", Texture.class);
+        assets.load("tutorial3.png", Texture.class);
 
 
     }
@@ -295,6 +297,18 @@ public class TextureAssets {
 
     public Texture getLaitos() {
         return assets.get("laitossuomi.png", Texture.class);
+    }
+
+    public Texture getTutorial1() {
+        return assets.get("tutorial1.png", Texture.class);
+    }
+
+    public Texture getTutorial2() {
+        return assets.get("tutorial2.png", Texture.class);
+    }
+
+    public Texture getTutorial3() {
+        return assets.get("tutorial3.png", Texture.class);
     }
 
     public int getLoadedAssets() {

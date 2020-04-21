@@ -1,9 +1,6 @@
 package com.mygdx.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Net;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,7 +14,7 @@ import com.mygdx.game.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HighScoreScreen extends ScreenAdapter implements HighScoreListener {
+public class HighScoreScreen extends ScreenAdapter implements HighScoreListener, Input.TextInputListener {
     private final Button backButton;
     private final Texture tausta;
     List<HighScoreEntry> highScores;
@@ -29,20 +26,21 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener 
     private BitmapFont smallFont;
     private String scoresFirstColumn;
     private String scoresSecondColumn;
+    private Button renameButton;
 
     public HighScoreScreen(BioRunnerGame game) {
         super();
-
-        this.game = game;
         HighScoreServer.readConfig("highscore.config");
         HighScoreServer.fetchHighScores(this);
+        this.game = game;
+
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
+        this.renameButton = new Button( 1.5f, 3f,1f,1f, game.textureAssets.getButtonBlue());
         tausta = game.textureAssets.getCommon();
+        this.
         font = game.getFont();
         scoresFirstColumn = "\n\n" + game.getText("loading");
         scoresSecondColumn = scoresFirstColumn;
-        
-
     }
 
     @Override
@@ -54,10 +52,13 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener 
         this.texturesBatch.begin();
         this.texturesBatch.draw(tausta, 0, 0, game.WORLD_WIDTH, game.WORLD_HEIGHT);
         this.backButton.draw(this.texturesBatch);
+        this.renameButton.draw(this.texturesBatch);
         this.texturesBatch.end();
 
         game.batch.begin();
         this.font.draw(game.batch, game.getText("highScores"), game.getProjected().x * 0.2f,
+                game.getProjected().y * 0.90f);
+        this.font.draw(game.batch, game.getName(),game.getProjected().x * 0.0f,
                 game.getProjected().y * 0.90f);
         this.smallFont.draw(game.batch,this.scoresFirstColumn,
                 game.getProjected().x*0.17f,game.getProjected().y*0.91f);
@@ -70,6 +71,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener 
     @Override
     public void show() {
         super.show();
+        HighScoreServer.fetchHighScores(this);
         this.smallFont = game.getBubbleFont();
         this.smallFont.getData().setScale(0.3f);
         this.fontBatch = new SpriteBatch();
@@ -86,11 +88,17 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener 
 
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.setTitleScreen();
+                } else if(renameButton.isInsideButton(worldCoords.x,worldCoords.y)) {
+                    newNameInput();
                 }
 
                 return true;
             }
         });
+    }
+
+    private void newNameInput() {
+        Gdx.input.getTextInput(this,game.getText("newName"),"",game.getText("newNameHint"));
     }
 
     @Override
@@ -150,5 +158,20 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener 
 
     public void postNewHighScore(HighScoreEntry highScoreEntry) {
         HighScoreServer.sendNewHighScore(highScoreEntry,this);
+    }
+
+    @Override
+    public void input(String text) {
+        int end = 5;
+        if(text.length() < 5) {
+            end = text.length();
+        }
+
+        game.setPlayerName(text.substring(0,end));
+    }
+
+    @Override
+    public void canceled() {
+        Gdx.app.log("input","text cancelled");
     }
 }

@@ -31,6 +31,7 @@ public class BioRunnerGame extends Game {
     private List<HighScoreEntry> highScores;
 
     public int getLowestHighScore() {
+        Gdx.app.log("Biorunner",""+highScores);
         return(highScores.get(9).getScore());
     }
 
@@ -107,7 +108,7 @@ public class BioRunnerGame extends Game {
         localeEN = new Locale("en", "UK");
         myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
         myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
-
+        this.playerName = this.getNameFromPrefs();
 
         this.currentPowerUp = new GameAction() {
             @Override
@@ -185,6 +186,10 @@ public class BioRunnerGame extends Game {
 
     }
 
+    private String getNameFromPrefs() {
+        Preferences preferences = Gdx.app.getPreferences("MyPreferences");
+        return(preferences.getString("name","User"));
+    }
     public void setShopScreen() { setScreen((this.shop));}
 
     public void setHighScoreScreen() {
@@ -420,5 +425,16 @@ public class BioRunnerGame extends Game {
 
     public void postNewHighScore(int playerScore, String playerName) {
         this.highScoreScreen.postNewHighScore(new HighScoreEntry(playerName,playerScore));
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+        Preferences preferences = Gdx.app.getPreferences("MyPreferences");
+        preferences.putString("name",playerName);
+        preferences.flush();
+    }
+
+    public String getName() {
+        return this.playerName;
     }
 }

@@ -21,7 +21,7 @@ public class ShitCollection {
     public ShitCollection(BioRunnerGame game) {
         this.game = game;
         this.allShit = new ArrayList<>();
-        this.minimumAmountOfCollectables = 10;
+        this.minimumAmountOfCollectables = 1;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "banaani", game.textureAssets.getBanaani(),30f));

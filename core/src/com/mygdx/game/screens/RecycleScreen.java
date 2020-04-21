@@ -50,11 +50,7 @@ public class RecycleScreen extends ScreenAdapter {
         tausta = game.textureAssets.getRecycle();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
-
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, this.game.WORLD_WIDTH, this.game.WORLD_HEIGHT);
-        projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
+        this.projected = game.getProjected();
 
     }
 

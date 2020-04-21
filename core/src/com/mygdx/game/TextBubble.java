@@ -29,6 +29,10 @@ public class TextBubble {
 
     public void DrawFont(SpriteBatch fontBatch, Vector3 projected) {
 
+        Gdx.app.log("DrawFont",""+game.getBubbleFont());
+        Gdx.app.log("DrawFont",""+this.text);
+        Gdx.app.log("DrawFont",""+projected);
+        Gdx.app.log("DrawFont",""+projected.y);
         game.getBubbleFont().draw(game.batch, this.text, projected.x * (this.position.x/game.WORLD_WIDTH),
                 projected.y * ((this.position.y)/game.WORLD_HEIGHT),0, this.text.length(),
                 (Gdx.graphics.getWidth()/800f) * (this.dimensions.x) * 100f,10,true);

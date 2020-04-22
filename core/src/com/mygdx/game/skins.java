@@ -23,7 +23,6 @@ public class skins {
     public skins() {
         skinManager = new AssetManager();
         skinManager.load("velhoAnimaatio2.png", Texture.class);
-
         skinManager.load("jarviAnimaatio2.png", Texture.class);
         skinManager.load("playerAnimation.png", Texture.class);
         skinManager.load("koronaAnimaatio.png", Texture.class);

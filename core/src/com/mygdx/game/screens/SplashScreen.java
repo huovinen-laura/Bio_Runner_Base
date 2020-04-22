@@ -10,9 +10,9 @@ import com.mygdx.game.ObstacleCollection;
 import com.mygdx.game.ShitCollection;
 
 public class SplashScreen extends ScreenAdapter {
-    private Texture tiko = new Texture("tiko_valk.png");
-    private Texture tuni = new Texture("tuni.png");
-    private Texture oras = new Texture("oras.png");
+    private Texture tiko;
+    private Texture tuni;
+    private Texture oras;
     private OrthographicCamera camera;
     private BioRunnerGame game;
     private SpriteBatch batch;
@@ -22,16 +22,15 @@ public class SplashScreen extends ScreenAdapter {
         super();
         this.game = game;
         this.timeLeft = 2f;
-
+        tiko = new Texture("tiko_valk.png");
+        tuni = new Texture("tuni.png");
+        oras = new Texture("oras.png");
 
     }
 
     @Override
     public void render(float delta) {
-        super.render(delta);
-
         if(this.game.textureAssets.update()) {
-            Gdx.app.log("splash","" + game.textureAssets.getLoadedAssets());
             game.afterLoadConstructor();
             game.setTitleScreen();
             game.lifeCounter.setTexture(game.textureAssets.getLives());
@@ -40,9 +39,9 @@ public class SplashScreen extends ScreenAdapter {
         }
 
         this.batch.begin();
-        this.batch.draw(tiko,2f,1f,2f,2f*tiko.getHeight()/tiko.getWidth());
-        this.batch.draw(oras,3f,2f,2f,2f*oras.getHeight()/oras.getWidth());
-        this.batch.draw(tuni,4f,3f,2f,2f*tuni.getHeight()/tuni.getWidth());
+        this.batch.draw(tiko,2f,1f,2f,2f);
+        this.batch.draw(oras,3f,2f,2f,2f);
+        this.batch.draw(tuni,4f,3f,2f,2f);
 
         this.batch.end();
 

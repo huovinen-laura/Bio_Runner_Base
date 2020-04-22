@@ -29,8 +29,8 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
 
     public HighScoreScreen(BioRunnerGame game) {
         super();
-        com.mygdx.game.HighScoreServer.readConfig("highscore.config");
-        com.mygdx.game.HighScoreServer.fetchHighScores(this);
+        HighScoreServer.readConfig("highscore.config");
+        HighScoreServer.fetchHighScores(this);
         this.game = game;
 
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
@@ -71,7 +71,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
     @Override
     public void show() {
         super.show();
-        com.mygdx.game.HighScoreServer.fetchHighScores(this);
+        HighScoreServer.fetchHighScores(this);
         this.smallFont = game.getBubbleFont();
         this.smallFont.getData().setScale(0.3f);
         this.fontBatch = new SpriteBatch();
@@ -137,7 +137,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         }
 
 
-
+        Gdx.app.log("receivedHighScores", scoresFirstColumn);
         this.highScores = highScores;
     }
 

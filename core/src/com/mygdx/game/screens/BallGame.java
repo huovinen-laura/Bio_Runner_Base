@@ -28,7 +28,6 @@ public class BallGame extends ScreenAdapter {
 
 	public static float worldSpeed = -1f;
 	public ScrollingBackground scrollingBackground;
-	public World world;
 
 	public static float WORLD_WIDTH = 8;
 	public static float WORLD_HEIGHT = 4;
@@ -93,12 +92,13 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void render (float delta) {
 
-		clearScreen();
 
+		clearScreen();
         this.gameBatch.begin();
+
         scrollingBackground.drawSky(this.gameBatch);
 
-		if(waypoint.move()) {
+		if(waypoint.move(Gdx.graphics.getDeltaTime())) {
 			this.recycleCenterVisible = true;
 			this.recycleCenter.Move();
 			this.recycleCenter.Draw(this.gameBatch);
@@ -127,7 +127,7 @@ public class BallGame extends ScreenAdapter {
 		game.lifeCounter.draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
 
-
+		debugRenderer.render(game.getWorld(),camera.combined);
         this.gameBatch.end();
 
         //Draws the player's score

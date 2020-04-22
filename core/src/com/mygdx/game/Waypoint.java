@@ -39,9 +39,9 @@ public class Waypoint {
             return(false);
         }
     }
-    public boolean move() {
-        displayedProgress += Gdx.graphics.getDeltaTime();
-        realProgress += Gdx.graphics.getDeltaTime();
+    public boolean move(float delta) {
+        displayedProgress += delta;
+        realProgress += delta;
 
         if (displayedProgress > length) {
             this.displayedProgress = length;

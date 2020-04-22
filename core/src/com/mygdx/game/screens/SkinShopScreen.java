@@ -94,14 +94,6 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.draw(tausta, 0, 0, width, height);
         this.texturesBatch.end();
 
-        game.batch.begin();
-        this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.4f,
-                game.getProjected().y * 0.85f);
-        this.font.draw(game.batch,
-                game.getText("flowerPoints") + game.getFlowerPoints(), game.getProjected().x * 0.35f,
-                game.getProjected().y * 0.2f);
-        game.batch.end();
-
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         this.backButton.draw(texturesBatch);
@@ -142,6 +134,7 @@ public class SkinShopScreen extends ScreenAdapter {
                 );
         this.texturesBatch.end();
 
+        // Unlocked tekstuurit
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
         if(!isSkinUnlocked("korona")) {
@@ -172,6 +165,53 @@ public class SkinShopScreen extends ScreenAdapter {
             this.banaaniLocked.draw(texturesBatch);
         }
         this.texturesBatch.end();
+
+        // Fontit
+        game.batch.begin();
+        this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.4f,
+                game.getProjected().y * 0.85f);
+        this.font.draw(game.batch,
+                game.getText("youve") + game.getFlowerPoints() + " " +
+                        game.getText("newFlowerPoints2"), game.getProjected().x * 0.35f,
+                game.getProjected().y * 0.2f);
+
+        // Skinien hinnat
+        if(!isSkinUnlocked("farmer")) {
+            this.font.draw(game.batch, "100", game.getProjected().x * 0.47f,
+                    game.getProjected().y * 0.65f);
+        }
+
+        if(!isSkinUnlocked("tiko")) {
+            this.font.draw(game.batch, "100", game.getProjected().x * 0.59f,
+                    game.getProjected().y * 0.65f);
+        }
+
+        if(!isSkinUnlocked("korona")) {
+            this.font.draw(game.batch, "200", game.getProjected().x * 0.72f,
+                    game.getProjected().y * 0.65f);
+        }
+
+        if(!isSkinUnlocked("bunny")) {
+            this.font.draw(game.batch, "200", game.getProjected().x * 0.345f,
+                    game.getProjected().y * 0.40f);
+        }
+
+        if(!isSkinUnlocked("velho")) {
+            this.font.draw(game.batch, "500", game.getProjected().x * 0.47f,
+                    game.getProjected().y * 0.40f);
+        }
+
+        if(!isSkinUnlocked("banaani")) {
+            this.font.draw(game.batch, "500", game.getProjected().x * 0.595f,
+                    game.getProjected().y * 0.40f);
+        }
+
+        if(!isSkinUnlocked("jarviChan")) {
+            this.font.draw(game.batch, "1250", game.getProjected().x * 0.71f,
+                    game.getProjected().y * 0.40f);
+        }
+        
+        game.batch.end();
     }
 
     private boolean isSkinUnlocked(String skinName) {

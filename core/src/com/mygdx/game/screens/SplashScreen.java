@@ -2,6 +2,8 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,18 +19,24 @@ public class SplashScreen extends ScreenAdapter {
     private BioRunnerGame game;
     private SpriteBatch batch;
     private float timeLeft;
+    private AssetManager textures;
 
     public SplashScreen(BioRunnerGame game) {
         super();
+        textures = new AssetManager();
+        textures.load("tiko_valk.png", Texture.class);
+        textures.load("tuni.png", Texture.class);
+        textures.load("oras.png", Texture.class);
+        textures.finishLoading();
         this.game = game;
         this.timeLeft = 2f;
-
-
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if(this.game.textureAssets.update()) {
             Gdx.app.log("splash","" + game.textureAssets.getLoadedAssets());
@@ -38,11 +46,10 @@ public class SplashScreen extends ScreenAdapter {
             game.collectedStuffList = new ShitCollection(game);
             game.allObstaclesCollection = new ObstacleCollection(game);
         }
-
         this.batch.begin();
-        this.batch.draw(tiko,2f,1f,2f,2f*tiko.getHeight()/tiko.getWidth());
-        this.batch.draw(oras,3f,2f,2f,2f*oras.getHeight()/oras.getWidth());
-        this.batch.draw(tuni,4f,3f,2f,2f*tuni.getHeight()/tuni.getWidth());
+        this.batch.draw(textures.get("tiko_valk.png",Texture.class),3f,2f,2f,
+                2f*(textures.get("tiko_valk.png",Texture.class).getHeight())/
+                        (textures.get("tiko_valk.png",Texture.class)).getWidth());
 
         this.batch.end();
 
@@ -62,8 +69,6 @@ public class SplashScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         super.dispose();
-        tiko.dispose();
-        tuni.dispose();
-        oras.dispose();
+        this.textures.dispose();
     }
 }

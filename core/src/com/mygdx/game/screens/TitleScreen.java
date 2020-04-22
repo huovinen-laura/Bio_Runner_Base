@@ -78,6 +78,7 @@ public class TitleScreen extends ScreenAdapter {
                     if(prefs.getBoolean("tutorialOK", false)) {
                         game.setTutorialScreen();
                         prefs.putBoolean("tutorialOK", true);
+                        prefs.flush();
                     } else if (prefs.getBoolean("tutorialOK", true)) {
                         game.setGameScreen();
                     }

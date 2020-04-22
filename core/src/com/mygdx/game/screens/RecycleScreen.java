@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RecycleScreen extends ScreenAdapter {
-    BioRunnerGame game;
+    private BioRunnerGame game;
     private Texture tausta;
     private WasteDisplayRecycle wasteTextures;
     private SpriteBatch texturesBatch;

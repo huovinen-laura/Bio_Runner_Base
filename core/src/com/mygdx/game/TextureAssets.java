@@ -72,7 +72,13 @@ public class TextureAssets {
     }
 
     public boolean update() {
-        return(assets.update());
+        if(assets.update()) {
+            if(this.skinAssets.update()) {
+                Gdx.app.log("TextureAssets","skinAssets loaded");
+                return(true);
+            }
+        }
+        return(false);
 
     }
 

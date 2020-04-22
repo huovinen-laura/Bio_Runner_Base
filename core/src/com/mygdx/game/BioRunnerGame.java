@@ -83,14 +83,8 @@ public class BioRunnerGame extends Game {
 
 
     public Texture getCurrentAnimation() {
-        for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimationTextures().size(); i++) {
-            if (this.skinName.contentEquals(this.textureAssets.getSkinAssets().getNames().get(i))) {
-                return(this.textureAssets.getSkinAssets().getAnimationTextures().get(i));
-            }
-        }
-
-        Gdx.app.log("TextureCurrent",  "null");
-        return null;
+        Gdx.app.log("Biorunner", "skinName" + this.skinName);
+        return(this.textureAssets.getSkinAssets().getAnimationTexture(this.skinName));
     }
 
     public OrthographicCamera getTextureCamera() {

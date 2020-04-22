@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,39 +9,77 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 
 public class skins {
-    
+
+    private AssetManager skinManager;
     private Texture velhoAnimaatio = new Texture("velhoAnimaatio2.png");
     private Texture jarviAnimaatio = new Texture("jarviAnimaatio2.png");
     private Texture playerAnimation = new Texture("playerAnimation.png");
     private Texture koronaAnimaatio = new Texture("koronaAnimaatio.png");
 
-    private ArrayList<Texture> animationTextures;
+    private ArrayList<String> animationTextures;
     private ArrayList<String> names;
-    private ArrayList<Animation> animations;
+    private Animation[] animations;
 
     public skins() {
+        skinManager = new AssetManager();
+        skinManager.load("velhoAnimaatio2.png", Texture.class);
+
+        skinManager.load("jarviAnimaatio2.png", Texture.class);
+        skinManager.load("playerAnimation.png", Texture.class);
+        skinManager.load("koronaAnimaatio.png", Texture.class);
+
         this.animationTextures = new ArrayList<>();
         this.names = new ArrayList<>();
-        this.animationTextures.add(playerAnimation);
-        this.names.add("vakio");
-        this.animationTextures.add(koronaAnimaatio);
-        this.names.add("korona");
-        this.animationTextures.add(velhoAnimaatio);
-        this.names.add("velho");
-        this.animationTextures.add(jarviAnimaatio);
-        this.names.add("jarviChan");
-        this.animations = new ArrayList<>();
 
-        for(Texture animationTexture : this.animationTextures) {
-            this.animations.add(this.createAnimation(animationTexture));
+        this.names.add("vakio");
+        this.animationTextures.add("playerAnimation.png");
+        this.names.add("korona");
+        this.animationTextures.add("koronaAnimaatio.png");
+        this.names.add("velho");
+        this.animationTextures.add("velhoAnimaatio2.png");
+        this.names.add("jarviChan");
+        this.animationTextures.add("jarviAnimaatio2.png");
+
+        this.animations = new Animation[this.names.size()];
+
+
+    }
+
+    public boolean update() {
+
+        if(this.skinManager.update()) {
+
+            Gdx.app.log("TextureAssets","skinAssets loaded" + this.animationTextures.size());
+
+            for(int i = 0; i < this.animationTextures.size();i++){ {
+                Gdx.app.log("TextureAssets","skinAssets animations" + i);
+                this.animations[i]= this.createAnimation(skinManager.get(this.animationTextures.get(i), Texture.class));
+            }
+
+            return(true);
+
         }
+        }
+
+        return(false);
+
+    }
+
+    public Texture getAnimationTexture(String skinName) {
+        for(int i = 0; i < this.animationTextures.size(); i++) {
+            if(this.names.get(i).contentEquals(skinName)) {
+                return(this.skinManager.get(this.animationTextures.get(i), Texture.class));
+            }
+        }
+
+        return (null);
     }
 
     public Animation getAnimation(String skinName) {
 
         for(int i = 0; i < this.animationTextures.size(); i++) {
             if(this.names.get(i).contentEquals(skinName)) {
-                return(this.animations.get(i));
+                return(this.animations[i]);
             }
         }
 
@@ -75,10 +115,7 @@ public class skins {
     }
 
     public void dispose() {
-        velhoAnimaatio.dispose();
-        jarviAnimaatio.dispose();
-        playerAnimation.dispose();
-        koronaAnimaatio.dispose();
+        this.skinManager.dispose();
     }
 
     public Texture getVelhoAnimaatio() {
@@ -125,8 +162,8 @@ public class skins {
         this.koronaAnimaatio = koronaAnimaatio;
     }
 
-    public ArrayList<Texture> getAnimationTextures() {
-        return animationTextures;
+    public Animation[] getAnimationTextures() {
+        return animations;
     }
 
     public ArrayList<String> getNames() {

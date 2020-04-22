@@ -75,10 +75,9 @@ public class TitleScreen extends ScreenAdapter {
                 Preferences prefs = game.getPrefs();
 
                 if (startButton.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    if(prefs.getBoolean("tutorialOK", false)) {
+                    if(!prefs.getBoolean("tutorialOkay")) {
                         game.setTutorialScreen();
-                        prefs.putBoolean("tutorialOK", true);
-                    } else if (prefs.getBoolean("tutorialOK", true)) {
+                    } else if (prefs.getBoolean("tutorialOkay")) {
                         game.setGameScreen();
                     }
                 } else if (settingsButton.isInsideButton(worldCoords.x, worldCoords.y)) {

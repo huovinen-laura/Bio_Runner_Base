@@ -107,12 +107,14 @@ public class EndScreen extends ScreenAdapter {
         this.textureBatch.end();
 
         game.batch.begin();
+        font.draw(game.batch, game.getText("gameover"), game.getProjected().x * 0.08f,
+                game.getProjected().y * .88f);
         font.draw(game.batch, game.getText("lost"), game.getProjected().x * 0.08f,
-                game.getProjected().y * .85f);
+                game.getProjected().y * .78f);
         font.draw(game.batch, game.getText("score") + score, game.getProjected().x * 0.08f,
-                game.getProjected().y * .75f);
+                game.getProjected().y * .68f);
         font.draw(game.batch, game.getText("newFlowerPoints1") + this.flowerPoints + " " + game.getText("newFlowerPoints2"),
-                game.getProjected().x * 0.08f,game.getProjected().y * .65f);
+                game.getProjected().x * 0.08f,game.getProjected().y * .58f);
         font.draw(game.batch, game.getText("whatHitMe"),game.getProjected().x * 0.08f,game.getProjected().y * .45f);
         font.draw(game.batch, game.getText("tap"), game.getProjected().x * 0.065f, game.getProjected().y * 0.205f);
         game.batch.end();

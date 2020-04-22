@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -79,6 +80,7 @@ public class TutorialScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                Preferences prefs = game.getPrefs();
                 if(first) {
                     second = true;
                     first = false;
@@ -86,6 +88,7 @@ public class TutorialScreen extends ScreenAdapter {
                     third = true;
                     second = false;
                 } else if (third) {
+                    prefs.putBoolean("tutorialOkay", true);
                     game.setGameScreen();
                     third = false;
                     first = true;

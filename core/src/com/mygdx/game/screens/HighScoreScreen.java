@@ -104,6 +104,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
     @Override
     public void hide() {
         super.hide();
+        game.bubbleFont.getData().setScale(1f);
     }
 
     @Override

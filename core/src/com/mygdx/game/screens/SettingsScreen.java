@@ -154,6 +154,8 @@ public class SettingsScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
+
         super.hide();
+
     }
 }

@@ -252,11 +252,13 @@ public class BioRunnerGame extends Game {
     @Override
     public void dispose() {
         Gdx.app.log("Game", "dispose");
+        this.splashScreen.dispose();
+        backgroundMusic.dispose();
         textureAssets.dispose();
         batch.dispose();
         font.dispose();
-        backgroundMusic.dispose();
-        this.splashScreen.dispose();
+
+
 
 
         // asset manager

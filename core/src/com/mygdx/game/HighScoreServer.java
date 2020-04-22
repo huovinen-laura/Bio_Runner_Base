@@ -54,7 +54,7 @@ public class HighScoreServer {
     public static void fetchHighScores(final HighScoreListener source) {
         Net.HttpRequest request = new Net.HttpRequest(HttpMethods.GET);
         Gdx.app.log("HighScoreServer",""+url);
-        request.setUrl(url);
+        request.setUrl("https://koti.tamk.fi/~ttjebi/highscore.py/get/");
 
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
 
@@ -118,12 +118,15 @@ public class HighScoreServer {
         request.setContent(content);
         Gdx.app.log("server", ""+user);
         if (user == null) {
+            user = "DevJere";
             if (verbose)
                 Gdx.app.error("HighSCoreServer", "user not set");
         } else if (password == null) {
+            password="tampere";
             if (verbose)
                 Gdx.app.error("HighSCoreServer", "password not set");
         } else if (url == null) {
+            url= "http://koti.tamk.fi/~ttjebi/highscore.py/get/";
             if (verbose)
                 Gdx.app.error("HighSCoreServer", "url not set");
         } else {
@@ -154,22 +157,9 @@ public class HighScoreServer {
     }
 
     public static void readConfig(String propFileName) {
-        Properties prop = new Properties();
-        FileHandle file = Gdx.files.internal(propFileName);
-        InputStream inputStream = file.read();
-        try {
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("Config file '" + propFileName + "' not found.");
-            }
-        } catch (IOException e) {
-            Gdx.app.log("HighScoreServer", e.getMessage());
-        }
-
-        user = prop.getProperty("user");
-        password = prop.getProperty("password");
-        url = prop.getProperty("url");
+        user = "DevJere";
+        password = "tampere";
+        url = "https://koti.tamk.fi/~ttjebi/highscore.py/get/";
     }
 
     public static String getGetUrl() {

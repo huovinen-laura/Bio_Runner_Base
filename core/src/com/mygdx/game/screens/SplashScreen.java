@@ -47,9 +47,18 @@ public class SplashScreen extends ScreenAdapter {
             game.allObstaclesCollection = new ObstacleCollection(game);
         }
         this.batch.begin();
-        this.batch.draw(textures.get("tiko_valk.png",Texture.class),3f,2f,2f,
+
+        this.batch.draw(textures.get("tiko_valk.png",Texture.class),3f,1f,2f,
                 2f*(textures.get("tiko_valk.png",Texture.class).getHeight())/
                         (textures.get("tiko_valk.png",Texture.class)).getWidth());
+
+        this.batch.draw(textures.get("tuni.png",Texture.class),2f,0f,2f,
+                2f*(textures.get("tuni.png",Texture.class).getHeight())/
+                        (textures.get("tuni.png",Texture.class)).getWidth());
+
+        this.batch.draw(textures.get("oras.png",Texture.class),4f,2f,2f,
+                2f*(textures.get("oras.png",Texture.class).getHeight())/
+                        (textures.get("oras.png",Texture.class)).getWidth());
 
         this.batch.end();
 

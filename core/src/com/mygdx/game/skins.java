@@ -12,6 +12,10 @@ public class skins {
     private Texture jarviAnimaatio = new Texture("jarviAnimaatio2.png");
     private Texture playerAnimation = new Texture("playerAnimation.png");
     private Texture koronaAnimaatio = new Texture("koronaAnimaatio.png");
+    private Texture farmerAnimaatio = new Texture("farmerani.png");
+    private Texture tikoAnimaatio = new Texture("tikoani.png");
+    private Texture bunnyAnimaatio = new Texture("bunnyani.png");
+    private Texture banaaniAnimaatio = new Texture("banaaniAni.png");
 
     private ArrayList<Texture> animationTextures;
     private ArrayList<String> names;
@@ -28,6 +32,14 @@ public class skins {
         this.names.add("velho");
         this.animationTextures.add(jarviAnimaatio);
         this.names.add("jarviChan");
+        this.animationTextures.add(farmerAnimaatio);
+        this.names.add("farmer");
+        this.animationTextures.add(tikoAnimaatio);
+        this.names.add("tiko");
+        this.animationTextures.add(bunnyAnimaatio);
+        this.names.add("bunny");
+        this.animationTextures.add(banaaniAnimaatio);
+        this.names.add("banaani");
         this.animations = new ArrayList<>();
 
         for(Texture animationTexture : this.animationTextures) {
@@ -79,6 +91,10 @@ public class skins {
         jarviAnimaatio.dispose();
         playerAnimation.dispose();
         koronaAnimaatio.dispose();
+        farmerAnimaatio.dispose();
+        tikoAnimaatio.dispose();
+        bunnyAnimaatio.dispose();
+        banaaniAnimaatio.dispose();
     }
 
     public Texture getVelhoAnimaatio() {
@@ -123,6 +139,22 @@ public class skins {
 
     public void setKoronaAnimaatio(Texture koronaAnimaatio) {
         this.koronaAnimaatio = koronaAnimaatio;
+    }
+
+    public Texture getFarmerAnimaatio() {
+        return farmerAnimaatio;
+    }
+
+    public Texture getTikoAnimaatio() {
+        return tikoAnimaatio;
+    }
+
+    public Texture getBunnyAnimaatio() {
+        return bunnyAnimaatio;
+    }
+
+    public Texture getBanaaniAnimaatio() {
+        return banaaniAnimaatio;
     }
 
     public ArrayList<Texture> getAnimationTextures() {

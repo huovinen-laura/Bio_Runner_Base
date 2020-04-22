@@ -31,8 +31,15 @@ public class SkinShopScreen extends ScreenAdapter {
     private Button velhoLocked;
     private Button koronaLocked;
     private Button jarviLocked;
+    private Button farmerSkin;
+    private Button farmerLocked;
+    private Button tikoSkin;
+    private Button tikoLocked;
+    private Button bunnySkin;
+    private Button bunnyLocked;
+    private Button banaaniSkin;
+    private Button banaaniLocked;
     private String flowerPointText;
-    private int velhoSkinCost;
 
     private boolean[] isSkinUnlocked;
     private String[] skinNames;
@@ -40,16 +47,28 @@ public class SkinShopScreen extends ScreenAdapter {
 
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
-        this.velhoSkinCost = 1000;
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
-        this.velhoSkin = new Button(4f,2f,1f,1f, game.textureAssets.getStoreBG());
-        this.koronaSkin = new Button(3f,2f,1f,1f, game.textureAssets.getStoreBG());
-        this.vakioSkin = new Button(2f,2f,1f,1f, game.textureAssets.getStoreBG());
-        this.jarviSkin = new Button(5f,2f,1f,1f, game.textureAssets.getStoreBG());
 
-        this.velhoLocked = new Button(4f,2f,1f,1f, game.textureAssets.getStoreLocked());
-        this.koronaLocked = new Button(3f,2f,1f,1f, game.textureAssets.getStoreLocked());
-        this.jarviLocked = new Button(5f,2f,1f,1f, game.textureAssets.getStoreLocked());
+        this.vakioSkin = new Button(2.5f,2f,1f,1f, game.textureAssets.getStoreBG());
+        this.farmerSkin = new Button(3.5f, 2f, 1f, 1f, game.textureAssets.getStoreBG());
+        this.tikoSkin = new Button(4.5f, 2f, 1f, 1f, game.textureAssets.getStoreBG());
+        this.koronaSkin = new Button(5.5f,2f,1f,1f, game.textureAssets.getStoreBG());
+
+        this.bunnySkin = new Button(2.5f, 1f, 1f, 1f, game.textureAssets.getStoreBG());
+        this.velhoSkin = new Button(3.5f,1f,1f,1f, game.textureAssets.getStoreBG());
+        this.banaaniSkin = new Button(4.5f, 1f, 1f, 1f, game.textureAssets.getStoreBG());
+        this.jarviSkin = new Button(5.5f,1f,1f,1f, game.textureAssets.getStoreBG());
+
+        this.farmerLocked = new Button(3.5f, 2f, 1f, 1f, game.textureAssets.getStoreLocked());
+        this.tikoLocked = new Button(4.5f, 2f, 1f, 1f, game.textureAssets.getStoreLocked());
+        this.koronaLocked = new Button(5.5f,2f,1f,1f, game.textureAssets.getStoreLocked());
+
+        this.bunnyLocked = new Button(2.5f, 1f, 1f, 1f, game.textureAssets.getStoreLocked());
+        this.velhoLocked = new Button(3.5f,1f,1f,1f, game.textureAssets.getStoreLocked());
+        this.banaaniLocked = new Button(4.5f, 1f, 1f, 1f, game.textureAssets.getStoreLocked());
+        this.jarviLocked = new Button(5.5f,1f,1f,1f, game.textureAssets.getStoreLocked());
+
+
         this.font = game.getFont();
         tausta = game.textureAssets.getCommon();
         width = game.WORLD_WIDTH;
@@ -76,14 +95,11 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         game.batch.begin();
-        this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.2f,
+        this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.4f,
                 game.getProjected().y * 0.85f);
         this.font.draw(game.batch,
-                this.flowerPointText + game.getFlowerPoints(), game.getProjected().x * 0.2f,
-                game.getProjected().y * 0.1f);
-        this.font.draw(game.batch,game.getText("costPoints") + this.velhoSkinCost,
-                game.getProjected().x * 0.25f,
-                game.getProjected().y * 0.25f);
+                game.getText("flowerPoints") + game.getFlowerPoints(), game.getProjected().x * 0.35f,
+                game.getProjected().y * 0.2f);
         game.batch.end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
@@ -101,9 +117,21 @@ public class SkinShopScreen extends ScreenAdapter {
         this.jarviSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
                         .getAnimationFrame(game.textureAssets.getSkinAssets().getJarviAnimaatio()));
+        this.farmerSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getFarmerAnimaatio()));
+        this.tikoSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getTikoAnimaatio()));
+        this.bunnySkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getBunnyAnimaatio()));
+        this.banaaniSkin.draw(texturesBatch,
+                game.textureAssets.getSkinAssets()
+                        .getAnimationFrame(game.textureAssets.getSkinAssets().getBanaaniAnimaatio()));
         this.texturesBatch.draw(game.textureAssets.getSkinAssets().getAnimationFrame(game.getCurrentAnimation()),
+                1.2f,
                 1f,
-                0.52f,
                 0,
                 0,
                 1f,
@@ -125,7 +153,23 @@ public class SkinShopScreen extends ScreenAdapter {
         }
 
         if(!isSkinUnlocked("jarviChan")) {
-            this.velhoLocked.draw(texturesBatch);
+            this.jarviLocked.draw(texturesBatch);
+        }
+
+        if(!isSkinUnlocked("farmer")) {
+            this.farmerLocked.draw(texturesBatch);
+        }
+
+        if(!isSkinUnlocked("tiko")) {
+            this.tikoLocked.draw(texturesBatch);
+        }
+
+        if(!isSkinUnlocked("bunny")) {
+            this.bunnyLocked.draw(texturesBatch);
+        }
+
+        if(!isSkinUnlocked("banaani")) {
+            this.banaaniLocked.draw(texturesBatch);
         }
         this.texturesBatch.end();
     }
@@ -194,13 +238,20 @@ public class SkinShopScreen extends ScreenAdapter {
                 } else if(vakioSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
                     game.setSkinName("vakio");
                 } else if(jarviSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    handleSkinClick("jarviChan",10);
+                    handleSkinClick("jarviChan",1250);
                 } else if(koronaSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    handleSkinClick("korona",50);
+                    handleSkinClick("korona",200);
                 } else if(velhoSkin.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    handleSkinClick("velho",100);
+                    handleSkinClick("velho",500);
+                } else if(farmerSkin.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    handleSkinClick("farmer", 100);
+                } else if(tikoSkin.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    handleSkinClick("tiko", 100);
+                } else if(bunnySkin.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    handleSkinClick("bunny", 200);
+                } else if(banaaniSkin.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    handleSkinClick("banaani", 500);
                 }
-
                 return true;
             }
         });

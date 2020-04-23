@@ -32,6 +32,7 @@ public class Waypoint {
         batch.draw(progressBar, xStart,yStart,this.barWidth + markerSize,0.25f);
         batch.draw(this.progressMarker,xStart+this.barWidth*(displayedProgress/length),yStart,markerSize,markerSize);
     }
+
     public boolean isFinished() {
         if (realProgress >= length + 10f) {
             return(true);

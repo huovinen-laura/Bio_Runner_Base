@@ -83,7 +83,6 @@ public class ShitCollection {
     public CollectibleSquare getRandomCollectible(int max) {
         float roll = (float) Math.random()*100;
         roll++;
-        Gdx.app.log("ShitCollection", "Random: " + roll );
         float positionX = BallGame.WORLD_WIDTH;
         float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
         while(positionY >= game.getLastCollectable().y-1 && positionY <= game.getLastCollectable().y+1 ) {

@@ -126,8 +126,8 @@ public class SkinShopScreen extends ScreenAdapter {
                 1f,
                 0,
                 0,
-                1f,
-                currentSkinFrame.getRegionHeight()/currentSkinFrame.getRegionWidth(),
+                1.2f,
+                2f,
                 1f,
                 1f,
                 0f

@@ -23,9 +23,11 @@ public class Player extends GameObject {
     public static boolean isDiving = false;
 
     public Player(Texture animationTexture, BioRunnerGame game) {
-        super(game,true,game.getCurrentAnimation(),
+        super(game,true, game.getCurrentAnimation(),
                 1.5f,1f, 0.6f,1000f,0f,1f);
+
         this.game = game;
+
         if(this.game.getSkinName().contentEquals("vakio")) {
             isDefault = true;
         } else {
@@ -56,6 +58,7 @@ public class Player extends GameObject {
                     1.0f,
                     this.getObjectBody().getTransform().getRotation() * MathUtils.radiansToDegrees
             );
+
             currentFrameTexture.flip(true,false);
 
     }

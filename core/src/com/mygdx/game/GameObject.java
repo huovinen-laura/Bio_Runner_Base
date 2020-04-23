@@ -40,7 +40,6 @@ public abstract class GameObject {
         this.spriteHeight = (float) objectTexture.getHeight();
         this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
         this.spriteWidth = 0.5f*radius;
-        Gdx.app.log("HW", "" + this.spriteWidth + " " + this.spriteHeight);
         BodyDef myBodyDef = new BodyDef();
 
         //What type of body? This one moves.
@@ -102,10 +101,8 @@ public abstract class GameObject {
 
         //How slippery the object is? 0-1
         playerFixtureDef.friction = friction;
-        Gdx.app.log("shape","spriteHeight:" + this.spriteHeight + " spriteWidth: " + this.spriteWidth);
         //Create circle shape
         PolygonShape rectangleShape = new PolygonShape();
-        Gdx.app.log("shape","spriteHeight:" + this.spriteHeight + " spriteWidth: " + this.spriteWidth);
         rectangleShape.set(new Vector2[]{new Vector2(0f, 0f), new Vector2(0f, this.spriteHeight),
                 new Vector2(this.spriteWidth, this.spriteHeight), new Vector2(this.spriteWidth,0f)
         });
@@ -122,12 +119,13 @@ public abstract class GameObject {
         this.playerAnimationTexture = texture;
         this.game = game;
         this.radius = size;
-        this.spriteWidth = (float) playerAnimationTexture.getWidth() / 4;
-        this.spriteHeight = (float) playerAnimationTexture.getHeight() / 1.5f;
-        this.spriteHeight = 0.5f*radius*(this.spriteHeight/this.spriteWidth);
-        this.spriteWidth = 0.5f*radius;
+        this.spriteWidth = 0.75f;
+        this.spriteHeight = 1.05f;
+
+        Gdx.app.log("GameObject","Sprite height: " + this.spriteHeight);
+
+
         float spriteArea = spriteHeight * spriteWidth;
-        Gdx.app.log("HW", "" + this.spriteWidth + " " + this.spriteHeight);
         BodyDef myBodyDef = new BodyDef();
 
         //What type of body? This one moves.

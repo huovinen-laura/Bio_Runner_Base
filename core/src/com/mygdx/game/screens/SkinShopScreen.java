@@ -84,7 +84,7 @@ public class SkinShopScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         TextureRegion currentSkinFrame = game.textureAssets.getSkinAssets()
-                .getAnimationFrame(game.getCurrentAnimation());
+                .getAnimationFrame(game.getSkinName());
         currentSkinFrame.flip(false,true);
 
 
@@ -102,26 +102,26 @@ public class SkinShopScreen extends ScreenAdapter {
                         .getAnimationFrame(game.textureAssets.getPlayerChonkyAnimation()));
         this.koronaSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getKoronaAnimaatio()));
+                        .getAnimationFrame("korona"));
         this.velhoSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getVelhoAnimaatio()));
+                        .getAnimationFrame("velho"));
         this.jarviSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getJarviAnimaatio()));
+                        .getAnimationFrame("jarviChan"));
         this.farmerSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getFarmerAnimaatio()));
+                        .getAnimationFrame("farmer"));
         this.tikoSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getTikoAnimaatio()));
+                        .getAnimationFrame("tiko"));
         this.bunnySkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getBunnyAnimaatio()));
+                        .getAnimationFrame("bunny"));
         this.banaaniSkin.draw(texturesBatch,
                 game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getSkinAssets().getBanaaniAnimaatio()));
-        this.texturesBatch.draw(game.textureAssets.getSkinAssets().getAnimationFrame(game.getCurrentAnimation()),
+                        .getAnimationFrame("banaani"));
+        this.texturesBatch.draw(game.textureAssets.getSkinAssets().getAnimationFrame(game.getSkinName()),
                 1.2f,
                 1f,
                 0,
@@ -132,6 +132,7 @@ public class SkinShopScreen extends ScreenAdapter {
                 1f,
                 0f
                 );
+
         this.texturesBatch.end();
 
         // Unlocked tekstuurit

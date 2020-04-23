@@ -101,16 +101,26 @@ public class skins {
         return velhoAnimaatio;
     }
 
-    public TextureRegion getAnimationFrame( Texture animationTexture) {
-        final int FRAME_COLS = 4;
-        final int FRAME_ROWS = 1;
+    public TextureRegion getAnimationFrame( String skinName) {
 
-        int tileWidth = animationTexture.getWidth() / FRAME_COLS;
-        int tileHeight = animationTexture.getHeight() / FRAME_ROWS;
+        for (int i = 0; i < this.names.size(); i++) {
+            if(
+                this.names.get(i).contentEquals(skinName)
+                                                            ) {
+                final int FRAME_COLS = 4;
+                final int FRAME_ROWS = 1;
 
-        TextureRegion[][] tmp = TextureRegion.split(animationTexture, tileWidth, tileHeight);
+                int tileWidth = this.animationTextures.get(i).getWidth() / FRAME_COLS;
+                int tileHeight = this.animationTextures.get(i).getHeight() / FRAME_ROWS;
 
-        return tmp[0][0];
+                TextureRegion[][] tmp = TextureRegion.split(this.animationTextures.get(i), tileWidth, tileHeight);
+
+
+                return (tmp[0][0]);
+            }
+        }
+
+        return(null);
     }
 
     public void setVelhoAnimaatio(Texture velhoAnimaatio) {

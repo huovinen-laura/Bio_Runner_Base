@@ -19,18 +19,20 @@ public class Waypoint {
 
     public Waypoint(float length, BioRunnerGame game) {
         this.length = length;
-        this.displayedProgress = 0;
-        this.realProgress = 0;
+        this.displayedProgress = 0f;
+        this.realProgress = 0f;
         this.barWidth = 4f;
         this.markerSize = 0.2f;
         progressBar = game.textureAssets.getProgressBar();
-        progressMarker = game.textureAssets.getSkinAssets().getAnimationFrame(game.getCurrentAnimation());
+        Gdx.app.log("waypoint",game.getSkinName());
+        progressMarker = game.textureAssets.getSkinAssets().getAnimationFrame(game.getSkinName());
         progressMarker.flip(true,false);
     }
 
     public void draw(SpriteBatch batch) {
         batch.draw(progressBar, xStart,yStart,this.barWidth + markerSize,0.25f);
         batch.draw(this.progressMarker,xStart+this.barWidth*(displayedProgress/length),yStart,markerSize,markerSize);
+        batch.flush();
     }
 
     public boolean isFinished() {
@@ -40,9 +42,9 @@ public class Waypoint {
             return(false);
         }
     }
-    public boolean move(float delta) {
-        displayedProgress += delta;
-        realProgress += delta;
+    public boolean move() {
+        displayedProgress += Gdx.graphics.getDeltaTime();
+        realProgress += Gdx.graphics.getDeltaTime();
 
         if (displayedProgress > length) {
             this.displayedProgress = length;

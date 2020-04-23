@@ -435,7 +435,7 @@ public class BioRunnerGame extends Game {
     }
 
     public Texture getCurrentSkinFrame() {
-        TextureRegion current = this.textureAssets.getSkinAssets().getAnimationFrame(this.getCurrentAnimation());
+        TextureRegion current = this.textureAssets.getSkinAssets().getAnimationFrame(this.skinName);
         Texture toBeReturned = current.getTexture();
         return(toBeReturned);
     }

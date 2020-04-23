@@ -98,16 +98,21 @@ public class BallGame extends ScreenAdapter {
 
         scrollingBackground.drawSky(this.gameBatch);
 
-		if(waypoint.move(Gdx.graphics.getDeltaTime())) {
+		if(waypoint.move()) {
+
 			this.recycleCenterVisible = true;
+
 			this.recycleCenter.Move();
+
 			this.recycleCenter.Draw(this.gameBatch);
 		}
 
 		scrollingBackground.drawGrass(this.gameBatch);
 
 		scrollingBackground.update(Gdx.graphics.getDeltaTime());
+
 		ball.Draw(this.gameBatch);
+
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
 
 		if(!this.ball.Move()) { // checks if lives is zero

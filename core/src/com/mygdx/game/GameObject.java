@@ -119,8 +119,8 @@ public abstract class GameObject {
         this.playerAnimationTexture = texture;
         this.game = game;
         this.radius = size;
-        this.spriteWidth = 0.75f;
-        this.spriteHeight = 1.05f;
+        this.spriteWidth = 0.7f;
+        this.spriteHeight = 1.4f;
 
         Gdx.app.log("GameObject","Sprite height: " + this.spriteHeight);
 

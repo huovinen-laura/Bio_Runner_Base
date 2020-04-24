@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -12,6 +13,7 @@ public class TextBubble {
     private Vector2 dimensions;
     private BioRunnerGame game;
     private float margin;
+    private BitmapFont font;
 
     public TextBubble(String text, Vector2 position, Vector2 dimensions, BioRunnerGame game) {
         this.text = text;
@@ -19,17 +21,13 @@ public class TextBubble {
         this.position = position;
         this.dimensions = dimensions;
         this.margin = 0;
-        game.bubbleFont.getData().setScale(0.3f);
+        this.font = game.bubbleFont;
+        this.font.getData().setScale(0.3f * Gdx.graphics.getWidth()/800f);
     }
 
     public void DrawFont(SpriteBatch fontBatch, Vector3 projected) {
 
-        Gdx.app.log("DrawFont",""+game.getBubbleFont());
-        Gdx.app.log("DrawFont",""+this.text);
-        Gdx.app.log("DrawFont",""+projected);
-        Gdx.app.log("DrawFont",""+projected.y);
-
-        game.getBubbleFont().draw(game.batch, this.text, projected.x * (this.position.x/game.WORLD_WIDTH),
+        this.font.draw(game.batch, this.text, projected.x * (this.position.x/game.WORLD_WIDTH),
                 projected.y * ((this.position.y)/game.WORLD_HEIGHT),0, this.text.length(),
                 (Gdx.graphics.getWidth()/800f) * (this.dimensions.x) * 100f,10,true);
 

@@ -179,7 +179,7 @@ public class RecycleScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        game.bubbleFont.getData().setScale(1f);
+        game.bubbleFont.getData().setScale(1f * Gdx.graphics.getWidth()/800);
         Gdx.input.setInputProcessor(null);
     }
 }

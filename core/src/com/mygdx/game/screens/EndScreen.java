@@ -9,15 +9,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.I18NBundle;
+
 import com.mygdx.game.BioRunnerGame;
-import com.mygdx.game.Player;
 import com.mygdx.game.WasteDisplayRecycle;
-import com.mygdx.game.gamestate.LifeCounter;
 
-import java.util.Locale;
-
-public class EndScreen extends ScreenAdapter {
+public class EndScreen extends ScreenAdapter implements Input.TextInputListener {
     BioRunnerGame game;
     private BitmapFont font;
     private boolean isAllowedToLeave;
@@ -29,6 +25,7 @@ public class EndScreen extends ScreenAdapter {
     private Texture tausta;
     private int flowerPoints;
     private float width, height;
+    private String PlayerName;
 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
@@ -55,7 +52,8 @@ public class EndScreen extends ScreenAdapter {
         this.score = Integer.toString(game.playerScore);
 
         if(game.getLowestHighScore() < game.playerScore) {
-            game.postNewHighScore(game.playerScore, game.playerName);
+            this.newHighScore();
+
         }
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -95,6 +93,12 @@ public class EndScreen extends ScreenAdapter {
         });
     }
 
+    private void newHighScore() {
+
+        Gdx.input.getTextInput(this,game.getText("newName"),"",game.getText("newNameHint"));
+
+
+    }
 
 
     @Override
@@ -130,5 +134,27 @@ public class EndScreen extends ScreenAdapter {
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+    }
+
+    @Override
+    public void input(String text) {
+
+        if(text.length() < 5) {
+            this.game.setPlayerName(text);
+        } else {
+            this.game.setPlayerName(text.substring(0,5));
+        }
+        try {
+            game.postNewHighScore(game.playerScore, game.playerName);
+        }
+        catch (Exception e) {
+            // asdfaskdjfa
+        }
+
+        }
+
+
+    @Override
+    public void canceled() {
     }
 }

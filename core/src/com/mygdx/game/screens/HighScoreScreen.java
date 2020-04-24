@@ -25,7 +25,6 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
     private BitmapFont smallFont;
     private String scoresFirstColumn;
     private String scoresSecondColumn;
-    private Button renameButton;
 
     public HighScoreScreen(BioRunnerGame game) {
         super();
@@ -34,7 +33,6 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         this.game = game;
 
         this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
-        this.renameButton = new Button( 1.5f, 3f,1f,1f, game.textureAssets.getButtonBlue());
         tausta = game.textureAssets.getCommon();
         this.
         font = game.getFont();
@@ -52,7 +50,6 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         this.texturesBatch.begin();
         this.texturesBatch.draw(tausta, 0, 0, game.WORLD_WIDTH, game.WORLD_HEIGHT);
         this.backButton.draw(this.texturesBatch);
-        this.renameButton.draw(this.texturesBatch);
         this.texturesBatch.end();
 
         game.batch.begin();
@@ -73,7 +70,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         super.show();
         HighScoreServer.fetchHighScores(this);
         this.smallFont = game.getBubbleFont();
-        this.smallFont.getData().setScale(0.3f);
+        this.smallFont.getData().setScale(0.3f* Gdx.graphics.getWidth()/800);
         this.fontBatch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -88,8 +85,6 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
 
                 if( backButton.isInsideButton(worldCoords.x,worldCoords.y) ) {
                     game.setTitleScreen();
-                } else if(renameButton.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    newNameInput();
                 }
 
                 return true;
@@ -104,7 +99,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
     @Override
     public void hide() {
         super.hide();
-        game.bubbleFont.getData().setScale(1f);
+        game.bubbleFont.getData().setScale(1f* Gdx.graphics.getWidth()/800);
     }
 
     @Override

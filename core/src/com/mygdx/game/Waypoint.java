@@ -23,9 +23,9 @@ public class Waypoint {
         this.realProgress = 0f;
         this.barWidth = 4f;
         this.markerSize = 0.2f;
-        progressBar = game.textureAssets.getProgressBar();
+        progressBar = game.getTextureAssets().getProgressBar();
         Gdx.app.log("waypoint",game.getSkinName());
-        progressMarker = game.textureAssets.getSkinAssets().getAnimationFrame(game.getSkinName());
+        progressMarker = game.getTextureAssets().getSkinAssets().getAnimationFrame(game.getSkinName());
         progressMarker.flip(true,false);
     }
 

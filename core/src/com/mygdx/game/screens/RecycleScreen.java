@@ -74,22 +74,22 @@ public class RecycleScreen extends ScreenAdapter {
         }
         this.texturesBatch.end();
 
-        game.batch.begin();
-        this.information.DrawFont(game.batch,projected);
+        game.getBatch().begin();
+        this.information.DrawFont(game.getBatch(),projected);
         if(this.isPossibleToLeave) {
-            font.draw(game.batch, game.getText("tap"), projected.x * 0.065f, projected.y * 0.205f);
+            font.draw(game.getBatch(), game.getText("tap"), projected.x * 0.065f, projected.y * 0.205f);
         }
 
-        game.batch.end();
+        game.getBatch().end();
 
     }
 
     @Override
     public void show() {
-        this.happyGuy = game.textureAssets.getHappyGirl();
-        this.sadGuy = game.textureAssets.getSadGirl();
-        tausta = game.textureAssets.getRecycle();
-        game.batch = new SpriteBatch();
+        this.happyGuy = game.getTextureAssets().getHappyGirl();
+        this.sadGuy = game.getTextureAssets().getSadGirl();
+        tausta = game.getTextureAssets().getRecycle();
+        game.setBatch(new SpriteBatch());
         this.praise = true;
         this.texturesBatch = new SpriteBatch();
         this.texturesBatch.setProjectionMatrix(game.getTextureCamera().combined);
@@ -110,7 +110,7 @@ public class RecycleScreen extends ScreenAdapter {
         factsPoop.add(game.getText("infoPoop1"));
         factsPoop.add(game.getText("infoPoop2"));
 
-        this.leaveButton = new Button(0.4f,0.4f,0.5f,3f,game.textureAssets.getGeneralButton());
+        this.leaveButton = new Button(0.4f,0.4f,0.5f,3f, game.getTextureAssets().getGeneralButton());
 
         /*
         this.information = new TextBubble("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus" +
@@ -125,9 +125,9 @@ public class RecycleScreen extends ScreenAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,8,4);
         this.texturesBatch.setProjectionMatrix(camera.combined);
-        this.wasteTextures = new WasteDisplayRecycle(game.collectedStuffList.getAllShit(),
+        this.wasteTextures = new WasteDisplayRecycle(game.getCollectedStuffList().getAllShit(),
                 3.7f,3f,3.3f,180);
-        this.obstacleTextures = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
+        this.obstacleTextures = new WasteDisplayRecycle(game.getAllObstaclesCollection().getAllObstacles(),
                 3.7f,2f,2f,60);
 
         if (this.obstacleTextures.isEmpty()) {
@@ -148,10 +148,10 @@ public class RecycleScreen extends ScreenAdapter {
 
 
 
-                        if(game.worldSpeed >= -5f) {
+                        if(game.getWorldSpeed() >= -5f) {
 
-                            game.worldSpeed -= 0.5f;
-                            Gdx.app.log("RecycleScreen", "speeding: " + game.worldSpeed);
+                            game.setWorldSpeed(game.getWorldSpeed() - 0.5f);
+                            Gdx.app.log("RecycleScreen", "speeding: " + game.getWorldSpeed());
                         }
 
                         game.setLevelNumber((game.getLevelNumber()+1));
@@ -179,7 +179,7 @@ public class RecycleScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        game.bubbleFont.getData().setScale(1f * Gdx.graphics.getWidth()/800);
+        game.getBubbleFont().getData().setScale(1f * Gdx.graphics.getWidth()/800);
         Gdx.input.setInputProcessor(null);
     }
 }

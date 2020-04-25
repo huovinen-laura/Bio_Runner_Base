@@ -36,21 +36,21 @@ public class TitleScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        width = game.WORLD_WIDTH;
-        height = game.WORLD_HEIGHT;
-        tausta = game.textureAssets.getMenu();
-        camera.setToOrtho(false, game.WORLD_WIDTH, game.WORLD_HEIGHT);
-        projected = camera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
+        width = game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
+        tausta = game.getTextureAssets().getMenu();
+        camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
+        projected = camera.project(new Vector3(game.getWORLD_WIDTH(), game.getWORLD_HEIGHT(),0f));
         Gdx.app.log("TitleProject",""+projected);
         Gdx.app.log("GameProject","" + game.getProjected());
-        game.batch = new SpriteBatch();
+        game.setBatch(new SpriteBatch());
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);
 
-        this.startButton = new Button(3f,2.0f,0.5f,1.8f, this.game.textureAssets.getGeneralButton());
-        this.settingsButton = new Button(3f, 1.4f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
-        this.skinShopButton = new Button(3f, 0.8f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
-        this.highscoreButton = new Button(3f, 0.2f, 0.5f, 1.8f, this.game.textureAssets.getGeneralButton());
+        this.startButton = new Button(3f,2.0f,0.5f,1.8f, this.game.getTextureAssets().getGeneralButton());
+        this.settingsButton = new Button(3f, 1.4f, 0.5f, 1.8f, this.game.getTextureAssets().getGeneralButton());
+        this.skinShopButton = new Button(3f, 0.8f, 0.5f, 1.8f, this.game.getTextureAssets().getGeneralButton());
+        this.highscoreButton = new Button(3f, 0.2f, 0.5f, 1.8f, this.game.getTextureAssets().getGeneralButton());
 
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -120,14 +120,14 @@ public class TitleScreen extends ScreenAdapter {
 
         // Draws fonts
         //String totalScore = Integer.toString(game.getPrefs().getInteger("totalScore"));
-        game.batch.begin();
+        game.getBatch().begin();
         //font.draw(game.batch, totalScore, projected.x * 0.7f, projected.y * .6f);
-        font.draw(game.batch, game.getText("play"), projected.x * 0.43f,
+        font.draw(game.getBatch(), game.getText("play"), projected.x * 0.43f,
                 projected.y * .60f);
-        font.draw(game.batch, game.getText("settings"), projected.x * 0.40f, projected.y * 0.45f);
-        font.draw(game.batch, game.getText("shop"), projected.x * 0.43f, projected.y * 0.30f);
-        font.draw(game.batch, game.getText("highscore"), projected.x * 0.40f, projected.y * 0.15f);
-        game.batch.end();
+        font.draw(game.getBatch(), game.getText("settings"), projected.x * 0.40f, projected.y * 0.45f);
+        font.draw(game.getBatch(), game.getText("shop"), projected.x * 0.43f, projected.y * 0.30f);
+        font.draw(game.getBatch(), game.getText("highscore"), projected.x * 0.40f, projected.y * 0.15f);
+        game.getBatch().end();
 
     }
 

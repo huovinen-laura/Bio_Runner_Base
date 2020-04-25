@@ -1,12 +1,9 @@
 package com.mygdx.game.obstacles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.GameObject;
-import com.mygdx.game.screens.BallGame;
 
 public class ObstacleRectangle extends GameObject {
 
@@ -14,7 +11,7 @@ public class ObstacleRectangle extends GameObject {
 
     public ObstacleRectangle(BioRunnerGame game, Texture texture, float x, float y, String name, float size) {
         super(game,texture,size,x,y, 0f,0f,0f,
-                new Vector2(game.worldSpeed,0),0f);
+                new Vector2(game.getWorldSpeed(),0),0f);
         this.setName(name);
         this.setForDelete = false;
     }

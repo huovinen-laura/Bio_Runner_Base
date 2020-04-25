@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.gamestate.LifeCounter;
 
 public class Player extends GameObject {
     boolean justChangedScreen;
@@ -37,7 +35,7 @@ public class Player extends GameObject {
 
         this.justChangedScreen = false;
         this.getObjectBody().setFixedRotation(true);
-        walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
+        walkAnimation = game.getTextureAssets().getSkinAssets().getAnimation(game.getSkinName());
 
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
 
@@ -67,7 +65,7 @@ public class Player extends GameObject {
 
     public void update() {
         this.getObjectBody().setTransform(1.5f,0.6f,0f);
-        walkAnimation = game.textureAssets.getSkinAssets().getAnimation(game.getSkinName());
+        walkAnimation = game.getTextureAssets().getSkinAssets().getAnimation(game.getSkinName());
 
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
@@ -86,7 +84,7 @@ public class Player extends GameObject {
     }
 
     public void moveAnimation() {
-        stateTime += Gdx.graphics.getDeltaTime() * (1 +  0.50 * (-game.worldSpeed - 1f));
+        stateTime += Gdx.graphics.getDeltaTime() * (1 +  0.50 * (-game.getWorldSpeed() - 1f));
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
 
@@ -120,7 +118,7 @@ public class Player extends GameObject {
             Player.isDiving = false;
         }
 
-        if (game.lifeCounter.getLivesAmount() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
+        if (game.getLifeCounter().getLivesAmount() <= 0 && this.getObjectBody().getPosition().y < 0.52f) {
             return false;
         }
         return true;

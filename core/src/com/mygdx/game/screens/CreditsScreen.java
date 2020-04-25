@@ -26,9 +26,9 @@ public class CreditsScreen extends ScreenAdapter {
 
     public CreditsScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
+        this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
         this.font = game.getFont();
-        tausta = game.textureAssets.getCommon();
+        tausta = game.getTextureAssets().getCommon();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -48,20 +48,20 @@ public class CreditsScreen extends ScreenAdapter {
         this.texturesBatch.draw(tausta, 0, 0, width, height);
         this.texturesBatch.end();
 
-        game.batch.begin();
-        this.font.draw(game.batch, game.getText("credits"), Gdx.graphics.getWidth() * 0.4f,
+        game.getBatch().begin();
+        this.font.draw(game.getBatch(), game.getText("credits"), Gdx.graphics.getWidth() * 0.4f,
                 Gdx.graphics.getHeight() * 0.85f);
-        this.font.draw(game.batch, game.getText("jere"), Gdx.graphics.getWidth() * 0.15f,
+        this.font.draw(game.getBatch(), game.getText("jere"), Gdx.graphics.getWidth() * 0.15f,
                 Gdx.graphics.getHeight() * 0.75f);
-        this.font.draw(game.batch, game.getText("aaro"), Gdx.graphics.getWidth() * 0.15f,
+        this.font.draw(game.getBatch(), game.getText("aaro"), Gdx.graphics.getWidth() * 0.15f,
                 Gdx.graphics.getHeight() * 0.65f);
-        this.font.draw(game.batch, game.getText("laura"), Gdx.graphics.getWidth() * 0.15f,
+        this.font.draw(game.getBatch(), game.getText("laura"), Gdx.graphics.getWidth() * 0.15f,
                 Gdx.graphics.getHeight() * 0.55f);
-        this.font.draw(game.batch, game.getText("milla"), Gdx.graphics.getWidth() * 0.15f,
+        this.font.draw(game.getBatch(), game.getText("milla"), Gdx.graphics.getWidth() * 0.15f,
                 Gdx.graphics.getHeight() * 0.45f);
-        this.font.draw(game.batch, game.getText("zapsplat"), Gdx.graphics.getWidth() * 0.15f,
+        this.font.draw(game.getBatch(), game.getText("zapsplat"), Gdx.graphics.getWidth() * 0.15f,
                 Gdx.graphics.getHeight() * 0.35f);
-        game.batch.end();
+        game.getBatch().end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();

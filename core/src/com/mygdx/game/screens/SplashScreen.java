@@ -38,13 +38,13 @@ public class SplashScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(this.game.textureAssets.update()) {
-            Gdx.app.log("splash","" + game.textureAssets.getLoadedAssets());
+        if(this.game.getTextureAssets().update()) {
+            Gdx.app.log("splash","" + game.getTextureAssets().getLoadedAssets());
             game.afterLoadConstructor();
             game.setTitleScreen();
-            game.lifeCounter.setTexture(game.textureAssets.getLives());
-            game.collectedStuffList = new ShitCollection(game);
-            game.allObstaclesCollection = new ObstacleCollection(game);
+            game.getLifeCounter().setTexture(game.getTextureAssets().getLives());
+            game.setCollectedStuffList(new ShitCollection(game));
+            game.setAllObstaclesCollection(new ObstacleCollection(game));
         }
         this.batch.begin();
 
@@ -68,7 +68,7 @@ public class SplashScreen extends ScreenAdapter {
     public void show() {
         super.show();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, game.WORLD_WIDTH,game.WORLD_HEIGHT);
+        camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
         batch = new SpriteBatch();
         this.batch.setProjectionMatrix(camera.combined);
 

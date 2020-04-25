@@ -7,18 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.GameAction;
-import com.mygdx.game.TextBubble;
-import com.mygdx.game.gamestate.LifeCounter;
-
-import java.util.Locale;
 
 public class ShopScreen extends ScreenAdapter {
     public BioRunnerGame game;
@@ -42,7 +35,7 @@ public class ShopScreen extends ScreenAdapter {
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        tausta= game.textureAssets.getCommon();
+        tausta= game.getTextureAssets().getCommon();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -61,21 +54,21 @@ public class ShopScreen extends ScreenAdapter {
         this.texturesBatch.draw(tausta, 0, 0, width, height);
         this.texturesBatch.end();
 
-        game.batch.begin();
+        game.getBatch().begin();
 
-        this.font.draw(game.batch, game.getText("choose"), game.getProjected().x * 0.40f,
+        this.font.draw(game.getBatch(), game.getText("choose"), game.getProjected().x * 0.40f,
                 game.getProjected().y * 0.90f);
         //Left button
-        this.font.draw(game.batch, firstPowerUp, game.getProjected().x * 0.2f,
+        this.font.draw(game.getBatch(), firstPowerUp, game.getProjected().x * 0.2f,
                 game.getProjected().y * 0.55f);
-        this.font.draw(game.batch, firstPowerUpInfo, game.getProjected().x * 0.13f,
+        this.font.draw(game.getBatch(), firstPowerUpInfo, game.getProjected().x * 0.13f,
                 game.getProjected().y * 0.45f);
         //Right button
-        this.font.draw(game.batch, secondPowerUp, game.getProjected().x * 0.6f,
+        this.font.draw(game.getBatch(), secondPowerUp, game.getProjected().x * 0.6f,
                 game.getProjected().y * 0.55f);
-        this.font.draw(game.batch, secondPowerUpInfo, game.getProjected().x * 0.53f,
+        this.font.draw(game.getBatch(), secondPowerUpInfo, game.getProjected().x * 0.53f,
                 game.getProjected().y * 0.45f);
-        game.batch.end();
+        game.getBatch().end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
@@ -92,9 +85,9 @@ public class ShopScreen extends ScreenAdapter {
         this.isPossibleToLeave = true;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, game.WORLD_WIDTH,game.WORLD_HEIGHT);
-        game.collectedStuffList.clear();
-        game.allObstaclesCollection.clear();
+        camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
+        game.getCollectedStuffList().clear();
+        game.getAllObstaclesCollection().clear();
         this.powerUps = game.getPowerUps().getTwoRandomPowers();
         firstPowerUp = game.getText(powerUps[0].getName());
         secondPowerUp = game.getText(powerUps[1].getName());

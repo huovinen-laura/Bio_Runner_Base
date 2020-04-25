@@ -48,19 +48,19 @@ public class TutorialScreen extends ScreenAdapter {
         }
         this.texturesBatch.end();
 
-        game.batch.begin();
+        game.getBatch().begin();
         if (first) {
-            this.font.draw(game.batch, game.getText("tutorial1"), game.getProjected().x * 0.05f,
+            this.font.draw(game.getBatch(), game.getText("tutorial1"), game.getProjected().x * 0.05f,
                     game.getProjected().y * 0.85f);
         } else if(second) {
-            this.font.draw(game.batch, game.getText("tutorial2"), game.getProjected().x * 0.05f,
+            this.font.draw(game.getBatch(), game.getText("tutorial2"), game.getProjected().x * 0.05f,
                     game.getProjected().y * 0.25f);
         } else if(third) {
-            this.font.draw(game.batch, game.getText("tutorial3"), game.getProjected().x * 0.05f,
+            this.font.draw(game.getBatch(), game.getText("tutorial3"), game.getProjected().x * 0.05f,
                     game.getProjected().y * 0.85f);
         }
 
-        game.batch.end();
+        game.getBatch().end();
 
     }
 
@@ -70,12 +70,12 @@ public class TutorialScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
-        tutorial1= game.textureAssets.getTutorial1();
-        tutorial2 = game.textureAssets.getTutorial2();
-        tutorial3 = game.textureAssets.getTutorial3();
+        tutorial1= game.getTextureAssets().getTutorial1();
+        tutorial2 = game.getTextureAssets().getTutorial2();
+        tutorial3 = game.getTextureAssets().getTutorial3();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, game.WORLD_WIDTH,game.WORLD_HEIGHT);
+        camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override

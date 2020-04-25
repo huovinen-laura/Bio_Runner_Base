@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.collectibles.CollectibleSquare;
 import com.mygdx.game.obstacles.ObstacleRectangle;
 import com.mygdx.game.screens.BallGame;
 
@@ -23,13 +22,13 @@ public class ObstacleCollection {
         this.game = game;
         this.allObstacles = new ArrayList<>();
         this.minimumAmountOfObstacles = 4;
-        this.allObstacles.add(new Obstacle("pullo",game.textureAssets.getPullo(),15,1f));
-        this.allObstacles.add(new Obstacle("purkki",game.textureAssets.getPurkki(),15,1f));
-        this.allObstacles.add(new Obstacle("pussi",game.textureAssets.getPussi(),15,1f));
-        this.allObstacles.add( new Obstacle("pilleri", game.textureAssets.getPilleri(),15,1.2f));
-        this.allObstacles.add(new Obstacle("suklaa",game.textureAssets.getSuklaa(),15,1f));
-        this.allObstacles.add(new Obstacle("tupakka",game.textureAssets.getTupakka(),15,1.5f));
-        this.allObstacles.add( new Obstacle("patteri", game.textureAssets.getPatteri(),10,1.5f));
+        this.allObstacles.add(new Obstacle("pullo", game.getTextureAssets().getPullo(),15,1f));
+        this.allObstacles.add(new Obstacle("purkki", game.getTextureAssets().getPurkki(),15,1f));
+        this.allObstacles.add(new Obstacle("pussi", game.getTextureAssets().getPussi(),15,1f));
+        this.allObstacles.add( new Obstacle("pilleri", game.getTextureAssets().getPilleri(),15,1.2f));
+        this.allObstacles.add(new Obstacle("suklaa", game.getTextureAssets().getSuklaa(),15,1f));
+        this.allObstacles.add(new Obstacle("tupakka", game.getTextureAssets().getTupakka(),15,1.5f));
+        this.allObstacles.add( new Obstacle("patteri", game.getTextureAssets().getPatteri(),10,1.5f));
 
         this.LastObstaclePosition = new Vector2(0f,0f);
 
@@ -98,7 +97,7 @@ public class ObstacleCollection {
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfObstacles) {
 
-            if(this.timeFromLastObstacle * 1 - 0.25 * (1 + game.worldSpeed) * this.timeFromLastObstacle >=
+            if(this.timeFromLastObstacle * 1 - 0.25 * (1 + game.getWorldSpeed()) * this.timeFromLastObstacle >=
                     this.timeBetweenObstacles) {
                 this.timeFromLastObstacle = 0f;
                 return(true);

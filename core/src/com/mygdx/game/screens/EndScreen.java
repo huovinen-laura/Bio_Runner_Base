@@ -30,8 +30,8 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        this.sadGuy = game.textureAssets.getSadGirl();
-        tausta = game.textureAssets.getEnd();
+        this.sadGuy = game.getTextureAssets().getSadGirl();
+        tausta = game.getTextureAssets().getEnd();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -39,19 +39,19 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
 
     @Override
     public void show() {
-        game.batch = new SpriteBatch();
-        this.flowerPoints = game.playerScore/10;
+        game.setBatch(new SpriteBatch());
+        this.flowerPoints = game.getPlayerScore() /10;
         this.textureBatch = new SpriteBatch();
         this.isAllowedToLeave = false;
         textureCamera = new OrthographicCamera();
-        textureCamera.setToOrtho(false,game.WORLD_WIDTH,game.WORLD_HEIGHT);
+        textureCamera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
 
         textureBatch.setProjectionMatrix(textureCamera.combined);
-        this.wrongWasteDisplay = new WasteDisplayRecycle(game.allObstaclesCollection.getAllObstacles(),
+        this.wrongWasteDisplay = new WasteDisplayRecycle(game.getAllObstaclesCollection().getAllObstacles(),
                 2.8f,1.1f,2f,60);
-        this.score = Integer.toString(game.playerScore);
+        this.score = Integer.toString(game.getPlayerScore());
 
-        if(game.getLowestHighScore() < game.playerScore) {
+        if(game.getLowestHighScore() < game.getPlayerScore()) {
             this.newHighScore();
 
         }
@@ -62,13 +62,13 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
                     game.addFlowerPoints(flowerPoints);
                     game.setTitleScreen();
                     game.clearScore();
-                    game.collectedStuffList.clear();
-                    game.allObstaclesCollection.clear();
-                    game.playerScore = 0;
+                    game.getCollectedStuffList().clear();
+                    game.getAllObstaclesCollection().clear();
+                    game.setPlayerScore(0);
                     game.setPointsPerCollectable(1);
-                    game.worldSpeed = game.getInitialSpeed();
+                    game.setWorldSpeed(game.getInitialSpeed());
                     game.setLevelNumber(1);
-                    game.lifeCounter.setLives(3);
+                    game.getLifeCounter().setLives(3);
                 }
                 return true;
             }
@@ -80,13 +80,13 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
                     game.addFlowerPoints(flowerPoints);
                     game.setTitleScreen();
                     game.clearScore();
-                    game.collectedStuffList.clear();
-                    game.allObstaclesCollection.clear();
-                    game.playerScore = 0;
+                    game.getCollectedStuffList().clear();
+                    game.getAllObstaclesCollection().clear();
+                    game.setPlayerScore(0);
                     game.setPointsPerCollectable(1);
-                    game.worldSpeed = game.getInitialSpeed();
+                    game.setWorldSpeed(game.getInitialSpeed());
                     game.setLevelNumber(1);
-                    game.lifeCounter.setLives(3);
+                    game.getLifeCounter().setLives(3);
                 }
                 return true;
             }
@@ -110,18 +110,18 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
         this.textureBatch.draw(tausta, 0, 0, width, height);
         this.textureBatch.end();
 
-        game.batch.begin();
-        font.draw(game.batch, game.getText("gameover"), game.getProjected().x * 0.08f,
+        game.getBatch().begin();
+        font.draw(game.getBatch(), game.getText("gameover"), game.getProjected().x * 0.08f,
                 game.getProjected().y * .88f);
-        font.draw(game.batch, game.getText("lost"), game.getProjected().x * 0.08f,
+        font.draw(game.getBatch(), game.getText("lost"), game.getProjected().x * 0.08f,
                 game.getProjected().y * .78f);
-        font.draw(game.batch, game.getText("score") + score, game.getProjected().x * 0.08f,
+        font.draw(game.getBatch(), game.getText("score") + score, game.getProjected().x * 0.08f,
                 game.getProjected().y * .68f);
-        font.draw(game.batch, game.getText("newFlowerPoints1") + this.flowerPoints + " " + game.getText("newFlowerPoints2"),
+        font.draw(game.getBatch(), game.getText("newFlowerPoints1") + this.flowerPoints + " " + game.getText("newFlowerPoints2"),
                 game.getProjected().x * 0.08f,game.getProjected().y * .58f);
-        font.draw(game.batch, game.getText("whatHitMe"),game.getProjected().x * 0.08f,game.getProjected().y * .45f);
-        font.draw(game.batch, game.getText("tap"), game.getProjected().x * 0.065f, game.getProjected().y * 0.205f);
-        game.batch.end();
+        font.draw(game.getBatch(), game.getText("whatHitMe"),game.getProjected().x * 0.08f,game.getProjected().y * .45f);
+        font.draw(game.getBatch(), game.getText("tap"), game.getProjected().x * 0.065f, game.getProjected().y * 0.205f);
+        game.getBatch().end();
 
         this.textureBatch.begin();
         if(this.wrongWasteDisplay.draw(this.textureBatch) ) {
@@ -145,7 +145,7 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
             this.game.setPlayerName(text.substring(0,5));
         }
         try {
-            game.postNewHighScore(game.playerScore, game.playerName);
+            game.postNewHighScore(game.getPlayerScore(), game.getPlayerName());
         }
         catch (Exception e) {
             // asdfaskdjfa

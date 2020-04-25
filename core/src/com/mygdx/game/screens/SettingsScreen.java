@@ -34,16 +34,16 @@ public class SettingsScreen extends ScreenAdapter {
 
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(6.5f,3f,1f,1f,game.textureAssets.getCloseButton());
-        this.musicOnButton = new Button(1.4f, 2.35f, 0.6f, 0.6f, game.textureAssets.getSpeakerOn());
-        this.musicOffButton = new Button(1.4f, 2.35f, 0.6f, 0.6f, game.textureAssets.getSpeakerOff());
-        this.soundOnButton = new Button(1.4f, 1.65f, 0.6f, 0.6f, game.textureAssets.getSpeakerOn());
-        this.soundOffButton = new Button(1.4f, 1.65f, 0.6f, 0.6f, game.textureAssets.getSpeakerOff());
-        this.creditsButton = new Button(1.4f, 0.95f, 0.6f, 0.6f, game.textureAssets.getInfoButton());
-        this.finnishButton = new Button(5f, 2.2f, 0.7f, 1f, game.textureAssets.getFinnishButton());
-        this.englishButton = new Button(5f, 1.2f, 0.7f, 1f, game.textureAssets.getEnglishButton());
+        this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
+        this.musicOnButton = new Button(1.4f, 2.35f, 0.6f, 0.6f, game.getTextureAssets().getSpeakerOn());
+        this.musicOffButton = new Button(1.4f, 2.35f, 0.6f, 0.6f, game.getTextureAssets().getSpeakerOff());
+        this.soundOnButton = new Button(1.4f, 1.65f, 0.6f, 0.6f, game.getTextureAssets().getSpeakerOn());
+        this.soundOffButton = new Button(1.4f, 1.65f, 0.6f, 0.6f, game.getTextureAssets().getSpeakerOff());
+        this.creditsButton = new Button(1.4f, 0.95f, 0.6f, 0.6f, game.getTextureAssets().getInfoButton());
+        this.finnishButton = new Button(5f, 2.2f, 0.7f, 1f, game.getTextureAssets().getFinnishButton());
+        this.englishButton = new Button(5f, 1.2f, 0.7f, 1f, game.getTextureAssets().getEnglishButton());
         this.font = game.getFont();
-        tausta = game.textureAssets.getCommon();
+        tausta = game.getTextureAssets().getCommon();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
 
@@ -61,16 +61,16 @@ public class SettingsScreen extends ScreenAdapter {
         this.texturesBatch.draw(tausta, 0, 0, width, height);
         this.texturesBatch.end();
 
-        game.batch.begin();
-        this.font.draw(game.batch, game.getText("settings"), game.getProjected().x * 0.4f,
+        game.getBatch().begin();
+        this.font.draw(game.getBatch(), game.getText("settings"), game.getProjected().x * 0.4f,
                 game.getProjected().y * 0.85f);
-        this.font.draw(game.batch, game.getText("music"), game.getProjected().x * 0.300f,
+        this.font.draw(game.getBatch(), game.getText("music"), game.getProjected().x * 0.300f,
                 game.getProjected().y * 0.70f);
-        this.font.draw(game.batch, game.getText("sounds"), game.getProjected().x * 0.30f,
+        this.font.draw(game.getBatch(), game.getText("sounds"), game.getProjected().x * 0.30f,
                 game.getProjected().y * 0.53f);
-        this.font.draw(game.batch, game.getText("credits"), game.getProjected().x * 0.3f,
+        this.font.draw(game.getBatch(), game.getText("credits"), game.getProjected().x * 0.3f,
                 game.getProjected().y * 0.36f);
-        game.batch.end();
+        game.getBatch().end();
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();

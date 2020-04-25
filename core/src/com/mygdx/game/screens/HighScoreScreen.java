@@ -32,8 +32,8 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         HighScoreServer.fetchHighScores(this);
         this.game = game;
 
-        this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
-        tausta = game.textureAssets.getCommon();
+        this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
+        tausta = game.getTextureAssets().getCommon();
         this.
         font = game.getFont();
         scoresFirstColumn = "\n\n" + game.getText("loading");
@@ -48,20 +48,20 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
 
         this.texturesBatch.setProjectionMatrix(camera.combined);
         this.texturesBatch.begin();
-        this.texturesBatch.draw(tausta, 0, 0, game.WORLD_WIDTH, game.WORLD_HEIGHT);
+        this.texturesBatch.draw(tausta, 0, 0, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
         this.backButton.draw(this.texturesBatch);
         this.texturesBatch.end();
 
-        game.batch.begin();
-        this.font.draw(game.batch, game.getText("highScores"), game.getProjected().x * 0.2f,
+        game.getBatch().begin();
+        this.font.draw(game.getBatch(), game.getText("highScores"), game.getProjected().x * 0.2f,
                 game.getProjected().y * 0.90f);
-        this.font.draw(game.batch, game.getName(),game.getProjected().x * 0.0f,
+        this.font.draw(game.getBatch(), game.getName(),game.getProjected().x * 0.0f,
                 game.getProjected().y * 0.90f);
-        this.smallFont.draw(game.batch,this.scoresFirstColumn,
+        this.smallFont.draw(game.getBatch(),this.scoresFirstColumn,
                 game.getProjected().x*0.17f,game.getProjected().y*0.91f);
-        this.smallFont.draw(game.batch,this.scoresSecondColumn,
+        this.smallFont.draw(game.getBatch(),this.scoresSecondColumn,
                 game.getProjected().x*0.6f,game.getProjected().y*0.91f);
-        game.batch.end();
+        game.getBatch().end();
 
     }
 
@@ -99,7 +99,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
     @Override
     public void hide() {
         super.hide();
-        game.bubbleFont.getData().setScale(1f* Gdx.graphics.getWidth()/800);
+        game.getBubbleFont().getData().setScale(1f* Gdx.graphics.getWidth()/800);
     }
 
     @Override

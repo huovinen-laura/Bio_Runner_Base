@@ -24,26 +24,26 @@ public class ShitCollection {
         this.minimumAmountOfCollectables = 10;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", game.textureAssets.getBanaani(),30f));
+                "banaani", game.getTextureAssets().getBanaani(),30f));
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "leipa", game.textureAssets.getLeipa(),5
+                "leipa", game.getTextureAssets().getLeipa(),5
         ));
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "omena", game.textureAssets.getOmena(),10));
+                "omena", game.getTextureAssets().getOmena(),10));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", game.textureAssets.getTee(), 16f));
+                "tee", game.getTextureAssets().getTee(), 16f));
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "hius", game.textureAssets.getHius(), 16f));
+                "hius", game.getTextureAssets().getHius(), 16f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "luu", game.textureAssets.getLuu(),15f ));
+                "luu", game.getTextureAssets().getLuu(),15f ));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "kukka", game.textureAssets.getKukka(),10));
+                "kukka", game.getTextureAssets().getKukka(),10));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "mansikka", game.textureAssets.getMansikka(),5));
+                "mansikka", game.getTextureAssets().getMansikka(),5));
 
 
 
@@ -116,7 +116,7 @@ public class ShitCollection {
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfCollectables) {
 
-            if(this.timeFromLastCollectable * -game.worldSpeed >= this.timeBetweenCollectables*1) {
+            if(this.timeFromLastCollectable * -game.getWorldSpeed() >= this.timeBetweenCollectables*1) {
                 this.timeFromLastCollectable = 0f;
                 return(true);
             } else {

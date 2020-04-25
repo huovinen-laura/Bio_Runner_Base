@@ -1,20 +1,15 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.*;
 import com.mygdx.game.collectibles.CollectibleSquare;
-import com.mygdx.game.gamestate.LifeCounter;
 import com.mygdx.game.obstacles.ObstacleRectangle;
 
 import java.util.ArrayList;
@@ -78,7 +73,7 @@ public class BallGame extends ScreenAdapter {
 		this.reachedCheckpoint = false;
 		ball.update();
 
-		game.collectedStuffList.clear();
+		game.getCollectedStuffList().clear();
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f, game);
 		this.lostGame = false;
@@ -124,28 +119,28 @@ public class BallGame extends ScreenAdapter {
 		this.manageCollectablesAndObstacles();
 
 		if(!this.recycleCenterVisible) {
-			if (game.allObstaclesCollection.isNextCollectibleComing(this.obstacles.size())) {
-				this.obstacles.add(game.allObstaclesCollection.getRandomCollectible(game.getLevelNumber()));
+			if (game.getAllObstaclesCollection().isNextCollectibleComing(this.obstacles.size())) {
+				this.obstacles.add(game.getAllObstaclesCollection().getRandomCollectible(game.getLevelNumber()));
 			}
 		}
 
-		game.lifeCounter.draw(this.gameBatch);
+		game.getLifeCounter().draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
 
 		debugRenderer.render(game.getWorld(),camera.combined);
         this.gameBatch.end();
 
         //Draws the player's score
-        String score = Integer.toString(game.playerScore);
-        game.batch.begin();
-        this.font.draw(game.batch, score, game.getProjected().x * .92f,
+        String score = Integer.toString(game.getPlayerScore());
+        game.getBatch().begin();
+        this.font.draw(game.getBatch(), score, game.getProjected().x * .92f,
                 game.getProjected().y * .90f);
-        game.batch.end();
+        game.getBatch().end();
 
 
         if (this.lostGame) {
         	this.game.setEndScreen();
-        	game.lifeCounter.setLives(3);
+        	game.getLifeCounter().setLives(3);
         } else if (this.waypoint.isFinished() || this.leaveForRecycleScreen) {
         	this.game.setRecycleScreen();
         }
@@ -185,8 +180,8 @@ public class BallGame extends ScreenAdapter {
 
 
 		if(!this.recycleCenterVisible) {
-			if (game.collectedStuffList.isNextCollectibleComing(this.collectables.size())) {
-				this.collectables.add(game.collectedStuffList.getRandomCollectible(game.getLevelNumber() + 1));
+			if (game.getCollectedStuffList().isNextCollectibleComing(this.collectables.size())) {
+				this.collectables.add(game.getCollectedStuffList().getRandomCollectible(game.getLevelNumber() + 1));
 			}
 		}
 
@@ -254,7 +249,7 @@ public class BallGame extends ScreenAdapter {
 
 
     public int getPlayerScore() {
-		return (this.game.playerScore);
+		return (this.game.getPlayerScore());
 	}
 
 	public void setPoint(int newPoint) {
@@ -262,7 +257,7 @@ public class BallGame extends ScreenAdapter {
 	}
 
     public void clearScore() {
-	    this.game.lifeCounter.setLives(0);
+	    this.game.getLifeCounter().setLives(0);
     }
 
     public static void setMusicOff() {
@@ -293,7 +288,7 @@ public class BallGame extends ScreenAdapter {
 
 		recycleCenter.dispose();
 		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
-		game.batch.dispose();
+		game.getBatch().dispose();
 
 	}
 
@@ -333,8 +328,8 @@ public class BallGame extends ScreenAdapter {
 			if ((a instanceof Player && b instanceof CollectibleSquare)) {
 				CollectibleSquare collectibleSquareB = (CollectibleSquare) b;
 				collectibleSquareB.collect();
-				game.collectedStuffList.addStuff(collectibleSquareB);
-				game.playerScore += game.getPointsPerCollectable();
+				game.getCollectedStuffList().addStuff(collectibleSquareB);
+				game.setPlayerScore(game.getPlayerScore() + game.getPointsPerCollectable());
 				if (game.getPrefs().getBoolean("soundOn", true)) {
 				    collect.play(volume);
                 }
@@ -342,8 +337,8 @@ public class BallGame extends ScreenAdapter {
 			} else if ((b instanceof Player && a instanceof CollectibleSquare)) {
 				CollectibleSquare collectibleSquareA = (CollectibleSquare) a;
 				collectibleSquareA.collect();
-				game.collectedStuffList.addStuff(collectibleSquareA);
-				game.playerScore += game.getPointsPerCollectable();
+				game.getCollectedStuffList().addStuff(collectibleSquareA);
+				game.setPlayerScore(game.getPlayerScore() + game.getPointsPerCollectable());
                 if (game.getPrefs().getBoolean("soundOn", true)) {
                     collect.play(volume);
                 }
@@ -358,9 +353,9 @@ public class BallGame extends ScreenAdapter {
                         hurt.play(volume);
                     }
 
-					game.allObstaclesCollection.addStuff(obstacle);
+					game.getAllObstaclesCollection().addStuff(obstacle);
 					obstacle.delete();
-					game.lifeCounter.loseLife();
+					game.getLifeCounter().loseLife();
 				}
 
 			} else if ( a instanceof Player && b instanceof ObstacleRectangle) {
@@ -369,9 +364,9 @@ public class BallGame extends ScreenAdapter {
                     if(game.getPrefs().getBoolean("soundOn", true)) {
                         hurt.play(volume);
                     }
-					game.allObstaclesCollection.addStuff(obstacle);
+					game.getAllObstaclesCollection().addStuff(obstacle);
 					obstacle.delete();
-					game.lifeCounter.loseLife();
+					game.getLifeCounter().loseLife();
 				}
 			} else if( a instanceof Player && b instanceof RecycleCenter) {
 					leaveForRecycleScreen = true;

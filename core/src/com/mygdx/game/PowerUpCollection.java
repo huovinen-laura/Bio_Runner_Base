@@ -22,7 +22,7 @@ public class PowerUpCollection {
         this.listOfNeutralPowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.playerScore += 50;
+                game.setPlayerScore(game.getPlayerScore() + 50);
             }
 
             @Override
@@ -41,7 +41,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getExtraPoints();
+                return game.getTextureAssets().getExtraPoints();
             }
 
         });
@@ -49,7 +49,7 @@ public class PowerUpCollection {
         this.listOfNegativePowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.worldSpeed -= 1;
+                game.setWorldSpeed(game.getWorldSpeed() - 1);
             }
 
             @Override
@@ -59,7 +59,7 @@ public class PowerUpCollection {
 
             @Override
             public void undoAction() {
-                game.worldSpeed += 1;
+                game.setWorldSpeed(game.getWorldSpeed() + 1);
             }
 
             @Override
@@ -69,7 +69,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getFasterButton();
+                return game.getTextureAssets().getFasterButton();
             }
         });
 
@@ -77,7 +77,7 @@ public class PowerUpCollection {
             @Override
             public void doAction() {
                 game.setPointsPerCollectable(2);
-                game.lifeCounter.setLives(1);
+                game.getLifeCounter().setLives(1);
             }
 
             @Override
@@ -96,7 +96,7 @@ public class PowerUpCollection {
 
                                          @Override
                                          public Texture getButtonTexture() {
-                                             return game.textureAssets.getDoublePoint();
+                                             return game.getTextureAssets().getDoublePoint();
                                          }
 
 
@@ -106,10 +106,10 @@ public class PowerUpCollection {
         this.listOfNeutralPowers.add(new GameAction() {
             @Override
             public void doAction() {
-                if(game.worldSpeed < -1f) {
-                    game.worldSpeed += 1f;
+                if(game.getWorldSpeed() < -1f) {
+                    game.setWorldSpeed(game.getWorldSpeed() + 1f);
                 } else {
-                    game.worldSpeed = -1.5f;
+                    game.setWorldSpeed(-1.5f);
                 }
 
             }
@@ -131,14 +131,14 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getSlower();
+                return game.getTextureAssets().getSlower();
             }
         });
 
         this.lisOfPositivePowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.lifeCounter.gainLife();
+                game.getLifeCounter().gainLife();
             }
 
             @Override
@@ -158,14 +158,14 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getExtraLife();
+                return game.getTextureAssets().getExtraLife();
             }
         });
         this.lisOfPositivePowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.lifeCounter.gainLife();
-                game.lifeCounter.gainLife();
+                game.getLifeCounter().gainLife();
+                game.getLifeCounter().gainLife();
             }
 
             @Override
@@ -185,14 +185,14 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getMaxHP();
+                return game.getTextureAssets().getMaxHP();
             }
         });
 
         this.listOfNegativePowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.lifeCounter.setLives(1);
+                game.getLifeCounter().setLives(1);
             }
 
             @Override
@@ -212,7 +212,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getOnlyOneHP();
+                return game.getTextureAssets().getOnlyOneHP();
             }
         });
 
@@ -239,14 +239,14 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getFlowersPoints();
+                return game.getTextureAssets().getFlowersPoints();
             }
         });
 
         this.listOfNegativePowers.add(new GameAction() {
             @Override
             public void doAction() {
-                game.worldSpeed = -1.5f;
+                game.setWorldSpeed(-1.5f);
             }
 
             @Override
@@ -266,7 +266,7 @@ public class PowerUpCollection {
 
             @Override
             public Texture getButtonTexture() {
-                return game.textureAssets.getSnailSpeed();
+                return game.getTextureAssets().getSnailSpeed();
             }
         });
 

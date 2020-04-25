@@ -47,32 +47,32 @@ public class SkinShopScreen extends ScreenAdapter {
 
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
-        this.backButton = new Button(6.5f,3f,1f,1f, game.textureAssets.getCloseButton());
+        this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
 
-        this.vakioSkin = new Button(2.5f,2f,1f,1f, game.textureAssets.getStoreBG());
-        this.farmerSkin = new Button(3.5f, 2f, 1f, 1f, game.textureAssets.getStoreBG());
-        this.tikoSkin = new Button(4.5f, 2f, 1f, 1f, game.textureAssets.getStoreBG());
-        this.koronaSkin = new Button(5.5f,2f,1f,1f, game.textureAssets.getStoreBG());
+        this.vakioSkin = new Button(2.5f,2f,1f,1f, game.getTextureAssets().getStoreBG());
+        this.farmerSkin = new Button(3.5f, 2f, 1f, 1f, game.getTextureAssets().getStoreBG());
+        this.tikoSkin = new Button(4.5f, 2f, 1f, 1f, game.getTextureAssets().getStoreBG());
+        this.koronaSkin = new Button(5.5f,2f,1f,1f, game.getTextureAssets().getStoreBG());
 
-        this.bunnySkin = new Button(2.5f, 1f, 1f, 1f, game.textureAssets.getStoreBG());
-        this.velhoSkin = new Button(3.5f,1f,1f,1f, game.textureAssets.getStoreBG());
-        this.banaaniSkin = new Button(4.5f, 1f, 1f, 1f, game.textureAssets.getStoreBG());
-        this.jarviSkin = new Button(5.5f,1f,1f,1f, game.textureAssets.getStoreBG());
+        this.bunnySkin = new Button(2.5f, 1f, 1f, 1f, game.getTextureAssets().getStoreBG());
+        this.velhoSkin = new Button(3.5f,1f,1f,1f, game.getTextureAssets().getStoreBG());
+        this.banaaniSkin = new Button(4.5f, 1f, 1f, 1f, game.getTextureAssets().getStoreBG());
+        this.jarviSkin = new Button(5.5f,1f,1f,1f, game.getTextureAssets().getStoreBG());
 
-        this.farmerLocked = new Button(3.5f, 2f, 1f, 1f, game.textureAssets.getStoreLocked());
-        this.tikoLocked = new Button(4.5f, 2f, 1f, 1f, game.textureAssets.getStoreLocked());
-        this.koronaLocked = new Button(5.5f,2f,1f,1f, game.textureAssets.getStoreLocked());
+        this.farmerLocked = new Button(3.5f, 2f, 1f, 1f, game.getTextureAssets().getStoreLocked());
+        this.tikoLocked = new Button(4.5f, 2f, 1f, 1f, game.getTextureAssets().getStoreLocked());
+        this.koronaLocked = new Button(5.5f,2f,1f,1f, game.getTextureAssets().getStoreLocked());
 
-        this.bunnyLocked = new Button(2.5f, 1f, 1f, 1f, game.textureAssets.getStoreLocked());
-        this.velhoLocked = new Button(3.5f,1f,1f,1f, game.textureAssets.getStoreLocked());
-        this.banaaniLocked = new Button(4.5f, 1f, 1f, 1f, game.textureAssets.getStoreLocked());
-        this.jarviLocked = new Button(5.5f,1f,1f,1f, game.textureAssets.getStoreLocked());
+        this.bunnyLocked = new Button(2.5f, 1f, 1f, 1f, game.getTextureAssets().getStoreLocked());
+        this.velhoLocked = new Button(3.5f,1f,1f,1f, game.getTextureAssets().getStoreLocked());
+        this.banaaniLocked = new Button(4.5f, 1f, 1f, 1f, game.getTextureAssets().getStoreLocked());
+        this.jarviLocked = new Button(5.5f,1f,1f,1f, game.getTextureAssets().getStoreLocked());
 
 
         this.font = game.getFont();
-        tausta = game.textureAssets.getCommon();
-        width = game.WORLD_WIDTH;
-        height = game.WORLD_HEIGHT;
+        tausta = game.getTextureAssets().getCommon();
+        width = game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
 
 
     }
@@ -83,7 +83,7 @@ public class SkinShopScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(100 / 255f, 197 / 255f, 165 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        TextureRegion currentSkinFrame = game.textureAssets.getSkinAssets()
+        TextureRegion currentSkinFrame = game.getTextureAssets().getSkinAssets()
                 .getAnimationFrame(game.getSkinName());
         currentSkinFrame.flip(false,true);
 
@@ -98,30 +98,30 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.begin();
         this.backButton.draw(texturesBatch);
         this.vakioSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
-                        .getAnimationFrame(game.textureAssets.getPlayerChonkyAnimation()));
+                game.getTextureAssets().getSkinAssets()
+                        .getAnimationFrame(game.getTextureAssets().getPlayerChonkyAnimation()));
         this.koronaSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("korona"));
         this.velhoSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("velho"));
         this.jarviSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("jarviChan"));
         this.farmerSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("farmer"));
         this.tikoSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("tiko"));
         this.bunnySkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("bunny"));
         this.banaaniSkin.draw(texturesBatch,
-                game.textureAssets.getSkinAssets()
+                game.getTextureAssets().getSkinAssets()
                         .getAnimationFrame("banaani"));
-        this.texturesBatch.draw(game.textureAssets.getSkinAssets().getAnimationFrame(game.getSkinName()),
+        this.texturesBatch.draw(game.getTextureAssets().getSkinAssets().getAnimationFrame(game.getSkinName()),
                 1.2f,
                 1f,
                 0,
@@ -168,51 +168,51 @@ public class SkinShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
 
         // Fontit
-        game.batch.begin();
-        this.font.draw(game.batch, game.getText("shop"), game.getProjected().x * 0.4f,
+        game.getBatch().begin();
+        this.font.draw(game.getBatch(), game.getText("shop"), game.getProjected().x * 0.4f,
                 game.getProjected().y * 0.85f);
-        this.font.draw(game.batch,
+        this.font.draw(game.getBatch(),
                 game.getText("youve") + game.getFlowerPoints() + " " +
                         game.getText("newFlowerPoints2"), game.getProjected().x * 0.35f,
                 game.getProjected().y * 0.2f);
 
         // Skinien hinnat
         if(!isSkinUnlocked("farmer")) {
-            this.font.draw(game.batch, "100", game.getProjected().x * 0.47f,
+            this.font.draw(game.getBatch(), "100", game.getProjected().x * 0.47f,
                     game.getProjected().y * 0.65f);
         }
 
         if(!isSkinUnlocked("tiko")) {
-            this.font.draw(game.batch, "100", game.getProjected().x * 0.59f,
+            this.font.draw(game.getBatch(), "100", game.getProjected().x * 0.59f,
                     game.getProjected().y * 0.65f);
         }
 
         if(!isSkinUnlocked("korona")) {
-            this.font.draw(game.batch, "200", game.getProjected().x * 0.72f,
+            this.font.draw(game.getBatch(), "200", game.getProjected().x * 0.72f,
                     game.getProjected().y * 0.65f);
         }
 
         if(!isSkinUnlocked("bunny")) {
-            this.font.draw(game.batch, "200", game.getProjected().x * 0.345f,
+            this.font.draw(game.getBatch(), "200", game.getProjected().x * 0.345f,
                     game.getProjected().y * 0.40f);
         }
 
         if(!isSkinUnlocked("velho")) {
-            this.font.draw(game.batch, "500", game.getProjected().x * 0.47f,
+            this.font.draw(game.getBatch(), "500", game.getProjected().x * 0.47f,
                     game.getProjected().y * 0.40f);
         }
 
         if(!isSkinUnlocked("banaani")) {
-            this.font.draw(game.batch, "500", game.getProjected().x * 0.595f,
+            this.font.draw(game.getBatch(), "500", game.getProjected().x * 0.595f,
                     game.getProjected().y * 0.40f);
         }
 
         if(!isSkinUnlocked("jarviChan")) {
-            this.font.draw(game.batch, "1250", game.getProjected().x * 0.71f,
+            this.font.draw(game.getBatch(), "1250", game.getProjected().x * 0.71f,
                     game.getProjected().y * 0.40f);
         }
         
-        game.batch.end();
+        game.getBatch().end();
     }
 
     private boolean isSkinUnlocked(String skinName) {
@@ -249,12 +249,12 @@ public class SkinShopScreen extends ScreenAdapter {
     public void show() {
 
         Preferences skinPrefs = Gdx.app.getPreferences("skinPrefs");
-        int skinCount = game.textureAssets.getSkinAssets().getAnimationTextures().size();
+        int skinCount = game.getTextureAssets().getSkinAssets().getAnimationTextures().size();
         this.isSkinUnlocked = new boolean[skinCount];
         this.skinNames = new String[skinCount];
 
         for(int i = 0; i < skinCount; i++) {
-            skinNames[i] =  game.textureAssets.getSkinAssets().getNames().get(i);
+            skinNames[i] =  game.getTextureAssets().getSkinAssets().getNames().get(i);
             isSkinUnlocked[i] = skinPrefs.getBoolean( skinNames[i],false);
 
         }

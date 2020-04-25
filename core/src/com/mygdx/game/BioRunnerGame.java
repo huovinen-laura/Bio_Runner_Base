@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class BioRunnerGame extends Game {
-    public final float WORLD_WIDTH = 8;
-    public final float WORLD_HEIGHT = 4;
-    public SpriteBatch batch;
-    public BitmapFont font;
-    public BitmapFont bubbleFont;
-    public String playerName = "testPlayer";
+    private final float WORLD_WIDTH = 8;
+    private final float WORLD_HEIGHT = 4;
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private BitmapFont bubbleFont;
+    private String playerName = "testPlayer";
     private World world;
     private HighScoreScreen highScoreScreen;
     private List<HighScoreEntry> highScores;
@@ -45,11 +45,11 @@ public class BioRunnerGame extends Game {
     }
 
     private int flowerPoints;
-    public ShitCollection collectedStuffList;
-    public ObstacleCollection allObstaclesCollection;
-    public float worldSpeed;
-    public LifeCounter lifeCounter;
-    public int playerScore;
+    private ShitCollection collectedStuffList;
+    private ObstacleCollection allObstaclesCollection;
+    private float worldSpeed;
+    private LifeCounter lifeCounter;
+    private int playerScore;
     private TitleScreen title;
     private BallGame game;
     private SettingsScreen settings;
@@ -59,7 +59,7 @@ public class BioRunnerGame extends Game {
     private ShopScreen shop;
     private CreditsScreen credits;
     private TutorialScreen tutorial;
-    public TextureAssets textureAssets;
+    private TextureAssets textureAssets;
     private Vector3 projected;
     private OrthographicCamera textureCamera;
     private OrthographicCamera fontCamera;
@@ -83,13 +83,13 @@ public class BioRunnerGame extends Game {
 
 
     public Texture getCurrentAnimation() {
-        for(int i = 0; i < this.textureAssets.getSkinAssets().getAnimationTextures().size(); i++) {
-            if (this.skinName.contentEquals(this.textureAssets.getSkinAssets().getNames().get(i))) {
-                Gdx.app.log("Game","" + this.textureAssets.getSkinAssets()
+        for(int i = 0; i < this.getTextureAssets().getSkinAssets().getAnimationTextures().size(); i++) {
+            if (this.skinName.contentEquals(this.getTextureAssets().getSkinAssets().getNames().get(i))) {
+                Gdx.app.log("Game","" + this.getTextureAssets().getSkinAssets()
                         .getAnimationTextures().get(i).getHeight() + "width:" +
-                        this.textureAssets.getSkinAssets()
+                        this.getTextureAssets().getSkinAssets()
                                 .getAnimationTextures().get(i).getWidth());
-                return(this.textureAssets.getSkinAssets().getAnimationTextures().get(i));
+                return(this.getTextureAssets().getSkinAssets().getAnimationTextures().get(i));
             }
         }
 
@@ -102,14 +102,14 @@ public class BioRunnerGame extends Game {
     }
 
     public Vector3 getTextureCameraProjection() {
-        return(textureCamera.project(new Vector3(this.WORLD_WIDTH,this.WORLD_HEIGHT,0f)));
+        return(textureCamera.project(new Vector3(this.getWORLD_WIDTH(), this.getWORLD_HEIGHT(),0f)));
     }
 
     @Override
     public void create() {
         this.world = new World(new Vector2(0, -5f), true);
 
-        this.textureAssets = new TextureAssets();
+        this.setTextureAssets(new TextureAssets());
         this.splashScreen = new SplashScreen(this);
 
         setScreen(this.splashScreen);
@@ -121,7 +121,7 @@ public class BioRunnerGame extends Game {
         localeEN = new Locale("en", "UK");
         myBundleFI = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeFI);
         myBundleEN = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), localeEN);
-        this.playerName = this.getNameFromPrefs();
+        this.setPlayerName(this.getNameFromPrefs());
 
         this.currentPowerUp = new GameAction() {
             @Override
@@ -164,22 +164,22 @@ public class BioRunnerGame extends Game {
         this.skinName = Gdx.app.getPreferences("skinPrefs").getString("skinName","vakio");
         this.pointsPerCollectable = 1;
 
-        batch = new SpriteBatch();
+        setBatch(new SpriteBatch());
         textureCamera = new OrthographicCamera();
         textureCamera.setToOrtho(false,game.WORLD_WIDTH, game.WORLD_HEIGHT);
         projected = textureCamera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
 
         this.lastCollectable = new Vector2(0f,0f);
 
-        playerScore = 0;
+        setPlayerScore(0);
 
-        this.worldSpeed = this.initialSpeed;
+        this.setWorldSpeed(this.initialSpeed);
 
-        this.lifeCounter = new LifeCounter(this);
-        font = new BitmapFont(Gdx.files.internal("font.txt"));
-        font.getData().setScale(0.4f*Gdx.graphics.getWidth()/800, 0.4f*Gdx.graphics.getHeight()/400);
-        bubbleFont = new BitmapFont(Gdx.files.internal("font.txt"));
-        bubbleFont.getData().setScale(0.3f*Gdx.graphics.getWidth()/800,
+        this.setLifeCounter(new LifeCounter(this));
+        setFont(new BitmapFont(Gdx.files.internal("font.txt")));
+        getFont().getData().setScale(0.4f*Gdx.graphics.getWidth()/800, 0.4f*Gdx.graphics.getHeight()/400);
+        setBubbleFont(new BitmapFont(Gdx.files.internal("font.txt")));
+        getBubbleFont().getData().setScale(0.3f*Gdx.graphics.getWidth()/800,
                 0.3f*Gdx.graphics.getHeight()/400);
         game = new BallGame(this);
         this.title = new TitleScreen(this);
@@ -258,9 +258,9 @@ public class BioRunnerGame extends Game {
         Gdx.app.log("Game", "dispose");
         this.splashScreen.dispose();
         backgroundMusic.dispose();
-        textureAssets.dispose();
-        batch.dispose();
-        font.dispose();
+        getTextureAssets().dispose();
+        getBatch().dispose();
+        getFont().dispose();
 
 
 
@@ -435,7 +435,7 @@ public class BioRunnerGame extends Game {
     }
 
     public Texture getCurrentSkinFrame() {
-        TextureRegion current = this.textureAssets.getSkinAssets().getAnimationFrame(this.skinName);
+        TextureRegion current = this.getTextureAssets().getSkinAssets().getAnimationFrame(this.skinName);
         Texture toBeReturned = current.getTexture();
         return(toBeReturned);
     }
@@ -460,6 +460,78 @@ public class BioRunnerGame extends Game {
     }
 
     public String getName() {
-        return this.playerName;
+        return this.getPlayerName();
+    }
+
+    public float getWORLD_HEIGHT() {
+        return WORLD_HEIGHT;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+
+    public void setBubbleFont(BitmapFont bubbleFont) {
+        this.bubbleFont = bubbleFont;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public ShitCollection getCollectedStuffList() {
+        return collectedStuffList;
+    }
+
+    public void setCollectedStuffList(ShitCollection collectedStuffList) {
+        this.collectedStuffList = collectedStuffList;
+    }
+
+    public ObstacleCollection getAllObstaclesCollection() {
+        return allObstaclesCollection;
+    }
+
+    public void setAllObstaclesCollection(ObstacleCollection allObstaclesCollection) {
+        this.allObstaclesCollection = allObstaclesCollection;
+    }
+
+    public float getWorldSpeed() {
+        return worldSpeed;
+    }
+
+    public void setWorldSpeed(float worldSpeed) {
+        this.worldSpeed = worldSpeed;
+    }
+
+    public LifeCounter getLifeCounter() {
+        return lifeCounter;
+    }
+
+    public void setLifeCounter(LifeCounter lifeCounter) {
+        this.lifeCounter = lifeCounter;
+    }
+
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    public void setPlayerScore(int playerScore) {
+        this.playerScore = playerScore;
+    }
+
+    public TextureAssets getTextureAssets() {
+        return textureAssets;
+    }
+
+    public void setTextureAssets(TextureAssets textureAssets) {
+        this.textureAssets = textureAssets;
     }
 }

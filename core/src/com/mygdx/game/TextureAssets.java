@@ -66,6 +66,7 @@ public class TextureAssets {
         assets.load("tutorial1.png", Texture.class);
         assets.load("tutorial2.png", Texture.class);
         assets.load("tutorial3.png", Texture.class);
+        assets.load("tutorial4.png", Texture.class);
 
 
     }
@@ -308,6 +309,9 @@ public class TextureAssets {
 
     public Texture getTutorial3() {
         return assets.get("tutorial3.png", Texture.class);
+    }
+    public Texture getTutorial4() {
+        return assets.get("tutorial4.png", Texture.class);
     }
 
     public int getLoadedAssets() {

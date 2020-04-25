@@ -18,10 +18,10 @@ public class TutorialScreen extends ScreenAdapter {
     private BitmapFont font;
     private boolean isPossibleToLeave;
     private OrthographicCamera camera;
-    private Texture tutorial1, tutorial2, tutorial3;
+    private Texture tutorial1, tutorial2, tutorial3, tutorial4;
     private float width, height;
     private boolean isAllowedToLeave = true;
-    private boolean first, second, third;
+    private boolean first, second, third, fourth;
 
     public TutorialScreen(BioRunnerGame game) {
         this.game = game;
@@ -45,6 +45,8 @@ public class TutorialScreen extends ScreenAdapter {
             this.texturesBatch.draw(tutorial2, 0, 0, width, height);
         } else if(third) {
             this.texturesBatch.draw(tutorial3, 0, 0, width, height);
+        } else if(fourth) {
+            this.texturesBatch.draw(tutorial4, 0, 0, width, height);
         }
         this.texturesBatch.end();
 
@@ -58,6 +60,13 @@ public class TutorialScreen extends ScreenAdapter {
         } else if(third) {
             this.font.draw(game.getBatch(), game.getText("tutorial3"), game.getProjected().x * 0.05f,
                     game.getProjected().y * 0.85f);
+        } else if(fourth) {
+            this.font.draw(game.getBatch(), game.getText("tutorial4a"), game.getProjected().x * 0.05f,
+                    game.getProjected().y * 0.73f);
+            this.font.draw(game.getBatch(), game.getText("tutorial4b"), game.getProjected().x * 0.05f,
+                    game.getProjected().y * 0.42f);
+            this.font.draw(game.getBatch(), game.getText("tapb"), game.getProjected().x * 0.05f,
+                    game.getProjected().y * 0.2f);
         }
 
         game.getBatch().end();
@@ -70,9 +79,9 @@ public class TutorialScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
-        tutorial1= game.getTextureAssets().getTutorial1();
-        tutorial2 = game.getTextureAssets().getTutorial2();
-        tutorial3 = game.getTextureAssets().getTutorial3();
+        tutorial1= game.textureAssets.getTutorial1();
+        tutorial2 = game.textureAssets.getTutorial2();
+        tutorial3 = game.textureAssets.getTutorial3();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
@@ -88,10 +97,13 @@ public class TutorialScreen extends ScreenAdapter {
                     third = true;
                     second = false;
                 } else if (third) {
+                    fourth = true;
+                    third = false;
+                } else if (fourth) {
                     prefs.putBoolean("tutorialOkay", true);
                     prefs.flush();
                     game.setGameScreen();
-                    third = false;
+                    fourth = false;
                     first = true;
                 }
                 return true;

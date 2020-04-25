@@ -48,7 +48,7 @@ public class BallGame extends ScreenAdapter {
 		this.game = game;
 		ball = new Player(this.game.getCurrentAnimation(),game);
 		Gdx.app.log("sf","Ballgame constructor");
-		volume = 0.5f;
+		volume = 0.1f;
 
 		this.font = game.getFont();
 		collectables = new ArrayList<>();

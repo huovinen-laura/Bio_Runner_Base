@@ -55,9 +55,9 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         game.getBatch().begin();
         this.font.draw(game.getBatch(), game.getText("highScores"), game.getProjected().x * 0.2f,
                 game.getProjected().y * 0.90f);
-        this.font.draw(game.getBatch(), game.getName(),game.getProjected().x * 0.0f,
+        this.font.draw(game.batch, game.getName(),game.getProjected().x * 0.0f,
                 game.getProjected().y * 0.90f);
-        this.smallFont.draw(game.getBatch(),this.scoresFirstColumn,
+        this.smallFont.draw(game.batch,this.scoresFirstColumn,
                 game.getProjected().x*0.17f,game.getProjected().y*0.91f);
         this.smallFont.draw(game.getBatch(),this.scoresSecondColumn,
                 game.getProjected().x*0.6f,game.getProjected().y*0.91f);

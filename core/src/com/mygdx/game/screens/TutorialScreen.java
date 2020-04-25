@@ -79,9 +79,9 @@ public class TutorialScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         width = BallGame.WORLD_WIDTH;
         height = BallGame.WORLD_HEIGHT;
-        tutorial1= game.textureAssets.getTutorial1();
-        tutorial2 = game.textureAssets.getTutorial2();
-        tutorial3 = game.textureAssets.getTutorial3();
+        tutorial1= game.getTextureAssets().getTutorial1();
+        tutorial2 = game.getTextureAssets().getTutorial2();
+        tutorial3 = game.getTextureAssets().getTutorial3();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());

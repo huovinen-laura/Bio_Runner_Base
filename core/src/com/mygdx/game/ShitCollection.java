@@ -33,8 +33,6 @@ public class ShitCollection {
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "tee", game.getTextureAssets().getTee(), 16f));
-        this.allShit.add(new ObstacleCollection.Obstacle(
-                "hius", game.getTextureAssets().getHius(), 16f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "luu", game.getTextureAssets().getLuu(),15f ));

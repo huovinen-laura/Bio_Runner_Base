@@ -288,6 +288,7 @@ public class BallGame extends ScreenAdapter {
 		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
 		this.collect.dispose();
 		this.hurt.dispose();
+		this.gameBatch.dispose();
 
 	}
 
@@ -295,7 +296,7 @@ public class BallGame extends ScreenAdapter {
 	public void hide() {
 		this.recycleCenterVisible = false;
 
-		this.gameBatch.dispose();
+
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();

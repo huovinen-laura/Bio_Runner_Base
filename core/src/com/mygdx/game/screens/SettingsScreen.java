@@ -25,6 +25,7 @@ public class SettingsScreen extends ScreenAdapter {
     private Button creditsButton;
     private Button finnishButton;
     private Button englishButton;
+    private Button tutorialButton;
     private OrthographicCamera camera;
     private Texture tausta;
     private float width, height;
@@ -42,6 +43,7 @@ public class SettingsScreen extends ScreenAdapter {
         this.creditsButton = new Button(1.4f, 0.95f, 0.6f, 0.6f, game.getTextureAssets().getInfoButton());
         this.finnishButton = new Button(5f, 2.2f, 0.7f, 1f, game.getTextureAssets().getFinnishButton());
         this.englishButton = new Button(5f, 1.2f, 0.7f, 1f, game.getTextureAssets().getEnglishButton());
+        this.tutorialButton = new Button(3f, 0.2f, 0.5f, 1.8f, game.getTextureAssets().getGeneralButton());
         this.font = game.getFont();
         tausta = game.getTextureAssets().getCommon();
         width = BallGame.WORLD_WIDTH;
@@ -91,7 +93,13 @@ public class SettingsScreen extends ScreenAdapter {
         this.creditsButton.draw(texturesBatch);
         this.finnishButton.draw(texturesBatch);
         this.englishButton.draw(texturesBatch);
+        this.tutorialButton.draw(texturesBatch);
         this.texturesBatch.end();
+
+        game.getBatch().begin();
+        this.font.draw(game.getBatch(), game.getText("tutorial"), game.getProjected().x * 0.4f,
+                game.getProjected().y * 0.15f);
+        game.getBatch().end();
     }
 
     @Override
@@ -145,6 +153,8 @@ public class SettingsScreen extends ScreenAdapter {
                     prefs.putBoolean("fiOrNot", true);
                     prefs.flush();
                     Gdx.app.log("", "Finnish");
+                } else if (tutorialButton.isInsideButton(worldCoords.x, worldCoords.y)) {
+                    game.setTutorialScreen();
                 }
 
                 return true;

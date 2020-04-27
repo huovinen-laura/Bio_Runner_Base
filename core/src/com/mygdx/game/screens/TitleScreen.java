@@ -75,13 +75,11 @@ public class TitleScreen extends ScreenAdapter {
                 Preferences prefs = game.getPrefs();
 
                 if (startButton.isInsideButton(worldCoords.x,worldCoords.y)) {
-                    game.setTutorialScreen();
-                    /*
                     if(!prefs.getBoolean("tutorialOkay")) {
                         game.setTutorialScreen();
                     } else if (prefs.getBoolean("tutorialOkay")) {
                         game.setGameScreen();
-                    } */
+                    }
                 } else if (settingsButton.isInsideButton(worldCoords.x, worldCoords.y)) {
                     game.setSettingsScreen();
                 } else if (skinShopButton.isInsideButton(worldCoords.x, worldCoords.y)) {

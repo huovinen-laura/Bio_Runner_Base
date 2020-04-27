@@ -82,6 +82,7 @@ public class TutorialScreen extends ScreenAdapter {
         tutorial1= game.getTextureAssets().getTutorial1();
         tutorial2 = game.getTextureAssets().getTutorial2();
         tutorial3 = game.getTextureAssets().getTutorial3();
+        tutorial4 = game.getTextureAssets().getTutorial4();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());

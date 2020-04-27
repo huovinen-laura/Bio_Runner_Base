@@ -97,8 +97,7 @@ public class RecycleScreen extends ScreenAdapter {
         List<String> factList = Arrays.asList(game.getText("info1"), game.getText("info2"),
                 game.getText("info3"), game.getText("info4"), game.getText("info5"),
                 game.getText("info6"), game.getText("info7"), game.getText("info8"),
-                game.getText("info9"), game.getText("info10"), game.getText("info11"),
-                game.getText("info12"));
+                game.getText("info9"), game.getText("info11"), game.getText("info12"));
         facts = new ArrayList<>();
         facts.addAll(factList);
 

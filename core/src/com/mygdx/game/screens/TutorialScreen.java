@@ -90,7 +90,7 @@ public class TutorialScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                Preferences prefs = game.getPrefs();
+
                 if(first) {
                     second = true;
                     first = false;
@@ -101,8 +101,7 @@ public class TutorialScreen extends ScreenAdapter {
                     fourth = true;
                     third = false;
                 } else if (fourth) {
-                    prefs.putBoolean("tutorialOkay", true);
-                    prefs.flush();
+                    game.setTutorialOk();
                     game.setGameScreen();
                     fourth = false;
                     first = true;

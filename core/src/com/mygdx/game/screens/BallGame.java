@@ -35,16 +35,17 @@ public class BallGame extends ScreenAdapter {
     public float volume;
 
 	OrthographicCamera camera = new OrthographicCamera();
-	private Box2DDebugRenderer debugRenderer;
-	private boolean reachedCheckpoint;
 
 	private B2dContactListener contactListener;
 	private B2dContactFilter contactFilter;
 	private RecycleCenter recycleCenter;
 	private boolean recycleCenterVisible;
+	private Sound hurt, collect;
 
 	public BallGame (BioRunnerGame game) {
 
+		hurt = Gdx.audio.newSound(Gdx.files.internal("hurt.wav"));
+		collect = Gdx.audio.newSound(Gdx.files.internal("collect.wav"));
 		this.game = game;
 		ball = new Player(this.game.getCurrentAnimation(),game);
 		Gdx.app.log("sf","Ballgame constructor");
@@ -59,7 +60,6 @@ public class BallGame extends ScreenAdapter {
 
 		scrollingBackground = new ScrollingBackground(worldSpeed, game);
 		createGround();
-		debugRenderer = new Box2DDebugRenderer();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 	}
 
@@ -68,9 +68,7 @@ public class BallGame extends ScreenAdapter {
 		recycleCenterVisible = false;
 		leaveForRecycleScreen = false;
 		recycleCenter = new RecycleCenter(game,11f);
-		Gdx.app.log("bodyCount","Bodies: "+game.getWorld().getBodyCount());
 
-		this.reachedCheckpoint = false;
 		ball.update();
 
 		game.getCollectedStuffList().clear();
@@ -127,7 +125,6 @@ public class BallGame extends ScreenAdapter {
 		game.getLifeCounter().draw(this.gameBatch);
 		this.waypoint.draw(this.gameBatch);
 
-		debugRenderer.render(game.getWorld(),camera.combined);
         this.gameBatch.end();
 
         //Draws the player's score
@@ -286,9 +283,11 @@ public class BallGame extends ScreenAdapter {
 			this.collectables.get(i).getObjectBody().getWorld().destroyBody(this.collectables.get(i).getObjectBody());
 		}
 
+		ball.dispose();
 		recycleCenter.dispose();
 		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
-		game.getBatch().dispose();
+		this.collect.dispose();
+		this.hurt.dispose();
 
 	}
 
@@ -317,8 +316,7 @@ public class BallGame extends ScreenAdapter {
 	}
 
 	public class B2dContactListener implements ContactListener {
-		Sound hurt = Gdx.audio.newSound(Gdx.files.internal("hurt.wav"));
-		Sound collect = Gdx.audio.newSound(Gdx.files.internal("collect.wav"));
+
 
 		@Override
 		public void beginContact(Contact contact) {

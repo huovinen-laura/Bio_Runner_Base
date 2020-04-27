@@ -31,19 +31,17 @@ public class BioRunnerGame extends Game {
     private HighScoreScreen highScoreScreen;
     private List<HighScoreEntry> highScores;
     private Screen splashScreen;
-
+    private boolean tutorialOk;
     public int getLowestHighScore() {
         Gdx.app.log("Biorunner",""+highScores);
         return(highScores.get(9).getScore());
     }
-
     public void addFlowerPoints(int amount) {
         this.flowerPoints += amount;
         Preferences prefs = Gdx.app.getPreferences("points");
         prefs.putInteger("flowerPoints",this.flowerPoints);
         prefs.flush();
     }
-
     private int flowerPoints;
     private ShitCollection collectedStuffList;
     private ObstacleCollection allObstaclesCollection;
@@ -258,6 +256,17 @@ public class BioRunnerGame extends Game {
         Gdx.app.log("Game", "dispose");
         this.splashScreen.dispose();
         backgroundMusic.dispose();
+        this.game.dispose();
+
+        this.bubbleFont.dispose();
+        this.font.dispose();
+
+        this.splashScreen.dispose();
+        this.settings.dispose();
+        this.recycle.dispose();
+        this.shop.dispose();
+
+
         getTextureAssets().dispose();
         getBatch().dispose();
         getFont().dispose();
@@ -334,8 +343,8 @@ public class BioRunnerGame extends Game {
     }
 
     public Preferences getPrefs() {
-        return(Gdx.app.getPreferences("Settings"));
 
+        return(Gdx.app.getPreferences("Settings"));
     }
 
     public Music getMusic() {
@@ -533,5 +542,13 @@ public class BioRunnerGame extends Game {
 
     public void setTextureAssets(TextureAssets textureAssets) {
         this.textureAssets = textureAssets;
+    }
+
+    public void setTutorialOk() {
+        this.tutorialOk = true;
+    }
+
+    public boolean getTutorialOk() {
+        return tutorialOk;
     }
 }

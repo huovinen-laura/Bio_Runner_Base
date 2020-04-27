@@ -167,7 +167,7 @@ public class RecycleScreen extends ScreenAdapter {
     }
 
     public String getFact() {
-        return facts.get(MathUtils.random(0, 11));
+        return facts.get(MathUtils.random(0, 10));
     }
 
     @Override

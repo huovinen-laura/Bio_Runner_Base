@@ -67,6 +67,8 @@ public class TextureAssets {
         assets.load("tutorial2.png", Texture.class);
         assets.load("tutorial3.png", Texture.class);
         assets.load("tutorial4.png", Texture.class);
+        assets.load("lehti.png",Texture.class);
+        assets.load("pallo.png",Texture.class);
 
 
     }
@@ -76,6 +78,13 @@ public class TextureAssets {
 
     }
 
+    public Texture getLehti() {
+        return assets.get("lehti.png");
+    }
+
+    public Texture getPallo() {
+        return assets.get("pallo.png");
+    }
     public Texture getKissa() {
 
         return assets.get("kjissa.png",Texture.class);

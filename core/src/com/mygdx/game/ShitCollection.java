@@ -24,7 +24,7 @@ public class ShitCollection {
         this.minimumAmountOfCollectables = 10;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", game.getTextureAssets().getBanaani(),30f));
+                "banaani", game.getTextureAssets().getBanaani(),20f));
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "leipa", game.getTextureAssets().getLeipa(),5
         ));
@@ -32,7 +32,9 @@ public class ShitCollection {
                 "omena", game.getTextureAssets().getOmena(),10));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "tee", game.getTextureAssets().getTee(), 16f));
+                "tee", game.getTextureAssets().getTee(), 10f));
+        this.allShit.add(new ObstacleCollection.Obstacle(
+                "lehti", game.getTextureAssets().getLehti(), 10f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "luu", game.getTextureAssets().getLuu(),15f ));

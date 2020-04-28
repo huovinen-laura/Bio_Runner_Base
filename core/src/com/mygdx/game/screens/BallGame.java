@@ -16,9 +16,8 @@ import java.util.ArrayList;
 
 public class BallGame extends ScreenAdapter {
 	BioRunnerGame game;
-    SpriteBatch gameBatch;
-    BitmapFont font;
-    public static boolean isMusicOn = true;
+    private SpriteBatch gameBatch;
+    private BitmapFont font;
     private boolean leaveForRecycleScreen;
 
 	public static float worldSpeed = -1f;
@@ -31,7 +30,6 @@ public class BallGame extends ScreenAdapter {
 	private Player ball;
 	private Waypoint waypoint;
 	private boolean lostGame;
-    private static int point = 1;
     public float volume;
 
 	OrthographicCamera camera = new OrthographicCamera();
@@ -75,7 +73,6 @@ public class BallGame extends ScreenAdapter {
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f, game);
 		this.lostGame = false;
-		this.ball.setJustChangedScreen(true);
 		Gdx.app.log("sdf","ballgame show");
 		game.getWorld().setContactListener(this.contactListener);
 		game.getWorld().setContactFilter(this.contactFilter);
@@ -128,9 +125,8 @@ public class BallGame extends ScreenAdapter {
         this.gameBatch.end();
 
         //Draws the player's score
-        String score = Integer.toString(game.getPlayerScore());
         game.getBatch().begin();
-        this.font.draw(game.getBatch(), score, game.getProjected().x * .92f,
+        this.font.draw(game.getBatch(), ""+game.getPlayerScore(), game.getProjected().x * .92f,
                 game.getProjected().y * .90f);
         game.getBatch().end();
 
@@ -244,31 +240,6 @@ public class BallGame extends ScreenAdapter {
 		return groundBox;
 	}
 
-
-    public int getPlayerScore() {
-		return (this.game.getPlayerScore());
-	}
-
-	public void setPoint(int newPoint) {
-		point = newPoint;
-	}
-
-    public void clearScore() {
-	    this.game.getLifeCounter().setLives(0);
-    }
-
-    public static void setMusicOff() {
-		isMusicOn = false;
-	}
-
-	public static void setMusicOn() {
-		isMusicOn = true;
-	}
-
-	public static boolean isMusicOn() {
-		return isMusicOn;
-	}
-
 	@Override
 	public void dispose () {
 		Gdx.app.log("asd","ballgame.dispose");
@@ -288,7 +259,9 @@ public class BallGame extends ScreenAdapter {
 		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
 		this.collect.dispose();
 		this.hurt.dispose();
-		this.gameBatch.dispose();
+		if(this.gameBatch != null) {
+			this.gameBatch.dispose();
+		}
 
 	}
 
@@ -313,6 +286,7 @@ public class BallGame extends ScreenAdapter {
 
 		this.obstacles.clear();
 		this.collectables.clear();
+		this.gameBatch.dispose();
 		Gdx.input.setInputProcessor(null);
 	}
 

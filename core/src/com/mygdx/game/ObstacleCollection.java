@@ -26,8 +26,9 @@ public class ObstacleCollection {
         this.allObstacles.add(new Obstacle("purkki", game.getTextureAssets().getPurkki(),15,1f));
         this.allObstacles.add(new Obstacle("pussi", game.getTextureAssets().getPussi(),15,1f));
         this.allObstacles.add( new Obstacle("pilleri", game.getTextureAssets().getPilleri(),15,1.2f));
-        this.allObstacles.add(new Obstacle("suklaa", game.getTextureAssets().getSuklaa(),15,1f));
-        this.allObstacles.add(new Obstacle("tupakka", game.getTextureAssets().getTupakka(),15,1.5f));
+        this.allObstacles.add( new Obstacle("pallo", game.getTextureAssets().getPallo(),10,1.2f));
+        this.allObstacles.add(new Obstacle("suklaa", game.getTextureAssets().getSuklaa(),10,1f));
+        this.allObstacles.add(new Obstacle("tupakka", game.getTextureAssets().getTupakka(),10,1.5f));
         this.allObstacles.add( new Obstacle("patteri", game.getTextureAssets().getPatteri(),10,1.5f));
 
         this.LastObstaclePosition = new Vector2(0f,0f);

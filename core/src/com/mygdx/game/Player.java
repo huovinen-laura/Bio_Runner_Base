@@ -64,6 +64,7 @@ public class Player extends GameObject {
 
 
     public void update() {
+        this.justChangedScreen = true;
         this.getObjectBody().setTransform(1.5f,0.6f,0f);
         walkAnimation = game.getTextureAssets().getSkinAssets().getAnimation(game.getSkinName());
 
@@ -94,7 +95,9 @@ public class Player extends GameObject {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             if(Player.isDiving && this.getObjectBody().getPosition().y < 2.0f) {
-                Player.isJumping = true;
+                if(!this.justChangedScreen) {
+                    Player.isJumping = true;
+                }
             } else if(this.getObjectBody().getPosition().y < 1.0f && !this.justChangedScreen) {
                 if(Player.isDiving) {
                     Player.isJumping = true;

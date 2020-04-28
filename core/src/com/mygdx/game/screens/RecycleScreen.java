@@ -150,7 +150,7 @@ public class RecycleScreen extends ScreenAdapter {
                         if(game.getWorldSpeed() >= -5f) {
 
                             game.setWorldSpeed(game.getWorldSpeed() - 0.5f);
-                            Gdx.app.log("RecycleScreen", "speeding: " + game.getWorldSpeed());
+
                         }
 
                         game.setLevelNumber((game.getLevelNumber()+1));

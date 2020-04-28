@@ -33,7 +33,7 @@ public class BioRunnerGame extends Game {
     private Screen splashScreen;
     private boolean tutorialOk;
     public int getLowestHighScore() {
-        Gdx.app.log("Biorunner",""+highScores);
+
         return(highScores.get(9).getScore());
     }
     public void addFlowerPoints(int amount) {
@@ -83,15 +83,10 @@ public class BioRunnerGame extends Game {
     public Texture getCurrentAnimation() {
         for(int i = 0; i < this.getTextureAssets().getSkinAssets().getAnimationTextures().size(); i++) {
             if (this.skinName.contentEquals(this.getTextureAssets().getSkinAssets().getNames().get(i))) {
-                Gdx.app.log("Game","" + this.getTextureAssets().getSkinAssets()
-                        .getAnimationTextures().get(i).getHeight() + "width:" +
-                        this.getTextureAssets().getSkinAssets()
-                                .getAnimationTextures().get(i).getWidth());
                 return(this.getTextureAssets().getSkinAssets().getAnimationTextures().get(i));
             }
         }
 
-        Gdx.app.log("TextureCurrent",  "null");
         return null;
     }
 
@@ -253,7 +248,6 @@ public class BioRunnerGame extends Game {
 
     @Override
     public void dispose() {
-        Gdx.app.log("Game", "dispose");
         this.splashScreen.dispose();
         backgroundMusic.dispose();
         this.game.dispose();

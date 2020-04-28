@@ -39,7 +39,6 @@ public class SplashScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if(this.game.getTextureAssets().update()) {
-            Gdx.app.log("splash","" + game.getTextureAssets().getLoadedAssets());
             game.afterLoadConstructor();
             game.setTitleScreen();
             game.getLifeCounter().setTexture(game.getTextureAssets().getLives());

@@ -303,9 +303,6 @@ public class PowerUpCollection {
                 powerUps[1] = getRandomNegativePower();
             }
 
-        Gdx.app.log("Game","Level number:" + game.getLevelNumber());
-        Gdx.app.log("powers","PowerUp:" + powerUps[0].getName() + " "+ powerUps[1].getName());
-
         this.takenPowers = new int[]{99,99,99};
 
         return powerUps;
@@ -330,7 +327,6 @@ public class PowerUpCollection {
     public GameAction getRandomPositivePower() {
         int size = this.lisOfPositivePowers.size();
         int i = this.randomInt(0,size);
-        Gdx.app.log("RandomPositive","Roll: " + i + " of " + size );
 
         while(this.takenPowers[2] == i) {
             i = this.randomInt(0,size);

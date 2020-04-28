@@ -240,7 +240,7 @@ public class SkinShopScreen extends ScreenAdapter {
             game.setSkinName(name);
             this.isSkinUnlocked[count] = true;
         } else {
-            Gdx.app.log("buy", "not enough points");
+
         }
 
     }

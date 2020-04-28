@@ -41,8 +41,6 @@ public class TitleScreen extends ScreenAdapter {
         tausta = game.getTextureAssets().getMenu();
         camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
         projected = camera.project(new Vector3(game.getWORLD_WIDTH(), game.getWORLD_HEIGHT(),0f));
-        Gdx.app.log("TitleProject",""+projected);
-        Gdx.app.log("GameProject","" + game.getProjected());
         game.setBatch(new SpriteBatch());
         this.titleBatch = new SpriteBatch();
         this.titleBatch.setProjectionMatrix(game.getTextureCamera().combined);

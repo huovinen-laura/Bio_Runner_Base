@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.*;
 import com.mygdx.game.collectibles.CollectibleSquare;
 import com.mygdx.game.obstacles.ObstacleRectangle;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 import java.util.ArrayList;
 
@@ -41,12 +43,10 @@ public class BallGame extends ScreenAdapter {
 	private Sound hurt, collect;
 
 	public BallGame (BioRunnerGame game) {
-
 		hurt = Gdx.audio.newSound(Gdx.files.internal("hurt.wav"));
 		collect = Gdx.audio.newSound(Gdx.files.internal("collect.wav"));
 		this.game = game;
 		ball = new Player(this.game.getCurrentAnimation(),game);
-		Gdx.app.log("sf","Ballgame constructor");
 		volume = 0.1f;
 
 		this.font = game.getFont();
@@ -73,7 +73,6 @@ public class BallGame extends ScreenAdapter {
         this.gameBatch = new SpriteBatch();
 		waypoint = new Waypoint(20f, game);
 		this.lostGame = false;
-		Gdx.app.log("sdf","ballgame show");
 		game.getWorld().setContactListener(this.contactListener);
 		game.getWorld().setContactFilter(this.contactFilter);
 		this.gameBatch.setProjectionMatrix(camera.combined);
@@ -82,69 +81,66 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void render (float delta) {
 
+		if (this.game.getLifeCounter().getLivesAmount() <= 0) {
+			this.game.setEndScreen();
+			game.getLifeCounter().setLives(3);
+		} else if (this.waypoint.isFinished() || this.leaveForRecycleScreen) {
+			this.game.setRecycleScreen();
+		} else {
 
-		clearScreen();
-        this.gameBatch.begin();
+			clearScreen();
+			this.gameBatch.begin();
 
-        scrollingBackground.drawSky(this.gameBatch);
+			scrollingBackground.drawSky(this.gameBatch);
 
-		if(waypoint.move()) {
+			if (waypoint.move()) {
 
-			this.recycleCenterVisible = true;
+				this.recycleCenterVisible = true;
 
-			this.recycleCenter.Move();
+				this.recycleCenter.Move();
 
-			this.recycleCenter.Draw(this.gameBatch);
-		}
-
-		scrollingBackground.drawGrass(this.gameBatch);
-
-		scrollingBackground.update(Gdx.graphics.getDeltaTime());
-
-		ball.Draw(this.gameBatch);
-
-		doPhysicsStep(Gdx.graphics.getDeltaTime());
-
-		if(!this.ball.Move()) { // checks if lives is zero
-			this.lostGame = true;
-			Gdx.app.log("BallGame","Lost game");
-		}
-
-
-		this.manageCollectablesAndObstacles();
-
-		if(!this.recycleCenterVisible) {
-			if (game.getAllObstaclesCollection().isNextCollectibleComing(this.obstacles.size())) {
-				this.obstacles.add(game.getAllObstaclesCollection().getRandomCollectible(game.getLevelNumber()));
+				this.recycleCenter.Draw(this.gameBatch);
 			}
+
+			scrollingBackground.drawGrass(this.gameBatch);
+
+			scrollingBackground.update(Gdx.graphics.getDeltaTime());
+
+			ball.Draw(this.gameBatch);
+
+			doPhysicsStep(Gdx.graphics.getDeltaTime());
+
+			if (!this.ball.Move()) { // checks if lives is zero
+				this.lostGame = true;
+			}
+
+
+			this.manageCollectablesAndObstacles();
+
+			if (!this.recycleCenterVisible) {
+				if (game.getAllObstaclesCollection().isNextCollectibleComing(this.obstacles.size())) {
+					this.obstacles.add(game.getAllObstaclesCollection().getRandomCollectible(game.getLevelNumber()));
+				}
+			}
+
+			game.getLifeCounter().draw(this.gameBatch);
+			this.waypoint.draw(this.gameBatch);
+
+			this.gameBatch.end();
+
+			//Draws the player's score
+			game.getBatch().begin();
+			this.font.draw(game.getBatch(), "" + game.getPlayerScore(), game.getProjected().x * .92f,
+					game.getProjected().y * .90f);
+			game.getBatch().end();
+
+
+			if (this.ball.isJustChangedScreen()) {
+				this.ball.setJustChangedScreen(false);
+			}
+
+			ball.moveAnimation();
 		}
-
-		game.getLifeCounter().draw(this.gameBatch);
-		this.waypoint.draw(this.gameBatch);
-
-        this.gameBatch.end();
-
-        //Draws the player's score
-        game.getBatch().begin();
-        this.font.draw(game.getBatch(), ""+game.getPlayerScore(), game.getProjected().x * .92f,
-                game.getProjected().y * .90f);
-        game.getBatch().end();
-
-
-        if (this.lostGame) {
-        	this.game.setEndScreen();
-        	game.getLifeCounter().setLives(3);
-        } else if (this.waypoint.isFinished() || this.leaveForRecycleScreen) {
-        	this.game.setRecycleScreen();
-        }
-
-
-
-		if (this.ball.isJustChangedScreen()) {
-			this.ball.setJustChangedScreen(false);
-		}
-
-		ball.moveAnimation();
 	}
 
 	private void clearScreen() {
@@ -159,13 +155,16 @@ public class BallGame extends ScreenAdapter {
 	private void manageCollectablesAndObstacles() {
 		ArrayList<Integer> toRemove = new ArrayList();
 		GameObject collectable;
+
 		for (int i =0 ; i < this.collectables.size();i++) {
 			collectable = this.collectables.get(i);
 			collectable.Draw(this.gameBatch);
+
 			if( !collectable.Move()) {
 				toRemove.add(i);
 			}
 		}
+
 		for (int i = 0; i < toRemove.size(); i++) {
 			this.collectables.remove(toRemove.get(i)-i);
 		}
@@ -179,7 +178,7 @@ public class BallGame extends ScreenAdapter {
 		}
 
 		for (int i =0 ; i < this.obstacles.size();i++) {
-			collectable= obstacles.get(i);
+			collectable = obstacles.get(i);
 			collectable.Draw(this.gameBatch);
 			if( !collectable.Move()) {
 				toRemove.add(i);
@@ -242,7 +241,6 @@ public class BallGame extends ScreenAdapter {
 
 	@Override
 	public void dispose () {
-		Gdx.app.log("asd","ballgame.dispose");
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();
@@ -259,6 +257,7 @@ public class BallGame extends ScreenAdapter {
 		recycleCenter.getObjectBody().getWorld().destroyBody(recycleCenter.getObjectBody());
 		this.collect.dispose();
 		this.hurt.dispose();
+
 		if(this.gameBatch != null) {
 			this.gameBatch.dispose();
 		}
@@ -268,8 +267,6 @@ public class BallGame extends ScreenAdapter {
 	@Override
 	public void hide() {
 		this.recycleCenterVisible = false;
-
-
 
 		for(int i = 0; i < this.obstacles.size(); i++) {
 			this.obstacles.get(i).dispose();

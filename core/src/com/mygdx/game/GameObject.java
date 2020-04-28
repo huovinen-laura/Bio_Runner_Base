@@ -122,7 +122,6 @@ public abstract class GameObject {
         this.spriteWidth = 0.7f;
         this.spriteHeight = 1.4f;
 
-        Gdx.app.log("GameObject","Sprite height: " + this.spriteHeight);
 
 
         float spriteArea = spriteHeight * spriteWidth;

@@ -31,10 +31,8 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         HighScoreServer.readConfig("highscore.config");
         HighScoreServer.fetchHighScores(this);
         this.game = game;
-
         this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
         tausta = game.getTextureAssets().getCommon();
-        this.
         font = game.getFont();
         scoresFirstColumn = "\n\n" + game.getText("loading");
         scoresSecondColumn = scoresFirstColumn;
@@ -68,7 +66,8 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         super.show();
         HighScoreServer.fetchHighScores(this);
         this.smallFont = game.getBubbleFont();
-        this.smallFont.getData().setScale(0.3f* Gdx.graphics.getWidth()/800);
+        this.smallFont.getData().setScale(0.3f * Gdx.graphics.getWidth()/800,0.3f
+                * Gdx.graphics.getHeight()/400);
         this.fontBatch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -130,8 +129,6 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
             }
         }
 
-
-        Gdx.app.log("receivedHighScores", scoresFirstColumn);
         this.highScores = highScores;
     }
 

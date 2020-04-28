@@ -126,7 +126,7 @@ public class SettingsScreen extends ScreenAdapter {
                     prefs.putBoolean("musicOn", false);
                     prefs.flush();
                     game.getMusic().stop();
-                    Gdx.app.log("", "Music off");
+
                 } else if (musicOnButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && !prefs.getBoolean("musicOn")){
                     prefs.putBoolean("musicOn", true);
@@ -137,22 +137,22 @@ public class SettingsScreen extends ScreenAdapter {
                         && prefs.getBoolean("soundOn")){
                     prefs.putBoolean("soundOn", false);
                     prefs.flush();
-                    Gdx.app.log("", "Sound off");
+
                 } else if (soundOnButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && !prefs.getBoolean("soundOn")) {
                     prefs.putBoolean("soundOn", true);
                     prefs.flush();
-                    Gdx.app.log("","Sound on");
+
                 } else if (englishButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && prefs.getBoolean("fiOrNot")) {
                     prefs.putBoolean("fiOrNot", false);
                     prefs.flush();
-                    Gdx.app.log("", "English");
+
                 } else if (finnishButton.isInsideButton(worldCoords.x, worldCoords.y)
                         && !prefs.getBoolean("fiOrNot")) {
                     prefs.putBoolean("fiOrNot", true);
                     prefs.flush();
-                    Gdx.app.log("", "Finnish");
+
                 } else if (tutorialButton.isInsideButton(worldCoords.x, worldCoords.y)) {
                     game.setTutorialScreen();
                 }

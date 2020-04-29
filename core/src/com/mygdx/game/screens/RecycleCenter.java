@@ -4,6 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.GameObject;
 
+/**
+ * Displays the recycle center
+ */
 public class RecycleCenter extends GameObject {
     public RecycleCenter(BioRunnerGame game, float size) {
         super(game, game.getTextureAssets().getLaitos(), size, 8f, 0.0f, 10f

@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
+/**
+ * Stores the data for each power up and gives random powerups
+ */
 public class PowerUpCollection {
     private ArrayList<GameAction> listOfNegativePowers;
     private ArrayList<GameAction> lisOfPositivePowers;
@@ -275,6 +278,11 @@ public class PowerUpCollection {
 
     }
 
+    /**
+     * Gives 2 random power ups chances for easy power ups get slimmer when game progresses
+     *
+     * @return two different power ups in array of length 2
+     */
     public GameAction[] getTwoRandomPowers() {
         GameAction[] powerUps = new GameAction[2];
         double firstRoll = Math.random();
@@ -310,7 +318,7 @@ public class PowerUpCollection {
 
     }
 
-    public GameAction getRandomNegativePower() {
+    private GameAction getRandomNegativePower() {
         int size = this.listOfNegativePowers.size();
         int i = this.randomInt(0,size);
 
@@ -324,7 +332,7 @@ public class PowerUpCollection {
         return listOfNegativePowers.get(i);
     }
 
-    public GameAction getRandomPositivePower() {
+    private GameAction getRandomPositivePower() {
         int size = this.lisOfPositivePowers.size();
         int i = this.randomInt(0,size);
 
@@ -342,7 +350,7 @@ public class PowerUpCollection {
         return((int) (roll+min));
     }
 
-    public GameAction getRandomNeutralPower() {
+    private GameAction getRandomNeutralPower() {
         int size = this.listOfNeutralPowers.size();
         int i = this.randomInt(0,size);
 

@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Displays the stuff player collected and the fact
+ */
 public class RecycleScreen extends ScreenAdapter {
     BioRunnerGame game;
     private Texture tausta;
@@ -45,8 +48,8 @@ public class RecycleScreen extends ScreenAdapter {
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
         this.projected = game.getProjected();
 
     }

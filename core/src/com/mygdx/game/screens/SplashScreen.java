@@ -11,6 +11,9 @@ import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.ObstacleCollection;
 import com.mygdx.game.ShitCollection;
 
+/**
+ * Displays affiliate logos while loading texture assets
+ */
 public class SplashScreen extends ScreenAdapter {
     private Texture tiko = new Texture("tiko_valk.png");
     private Texture tuni = new Texture("tuni.png");

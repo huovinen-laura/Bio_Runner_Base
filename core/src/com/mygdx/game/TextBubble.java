@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * Sets text to a certain place
+ *
+ */
 public class TextBubble {
     private String text;
     private Vector2 position;

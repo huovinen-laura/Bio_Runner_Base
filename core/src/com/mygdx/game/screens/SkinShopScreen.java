@@ -14,6 +14,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 
+/**
+ * Displays the skin shop
+ */
 public class SkinShopScreen extends ScreenAdapter {
     public BioRunnerGame game;
     private SpriteBatch texturesBatch;
@@ -264,7 +267,7 @@ public class SkinShopScreen extends ScreenAdapter {
         this.isPossibleToLeave = true;
         this.flowerPointText = game.getText("flowerPoints");
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        camera.setToOrtho(false, game.getWORLD_WIDTH(),game.getWORLD_HEIGHT());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

@@ -13,6 +13,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 
+/**
+ * Displays options
+ */
 public class SettingsScreen extends ScreenAdapter {
     public BioRunnerGame game;
     private SpriteBatch texturesBatch;
@@ -46,8 +49,8 @@ public class SettingsScreen extends ScreenAdapter {
         this.tutorialButton = new Button(3f, 0.2f, 0.5f, 1.8f, game.getTextureAssets().getGeneralButton());
         this.font = game.getFont();
         tausta = game.getTextureAssets().getCommon();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
 
 
     }
@@ -108,7 +111,7 @@ public class SettingsScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         this.isPossibleToLeave = true;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        camera.setToOrtho(false, game.getWORLD_WIDTH(),game.getWORLD_HEIGHT());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

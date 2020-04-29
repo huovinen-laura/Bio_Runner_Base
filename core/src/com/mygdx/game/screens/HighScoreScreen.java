@@ -13,6 +13,9 @@ import com.mygdx.game.HighScoreServer;
 
 import java.util.List;
 
+/**
+ * Displays high score data
+ */
 public class HighScoreScreen extends ScreenAdapter implements HighScoreListener, Input.TextInputListener {
     private final Button backButton;
     private final Texture tausta;
@@ -71,7 +74,7 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         this.fontBatch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        camera.setToOrtho(false, game.getWORLD_WIDTH(),game.getWORLD_HEIGHT());
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -87,10 +90,6 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
                 return true;
             }
         });
-    }
-
-    private void newNameInput() {
-        Gdx.input.getTextInput(this,game.getText("newName"),"",game.getText("newNameHint"));
     }
 
     @Override

@@ -12,6 +12,10 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 
+/**
+ * Screen for showing credits
+ *
+ */
 public class CreditsScreen extends ScreenAdapter {
 
     public BioRunnerGame game;
@@ -29,8 +33,8 @@ public class CreditsScreen extends ScreenAdapter {
         this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
         this.font = game.getFont();
         tausta = game.getTextureAssets().getCommon();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width =game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
 
 
     }
@@ -75,7 +79,7 @@ public class CreditsScreen extends ScreenAdapter {
         this.texturesBatch = new SpriteBatch();
         this.isPossibleToLeave = true;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, BallGame.WORLD_WIDTH,BallGame.WORLD_HEIGHT);
+        camera.setToOrtho(false, width,height);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 

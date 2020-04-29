@@ -20,6 +20,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Stores all relevant data for the game,
+ */
 public class BioRunnerGame extends Game {
     private final float WORLD_WIDTH = 8;
     private final float WORLD_HEIGHT = 4;
@@ -32,10 +35,22 @@ public class BioRunnerGame extends Game {
     private List<HighScoreEntry> highScores;
     private Screen splashScreen;
     private boolean tutorialOk;
+
+    /**
+     * Gives lowest high score
+     *
+     * @return lowest high score
+     */
     public int getLowestHighScore() {
 
         return(highScores.get(9).getScore());
     }
+
+    /**
+     * Adds flower points to player
+     *
+     * @param amount amount to be added
+     */
     public void addFlowerPoints(int amount) {
         this.flowerPoints += amount;
         Preferences prefs = Gdx.app.getPreferences("points");
@@ -80,6 +95,11 @@ public class BioRunnerGame extends Game {
 
 
 
+    /**
+     * Gives the animation texture of current skin animation
+     *
+     * @return animation texture of currently equipped skin
+     */
     public Texture getCurrentAnimation() {
         for(int i = 0; i < this.getTextureAssets().getSkinAssets().getAnimationTextures().size(); i++) {
             if (this.skinName.contentEquals(this.getTextureAssets().getSkinAssets().getNames().get(i))) {
@@ -90,13 +110,15 @@ public class BioRunnerGame extends Game {
         return null;
     }
 
+    /**
+     * Gives the camera for textures
+     *
+     * @return camera
+     */
     public OrthographicCamera getTextureCamera() {
         return textureCamera;
     }
 
-    public Vector3 getTextureCameraProjection() {
-        return(textureCamera.project(new Vector3(this.getWORLD_WIDTH(), this.getWORLD_HEIGHT(),0f)));
-    }
 
     @Override
     public void create() {
@@ -152,6 +174,10 @@ public class BioRunnerGame extends Game {
 
     }
 
+    /**
+     * All the constructor operations that depend on textureAssets
+     *
+     */
     public void afterLoadConstructor() {
         levelNumber = 1;
         this.skinName = Gdx.app.getPreferences("skinPrefs").getString("skinName","vakio");
@@ -159,8 +185,8 @@ public class BioRunnerGame extends Game {
 
         setBatch(new SpriteBatch());
         textureCamera = new OrthographicCamera();
-        textureCamera.setToOrtho(false,game.WORLD_WIDTH, game.WORLD_HEIGHT);
-        projected = textureCamera.project(new Vector3(game.WORLD_WIDTH,game.WORLD_HEIGHT,0f));
+        textureCamera.setToOrtho(false,this.WORLD_WIDTH, this.WORLD_HEIGHT);
+        projected = textureCamera.project(new Vector3(this.WORLD_WIDTH,this.WORLD_HEIGHT,0f));
 
         this.lastCollectable = new Vector2(0f,0f);
 
@@ -197,6 +223,11 @@ public class BioRunnerGame extends Game {
         this.highScoreScreen = new HighScoreScreen(this);
     }
 
+    /**
+     * Reads from memory the name of player
+     *
+     * @return players name
+     */
     private String getNameFromPrefs() {
         Preferences preferences = Gdx.app.getPreferences("MyPreferences");
         return(preferences.getString("name","User"));
@@ -286,8 +317,15 @@ public class BioRunnerGame extends Game {
     }
 
     public void clearScore() {
+        this.playerScore = 0;
     }
 
+    /**
+     * Returns text according to bundle key in current language
+     *
+     * @param key key for language bundle
+     * @return text in correct language
+     */
     public String getText(String key) {
 
         if(this.getPrefs().getBoolean("fiOrNot",true) ) {
@@ -317,6 +355,13 @@ public class BioRunnerGame extends Game {
         return skinName;
     }
 
+    /**
+     * Writes new state of skin unlock in preferences
+     *
+     * @param skinName name of the skin to unlock
+     * @param cost cost in flowerpoints
+     * @return true if skin bought, false if nothing happened
+     */
     public boolean unlockSkin(String skinName, int cost) {
         if(cost <= flowerPoints) {
             addFlowerPoints(-cost);
@@ -327,12 +372,6 @@ public class BioRunnerGame extends Game {
         }
 
         return false;
-
-    }
-
-    public boolean isUnlocked(String skinName) {
-        Preferences preferences = Gdx.app.getPreferences("skinPrefs");
-        return(preferences.getBoolean(skinName,false));
 
     }
 
@@ -540,9 +579,5 @@ public class BioRunnerGame extends Game {
 
     public void setTutorialOk() {
         this.tutorialOk = true;
-    }
-
-    public boolean getTutorialOk() {
-        return tutorialOk;
     }
 }

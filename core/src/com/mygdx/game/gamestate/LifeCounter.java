@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.BioRunnerGame;
 
 
-
+/**
+ * Stores life data and draws the lifecounter on game screen
+ *
+ */
 public class LifeCounter {
     private int lives = 3;
     private float startX;
@@ -16,16 +19,12 @@ public class LifeCounter {
     private Texture texture;
     private BioRunnerGame game;
 
-    public LifeCounter(Texture lifeTexture, BioRunnerGame game) {
-        this.texture = lifeTexture;
-        this.game = game;
-        this.size = 0.5f;
-        this.startX = 5f;
-        this.startY = 3.25f;
-        this.margin = 0.25f;
-        this.lives= 3;
-    }
 
+    /**
+     * Puts life counter on its right position
+     *
+     * @param game the game
+     */
     public LifeCounter(BioRunnerGame game) {
         this.game = game;
         this.size = 0.5f;
@@ -43,6 +42,11 @@ public class LifeCounter {
         this.lives = i;
     }
 
+    /**
+     * Draws lifes on the game screen
+     *
+     * @param batch
+     */
     public void draw(SpriteBatch batch) {
         if( this.lives >= 1) {
             batch.draw(this.texture,

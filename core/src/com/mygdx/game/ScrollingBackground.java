@@ -3,6 +3,10 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Displays the scrolling sky and grass
+ *
+ */
 public class ScrollingBackground {
 
     float x1, x2;

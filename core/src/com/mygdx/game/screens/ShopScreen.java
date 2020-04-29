@@ -13,6 +13,9 @@ import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 import com.mygdx.game.GameAction;
 
+/**
+ * Displays the choice of power up
+ */
 public class ShopScreen extends ScreenAdapter {
     public BioRunnerGame game;
     private SpriteBatch texturesBatch;
@@ -36,8 +39,8 @@ public class ShopScreen extends ScreenAdapter {
         this.game = game;
         this.font = game.getFont();
         tausta= game.getTextureAssets().getCommon();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width =game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
 
 
 

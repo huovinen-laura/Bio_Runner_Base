@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.GameObject;
 
+/**
+ * Stores obstacle data and draws it
+ *
+ */
 public class ObstacleRectangle extends GameObject {
 
     private boolean setForDelete;
@@ -24,6 +28,11 @@ public class ObstacleRectangle extends GameObject {
         return(this.setForDelete);
     }
 
+    /**
+     * Should be called every render, checks if object should be destroyed
+     *
+     * @return
+     */
     @Override
     public boolean Move() {
 

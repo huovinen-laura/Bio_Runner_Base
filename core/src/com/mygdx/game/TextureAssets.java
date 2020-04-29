@@ -3,6 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Stores texture data
+ */
 public class TextureAssets {
 
 
@@ -73,6 +76,11 @@ public class TextureAssets {
 
     }
 
+    /**
+     * Loads a small amount of the textures
+     *
+     * @return true if all textures loaded
+     */
     public boolean update() {
         return(assets.update());
 

@@ -7,6 +7,9 @@ import com.mygdx.game.screens.BallGame;
 
 import java.util.ArrayList;
 
+/**
+ * Displays a set of stuff in a flashy manner in position
+ */
 public class WasteDisplayRecycle {
 
     private float startPosition ;

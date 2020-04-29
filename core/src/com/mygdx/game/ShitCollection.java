@@ -8,6 +8,10 @@ import com.mygdx.game.screens.BallGame;
 
 import java.util.ArrayList;
 
+/**
+ * Stores the data for possible types of collectibles and gives random collectibles
+ *
+ */
 public class ShitCollection {
     private ArrayList<ObstacleCollection.Obstacle> allShit;
     private int minimumAmountOfCollectables;
@@ -24,30 +28,27 @@ public class ShitCollection {
         this.minimumAmountOfCollectables = 10;
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "banaani", game.getTextureAssets().getBanaani(),20f));
+                "banaani", game.getTextureAssets().getBanaani(),25f));
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "leipa", game.getTextureAssets().getLeipa(),5
-        ));
+                "leipa", game.getTextureAssets().getLeipa(),5f));
+
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "omena", game.getTextureAssets().getOmena(),10));
+                "omena", game.getTextureAssets().getOmena(),10f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "tee", game.getTextureAssets().getTee(), 10f));
+
         this.allShit.add(new ObstacleCollection.Obstacle(
                 "lehti", game.getTextureAssets().getLehti(), 10f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "luu", game.getTextureAssets().getLuu(),15f ));
+                "luu", game.getTextureAssets().getLuu(),10f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "kukka", game.getTextureAssets().getKukka(),10));
+                "kukka", game.getTextureAssets().getKukka(),10f));
 
         this.allShit.add(new ObstacleCollection.Obstacle(
-                "mansikka", game.getTextureAssets().getMansikka(),5));
-
-
-
-
+                "mansikka", game.getTextureAssets().getMansikka(),5f));
 
         this.timeBetweenCollectables = 1f;
         this.timeFromLastCollectable = 0f;
@@ -55,6 +56,11 @@ public class ShitCollection {
         this.maxY = 3f;
     }
 
+    /**
+     * Increments the count of given object
+     *
+     * @param object object with name
+     */
     public void addStuff(GameObject object) {
 
         for(int i = 0; i < this.allShit.size();i++) {
@@ -80,10 +86,16 @@ public class ShitCollection {
         this.allShit = allShit;
     }
 
+    /**
+     * Gives a random collectible
+     *
+     * @param max maximum key
+     * @return collectible
+     */
     public CollectibleSquare getRandomCollectible(int max) {
         float roll = (float) Math.random()*100;
         roll++;
-        float positionX = BallGame.WORLD_WIDTH;
+        float positionX = game.getWORLD_WIDTH();
         float positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
         while(positionY >= game.getLastCollectable().y-1 && positionY <= game.getLastCollectable().y+1 ) {
             positionY = this.minY + (this.maxY - this.minY)* ((float) Math.random());
@@ -113,6 +125,12 @@ public class ShitCollection {
         return(new CollectibleSquare(game,new Texture("badlogic.jpg"),1f,positionX,positionY,"error"));
     }
 
+    /**
+     * Returns whether the next collectable should be spawned
+     *
+     * @param count
+     * @return
+     */
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfCollectables) {
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 
 /**
- *
+ * Does something, with a name, button, description and possibility to undo
  *
  */
 public interface GameAction {

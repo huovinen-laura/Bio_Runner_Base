@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Player object draws player model and handles controlling it
+ *
+ */
 public class Player extends GameObject {
     boolean justChangedScreen;
     private Animation walkAnimation;
@@ -62,7 +66,10 @@ public class Player extends GameObject {
     }
 
 
-
+    /**
+     * Resets the player model to the default position
+     *
+     */
     public void update() {
         this.justChangedScreen = true;
         this.getObjectBody().setTransform(1.5f,0.6f,0f);
@@ -84,11 +91,21 @@ public class Player extends GameObject {
         return frames;
     }
 
+    /**
+     * Moves the player animation accordingly
+     *
+     */
     public void moveAnimation() {
         stateTime += Gdx.graphics.getDeltaTime() * (1 +  0.50 * (-game.getWorldSpeed() - 1f));
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
 
+
+    /**
+     * Reads user input
+     *
+     * @return false if game should end
+     */
     @Override
     public boolean Move() {
 

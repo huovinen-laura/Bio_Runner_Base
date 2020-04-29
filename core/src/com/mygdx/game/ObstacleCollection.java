@@ -8,6 +8,10 @@ import com.mygdx.game.screens.BallGame;
 
 import java.util.ArrayList;
 
+/**
+ * Counts the number of obstacles hit and types of possible obstacles
+ *
+ */
 public class ObstacleCollection {
     private ArrayList<Obstacle> allObstacles;
     private int minimumAmountOfObstacles;
@@ -39,6 +43,11 @@ public class ObstacleCollection {
         this.maxY = 3f;
     }
 
+    /**
+     * Increases the count of given object or creates new entry if unknown
+     *
+     * @param object object that's count should be incremented
+     */
     public void addStuff(GameObject object) {
 
         for(int i = 0; i < this.allObstacles.size(); i++) {
@@ -65,10 +74,16 @@ public class ObstacleCollection {
         this.allObstacles = allObstacles;
     }
 
+    /**
+     * Gives random obstacle
+     *
+     * @param max upper bound on the type of obstacle
+     * @return random obstacle from the list
+     */
     public ObstacleRectangle getRandomCollectible(int max) {
         float roll = (float) Math.random()*100;
         roll++;
-        float positionX = BallGame.WORLD_WIDTH;
+        float positionX = game.getWORLD_WIDTH();
         float positionY = this.minY + (this.maxY - this.minY-1)* ((float) Math.random());
         LastObstaclePosition.x = positionX;
         LastObstaclePosition.y = positionY;
@@ -95,6 +110,12 @@ public class ObstacleCollection {
         }
     }
 
+    /**
+     * Tells if next obstacle should be spawned
+     *
+     * @param count amount of obstacles in game
+     * @return true if obstacle should be spawned
+     */
     public boolean isNextCollectibleComing(int count) {
         if( count < this.minimumAmountOfObstacles) {
 

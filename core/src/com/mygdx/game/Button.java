@@ -1,14 +1,15 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import java.awt.*;
 
+/**
+ * Displays button and knows when coordinates are inside the button
+ */
 public class Button {
     protected Rectangle buttonRectangle;
     protected Vector2 position;
@@ -24,8 +25,11 @@ public class Button {
         this.width = width;
     }
 
-
-
+    /**
+     * Checks if given coordinates are inside the button
+     *
+     * @return true if inside, false if not
+     */
     public boolean isInsideButton(float x, float y) {
 
         if((x >= this.position.x && x <= (this.position.x + width) )

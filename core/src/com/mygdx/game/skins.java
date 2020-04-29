@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 
+/**
+ * Stores the data for skins and theis animations
+ *
+ */
 public class skins {
     
     private Texture velhoAnimaatio = new Texture("velhoAnimaatio2.png");

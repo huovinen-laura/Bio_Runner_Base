@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.BioRunnerGame;
 
+/**
+ * Displays the tutorial
+ */
 public class TutorialScreen extends ScreenAdapter {
     public BioRunnerGame game;
     private SpriteBatch texturesBatch;
@@ -77,8 +80,8 @@ public class TutorialScreen extends ScreenAdapter {
     public void show() {
         this.fontBatch = new SpriteBatch();
         this.texturesBatch = new SpriteBatch();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
         tutorial1= game.getTextureAssets().getTutorial1();
         tutorial2 = game.getTextureAssets().getTutorial2();
         tutorial3 = game.getTextureAssets().getTutorial3();

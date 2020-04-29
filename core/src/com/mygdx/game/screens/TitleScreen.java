@@ -14,6 +14,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.Button;
 
+/**
+ * Displays the title screen
+ */
 public class TitleScreen extends ScreenAdapter {
     BioRunnerGame game;
     private Button startButton;

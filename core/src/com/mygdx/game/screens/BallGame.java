@@ -16,17 +16,18 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 import java.util.ArrayList;
 
+/**
+ * Is the screen of the main game
+ *
+ */
 public class BallGame extends ScreenAdapter {
 	BioRunnerGame game;
     private SpriteBatch gameBatch;
     private BitmapFont font;
     private boolean leaveForRecycleScreen;
 
-	public static float worldSpeed = -1f;
 	public ScrollingBackground scrollingBackground;
 
-	public static float WORLD_WIDTH = 8;
-	public static float WORLD_HEIGHT = 4;
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
@@ -56,9 +57,9 @@ public class BallGame extends ScreenAdapter {
 		this.contactFilter = new B2dContactFilter();
 		this.contactListener = new B2dContactListener();
 
-		scrollingBackground = new ScrollingBackground(worldSpeed, game);
+		scrollingBackground = new ScrollingBackground(game.getWorldSpeed(), game);
 		createGround();
-		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
 	}
 
 	@Override
@@ -211,7 +212,8 @@ public class BallGame extends ScreenAdapter {
 		}
 	}
 
-	public void createGround() {
+
+	private void createGround() {
 		Body groundBody = game.getWorld().createBody(getGroundBodyDef());
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.friction = 100f;
@@ -228,17 +230,21 @@ public class BallGame extends ScreenAdapter {
 		myBodyDef.type = BodyDef.BodyType.StaticBody;
 
 
-		myBodyDef.position.set(WORLD_WIDTH, 0.15f);
+		myBodyDef.position.set(game.getWORLD_WIDTH(), 0.15f);
 		return myBodyDef;
 	}
 
 	private PolygonShape getGroundShape() {
 		PolygonShape groundBox = new PolygonShape();
 
-		groundBox.setAsBox(WORLD_WIDTH * 100, 0.25f);
+		groundBox.setAsBox(game.getWORLD_WIDTH() *100, 0.25f);
 		return groundBox;
 	}
 
+	/**
+	 * Frees all the assets used by ballgame
+	 *
+	 */
 	@Override
 	public void dispose () {
 

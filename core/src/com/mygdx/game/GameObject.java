@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.screens.BallGame;
 
+/**
+ * Drawable object with Box2D body, fixture and position
+ */
 public abstract class GameObject {
     protected Texture objectTexture;
     protected Texture playerAnimationTexture;
@@ -114,6 +117,19 @@ public abstract class GameObject {
 
     }
 
+    /**
+     * Game object constructor for player model
+     *
+     * @param game the game
+     * @param player true or false if player object
+     * @param texture texture to be used as players animation texture
+     * @param size size
+     * @param x position
+     * @param y position
+     * @param mass desired mass
+     * @param bounciness
+     * @param friction
+     */
     public GameObject(BioRunnerGame game, Boolean player, Texture texture,
                       float size, float x, float y, float mass, float bounciness, float friction) {
         this.playerAnimationTexture = texture;
@@ -175,6 +191,13 @@ public abstract class GameObject {
             this.flipSpriteY);
     }
 
+    /**
+     * Draw method with possibility to determine the place
+     *
+     * @param batch
+     * @param posx position x
+     * @param posy position y
+     */
     public void draw(SpriteBatch batch,float posx, float posy) {
         batch.draw(this.getObjectTexture(),
                 posx,
@@ -194,15 +217,16 @@ public abstract class GameObject {
                 this.flipSpriteY);
     }
 
+    /**
+     * Should be called every render
+     *
+     * @return true if destroyed
+     */
     public abstract boolean Move();
     public abstract String Collide();
 
     public Texture getObjectTexture() {
         return objectTexture;
-    }
-
-    public void setObjectTexture(Texture objectTexture) {
-        this.objectTexture = objectTexture;
     }
 
     public Body getObjectBody() {
@@ -216,32 +240,12 @@ public abstract class GameObject {
         this.toBeDestroyed = true;
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-    public void setObjectBody(Body objectBody) {
-        this.objectBody = objectBody;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Texture getPlayerAnimationTexture() {
-        return game.getCurrentAnimation();
-    }
-
-    public void setPlayerAnimationTexture(Texture playerAnimationTexture) {
-        this.playerAnimationTexture = playerAnimationTexture;
     }
 
     public BioRunnerGame getGame() {

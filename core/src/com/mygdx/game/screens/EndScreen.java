@@ -13,6 +13,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.BioRunnerGame;
 import com.mygdx.game.WasteDisplayRecycle;
 
+/**
+ * Game over screen
+ *
+ */
 public class EndScreen extends ScreenAdapter implements Input.TextInputListener {
     BioRunnerGame game;
     private BitmapFont font;
@@ -32,8 +36,8 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
         this.font = game.getFont();
         this.sadGuy = game.getTextureAssets().getSadGirl();
         tausta = game.getTextureAssets().getEnd();
-        width = BallGame.WORLD_WIDTH;
-        height = BallGame.WORLD_HEIGHT;
+        width = game.getWORLD_WIDTH();
+        height = game.getWORLD_HEIGHT();
 
     }
 

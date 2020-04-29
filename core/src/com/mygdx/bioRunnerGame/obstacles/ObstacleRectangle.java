@@ -13,6 +13,16 @@ public class ObstacleRectangle extends GameObject {
 
     private boolean setForDelete;
 
+    /**
+     * Initializes the obstacle
+     *
+     * @param game BioRunnerGame object
+     * @param texture Texture for the obstacle
+     * @param x position x
+     * @param y position y
+     * @param name String name of the obstacle
+     * @param size size of the obstacle
+     */
     public ObstacleRectangle(BioRunnerGame game, Texture texture, float x, float y, String name, float size) {
         super(game,texture,size,x,y, 0f,0f,0f,
                 new Vector2(game.getWorldSpeed(),0),0f);
@@ -28,6 +38,11 @@ public class ObstacleRectangle extends GameObject {
         this.setForDelete = true;
     }
 
+    /**
+     * Checks if object is set for deleta
+     *
+     * @return true if setfordelete
+     */
     public boolean isDeleted() {
         return(this.setForDelete);
     }

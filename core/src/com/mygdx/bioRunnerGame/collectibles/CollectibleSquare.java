@@ -15,10 +15,20 @@ public class CollectibleSquare extends GameObject {
     Boolean setForDelete;
     String name;
 
+    /**
+     * Returns the name of the collectible
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the collectible
+     *
+     * @param name New name.
+     */
     public void setName(String name) {
         this.name = name;
     }

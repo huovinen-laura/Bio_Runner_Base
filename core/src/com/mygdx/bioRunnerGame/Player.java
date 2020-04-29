@@ -155,11 +155,6 @@ public class Player extends GameObject {
         }
     }
 
-    @Override
-    public String Collide() {
-        return ("player");
-    }
-
     public boolean isJustChangedScreen() {
         return justChangedScreen;
     }

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Displays high score data
  */
-public class HighScoreScreen extends ScreenAdapter implements HighScoreListener, Input.TextInputListener {
+public class HighScoreScreen extends ScreenAdapter implements HighScoreListener {
     private final Button backButton;
     private final Texture tausta;
     List<HighScoreEntry> highScores;
@@ -64,6 +64,11 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
 
     }
 
+    /**
+     * Readies the screen for rendering and gets all necessary
+     *
+     *
+     * */
     @Override
     public void show() {
         super.show();
@@ -92,27 +97,21 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         });
     }
 
+    /**
+     * Sets font back to normal
+     */
     @Override
     public void hide() {
         super.hide();
         game.getBubbleFont().getData().setScale(1f* Gdx.graphics.getWidth()/800);
     }
 
-    @Override
-    public void pause() {
-        super.pause();
-    }
 
-    @Override
-    public void resume() {
-        super.resume();
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-    }
-
+    /**
+     * Reads the high scores from server and converts them for rendering
+     *
+     * @param highScores
+     */
     @Override
     public void receiveHighScore(List<HighScoreEntry> highScores) {
         game.setHighScores(highScores);
@@ -146,22 +145,12 @@ public class HighScoreScreen extends ScreenAdapter implements HighScoreListener,
         Gdx.app.log("server","failed to send");
     }
 
+    /**
+     * Posts new highscore to the server
+     *
+     * @param highScoreEntry
+     */
     public void postNewHighScore(HighScoreEntry highScoreEntry) {
         HighScoreServer.sendNewHighScore(highScoreEntry,this);
-    }
-
-    @Override
-    public void input(String text) {
-        int end = 5;
-        if(text.length() < 5) {
-            end = text.length();
-        }
-
-        game.setPlayerName(text.substring(0,end));
-    }
-
-    @Override
-    public void canceled() {
-        Gdx.app.log("input","text cancelled");
     }
 }

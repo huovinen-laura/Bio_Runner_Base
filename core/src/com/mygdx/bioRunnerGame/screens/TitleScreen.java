@@ -32,11 +32,20 @@ public class TitleScreen extends ScreenAdapter {
     private Vector3 projected;
     private Texture tausta;
 
+    /**
+     * Initializes the screen
+     *
+     * @param game
+     */
     public TitleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
     }
 
+    /**
+     * Readies the screen for render
+     *
+     */
     @Override
     public void show() {
         width = game.getWORLD_WIDTH();
@@ -93,6 +102,11 @@ public class TitleScreen extends ScreenAdapter {
         });
     }
 
+    /**
+     * Renders the Titlescreen
+     *
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(100/255f, 197/255f, 165/255f, 1);
@@ -139,6 +153,10 @@ public class TitleScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Sets the inputProcessor to null
+     *
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);

@@ -26,15 +26,15 @@ public class CollectibleSquare extends GameObject {
     /**
      * Creates collectible object
      *
-     * @param world game world where collectable will be bound
-     * @param texture collectable texture
-     * @param size width of the collectible
-     * @param x position
-     * @param y position
+     * @param world    game world where collectable will be bound
+     * @param texture  collectable texture
+     * @param size     width of the collectible
+     * @param x        position
+     * @param y        position
      * @param collName name
      */
     public CollectibleSquare(BioRunnerGame world, Texture texture, float size, float x, float y, String collName) {
-        super(world,texture,size,x,y,0f,0f,0f,new Vector2(world.getWorldSpeed(),0f),0f);
+        super(world, texture, size, x, y, 0f, 0f, 0f, new Vector2(world.getWorldSpeed(), 0f), 0f);
         this.setForDelete = false;
         this.name = collName;
     }
@@ -42,11 +42,11 @@ public class CollectibleSquare extends GameObject {
     /**
      * Draws the object
      *
-     * @param x position x
-     * @param y position y
+     * @param x     position x
+     * @param y     position y
      * @param batch
      */
-    public void draw(float x, float y,SpriteBatch batch) {
+    public void draw(float x, float y, SpriteBatch batch) {
         batch.draw(this.getObjectTexture(),
                 x,
                 y,
@@ -68,7 +68,6 @@ public class CollectibleSquare extends GameObject {
 
     /**
      * Sets the object for delete
-     *
      */
     public void collect() {
         this.setForDelete = true;
@@ -82,20 +81,17 @@ public class CollectibleSquare extends GameObject {
      */
     @Override
     public boolean Move() {
-        if(this.getObjectBody().getPosition().x <= (0-this.spriteWidth)) {
+        if (this.getObjectBody().getPosition().x <= (0 - this.spriteWidth)) {
             this.dispose();
             this.getObjectBody().getWorld().destroyBody(this.getObjectBody());
-            return(false);
+            return (false);
         } else if (this.setForDelete) {
             this.dispose();
             this.getObjectBody().getWorld().destroyBody(this.getObjectBody());
-            return(false);
+            return (false);
         }
-    return(true);
-    }
-
-    @Override
-    public String Collide() {
-        return this.name;
+        return (true);
     }
 }
+
+

@@ -18,7 +18,7 @@ import com.mygdx.bioRunnerGame.Button;
  * Displays the skin shop
  */
 public class SkinShopScreen extends ScreenAdapter {
-    public BioRunnerGame game;
+    BioRunnerGame game;
     private SpriteBatch texturesBatch;
     private SpriteBatch fontBatch;
     private BitmapFont font;
@@ -48,6 +48,11 @@ public class SkinShopScreen extends ScreenAdapter {
     private String[] skinNames;
 
 
+    /**
+     * Initializes screen
+     *
+     * @param game
+     */
     public SkinShopScreen(BioRunnerGame game) {
         this.game = game;
         this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
@@ -80,6 +85,11 @@ public class SkinShopScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen
+     *
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -218,6 +228,12 @@ public class SkinShopScreen extends ScreenAdapter {
         game.getBatch().end();
     }
 
+    /**
+     * Checks if named skin is unlocked
+     *
+     * @param skinName  the name
+     * @return
+     */
     private boolean isSkinUnlocked(String skinName) {
         for(int i = 0; i < skinNames.length; i++) {
             if(skinNames[i].contentEquals(skinName) && isSkinUnlocked[i]) {

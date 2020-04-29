@@ -20,6 +20,10 @@ public class ObstacleRectangle extends GameObject {
         this.setForDelete = false;
     }
 
+    /**
+     * Sets the object for delete in next move iteration
+     *
+     */
     public void delete(){
         this.setForDelete = true;
     }
@@ -49,10 +53,5 @@ public class ObstacleRectangle extends GameObject {
         }
 
         return(true);
-    }
-
-    @Override
-    public String Collide() {
-        return null;
     }
 }

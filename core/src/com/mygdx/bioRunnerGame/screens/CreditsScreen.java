@@ -28,6 +28,11 @@ public class CreditsScreen extends ScreenAdapter {
     private Texture tausta;
     private float width, height;
 
+    /**
+     * Creates credits with default configuration
+     *
+     * @param game BioRunnerGame object to put this on
+     */
     public CreditsScreen(BioRunnerGame game) {
         this.game = game;
         this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
@@ -39,6 +44,11 @@ public class CreditsScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the credits screen
+     *
+     * @param delta delta time
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -73,6 +83,10 @@ public class CreditsScreen extends ScreenAdapter {
         this.texturesBatch.end();
     }
 
+    /**
+     * Sets this ready to be rendered
+     *
+     */
     @Override
     public void show() {
         this.fontBatch = new SpriteBatch();

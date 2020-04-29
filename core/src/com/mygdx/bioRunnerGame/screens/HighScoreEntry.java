@@ -1,5 +1,8 @@
 package com.mygdx.bioRunnerGame.screens;
-
+/**
+ * Class for high score entries @Viljami
+ *
+ */
 public class HighScoreEntry {
     private String name;
     private int score;

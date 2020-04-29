@@ -10,19 +10,44 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Player object draws player model and handles controlling it
+ * Player object draws player model and handles controlling it.
  */
 public class Player extends GameObject {
+
+    /**
+     * Tells if the screen just changed.
+     */
     boolean justChangedScreen;
     private Animation walkAnimation;
     private TextureRegion currentFrameTexture;
+
+    /**
+     * The state time.
+     */
     public float stateTime;
+
+    /**
+     * BioRunner game.
+     */
     public BioRunnerGame game;
     private boolean isDefault;
 
+    /**
+     * Tells if the player is in the middle of a jump or not.
+     */
     public static boolean isJumping = false;
+
+    /**
+     * Tells if the player is diving down.
+     */
     public static boolean isDiving = false;
 
+    /**
+     * Constructs the player.
+     *
+     * @param animationTexture Animation textures for the player.
+     * @param game BioRunner game.
+     */
     public Player(Texture animationTexture, BioRunnerGame game) {
         super(game,true, game.getCurrentAnimation(),
                 1.5f,1f, 0.6f,1000f,0f,1f);
@@ -44,6 +69,11 @@ public class Player extends GameObject {
 
     }
 
+    /**
+     * Draws the player with it's current frame.
+     *
+     * @param batch Batch for drawing the object.
+     */
     @Override
     public void Draw(SpriteBatch batch) {
 
@@ -77,6 +107,14 @@ public class Player extends GameObject {
         currentFrameTexture = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
     }
 
+    /**
+     * Puts animation frames inside TextureRegion and returns them.
+     *
+     * @param tr TextureRegion.
+     * @param cols Amount of columns in the textureRegion.
+     * @param rows Amount of rows in the textureRegion.
+     * @return Returns the animation frames.
+     */
     public TextureRegion[] toTextureArray(TextureRegion[][]tr, int cols, int rows) {
         TextureRegion[] frames = new TextureRegion[cols * rows];
 
@@ -155,15 +193,20 @@ public class Player extends GameObject {
         }
     }
 
-    @Override
-    public String Collide() {
-        return ("player");
-    }
-
+    /**
+     * Checks if the screen was just changed or not.
+     *
+     * @return Returns the boolean.
+     */
     public boolean isJustChangedScreen() {
         return justChangedScreen;
     }
 
+    /**
+     * Sets the value for the boolean.
+     *
+     * @param justChangedScreen New value for the boolean.
+     */
     public void setJustChangedScreen(boolean justChangedScreen) {
         this.justChangedScreen = justChangedScreen;
     }

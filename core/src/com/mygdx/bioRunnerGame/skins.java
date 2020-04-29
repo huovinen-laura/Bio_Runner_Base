@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 
 /**
- * Stores the data for skins and their animations
+ * Stores the data for skins and their animations.
  */
 public class skins {
     
@@ -24,6 +24,9 @@ public class skins {
     private ArrayList<String> names;
     private ArrayList<Animation> animations;
 
+    /**
+     * Constructs all the skins in the game and names them.
+     */
     public skins() {
         this.animationTextures = new ArrayList<>();
         this.names = new ArrayList<>();
@@ -51,7 +54,7 @@ public class skins {
     }
 
     /**
-     * Gets the animation for the skin
+     * Gets the animation for the skin.
      */
     public Animation getAnimation(String skinName) {
 
@@ -65,7 +68,7 @@ public class skins {
     }
 
     /**
-     * Creates the animation for the skin
+     * Creates the animation for the skin.
      */
     private Animation createAnimation(Texture texture) {
         final int FRAME_COLS = 4;
@@ -82,6 +85,14 @@ public class skins {
 
     }
 
+    /**
+     * Puts animation frames inside TextureRegion and returns them.
+     *
+     * @param tr TextureRegion.
+     * @param cols Amount of columns in the textureRegion.
+     * @param rows Amount of rows in the textureRegion.
+     * @return Returns the animation frames.
+     */
     public TextureRegion[] toTextureArray(TextureRegion[][]tr, int cols, int rows) {
         TextureRegion[] frames = new TextureRegion[cols * rows];
 
@@ -95,6 +106,9 @@ public class skins {
         return frames;
     }
 
+    /**
+     * Disposes all the skins.
+     */
     public void dispose() {
         velhoAnimaatio.dispose();
         jarviAnimaatio.dispose();
@@ -106,10 +120,21 @@ public class skins {
         banaaniAnimaatio.dispose();
     }
 
+    /**
+     * Returns the animation for the wizard skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getVelhoAnimaatio() {
         return velhoAnimaatio;
     }
 
+    /**
+     * Returns a certain animation frame of the skin.
+     *
+     * @param skinName The skin.
+     * @return Returns the animation frame.
+     */
     public TextureRegion getAnimationFrame( String skinName) {
 
         for (int i = 0; i < this.names.size(); i++) {
@@ -132,54 +157,83 @@ public class skins {
         return(null);
     }
 
-    public void setVelhoAnimaatio(Texture velhoAnimaatio) {
-        this.velhoAnimaatio = velhoAnimaatio;
-    }
-
+    /**
+     * Returns the animation for the jarvi skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getJarviAnimaatio() {
         return jarviAnimaatio;
     }
 
-    public void setJarviAnimaatio(Texture jarviAnimaatio) {
-        this.jarviAnimaatio = jarviAnimaatio;
-    }
-
+    /**
+     * Returns the animation for the basic skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getPlayerAnimation() {
         return playerAnimation;
     }
 
-    public void setPlayerAnimation(Texture playerAnimation) {
-        this.playerAnimation = playerAnimation;
-    }
-
+    /**
+     * Returns the animation for the korona skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getKoronaAnimaatio() {
         return koronaAnimaatio;
     }
 
-    public void setKoronaAnimaatio(Texture koronaAnimaatio) {
-        this.koronaAnimaatio = koronaAnimaatio;
-    }
-
+    /**
+     * Returns the animation for the farmer skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getFarmerAnimaatio() {
         return farmerAnimaatio;
     }
 
+    /**
+     * Returns the animation for the tiko skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getTikoAnimaatio() {
         return tikoAnimaatio;
     }
 
+    /**
+     * Returns the animation for the bunny skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getBunnyAnimaatio() {
         return bunnyAnimaatio;
     }
 
+    /**
+     * Returns the animation for the banana skin.
+     *
+     * @return Returns the animation.
+     */
     public Texture getBanaaniAnimaatio() {
         return banaaniAnimaatio;
     }
 
+    /**
+     * Returns the list of animation textures.
+     *
+     * @return Returns the list of animation textures.
+     */
     public ArrayList<Texture> getAnimationTextures() {
         return animationTextures;
     }
 
+    /**
+     * Returns the list containing names for the skins.
+     *
+     * @return Returns the list.
+     */
     public ArrayList<String> getNames() {
         return names;
     }

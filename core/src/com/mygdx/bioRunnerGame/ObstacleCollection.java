@@ -154,6 +154,9 @@ public class ObstacleCollection {
         this.timeBetweenObstacles = time;
     }
 
+    /**
+     * Creates the obstacles.
+     */
     public static class Obstacle {
         private String name;
         private int count;
@@ -161,30 +164,70 @@ public class ObstacleCollection {
         private Float probability;
         private float size;
 
+        /**
+         * Creates an obstacle.
+         *
+         * @param banaani Name of the obstacle.
+         * @param texture Texture of the obstacle.
+         * @param probability Probability of the obstacle.
+         */
         public Obstacle(String banaani, Texture texture, float probability) {
             this.name = banaani;
             this.texture = texture;
             this.probability = probability;
         }
 
+        /**
+         * Returns the name of the obstacle.
+         *
+         * @return Returns the name of the obstacle.
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         * Sets a new name for the obstacle.
+         *
+         * @param name New name for the obstacle.
+         */
         public void setName(String name) {
             this.name = name;
         }
 
+        /**
+         * Returns the count of obstacle.
+         *
+         * @return The count of obstacle.
+         */
         public int getCount() {
             return count;
         }
+
+        /**
+         * Increses the count.
+         */
         public void incrementCount() {
             this.count++;
         }
+
+        /**
+         * Sets a new count.
+         *
+         * @param count New count.
+         */
         public void setCount(int count) {
             this.count = count;
         }
 
+        /**
+         * Creates an obstacle and determines its size.
+         *
+         * @param name Name of the obstacle.
+         * @param newTexture Texture for the obstacle.
+         * @param prob Probability of the obstacle.
+         * @param size Size of the obstacle.
+         */
         public Obstacle(String name, Texture newTexture, float prob,float size) {
             this.name = name;
             this.count = 0;
@@ -193,26 +236,56 @@ public class ObstacleCollection {
             this.size = size;
         }
 
+        /**
+         * Returns obstacle's texture.
+         *
+         * @return Returns obstacle's texture.
+         */
         public Texture getTexture() {
             return texture;
         }
 
+        /**
+         * Sets a texture for the obstacle.
+         *
+         * @param texture New texture.
+         */
         public void setTexture(Texture texture) {
             this.texture = texture;
         }
 
+        /**
+         * Returns the probability of the obstacle.
+         *
+         * @return Returns the probability of the obstacle.
+         */
         public Float getProbability() {
             return this.probability;
         }
 
+        /**
+         * Sets a new probability.
+         *
+         * @param probability New probability.
+         */
         public void setProbability(Float probability) {
             this.probability = probability;
         }
 
+        /**
+         * Returns the size of the obstacle.
+         *
+         * @return Returns the size of the obstacle.
+         */
         public float getSize() {
             return size;
         }
 
+        /**
+         * Sets a new size for the obstacle.
+         *
+         * @param size New size for the obstacle.
+         */
         public void setSize(float size) {
             this.size = size;
         }

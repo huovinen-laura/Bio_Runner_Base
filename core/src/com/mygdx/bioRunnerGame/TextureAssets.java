@@ -86,251 +86,533 @@ public class TextureAssets {
 
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getLehti() {
         return assets.get("lehti.png");
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPallo() {
         return assets.get("pallo.png");
     }
+
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getKissa() {
 
         return assets.get("kjissa.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getLuu() {
         return assets.get("luu.png",Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPilleri() {
         return assets.get("pilleri.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getBanaani() {
         return assets.get("banaani.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getTee() {
         return assets.get("tee.png",Texture.class);
     }
 
-
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getLives() {
         return assets.get("hp_player_ingame.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getButtonBlue() {
         return assets.get("button_blank.png",Texture.class);
     }
 
-
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getCloseButton() {
         return assets.get("close_btn.png",Texture.class);
     }
 
-
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getFinnishButton() {
         return assets.get("finland_flag.png",Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getEnglishButton() {
         return assets.get("british_flag.png",Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSpeakerOn() {
         return assets.get("speaker_on.png",Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSpeakerOff() {
         return assets.get("speaker_muted.png",Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getInfoButton() {
         return assets.get("info_button_black.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getGeneralButton() {
         return assets.get("general_button_normal.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getStoreBG() {
         return assets.get("store_hahmo_bg.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getStoreLocked() {
         return assets.get("store_locked_layer.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getDoublePoint() {
         return assets.get("double_points.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getExtraLife() {
         return assets.get("extra_life_button.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getOnlyOneHP() {
         return assets.get("only_one_hp_button.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSlower() {
         return assets.get("slower_button_rewind.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSnailSpeed() {
         return assets.get("snail_speed_button.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getMaxHP() {
         return assets.get("max_hp_button.png",Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getFlowersPoints() {
         return assets.get("10pts_flowers_button.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getExtraPoints() {
         return assets.get("50pts_button.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getFasterButton() {
         return assets.get("faster_button.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getLogo() {
         return assets.get("LOGO.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPlayerChonky() {
         return assets.get("player2.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPlayerOldFit() {
         return assets.get("ball.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getGrass() {
         return assets.get("grass.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSky() {
         return assets.get("sky.png", Texture.class);
     }
 
+    /**
+     * Disposes the assets.
+     */
     public void dispose() {
         assets.clear();
         this.skinAssets.dispose();
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public String getPlayerChonkyAnimation() {
         return "vakio";
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getProgressBar() {
         return  assets.get("progressbar.png", Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getMenu() {
         return  assets.get("menu_final.png", Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getCommon() {
         return assets.get("yleinen_tausta_final.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getRecycle() {
         return assets.get("recycle_final.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getEnd() {
         return  assets.get("end_screen_final.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getHappyGirl() {
         return  assets.get("recycleGallHappy.png", Texture.class);
     }
+
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSadGirl() {
         return assets.get("recycleGallSad.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getKukka() {
         return assets.get("kukkaKuollut.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getMansikka() {
         return assets.get("mansikka.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getOmena() {
         return assets.get("omena.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPatteri() {
         return assets.get( "patteri.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPullo() {
         return assets.get("pullo.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getTupakka() {
         return assets.get("rööki.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public skins getSkinAssets() {
         return skinAssets;
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getLeipa() {
         return assets.get("leipa.png", Texture.class);
     }
 
-
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getHius() {
         return assets.get("hius.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPurkki() {
         return assets.get("purkki.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getPussi() {
         return assets.get("pussi.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getSuklaa() {
         return assets.get("suklaa.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getLaitos() {
         return assets.get("laitossuomi.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getTutorial1() {
         return assets.get("tutorial1.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getTutorial2() {
         return assets.get("tutorial2.png", Texture.class);
     }
 
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getTutorial3() {
         return assets.get("tutorial3.png", Texture.class);
     }
+
+    /**
+     * Returns named texture from AssetManager.
+     *
+     * @return Returns the texture.
+     */
     public Texture getTutorial4() {
         return assets.get("tutorial4.png", Texture.class);
     }
 
+    /**
+     * Returns loaded assets.
+     *
+     * @return Returns loaded assets.
+     */
     public int getLoadedAssets() {
         return assets.getLoadedAssets();
     }

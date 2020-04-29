@@ -4,16 +4,37 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Displays the scrolling sky and grass
+ * Displays the scrolling sky and grass.
  */
 public class ScrollingBackground {
 
+    /**
+     * X coordinates for the sky texture.
+     */
     float x1, x2;
+
+    /**
+     * X coordinates for the grass texture.
+     */
     float x3, x4;
+
+    /**
+     * Width of the world.
+     */
     float width;
+
+    /**
+     * Height of the world.
+     */
     float height;
     private BioRunnerGame game;
 
+    /**
+     * Constructs the scrolling background.
+     *
+     * @param worldSpeed Speed of the game.
+     * @param game BioRunner game.
+     */
     public ScrollingBackground(float worldSpeed, BioRunnerGame game) {
         this.game = game;
         width = game.getWORLD_WIDTH();
@@ -25,7 +46,7 @@ public class ScrollingBackground {
     }
 
     /**
-     * Updates the positions of the sky and grass textures
+     * Updates the positions of the sky and grass textures.
      */
     public void update(float deltaTime) {
         // Loops the sky
@@ -56,7 +77,7 @@ public class ScrollingBackground {
     }
 
     /**
-     * Draws the grass texture
+     * Draws the grass texture.
      */
     public void drawGrass(SpriteBatch batch) {
         batch.draw(game.getTextureAssets().getGrass(), x3,0, width, height);
@@ -64,7 +85,7 @@ public class ScrollingBackground {
     }
 
     /**
-     * Draws the sky texture
+     * Draws the sky texture.
      */
     public void drawSky(SpriteBatch batch) {
         // Draws the sky
@@ -72,6 +93,11 @@ public class ScrollingBackground {
         batch.draw(game.getTextureAssets().getSky(), x2, 0, width, height);
     }
 
+    /**
+     * Sets the speed.
+     *
+     * @param goalSpeed New speed.
+     */
     public void setSpeed (int goalSpeed) {
         game.setWorldSpeed(goalSpeed);
     }

@@ -20,6 +20,11 @@ public class ShitCollection {
     private float maxY;
     private BioRunnerGame game;
 
+    /**
+     * Constructs the biowaste collection.
+     *
+     * @param game BioRunner game.
+     */
     public ShitCollection(BioRunnerGame game) {
         this.game = game;
         this.allShit = new ArrayList<>();
@@ -70,16 +75,29 @@ public class ShitCollection {
         }
     }
 
+    /**
+     * Clears the list.
+     */
     public void clear() {
         for (int i = 0; i < this.allShit.size(); i++) {
             this.allShit.get(i).setCount(0);
         }
     }
 
+    /**
+     * Returns everything on the list.
+     *
+     * @return Returns everything on the list.
+     */
     public ArrayList<ObstacleCollection.Obstacle> getAllShit() {
         return allShit;
     }
 
+    /**
+     * Sets new values for the list.
+     *
+     * @param allShit New values.
+     */
     public void setAllShit(ArrayList<ObstacleCollection.Obstacle> allShit) {
         this.allShit = allShit;
     }
@@ -145,6 +163,11 @@ public class ShitCollection {
         }
     }
 
+    /**
+     * Sets the time between obstacles.
+     *
+     * @param time New time between obstacles.
+     */
     public void setTimeBetweenCollectables(float time) {
         this.timeBetweenCollectables = time;
     }

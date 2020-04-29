@@ -19,19 +19,23 @@ import java.util.ArrayList;
  *
  */
 public class BallGame extends ScreenAdapter {
-	BioRunnerGame game;
+	/**
+	 * volume of the sounds
+	 */
+	public float volume;
+
+	private ScrollingBackground scrollingBackground;
+
+	private BioRunnerGame game;
     private SpriteBatch gameBatch;
     private BitmapFont font;
     private boolean leaveForRecycleScreen;
-
-	public ScrollingBackground scrollingBackground;
 
 	private ArrayList<GameObject> collectables;
 	private ArrayList<GameObject> obstacles;
 	private Player ball;
 	private Waypoint waypoint;
 	private boolean lostGame;
-    public float volume;
 
 	OrthographicCamera camera = new OrthographicCamera();
 
@@ -41,6 +45,11 @@ public class BallGame extends ScreenAdapter {
 	private boolean recycleCenterVisible;
 	private Sound hurt, collect;
 
+	/**
+	 * Construct the BallGame with default configuration
+	 *
+	 * @param game game with textures loaded
+	 */
 	public BallGame (BioRunnerGame game) {
 		hurt = Gdx.audio.newSound(Gdx.files.internal("hurt.wav"));
 		collect = Gdx.audio.newSound(Gdx.files.internal("collect.wav"));
@@ -60,6 +69,9 @@ public class BallGame extends ScreenAdapter {
 		camera.setToOrtho(false, game.getWORLD_WIDTH(), game.getWORLD_HEIGHT());
 	}
 
+	/**
+	 * Resets screen to the start level state
+	 */
 	@Override
 	public void show() {
 		recycleCenterVisible = false;
@@ -77,6 +89,11 @@ public class BallGame extends ScreenAdapter {
 		this.gameBatch.setProjectionMatrix(camera.combined);
 	}
 
+	/**
+	 * Renders the screen
+	 *
+	 * @param delta delta time
+	 */
 	@Override
 	public void render (float delta) {
 
@@ -268,6 +285,10 @@ public class BallGame extends ScreenAdapter {
 
 	}
 
+	/**
+	 * Empties the screen of unnecessary GameObjects
+	 *
+	 */
 	@Override
 	public void hide() {
 		this.recycleCenterVisible = false;
@@ -291,6 +312,10 @@ public class BallGame extends ScreenAdapter {
 		Gdx.input.setInputProcessor(null);
 	}
 
+	/**
+	 * Handles collisions and collecting
+	 *
+	 */
 	public class B2dContactListener implements ContactListener {
 
 

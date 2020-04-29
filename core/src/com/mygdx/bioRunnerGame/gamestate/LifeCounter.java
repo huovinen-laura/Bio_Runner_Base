@@ -32,10 +32,20 @@ public class LifeCounter {
         this.lives= 3;
     }
 
+    /**
+     * Sets life display texture
+     *
+     * @param lifeTexture
+     */
     public void setTexture(Texture lifeTexture) {
         this.texture = lifeTexture;
     }
 
+    /**
+     * Sets amount of lives
+     *
+     * @param i
+     */
     public void setLives(int i) {
         this.lives = i;
     }
@@ -123,6 +133,11 @@ public class LifeCounter {
         }
     }
 
+    /**
+     * Current number of lives
+     *
+     * @return
+     */
     public int getLivesAmount() {
         return(this.lives);
     }

@@ -13,15 +13,15 @@ public class RecycleCenter extends GameObject {
                 , 0f, 0f,new Vector2(0f,0f),0f);
     }
 
+    /**
+     * Moves the sprite at the speed of the world.
+     *
+     * @return
+     */
     @Override
     public boolean Move() {
         this.getObjectBody().setLinearVelocity(this.getGame().getWorldSpeed(),0f);
         return false;
-    }
-
-    @Override
-    public String Collide() {
-        return null;
     }
 
 }

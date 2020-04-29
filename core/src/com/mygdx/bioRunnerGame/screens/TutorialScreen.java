@@ -33,6 +33,11 @@ public class TutorialScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Displays the appropriate tutorial page and goes to game when ready
+     *
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -75,6 +80,10 @@ public class TutorialScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Prepares the screen for render
+     *
+     */
     @Override
     public void show() {
         this.fontBatch = new SpriteBatch();
@@ -103,7 +112,6 @@ public class TutorialScreen extends ScreenAdapter {
                     fourth = true;
                     third = false;
                 } else if (fourth) {
-                    game.setTutorialOk();
                     game.setGameScreen();
                     fourth = false;
                     first = true;
@@ -114,6 +122,10 @@ public class TutorialScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Clears inputProcessor
+     *
+     */
     @Override
     public void hide() {
         super.hide();

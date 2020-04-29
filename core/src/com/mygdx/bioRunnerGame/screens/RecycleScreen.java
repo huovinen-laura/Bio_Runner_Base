@@ -45,6 +45,11 @@ public class RecycleScreen extends ScreenAdapter {
     private ArrayList<String> factsBattery;
     private ArrayList<String> factsPoop;
 
+    /**
+     * Initializes the screen
+     *
+     * @param game
+     */
     public RecycleScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
@@ -54,6 +59,12 @@ public class RecycleScreen extends ScreenAdapter {
 
     }
 
+
+    /**
+     * Renders the screen
+     *
+     * @param delta
+     */
     @Override
     public void render(float delta) {
 
@@ -87,6 +98,10 @@ public class RecycleScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Readies the screen for rendering
+     *
+     */
     @Override
     public void show() {
         this.happyGuy = game.getTextureAssets().getHappyGirl();
@@ -113,13 +128,6 @@ public class RecycleScreen extends ScreenAdapter {
         factsPoop.add(game.getText("infoPoop2"));
 
         this.leaveButton = new Button(0.4f,0.4f,0.5f,3f, game.getTextureAssets().getGeneralButton());
-
-        /*
-        this.information = new TextBubble("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus" +
-                " a tincidunt neque. Ut id tempor sapien, in tincidunt odio. Donec dignissim purus eros.", new Vector2(0.5f,3.5f),
-                new Vector2(3.2f,4f), game);
-
-         */
         this.information = new TextBubble(getFact(), new Vector2(0.5f, 3.5f),
                 new Vector2(3.2f, 4), game);
 
@@ -169,16 +177,19 @@ public class RecycleScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Gets a random fact
+     *
+     * @return random fact in string format
+     */
     public String getFact() {
         return facts.get(MathUtils.random(0, 10));
     }
 
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
 
-    }
-
+    /**
+     * Sets bubblefont to default when exiting this screen
+     */
     @Override
     public void hide() {
         game.getBubbleFont().getData().setScale(1f * Gdx.graphics.getWidth()/800);

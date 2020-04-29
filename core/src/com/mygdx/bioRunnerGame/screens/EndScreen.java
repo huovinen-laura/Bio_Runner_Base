@@ -31,6 +31,11 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
     private float width, height;
     private String PlayerName;
 
+    /**
+     * Initializes this with default configuration
+     *
+     * @param game
+     */
     public EndScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
@@ -41,6 +46,11 @@ public class EndScreen extends ScreenAdapter implements Input.TextInputListener 
 
     }
 
+
+    /**
+     * Readies this for rendering
+     *
+     */
     @Override
     public void show() {
         game.setBatch(new SpriteBatch());

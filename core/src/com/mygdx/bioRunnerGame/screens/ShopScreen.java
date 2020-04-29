@@ -17,7 +17,7 @@ import com.mygdx.bioRunnerGame.GameAction;
  * Displays the choice of power up
  */
 public class ShopScreen extends ScreenAdapter {
-    public BioRunnerGame game;
+    BioRunnerGame game;
     private SpriteBatch texturesBatch;
     private SpriteBatch fontBatch;
     private BitmapFont font;
@@ -35,6 +35,10 @@ public class ShopScreen extends ScreenAdapter {
 
 
 
+    /**
+     * Initializes the screen
+     *
+     */
     public ShopScreen(BioRunnerGame game) {
         this.game = game;
         this.font = game.getFont();
@@ -46,6 +50,11 @@ public class ShopScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen
+     *
+     * @param delta time from last call to render
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -81,6 +90,10 @@ public class ShopScreen extends ScreenAdapter {
         this.texturesBatch.end();
     }
 
+    /**
+     * Readies this for rendering
+     *
+     */
     @Override
     public void show() {
         this.fontBatch = new SpriteBatch();
@@ -125,6 +138,9 @@ public class ShopScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Disconnect inputprocessor when exiting screen
+     */
     @Override
     public void hide() {
         super.hide();

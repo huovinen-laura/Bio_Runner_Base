@@ -24,6 +24,11 @@ public class SplashScreen extends ScreenAdapter {
     private float timeLeft;
     private AssetManager textures;
 
+    /**
+     * Initializes the splashscreen
+     *
+     * @param game
+     */
     public SplashScreen(BioRunnerGame game) {
         super();
         textures = new AssetManager();
@@ -35,6 +40,10 @@ public class SplashScreen extends ScreenAdapter {
         this.timeLeft = 2f;
     }
 
+    /**
+     * Renders the splashscreen until texture assets are loaded
+     *
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -66,6 +75,9 @@ public class SplashScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Readies the screen for render
+     */
     @Override
     public void show() {
         super.show();
@@ -77,6 +89,10 @@ public class SplashScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Frees the assets used by this screen
+     *
+     */
     @Override
     public void dispose() {
         super.dispose();

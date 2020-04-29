@@ -36,6 +36,11 @@ public class SettingsScreen extends ScreenAdapter {
 
     String settings, music, sounds;
 
+    /**
+     * Initializes the settings screen
+     *
+     * @param game
+     */
     public SettingsScreen(BioRunnerGame game) {
         this.game = game;
         this.backButton = new Button(6.5f,3f,1f,1f, game.getTextureAssets().getCloseButton());
@@ -55,6 +60,11 @@ public class SettingsScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen
+     *
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -105,6 +115,10 @@ public class SettingsScreen extends ScreenAdapter {
         game.getBatch().end();
     }
 
+    /**
+     * Readies the screen for rendering
+     *
+     */
     @Override
     public void show() {
         this.fontBatch = new SpriteBatch();

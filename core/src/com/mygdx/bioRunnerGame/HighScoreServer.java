@@ -26,7 +26,7 @@ public class HighScoreServer {
     /**
      * If verbose is true, this class will print out messages to the Gdx log.
      */
-    private static boolean verbose = true;
+    private static boolean verbose = false;
 
     /**
      * Password for the highscore host.
@@ -47,7 +47,6 @@ public class HighScoreServer {
      */
     public static void fetchHighScores(final HighScoreListener source) {
         Net.HttpRequest request = new Net.HttpRequest(HttpMethods.GET);
-        Gdx.app.log("HighScoreServer",""+url);
         request.setUrl("https://koti.tamk.fi/~ttjebi/highscore.py/get/");
 
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
@@ -67,24 +66,18 @@ public class HighScoreServer {
                     highScores.add(score);
                 }
 
-                if (verbose)
-                    Gdx.app.log("HighScoreServer", "Fetch: success");
                 source.receiveHighScore(highScores);
             }
 
             @Override
             public void failed (Throwable t) {
-                if (verbose)
-                    Gdx.app.error("HighScoreServer",
-                            "Fetch: failed");
-                Gdx.app.log("fail", t.toString());
+
                 source.failedToRetrieveHighScores(t);
             }
 
             @Override
             public void cancelled () {
-                if (verbose)
-                    Gdx.app.log("HighScoreServer", "Fetch: cancelled");
+
             }
 
         });
@@ -110,7 +103,7 @@ public class HighScoreServer {
         Net.HttpRequest request = new Net.HttpRequest(HttpMethods.POST);
         request.setUrl(url);
         request.setContent(content);
-        Gdx.app.log("server", ""+user);
+
         if (user == null) {
             user = "DevJere";
             if (verbose)

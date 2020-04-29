@@ -29,23 +29,19 @@ public class ScrollingBackground {
         // Loops the sky
         if (x1 + width <= 0) {
             x1 = x2 + width;
-            Gdx.app.log("","x1");
         }
 
         if (x2 + width <= 0) {
             x2 = x1 + width;
-            Gdx.app.log("","x2");
         }
 
         // Loops the grass
         if (x3 + width <= 0) {
             x3 = x4 + width;
-            Gdx.app.log("","grass 1");
         }
 
         if (x4 + width <= 0) {
             x4 = x3 + width;
-            Gdx.app.log("","grass 2");
         }
 
         // Speeds up the sky

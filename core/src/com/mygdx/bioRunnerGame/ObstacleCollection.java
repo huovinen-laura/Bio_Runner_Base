@@ -21,6 +21,11 @@ public class ObstacleCollection {
     private float maxY;
     private BioRunnerGame game;
 
+    /**
+     * Contructs the obstacles collection.
+     *
+     * @param game
+     */
     public ObstacleCollection(BioRunnerGame game) {
         this.game = game;
         this.allObstacles = new ArrayList<>();
@@ -59,12 +64,20 @@ public class ObstacleCollection {
         }
     }
 
+    /**
+     * Clears the list.
+     */
     public void clear() {
         for (int i = 0; i < this.allObstacles.size(); i++) {
             this.allObstacles.get(i).setCount(0);
         }
     }
 
+    /**
+     * Returns all the obstacles.
+     *
+     * @return Returns all the obsctacles.
+     */
     public ArrayList<Obstacle> getAllObstacles() {
         return allObstacles;
     }
@@ -132,6 +145,11 @@ public class ObstacleCollection {
         }
     }
 
+    /**
+     * Sets the time between obstacles.
+     *
+     * @param time New time between obstacles.
+     */
     public void setTimeBetweenObstacles(float time) {
         this.timeBetweenObstacles = time;
     }

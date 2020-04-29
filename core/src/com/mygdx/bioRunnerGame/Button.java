@@ -11,10 +11,30 @@ import java.awt.*;
  * Displays button and knows when coordinates are inside the button
  */
 public class Button {
+
+    /**
+     * Button rectangle.
+     */
     protected Rectangle buttonRectangle;
+
+    /**
+     * Position of the button.
+     */
     protected Vector2 position;
+
+    /**
+     * Button's texture.
+     */
     protected Texture buttonTexture;
+
+    /**
+     * Height of the button.
+     */
     protected float height;
+
+    /**
+     * Width of the button.
+     */
     protected float width;
 
     /**
@@ -49,6 +69,11 @@ public class Button {
         return(false);
     }
 
+    /**
+     * Draws the button.
+     *
+     * @param batch Batch required to draw the button.
+     */
     public void draw(SpriteBatch batch) {
         batch.draw(this.buttonTexture,
                 this.position.x,
@@ -57,6 +82,12 @@ public class Button {
                 this.height);
     }
 
+    /**
+     * Draws the button with animation frame.
+     *
+     * @param batch Batch required to draw the button.
+     * @param animationTexture Animation frame drawn with the button.
+     */
     public void draw(SpriteBatch batch,TextureRegion animationTexture) {
 
         batch.draw(this.buttonTexture,

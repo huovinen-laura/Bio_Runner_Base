@@ -13,7 +13,7 @@ public class B2dContactFilter implements ContactFilter {
      *
      * @param fixtureA First object.
      * @param fixtureB Second object.
-     * @return Returns the boolean that determines should the object ignore the collision.
+     * @return Returns the boolean that determines should the object ignore the collision or not.
      */
     @Override
     public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {

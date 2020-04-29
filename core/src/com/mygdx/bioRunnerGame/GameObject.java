@@ -24,15 +24,40 @@ public abstract class GameObject {
     private BioRunnerGame game;
     private boolean toBeDestroyed = false;
 
+    /**
+     * Creates an object.
+     * @param game The base game.
+     * @param texture The texture for the object.
+     * @param size The size of the object.
+     * @param x The x coordinate of the object.
+     * @param y The y coordinate of the object.
+     * @param density Density of the object.
+     * @param bounciness Bounciness of the object.
+     * @param friction Friction of the object.
+     * @param flipX Should the object be flipped in X direction.
+     * @param flipY Should the object be flipped in Y direction.
+     */
     public GameObject(BioRunnerGame game,Texture texture, float size, float x, float y, float density,
-                      float bouncines, float friction, boolean flipX, boolean flipY) {
-        this(game,texture,size,x,y,density,bouncines,friction);
+                      float bounciness, float friction, boolean flipX, boolean flipY) {
+        this(game,texture,size,x,y,density,bounciness,friction);
         this.flipSpriteX = flipX;
         this.flipSpriteY = flipY;
     }
 
+    /**
+     * Creates an object.
+     *
+     * @param game The base game.
+     * @param texture The texture for the object.
+     * @param size The size of the object.
+     * @param x The x coordinate of the object.
+     * @param y The y coordinate of the object.
+     * @param density Density of the object.
+     * @param bounciness Bounciness of the object.
+     * @param friction Friction of the object.
+     */
     public GameObject(BioRunnerGame game,Texture texture, float size,float x, float y, float density,
-                      float bouncines, float friction) {
+                      float bounciness, float friction) {
         this.game = game;
         this.objectTexture = texture;
         this.radius = size;
@@ -54,7 +79,7 @@ public abstract class GameObject {
         playerFixtureDef.density = density;
 
         //How bouncy is the object? 0-1
-        playerFixtureDef.restitution = bouncines;
+        playerFixtureDef.restitution = bounciness;
 
         //How slippery the object is? 0-1
         playerFixtureDef.friction = friction;
@@ -71,8 +96,22 @@ public abstract class GameObject {
         this.objectBody.setUserData(this);
     }
 
+    /**
+     * Creates an object.
+     *
+     * @param game The base game.
+     * @param texture The texture for the object.
+     * @param size The size of the object.
+     * @param x The x coordinate of the object.
+     * @param y The y coordinate of the object.
+     * @param density Density of the object.
+     * @param bounciness Bounciness of the object.
+     * @param friction Friction of the object.
+     * @param linearVelocity Linear Velocity of the object.
+     * @param gravityScale Gravity for the object.
+     */
     public GameObject(BioRunnerGame game, Texture texture, float size, float x, float y, float density,
-                      float bouncines, float friction, Vector2 linearVelocity, Float gravityScale) {
+                      float bounciness, float friction, Vector2 linearVelocity, Float gravityScale) {
         this.game = game;
         this.objectTexture = texture;
         this.radius = size;
@@ -97,7 +136,7 @@ public abstract class GameObject {
         playerFixtureDef.density = density;
 
         //How bouncy is the object? 0-1
-        playerFixtureDef.restitution = bouncines;
+        playerFixtureDef.restitution = bounciness;
 
         //How slippery the object is? 0-1
         playerFixtureDef.friction = friction;
@@ -169,6 +208,11 @@ public abstract class GameObject {
         this.objectBody.setUserData(this);
     }
 
+    /**
+     * Draws the object with pre-determined position.
+     *
+     * @param batch Batch for drawing the object.
+     */
     public void Draw(SpriteBatch batch) {
         batch.draw(this.getObjectTexture(),
                 this.getObjectBody().getPosition().x,
@@ -191,7 +235,7 @@ public abstract class GameObject {
     /**
      * Draw method with possibility to determine the place
      *
-     * @param batch
+     * @param batch Batch for drawing the object.
      * @param posx position x
      * @param posy position y
      */
@@ -220,16 +264,28 @@ public abstract class GameObject {
      * @return true if destroyed
      */
     public abstract boolean Move();
-    public abstract String Collide();
 
+    /**
+     * Returns the object's texture.
+     *
+     * @return Returns the object's texture.
+     */
     public Texture getObjectTexture() {
         return objectTexture;
     }
 
+    /**
+     * Returns the object's body.
+     *
+     * @return Returns the object's body.
+     */
     public Body getObjectBody() {
         return objectBody;
     }
 
+    /**
+     * Disposes the object.
+     */
     public void dispose() {
         while(this.getObjectBody().getFixtureList().size > 0) {
             this.getObjectBody().destroyFixture(this.getObjectBody().getFixtureList().get(0));
@@ -237,14 +293,29 @@ public abstract class GameObject {
         this.toBeDestroyed = true;
     }
 
+    /**
+     * Returns a name.
+     *
+     * @return Returns a name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets a name.
+     *
+     * @param name New name.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the game.
+     *
+     * @return Gets the game.
+     */
     public BioRunnerGame getGame() {
         return this.game;
     }

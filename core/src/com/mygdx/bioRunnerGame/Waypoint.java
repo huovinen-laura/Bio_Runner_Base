@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Display the waypoint
- *
+ * Displays the waypoint
  */
 public class Waypoint {
     float length;

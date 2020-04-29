@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Displays the scrolling sky and grass
- *
  */
 public class ScrollingBackground {
 
@@ -25,6 +24,9 @@ public class ScrollingBackground {
         x4 = width;
     }
 
+    /**
+     * Updates the positions of the sky and grass textures
+     */
     public void update(float deltaTime) {
         // Loops the sky
         if (x1 + width <= 0) {
@@ -53,11 +55,17 @@ public class ScrollingBackground {
         x4 += (game.getWorldSpeed() * deltaTime) * 1f;
     }
 
+    /**
+     * Draws the grass texture
+     */
     public void drawGrass(SpriteBatch batch) {
         batch.draw(game.getTextureAssets().getGrass(), x3,0, width, height);
         batch.draw(game.getTextureAssets().getGrass(), x4, 0, width, height);
     }
 
+    /**
+     * Draws the sky texture
+     */
     public void drawSky(SpriteBatch batch) {
         // Draws the sky
         batch.draw(game.getTextureAssets().getSky(), x1,0, width, height);

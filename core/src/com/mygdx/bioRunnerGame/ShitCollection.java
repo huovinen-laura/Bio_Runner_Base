@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 /**
  * Stores the data for possible types of collectibles and gives random collectibles
- *
  */
 public class ShitCollection {
     private ArrayList<ObstacleCollection.Obstacle> allShit;

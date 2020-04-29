@@ -7,8 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 
 /**
- * Stores the data for skins and theis animations
- *
+ * Stores the data for skins and their animations
  */
 public class skins {
     
@@ -51,6 +50,9 @@ public class skins {
         }
     }
 
+    /**
+     * Gets the animation for the skin
+     */
     public Animation getAnimation(String skinName) {
 
         for(int i = 0; i < this.animationTextures.size(); i++) {
@@ -62,6 +64,9 @@ public class skins {
         return (null);
     }
 
+    /**
+     * Creates the animation for the skin
+     */
     private Animation createAnimation(Texture texture) {
         final int FRAME_COLS = 4;
         final int FRAME_ROWS = 1;

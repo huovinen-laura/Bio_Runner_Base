@@ -8,6 +8,13 @@ import com.badlogic.gdx.physics.box2d.Fixture;
  */
 public class B2dContactFilter implements ContactFilter {
 
+    /**
+     * Checks if the objects should ignore the collision or not.
+     *
+     * @param fixtureA First object.
+     * @param fixtureB Second object.
+     * @return Returns the boolean that determines should the object ignore the collision.
+     */
     @Override
     public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
 

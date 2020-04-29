@@ -17,6 +17,15 @@ public class Button {
     protected float height;
     protected float width;
 
+    /**
+     * Stores life data and draws the lifecounter on game screen
+     *
+     * @param x The x coordinate for the button
+     * @param y The y coordinate for the button
+     * @param height The height of the button
+     * @param width The width of the button
+     * @param texture The texture for the button
+     */
     public Button(float x,float y, float height, float width, Texture texture) {
 
         this.position = new Vector2(x,y);

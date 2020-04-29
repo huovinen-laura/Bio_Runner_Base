@@ -7,7 +7,6 @@ import com.mygdx.bioRunnerGame.BioRunnerGame;
 
 /**
  * Stores life data and draws the lifecounter on game screen
- *
  */
 public class LifeCounter {
     private int lives = 3;
@@ -108,10 +107,16 @@ public class LifeCounter {
         }
     }
 
+    /**
+     * Player loses one life
+     */
     public void loseLife() {
         this.lives--;
     }
 
+    /**
+     * Adds one life if player has less than 3 lifes
+     */
     public void gainLife() {
         if(this.lives < 3) {
             this.lives++;

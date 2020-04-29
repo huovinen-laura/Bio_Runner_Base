@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Player object draws player model and handles controlling it
- *
  */
 public class Player extends GameObject {
     boolean justChangedScreen;
@@ -144,6 +143,10 @@ public class Player extends GameObject {
         return true;
     }
 
+    /**
+     * Checks if the player is on the ground or not
+     *
+     */
     public boolean isGrounded() {
         if (this.getObjectBody().getLinearVelocity().y == 0f && this.getObjectBody().getPosition().y < 0.53f) {
             return true;

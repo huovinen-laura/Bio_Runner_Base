@@ -113,6 +113,8 @@ public class TutorialScreen extends ScreenAdapter {
                     third = false;
                 } else if (fourth) {
                     game.setGameScreen();
+                    game.getPrefs().putBoolean("tutorialOkay", true);
+                    game.getPrefs().flush();
                     fourth = false;
                     first = true;
                 }

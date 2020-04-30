@@ -66,20 +66,6 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
-            public boolean keyDown(int keyCode) {
-
-                if (keyCode == Input.Keys.SPACE) {
-                    game.setEndScreen();
-                } else if( keyCode == Input.Keys.H) {
-                    game.setHighScoreScreen();
-                } else if(keyCode == Input.Keys.T) {
-                    game.setTutorialScreen();
-                }
-
-                return true;
-            }
-
-            @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector3 worldCoords = camera.unproject(new Vector3(screenX,screenY,0f));
                 Preferences prefs = game.getPrefs();
@@ -87,7 +73,7 @@ public class TitleScreen extends ScreenAdapter {
                 if (startButton.isInsideButton(worldCoords.x,worldCoords.y)) {
                     if(!prefs.getBoolean("tutorialOkay")) {
                         game.setTutorialScreen();
-                    } else if (prefs.getBoolean("tutorialOkay")) {
+                    } else {
                         game.setGameScreen();
                     }
                 } else if (settingsButton.isInsideButton(worldCoords.x, worldCoords.y)) {

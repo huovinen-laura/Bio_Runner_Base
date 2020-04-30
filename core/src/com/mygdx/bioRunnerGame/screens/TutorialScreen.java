@@ -2,6 +2,7 @@ package com.mygdx.bioRunnerGame.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -112,9 +113,10 @@ public class TutorialScreen extends ScreenAdapter {
                     fourth = true;
                     third = false;
                 } else if (fourth) {
+                    Preferences prefs = game.getPrefs();
                     game.setGameScreen();
-                    game.getPrefs().putBoolean("tutorialOkay", true);
-                    game.getPrefs().flush();
+                    prefs.putBoolean("tutorialOkay", true);
+                    prefs.flush();
                     fourth = false;
                     first = true;
                 }
